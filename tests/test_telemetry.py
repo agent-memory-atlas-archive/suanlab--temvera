@@ -76,5 +76,57 @@ class PatchTest(unittest.TestCase):
             completions.Completions.create = original
 
 
+class AsyncPatchTest(unittest.TestCase):
+    """Graphiti calls the async client and the Responses API; both must count."""
+
+    def test_async_chat_and_responses_usage_are_counted(self) -> None:
+        import asyncio
+
+        try:
+            from openai.resources.chat import completions
+            from openai.resources import responses
+        except Exception:  # pragma: no cover
+            self.skipTest("openai SDK without the Responses API")
+
+        chat_original = completions.AsyncCompletions.create
+        parse_original = responses.AsyncResponses.parse
+
+        class _ChatUsage:
+            prompt_tokens = 40
+            completion_tokens = 5
+
+        class _ResponsesUsage:  # the Responses API names its fields differently
+            input_tokens = 100
+            output_tokens = 20
+
+        class _Chat:
+            usage = _ChatUsage()
+
+        class _Resp:
+            usage = _ResponsesUsage()
+
+        async def fake_chat(self, **kw):
+            return _Chat()
+
+        async def fake_parse(self, **kw):
+            return _Resp()
+
+        completions.AsyncCompletions.create = fake_chat
+        responses.AsyncResponses.parse = fake_parse
+        try:
+            meter = Meter()
+            with measure_openai(meter):
+                asyncio.run(completions.AsyncCompletions.create(object(), model="gpt-4o-mini"))
+                asyncio.run(responses.AsyncResponses.parse(object(), model="gpt-4o-mini"))
+            usage = meter.by_model["gpt-4o-mini"]
+            self.assertEqual((usage.prompt_tokens, usage.completion_tokens), (140, 25))
+            # restored afterwards
+            self.assertIs(completions.AsyncCompletions.create, fake_chat)
+            self.assertIs(responses.AsyncResponses.parse, fake_parse)
+        finally:
+            completions.AsyncCompletions.create = chat_original
+            responses.AsyncResponses.parse = parse_original
+
+
 if __name__ == "__main__":
     unittest.main()

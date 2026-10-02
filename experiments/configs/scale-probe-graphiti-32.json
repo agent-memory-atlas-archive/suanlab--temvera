@@ -1,0 +1,30 @@
+{
+  "attributes": 3,
+  "benchmark": "temvera-scale-probe-graphiti-32",
+  "bootstrap_samples": 2000,
+  "embed_model": "text-embedding-3-small",
+  "graphiti_group_prefix": "scaleprobe-g32",
+  "model": "gpt-4o-mini",
+  "naturalize": true,
+  "profiles": [
+    {
+      "expire_probability": 0.35,
+      "name": "mixed_lifecycle",
+      "purge_probability": 0.25,
+      "reconfirm_probability": 0.5
+    }
+  ],
+  "replay": "transaction_checkpoint",
+  "scales": [
+    {
+      "entities": 32,
+      "revisions": 4
+    }
+  ],
+  "search_limit": 5,
+  "search_recipe": "hybrid_rrf",
+  "seeds": [
+    7
+  ],
+  "user_id": "temvera-scale"
+}

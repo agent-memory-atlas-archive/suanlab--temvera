@@ -727,10 +727,10 @@ The write/read split is a design choice, not a constant. Cognee inverts it:
 over the same 20-cell grid (477 ingests, 484 queries), \texttt{add} only stages
 text and averages $0.65$\,s, while its query path averages $6.91$\,s because the
 graph build runs at the first query of each checkpoint ($4.53$\,s under
-\textsc{chunks}, so roughly $2.4$\,s of the remainder is the reader LLM). Mem0 pays at write, Cognee at read, for comparable work. We
-measure cost only for the in-process systems: Cognee and LangMem run in separate
-interpreters, so their token usage falls outside our instrumentation and is not
-reported.
+\textsc{chunks}, so roughly $2.4$\,s of the remainder is the reader LLM). Mem0 pays at write, Cognee at read, for comparable work. Token
+cost is reported for Mem0 only. Cognee and LangMem run in separate interpreters
+and Hindsight as a service, outside our instrumentation, and Graphiti's
+asynchronous client was not covered by it in these runs.
 
 We report accuracy on this sweep only as a sanity check and do not compare it
 with Table~\ref{tab:external}: it is the first multi-attribute configuration

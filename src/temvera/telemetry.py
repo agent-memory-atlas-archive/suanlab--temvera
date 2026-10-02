@@ -124,12 +124,34 @@ class Meter:
         }
 
 
+def _record(meter: Meter, kwargs: dict, response) -> None:
+    """Count a response's tokens, whichever API shape returned it.
+
+    Chat completions report ``prompt_tokens``/``completion_tokens``; the
+    Responses API reports ``input_tokens``/``output_tokens``.
+    """
+    usage = getattr(response, "usage", None)
+    if usage is None:
+        return
+    prompt = getattr(usage, "prompt_tokens", None)
+    if prompt is None:
+        prompt = getattr(usage, "input_tokens", 0)
+    completion = getattr(usage, "completion_tokens", None)
+    if completion is None:
+        completion = getattr(usage, "output_tokens", 0)
+    meter.record(str(kwargs.get("model", "unknown")), int(prompt or 0), int(completion or 0))
+
+
 @contextmanager
 def measure_openai(meter: Meter):
     """Patch OpenAI resource methods so every in-process call is counted.
 
     Patching the resource classes rather than a client instance catches all
-    clients, including ones a library constructs internally. If the SDK is not
+    clients, including ones a library constructs internally. Both the sync and
+    the async clients are covered, and the Responses API alongside chat
+    completions: Graphiti calls ``AsyncOpenAI().responses.parse``, and an
+    earlier version that patched only the sync ``create`` methods recorded its
+    runs at $0.00 while it was making hundreds of calls. If the SDK is not
     importable the block is a no-op, so offline tests still run.
     """
     try:
@@ -139,29 +161,48 @@ def measure_openai(meter: Meter):
         yield meter
         return
 
-    targets = [
+    sync_targets = [
         (chat_completions.Completions, "create"),
         (embeddings_module.Embeddings, "create"),
     ]
-    originals = [(cls, name, getattr(cls, name)) for cls, name in targets]
+    async_targets = [
+        (chat_completions.AsyncCompletions, "create"),
+        (embeddings_module.AsyncEmbeddings, "create"),
+    ]
+    try:
+        from openai.resources import responses as responses_module
+
+        sync_targets += [(responses_module.Responses, "create"),
+                         (responses_module.Responses, "parse")]
+        async_targets += [(responses_module.AsyncResponses, "create"),
+                          (responses_module.AsyncResponses, "parse")]
+    except Exception:  # pragma: no cover - SDK predates the Responses API
+        pass
+    sync_targets = [(c, n) for c, n in sync_targets if hasattr(c, n)]
+    async_targets = [(c, n) for c, n in async_targets if hasattr(c, n)]
+    originals = [(cls, name, getattr(cls, name)) for cls, name in sync_targets + async_targets]
 
     def wrap(original):
         def wrapped(self, *args, **kwargs):
             response = original(self, *args, **kwargs)
-            usage = getattr(response, "usage", None)
-            if usage is not None:
-                meter.record(
-                    str(kwargs.get("model", "unknown")),
-                    int(getattr(usage, "prompt_tokens", 0) or 0),
-                    int(getattr(usage, "completion_tokens", 0) or 0),
-                )
+            _record(meter, kwargs, response)
+            return response
+
+        return wrapped
+
+    def wrap_async(original):
+        async def wrapped(self, *args, **kwargs):
+            response = await original(self, *args, **kwargs)
+            _record(meter, kwargs, response)
             return response
 
         return wrapped
 
     try:
-        for cls, name, original in originals:
-            setattr(cls, name, wrap(original))
+        for cls, name in sync_targets:
+            setattr(cls, name, wrap(getattr(cls, name)))
+        for cls, name in async_targets:
+            setattr(cls, name, wrap_async(getattr(cls, name)))
         yield meter
     finally:
         for cls, name, original in originals:
