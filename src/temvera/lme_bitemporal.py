@@ -211,3 +211,245 @@ def check_extraction(
     if old == new:
         return "values are identical"
     return ""
+
+
+# --- Queries, scoring and replay ---------------------------------------------
+#
+# Each labelled supersession yields up to three questions, asked under
+# forward-checkpoint replay with the sessions' real timestamps:
+#
+#   transaction_as_of  after the earlier session only   -> earlier value
+#   current            after both, at question time     -> later value
+#   valid_time         after both, about a day between  -> earlier value
+#
+# The first is a control: a store holding one session should recall it. The
+# last is the one the paper is about -- the store knows both values and must
+# answer for a point in time the later one does not cover.
+
+CATEGORIES = ("transaction_as_of", "current", "valid_time")
+
+
+@dataclass(frozen=True, slots=True)
+class BitemporalQuery:
+    case_id: str
+    category: str
+    query_text: str
+    after: str  # which session has been ingested when the question is asked
+    valid_at: datetime
+    transaction_at: datetime
+    expected: str
+    stale: str
+
+
+def _utc(moment: datetime) -> datetime:
+    """LongMemEval timestamps carry no zone; they are read as UTC throughout."""
+    from datetime import timezone
+
+    return moment if moment.tzinfo else moment.replace(tzinfo=timezone.utc)
+
+
+def as_of_day(earlier: datetime, later: datetime) -> datetime | None:
+    """A calendar day on which the earlier value held and the later did not yet.
+
+    None when both sessions fall on one day: a date-granular question cannot
+    then separate the two values, so no valid-time question is asked.
+    """
+    first, second = earlier.date(), later.date()
+    if first >= second:
+        return None
+    day = first + (second - first) // 2
+    return datetime(day.year, day.month, day.day, 12)
+
+
+def queries_for(pair: UpdatePair, label: dict[str, Any]) -> list[BitemporalQuery]:
+    attribute = label["attribute"]
+    old, new = label["earlier_value"], label["later_value"]
+    t1, t2, asked = (_utc(t) for t in (pair.earlier.recorded_at, pair.later.recorded_at,
+                                       pair.asked_at))
+    between = t1 + (t2 - t1) / 2
+    queries = [
+        BitemporalQuery(f"{pair.question_id}:tx", "transaction_as_of",
+                        f"What is my {attribute}?", "earlier", between, between, old, new),
+        BitemporalQuery(f"{pair.question_id}:cur", "current",
+                        f"What is my {attribute} now?", "later", asked, asked, new, old),
+    ]
+    day = as_of_day(pair.earlier.recorded_at, pair.later.recorded_at)
+    if day is not None:
+        queries.append(BitemporalQuery(
+            f"{pair.question_id}:vt", "valid_time",
+            f"What was my {attribute} on {day:%B} {day.day}, {day.year}?",
+            "later", _utc(day), asked, old, new,
+        ))
+    return queries
+
+
+_NUMBER_WORDS = {
+    "zero": "0", "one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
+    "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
+    "eleven": "11", "twelve": "12", "thirteen": "13", "fourteen": "14",
+    "fifteen": "15", "sixteen": "16", "seventeen": "17", "eighteen": "18",
+    "nineteen": "19", "twenty": "20",
+}
+_DIGIT_WORDS = {digit: word for word, digit in _NUMBER_WORDS.items()}
+
+
+def _clean(text: str) -> str:
+    text = text.lower().replace("’", "'").replace("‘", "'")
+    text = text.replace("“", '"').replace("”", '"')
+    return " ".join(text.split())
+
+
+def value_forms(value: str) -> set[str]:
+    """Surface forms that count as stating ``value``.
+
+    Real answers paraphrase where synthetic ones do not: "four bikes" for "4",
+    "every 2 weeks" for "every two weeks", "Fridays" for "Friday". Forms are
+    generated conservatively -- articles, number words up to twenty, a trailing
+    plural, a leading currency sign -- so a match still means the value.
+    """
+    base = _clean(value).strip(" .,;:!?\"'")
+    forms = {base}
+    for article in ("the ", "a ", "an ", "my "):
+        if base.startswith(article):
+            forms.add(base[len(article):])
+    if base.startswith("$"):
+        forms.add(base[1:])
+    for form in list(forms):
+        tokens = form.split()
+        forms.add(" ".join(_NUMBER_WORDS.get(t, t) for t in tokens))
+        forms.add(" ".join(_DIGIT_WORDS.get(t, t) for t in tokens))
+    for form in list(forms):
+        if form.endswith("s") and len(form) > 3:
+            forms.add(form[:-1])
+    return {form for form in forms if form}
+
+
+def mentions(text: str, value: str) -> bool:
+    """Whether ``text`` states ``value``, on token boundaries.
+
+    Boundaries matter because the values are often bare numbers. A digit run
+    joined to another by a date, time or decimal separator is part of a larger
+    token, so "17" does not match "2023-05-17", "20" does not match "20:21",
+    and "4" does not match "4.5". Missing that once would have been fatal here:
+    every ingested line starts "[2023/05/25 (Thu) 20:21]", so a bare value of
+    25, 20 or 21 would have read as present in any answer that echoes a line.
+    """
+    haystack = _clean(text)
+    return any(
+        re.search(
+            rf"(?<![a-z0-9])(?<![0-9][-/:.]){re.escape(form)}(?![a-z0-9])(?![-/:.][0-9])",
+            haystack,
+        )
+        for form in value_forms(value)
+    )
+
+
+def score(answer: str, expected: str, stale: str) -> dict[str, bool]:
+    present_expected = mentions(answer, expected)
+    present_stale = mentions(answer, stale)
+    return {
+        "present_expected": present_expected,
+        "present_stale": present_stale,
+        "exact": present_expected and not present_stale,
+    }
+
+
+def _turns(instance: dict[str, Any], session_id: str) -> list[tuple[datetime, str]]:
+    """A session's turns, both roles, as dated lines one minute apart.
+
+    Both roles are ingested because that is what a deployed memory sees; the
+    session's own timestamp is kept, which is what lets a time-aware store place
+    the fact.
+    """
+    from datetime import timedelta
+
+    index = instance["haystack_session_ids"].index(session_id)
+    start = _utc(parse_date(instance["haystack_dates"][index]))
+    stamp = instance["haystack_dates"][index]
+    lines = []
+    for offset, turn in enumerate(instance["haystack_sessions"][index]):
+        content = (turn.get("content") or "").strip()
+        if content:
+            lines.append((start + timedelta(minutes=offset),
+                          f"[{stamp}] {turn.get('role', 'user')}: {content}"))
+    return lines
+
+
+def run_lme_bitemporal(
+    config: dict[str, Any], system_factory: Any, *, system_name: str
+) -> dict[str, Any]:
+    """Replay each labelled LongMemEval supersession into a fresh store and score it.
+
+    Alongside the system, a full-context baseline answers every question with
+    everything ingested so far: it shows whether the information was available
+    at all, so a system's miss can be told apart from an absent fact.
+    """
+    from .nl_workload import NLQueryCase, WorkloadTurn
+    from .telemetry import Meter, measure_openai
+
+    raw = {inst["question_id"]: inst
+           for inst in json.loads(Path(config["dataset_path"]).read_text(encoding="utf-8"))}
+    labels = json.loads(Path(config["labels_path"]).read_text(encoding="utf-8"))["labels"]
+    pairs = {pair.question_id: pair for pair in update_pairs(raw.values())}
+    question_ids = sorted(qid for qid in labels if qid in pairs)
+    if config.get("limit"):
+        question_ids = question_ids[: int(config["limit"])]
+
+    transcript: list[dict[str, Any]] = []
+    meter = Meter()
+    for qid in question_ids:
+        pair, label, instance = pairs[qid], labels[qid], raw[qid]
+        queries = queries_for(pair, label)
+        system = system_factory(qid)
+        seen: list[str] = []
+        with measure_openai(meter):
+            system.reset()
+            for phase, session in (("earlier", pair.earlier), ("later", pair.later)):
+                for moment, line in _turns(instance, session.session_id):
+                    system.ingest(WorkloadTurn(recorded_at=moment, text=line,
+                                               event_id=f"{qid}:{len(seen):04d}"))
+                    seen.append(line)
+                for query in (q for q in queries if q.after == phase):
+                    answer = system.answer(NLQueryCase(
+                        case_id=query.case_id, query_text=query.query_text,
+                        subject="", attribute=label["attribute"],
+                        valid_at=query.valid_at, transaction_at=query.transaction_at,
+                        expected_values=frozenset({query.expected}),
+                        stale_values=frozenset({query.stale}),
+                        category=query.category,
+                    ))
+                    full = "\n".join(seen)
+                    transcript.append({
+                        "case_id": query.case_id, "question_id": qid,
+                        "category": query.category, "system": system_name,
+                        "query": query.query_text, "answer": answer,
+                        "expected_values": [query.expected], "stale_values": [query.stale],
+                        "label_method": label.get("method", ""),
+                        **score(answer, query.expected, query.stale),
+                        "full_context": score(full, query.expected, query.stale),
+                    })
+        if hasattr(system, "close"):
+            system.close()
+
+    summary: dict[str, Any] = {}
+    for category in CATEGORIES:
+        rows = [row for row in transcript if row["category"] == category]
+        summary[category] = {
+            "cases": len(rows),
+            "exact": sum(row["exact"] for row in rows),
+            "present_expected": sum(row["present_expected"] for row in rows),
+            "present_stale": sum(row["present_stale"] for row in rows),
+            "full_context_exact": sum(row["full_context"]["exact"] for row in rows),
+            "full_context_expected": sum(row["full_context"]["present_expected"]
+                                         for row in rows),
+        }
+    return {
+        "workload": "lme_bitemporal",
+        "replay": "transaction_checkpoint",
+        "naturalized": False,
+        "instances": len(question_ids),
+        "rows": [{"system": system_name, "category": c, **summary[c]} for c in CATEGORIES],
+        "summary": summary,
+        "telemetry": meter.as_dict(),
+        "transcript": transcript,
+    }

@@ -1,0 +1,11 @@
+{
+  "benchmark": "temvera-lme-bitemporal-mem0-smoke",
+  "workload": "lme_bitemporal",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "limit": 2,
+  "model": "gpt-4o-mini",
+  "embed_model": "text-embedding-3-small",
+  "search_limit": 5,
+  "user_id": "temvera-lme-smoke"
+}

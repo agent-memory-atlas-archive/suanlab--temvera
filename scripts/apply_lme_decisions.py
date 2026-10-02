@@ -43,8 +43,10 @@ def main(decisions_path: str) -> int:
         if choice in ("A", "B"):
             source = item[A if choice == "A" else B]
             values = {k: source[k] for k in ("earlier_value", "later_value", "question_asks_for")}
+            values["attribute"] = decision.get("attribute") or source["attribute"]
         else:  # "S" or explicit: the values must be spelled out in the decision
             values = {k: decision[k] for k in ("earlier_value", "later_value", "question_asks_for")}
+            values["attribute"] = decision.get("attribute") or item[B]["attribute"]
         labels[qid] = {**values, "method": "adjudicated:author", "choice": choice}
         excluded.pop(qid, None)
     LABELS.write_text(json.dumps(record, indent=2, ensure_ascii=False, sort_keys=True) + "\n")

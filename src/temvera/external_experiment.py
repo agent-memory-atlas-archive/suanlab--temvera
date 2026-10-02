@@ -156,6 +156,13 @@ def run_external_comparison(
     *,
     system_name: str,
 ) -> dict[str, Any]:
+    # Every system's comparison runs through here, so this one branch is what
+    # puts the real-data workload in front of all of them with the same factory,
+    # credentials and backbone record as the synthetic grid.
+    if config.get("workload") == "lme_bitemporal":
+        from .lme_bitemporal import run_lme_bitemporal
+
+        return run_lme_bitemporal(config, system_factory, system_name=system_name)
     replay = config.get("replay", "transaction_checkpoint")
     naturalize = bool(config.get("naturalize", True))
     rows: list[dict[str, Any]] = []
@@ -274,6 +281,7 @@ def run_mem0_comparison(config: dict[str, Any]) -> dict[str, Any]:
             )
         ).version,
         "history_db_isolated": True,
+        "vector_store_isolated": True,
         "llm_model": model,
         "embed_model": embed_model,
         "replay": result["replay"],

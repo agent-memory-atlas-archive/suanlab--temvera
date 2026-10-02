@@ -51,6 +51,9 @@ def main(model_a: str, model_b: str) -> int:
         if both_valid and agree and x["question_asks_for"] == y["question_asks_for"]:
             gold = _norm(pair.new_value)
             labels[qid] = {
+                # the query templates need a name for what changed; both models
+                # give one, and the stronger model's is kept for every label
+                "attribute": y["attribute"] or x["attribute"],
                 "earlier_value": x["earlier_value"],
                 "later_value": x["later_value"],
                 "question_asks_for": x["question_asks_for"],

@@ -23,13 +23,25 @@ def default_mem0_config(
     model: str = "gpt-4o-mini",
     embed_model: str = "text-embedding-3-small",
     history_db_path: str | None = None,
+    vector_path: str | None = None,
 ) -> dict[str, Any]:
     """Mem0 config pinned to the shared backbone.
 
     ``history_db_path`` isolates the SQLite history database per run; the
     default `~/.mem0/history.db` is global and would mix rows across runs,
     which matters for the purge residual scan (E3).
+
+    ``vector_path`` isolates the vector store, and defaults to a fresh
+    directory per call. Mem0 0.1.118's default is a local Qdrant at the fixed
+    path ``/tmp/qdrant``, and with ``on_disk`` false it ``rmtree``s that path
+    every time a ``Memory`` is constructed. Two Mem0 processes at once -- or one
+    process and anything that builds a ``Memory``, including this adapter's
+    ``version`` property -- therefore delete each other's stores mid-run,
+    silently. An audit of the session record (2026-10-02) found every accepted
+    Mem0 run executed alone; the two overlaps it found hit runs already
+    discarded or superseded. This closes the channel rather than relying on it.
     """
+    import tempfile
     config: dict[str, Any] = {
         "llm": {
             "provider": "openai",
@@ -42,6 +54,14 @@ def default_mem0_config(
     }
     if history_db_path:
         config["history_db_path"] = history_db_path
+    config["vector_store"] = {
+        "provider": "qdrant",
+        "config": {
+            "path": vector_path or tempfile.mkdtemp(prefix="mem0-qdrant-"),
+            "collection_name": "mem0",
+            "on_disk": False,
+        },
+    }
     return config
 
 

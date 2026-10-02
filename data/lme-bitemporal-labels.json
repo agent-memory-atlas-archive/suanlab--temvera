@@ -9,6 +9,7 @@
   },
   "labels": {
     "01493427": {
+      "attribute": "new postcards added",
       "earlier_value": "17",
       "gold_mentions": [
         "later"
@@ -18,6 +19,7 @@
       "question_asks_for": "later"
     },
     "06db6396": {
+      "attribute": "projects completed since starting painting classes",
       "earlier_value": "4",
       "gold_mentions": [
         "later"
@@ -27,6 +29,7 @@
       "question_asks_for": "later"
     },
     "08e075c7": {
+      "attribute": "Fitbit Charge 3 usage duration",
       "earlier_value": "6 months",
       "gold_mentions": [
         "later"
@@ -36,6 +39,7 @@
       "question_asks_for": "later"
     },
     "0e4e4c46": {
+      "attribute": "highest score in Ticket to Ride",
       "earlier_value": "124 points",
       "gold_mentions": [
         "later"
@@ -45,6 +49,7 @@
       "question_asks_for": "later"
     },
     "10e09553": {
+      "attribute": "largemouth bass caught on Lake Michigan trip with Alex",
       "earlier_value": "7",
       "gold_mentions": [
         "earlier"
@@ -54,6 +59,7 @@
       "question_asks_for": "earlier"
     },
     "184da446": {
+      "attribute": "pages of 'A Short History of Nearly Everything' read",
       "earlier_value": "200",
       "gold_mentions": [
         "later"
@@ -63,6 +69,7 @@
       "question_asks_for": "later"
     },
     "18bc8abd": {
+      "attribute": "BBQ sauce brand",
       "earlier_value": "Sweet Baby Ray's",
       "gold_mentions": [
         "later"
@@ -72,6 +79,7 @@
       "question_asks_for": "later"
     },
     "1cea1afa": {
+      "attribute": "Instagram followers",
       "earlier_value": "500",
       "gold_mentions": [
         "later"
@@ -81,6 +89,7 @@
       "question_asks_for": "later"
     },
     "22d2cb42": {
+      "attribute": "guitar servicing location",
       "earlier_value": "Rhythm Central",
       "gold_mentions": [
         "later"
@@ -90,6 +99,7 @@
       "question_asks_for": "later"
     },
     "2698e78f": {
+      "attribute": "therapy session frequency with Dr. Smith",
       "earlier_value": "every two weeks",
       "gold_mentions": [
         "later"
@@ -99,6 +109,7 @@
       "question_asks_for": "later"
     },
     "3ba21379": {
+      "attribute": "vehicle model",
       "earlier_value": "Ford Mustang Shelby GT350R",
       "gold_mentions": [
         "later"
@@ -108,6 +119,7 @@
       "question_asks_for": "later"
     },
     "41698283": {
+      "attribute": "camera lens",
       "earlier_value": "50mm prime lens",
       "gold_mentions": [
         "later"
@@ -117,6 +129,7 @@
       "question_asks_for": "later"
     },
     "45dc21b6": {
+      "attribute": "Emma's recipes tried",
       "earlier_value": "two",
       "gold_mentions": [
         "later"
@@ -126,6 +139,7 @@
       "question_asks_for": "later"
     },
     "4b24c848": {
+      "attribute": "tops bought from H&M",
       "earlier_value": "three",
       "gold_mentions": [
         "later"
@@ -135,6 +149,7 @@
       "question_asks_for": "later"
     },
     "4d6b87c8": {
+      "attribute": "to-watch list titles",
       "earlier_value": "20",
       "gold_mentions": [
         "later"
@@ -144,6 +159,7 @@
       "question_asks_for": "later"
     },
     "50635ada": {
+      "attribute": "frequent flyer status on United Airlines",
       "earlier_value": "Premier Silver",
       "gold_mentions": [
         "earlier"
@@ -153,6 +169,7 @@
       "question_asks_for": "earlier"
     },
     "59524333": {
+      "attribute": "usual gym time",
       "earlier_value": "7:00 pm",
       "gold_mentions": [
         "later"
@@ -162,6 +179,7 @@
       "question_asks_for": "later"
     },
     "603deb26": {
+      "attribute": "times tried making a Negroni at home",
       "earlier_value": "5",
       "gold_mentions": [
         "later"
@@ -171,6 +189,7 @@
       "question_asks_for": "later"
     },
     "618f13b2": {
+      "attribute": "times worn new black Converse Chuck Taylor All Star sneakers",
       "earlier_value": "four",
       "gold_mentions": [
         "later"
@@ -180,6 +199,7 @@
       "question_asks_for": "later"
     },
     "6a1eabeb": {
+      "attribute": "personal best time in the charity 5K run",
       "earlier_value": "27:12",
       "gold_mentions": [
         "later"
@@ -189,6 +209,7 @@
       "question_asks_for": "later"
     },
     "6a27ffc2": {
+      "attribute": "Corey Schafer's Python programming series videos completed",
       "earlier_value": "20",
       "gold_mentions": [
         "later"
@@ -198,6 +219,7 @@
       "question_asks_for": "later"
     },
     "6aeb4375": {
+      "attribute": "Korean restaurants tried",
       "earlier_value": "three",
       "gold_mentions": [
         "later"
@@ -207,6 +229,7 @@
       "question_asks_for": "later"
     },
     "71315a70": {
+      "attribute": "hours spent on abstract ocean sculpture",
       "earlier_value": "5-6 hours",
       "gold_mentions": [
         "later"
@@ -216,6 +239,7 @@
       "question_asks_for": "later"
     },
     "72e3ee87": {
+      "attribute": "episodes of the Science series completed on Crash Course",
       "earlier_value": "10",
       "gold_mentions": [
         "later"
@@ -225,6 +249,7 @@
       "question_asks_for": "later"
     },
     "7e974930": {
+      "attribute": "earnings at the Downtown Farmers Market",
       "earlier_value": "$350",
       "gold_mentions": [
         "later"
@@ -234,6 +259,7 @@
       "question_asks_for": "later"
     },
     "830ce83f": {
+      "attribute": "Rachel's relocation",
       "earlier_value": "Chicago",
       "gold_mentions": [
         "later"
@@ -243,6 +269,7 @@
       "question_asks_for": "later"
     },
     "852ce960": {
+      "attribute": "pre-approval amount",
       "earlier_value": "$350,000",
       "gold_mentions": [
         "later"
@@ -252,6 +279,7 @@
       "question_asks_for": "later"
     },
     "8fb83627": {
+      "attribute": "National Geographic issues finished",
       "earlier_value": "three",
       "gold_mentions": [
         "later"
@@ -261,6 +289,7 @@
       "question_asks_for": "later"
     },
     "945e3d21": {
+      "attribute": "yoga class frequency",
       "earlier_value": "twice a week",
       "gold_mentions": [
         "later"
@@ -270,6 +299,7 @@
       "question_asks_for": "later"
     },
     "9bbe84a2": {
+      "attribute": "Apex Legends level goal",
       "earlier_value": "level 100",
       "gold_mentions": [
         "earlier"
@@ -279,6 +309,7 @@
       "question_asks_for": "earlier"
     },
     "9ea5eabc": {
+      "attribute": "most recent family trip location",
       "earlier_value": "Hawaii",
       "gold_mentions": [
         "later"
@@ -288,6 +319,7 @@
       "question_asks_for": "later"
     },
     "a1eacc2a": {
+      "attribute": "number of short stories written",
       "earlier_value": "four",
       "gold_mentions": [],
       "later_value": "7",
@@ -295,6 +327,7 @@
       "question_asks_for": "later"
     },
     "a2f3aa27": {
+      "attribute": "Instagram followers",
       "earlier_value": "1250",
       "gold_mentions": [
         "later"
@@ -304,6 +337,7 @@
       "question_asks_for": "later"
     },
     "affe2881": {
+      "attribute": "species count in local park",
       "earlier_value": "27",
       "gold_mentions": [
         "later"
@@ -313,6 +347,7 @@
       "question_asks_for": "later"
     },
     "c6853660": {
+      "attribute": "morning coffee limit",
       "earlier_value": "one cup",
       "gold_mentions": [
         "earlier",
@@ -323,6 +358,7 @@
       "question_asks_for": "later"
     },
     "c7dc5443": {
+      "attribute": "volleyball league record",
       "earlier_value": "3-2",
       "gold_mentions": [
         "later"
@@ -332,6 +368,7 @@
       "question_asks_for": "later"
     },
     "cc5ded98": {
+      "attribute": "time dedicated to coding exercises each day",
       "earlier_value": "about an hour",
       "gold_mentions": [
         "later"
@@ -341,6 +378,7 @@
       "question_asks_for": "later"
     },
     "cf22b7bf": {
+      "attribute": "weight lost",
       "earlier_value": "5 pounds",
       "gold_mentions": [
         "later"
@@ -350,6 +388,7 @@
       "question_asks_for": "later"
     },
     "dad224aa": {
+      "attribute": "Saturday wake-up time",
       "earlier_value": "8:30 am",
       "gold_mentions": [
         "later"
@@ -359,6 +398,7 @@
       "question_asks_for": "later"
     },
     "db467c8c": {
+      "attribute": "parents staying duration",
       "earlier_value": "six months",
       "gold_mentions": [
         "later"
@@ -368,6 +408,7 @@
       "question_asks_for": "later"
     },
     "eace081b": {
+      "attribute": "birthday trip location",
       "earlier_value": "Kauai",
       "gold_mentions": [
         "later"
@@ -377,6 +418,7 @@
       "question_asks_for": "later"
     },
     "f685340e": {
+      "attribute": "tennis frequency",
       "earlier_value": "weekly",
       "gold_mentions": [
         "later"
@@ -386,6 +428,7 @@
       "question_asks_for": "both"
     },
     "f9e8c073": {
+      "attribute": "bereavement support group sessions attended",
       "earlier_value": "three",
       "gold_mentions": [
         "later"

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from datetime import datetime
 
 import pytest
@@ -126,3 +127,100 @@ def test_missing_value_is_reported_not_accepted() -> None:
 def test_abstention_items_are_not_update_pairs() -> None:
     """Their gold is "not enough information", so there is no superseded value."""
     assert update_pairs([_instance(question_id="q1_abs")]) == []
+
+
+# --- queries, scoring, replay ---------------------------------------------
+
+from datetime import datetime as _dt  # noqa: E402
+
+from temvera.lme_bitemporal import (  # noqa: E402
+    as_of_day,
+    mentions,
+    queries_for,
+    run_lme_bitemporal,
+    score,
+)
+
+_LABEL = {"attribute": "5K personal best time", "earlier_value": "27:12",
+          "later_value": "25:50", "question_asks_for": "later"}
+
+
+def test_as_of_day_lies_strictly_before_the_update() -> None:
+    assert as_of_day(_dt(2023, 5, 25, 20), _dt(2023, 5, 27, 10)).date().day == 26
+    assert as_of_day(_dt(2023, 5, 25, 20), _dt(2023, 5, 26, 10)).date().day == 25
+
+
+def test_same_day_supersession_gets_no_valid_time_question() -> None:
+    assert as_of_day(_dt(2023, 5, 25, 9), _dt(2023, 5, 25, 18)) is None
+
+
+def test_each_query_expects_the_value_true_at_its_point_in_time() -> None:
+    by_category = {q.category: q for q in queries_for(_pair(), _LABEL)}
+    assert by_category["transaction_as_of"].expected == "27:12"
+    assert by_category["transaction_as_of"].after == "earlier"
+    assert (by_category["current"].expected, by_category["current"].stale) == ("25:50", "27:12")
+    assert (by_category["valid_time"].expected, by_category["valid_time"].stale) == (
+        "27:12", "25:50")
+    assert "May 26, 2023" in by_category["valid_time"].query_text
+
+
+@pytest.mark.parametrize("text, value, expected", [
+    ("Session on 2023-05-17 went well", "17", False),
+    ("I caught 14 bass", "4", False),
+    ("I own 4 bikes", "four", True),
+    ("I have four bikes now", "4", True),
+    ("class moved to Friday", "Fridays", True),
+    ("bought a house for 325,000", "$325,000", True),
+    ("therapy every 2 weeks", "every two weeks", True),
+    ("Personal best: 25:50", "25:50", True),
+    ("[2023/05/25 (Thu) 20:21] user: hello", "25", False),
+    ("[2023/05/25 (Thu) 20:21] user: hello", "20", False),
+    ("[2023/05/25 (Thu) 20:21] user: hello", "21", False),
+    ("I ran 4.5 miles", "4", False),
+    ("I ran 4 miles.", "4", True),
+    ("Now I have 25 postcards.", "25", True),
+])
+def test_mentions_matches_paraphrase_but_not_digits_inside_other_tokens(
+    text: str, value: str, expected: bool
+) -> None:
+    assert mentions(text, value) is expected
+
+
+def test_exact_requires_the_value_and_forbids_the_superseded_one() -> None:
+    assert score("best is 25:50", "25:50", "27:12")["exact"]
+    assert not score("was 27:12, now 25:50", "25:50", "27:12")["exact"]
+
+
+class _EchoSystem:
+    """Returns everything it has ingested: a stand-in for a store that keeps all."""
+
+    def __init__(self) -> None:
+        self.lines: list[str] = []
+
+    def reset(self) -> None:
+        self.lines = []
+
+    def ingest(self, turn) -> None:
+        self.lines.append(turn.text)
+
+    def answer(self, case) -> str:
+        return "\n".join(self.lines)
+
+
+def test_replay_hides_the_later_session_from_the_earlier_checkpoint(tmp_path) -> None:
+    dataset = tmp_path / "lme.json"
+    dataset.write_text(json.dumps([_instance()]))
+    labels = tmp_path / "labels.json"
+    labels.write_text(json.dumps({"labels": {"q1": _LABEL}}))
+    result = run_lme_bitemporal(
+        {"dataset_path": str(dataset), "labels_path": str(labels)},
+        lambda label: _EchoSystem(), system_name="echo",
+    )
+    rows = {row["category"]: row for row in result["transcript"]}
+    # before the update is ingested the store can only know the old value
+    assert rows["transaction_as_of"]["exact"]
+    assert not rows["transaction_as_of"]["present_stale"]
+    # a store that keeps everything and filters nothing fails both later questions
+    assert not rows["current"]["exact"] and not rows["valid_time"]["exact"]
+    assert rows["current"]["present_expected"] and rows["current"]["present_stale"]
+    assert result["summary"]["valid_time"]["cases"] == 1
