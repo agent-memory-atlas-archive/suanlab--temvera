@@ -21,5 +21,5 @@ def test_abstract_file_matches_the_paper() -> None:
 
 def test_abstract_carries_no_latex_or_citation_residue() -> None:
     text = (ROOT / "paper" / "abstract.txt").read_text(encoding="utf-8")
-    for residue in ("\\", "{", "}", "$", "citep", "  ", "\t", "\r"):
+    for residue in ("\\", "{", "}", "$", "~", "citep", "  ", "\t", "\r"):
         assert residue not in text, f"abstract still contains {residue!r}"

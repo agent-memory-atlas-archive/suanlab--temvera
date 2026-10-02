@@ -1,6 +1,6 @@
 """Recompute every number the paper reports, offline, from sealed runs.
 
-PVLDB's EA&B track submits to a Reproducibility Committee. Regenerating the runs
+Experiments-track papers are judged on their artifacts. Regenerating the runs
 needs an OpenAI key, a Neo4j server, and a second virtualenv for LangMem, so
 this script provides the path that needs none of them: each run ships a sealed
 per-case ``transcript.jsonl``, and every reported figure is an aggregation over

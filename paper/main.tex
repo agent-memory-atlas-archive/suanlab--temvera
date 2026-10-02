@@ -1,21 +1,13 @@
-% PVLDB Experiments, Analysis & Benchmark (EA&B) submission.
-% Uses the official VLDB template (github.com/vldbproceedings/VLDB-Template):
-% acmart.cls v2.19 and pvldb.sty are vendored here because the template pins
-% them to guarantee consistent formatting across submissions. pvldb.sty emits
-% the PVLDB reference-format block, license footer, and artifact-availability
-% block via \vldbtopmatter; do not hand-copy those.
-\documentclass[sigconf, nonacm]{acmart}
-%%% do not modify the following VLDB block %%
-%%% VLDB block start %%%
-\usepackage{pvldb}
-%%% VLDB block end %%%
-
-%% Set per paper; volume/issue/year defaults live in pvldb.sty.
-\renewcommand\vldbdoi{XX.XX/XXX.XX}
-\renewcommand\vldbpages{XXX-XXX}
-%% EA&B requires releasing data and software. This URL renders the Artifact
-%% Availability block; leaving it empty suppresses that block entirely.
-\renewcommand\vldbavailabilityurl{https://github.com/suanlab/temvera}
+% ICDE 2027 research track -- Experimental, Analysis, and Benchmark (EAB) paper.
+% IEEE conference format: IEEEtran.cls V1.8b and IEEEtranN.bst are vendored here
+% so the build does not depend on the local TeX distribution. The PVLDB-formatted
+% version of this manuscript is the git tag `pvldb-manuscript` (decision D-015).
+\documentclass[conference]{IEEEtran}
+\usepackage{amsmath}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
 
 % Long typewriter identifiers do not hyphenate and push past the column edge.
 % \allowbreak permits a break after a hyphen that is already there, rather than
@@ -24,25 +16,27 @@
 % an earlier attempt silently swallowed the hyphens it was meant to break after.
 \newcommand{\embedmodel}{\texttt{text-\allowbreak embedding-\allowbreak 3-\allowbreak small}}
 \newcommand{\runeseven}{\texttt{longmemeval-\allowbreak e7-\allowbreak v2}}
-\usepackage{booktabs}
-\usepackage{graphicx}
+% Figure alt text is kept in the source for accessibility; IEEEtran has no
+% mechanism to embed it, so the command is a no-op here.
+\providecommand{\Description}[1]{}
 
-\title{Temporal Fields Are Not Temporal Correctness:\\
-Measuring Bitemporal and Deletion Semantics in Deployed Agent Memory\\
-\large [Experiment, Analysis \& Benchmark]}
+% ICDE requires EAB titles to START with this tag; it is removed at camera-ready.
+\title{[Experiment, Analysis, and Benchmark]\\
+Temporal Fields Are Not Temporal Correctness:\\
+Measuring Bitemporal and Deletion Semantics\\ in Deployed Agent Memory}
 
-%% PVLDB is SINGLE-BLIND: names and affiliations are mandatory on page 1, not
-%% withheld until camera ready.
-\author{Suan Lee}
-\affiliation{%
-  \department{School of Computer Science}
-  \institution{Semyung University}
-  \city{Jecheon}
-  \country{South Korea}
-}
-\email{suanlee@semyung.ac.kr}
+% ICDE review is single-blind: names and affiliations appear on the first page.
+\author{\IEEEauthorblockN{Suan Lee}
+\IEEEauthorblockA{School of Computer Science\\
+Semyung University\\
+Jecheon, South Korea\\
+suanlee@semyung.ac.kr}}
 
 \begin{document}
+
+
+\maketitle
+
 \begin{abstract}
 Long-running agents accumulate facts that change, expire, and must sometimes be
 deleted. Answering \emph{what was true then} and \emph{what did the agent know
@@ -55,18 +49,17 @@ memory. We ask whether those features deliver the semantics they name.
 We build a deterministic lifecycle generator whose ground truth is computed by
 an oracle cross-checked against an independent SQLite implementation, render the
 same histories into natural language, and replay them into five widely-used
-open-source systems---Mem0 \citep{mem0}, LangMem, Graphiti
-\citep{graphiti,zep}, Cognee and Hindsight \citep{hindsight}---under
-forward-checkpoint transaction-time replay, so an \texttt{as-of} query is
+open-source systems---Mem0, LangMem, Graphiti, Cognee and Hindsight---under
+forward-checkpoint transaction-time replay, so an as-of query is
 answered from a store holding only what was known by then.
 
 Two designs emerge over 20 matched conditions. \emph{Consolidating} stores
 replace a superseded value: Mem0 and LangMem answer transaction-scoped current
-queries well ($0.952$, $0.890$) but historical valid-time poorly ($0.364$,
-$0.323$), because the prior value no longer exists. \emph{Retaining} stores keep
+queries well (0.952, 0.890) but historical valid-time poorly (0.364,
+0.323), because the prior value no longer exists. \emph{Retaining} stores keep
 it and fail to filter: read at the retrieval layer, Graphiti, Cognee and
-Hindsight score $0.196$, $0.207$ and $0.194$ overall with valid-time $0.000$,
-$0.015$ and $0.000$ over 195 cases each --- three independent implementations
+Hindsight score 0.196, 0.207 and 0.194 overall with valid-time 0.000,
+0.015 and 0.000 over 195 cases each --- three independent implementations
 failing almost identically. The deficit is also budget-dependent in a way prior
 evaluations would miss: at a one-item budget Graphiti is indistinguishable from
 Mem0 on valid time, and separates only as the budget grows.
@@ -80,22 +73,21 @@ Deletion separates the same way. Both systems' deletion APIs clear their
 retrieval-reachable stores, but deletion requested in prose is silently ignored
 --- the operationally relevant case for an assistant asked to forget something.
 Finally, cost is write-dominated and the split is a design choice: ingest
-averages $4.7$\,s against $0.3$\,s for query in one system, and the inverse in
+averages 4.7~s against 0.3~s for query in one system, and the inverse in
 another that defers graph construction to read time.
 
-We claim no novelty for bitemporal modelling \citep{snodgrass1985,toki},
-deterministic supersession \citep{memstrata}, or forgetting evaluation
-\citep{forgeteval,memoryagentbench}. The contribution is measurement, and the
+We claim no novelty for bitemporal modelling,
+deterministic supersession, or forgetting evaluation. The contribution is measurement, and the
 finding that a system can expose temporal fields, and even filter on them,
 without answering temporal queries correctly.
 \end{abstract}
 
-\maketitle
+\begin{IEEEkeywords}
+agent memory, bitemporal data, transaction time, data deletion,
+experimental analysis, benchmarking, reproducibility
+\end{IEEEkeywords}
 
-%%% do not modify the following VLDB block %%
-%%% VLDB block start %%%
-\vldbtopmatter
-%%% VLDB block end %%%
+
 
 \section{Introduction}
 
@@ -141,6 +133,8 @@ describe as a feature but do not measure.
 (iv) Measured write/read cost and latency, and a reproducible sealed harness
 whose every reported number recomputes offline from per-case transcripts,
 including preserved negative results and three retracted measurements.
+Code, data, sealed runs, and the scripts that recompute every reported number
+from them are public at \url{https://github.com/suanlab/temvera}.
 
 \section{Related Work}
 
@@ -219,8 +213,8 @@ support into five levels, which turn out to explain every measurement in
 Levels are defined above. Entries are what we observed in the shipped versions,
 not what documentation claims.}
 \label{tab:fragment}
-\small
-\setlength{\tabcolsep}{4pt}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 Capability & Ref.\ impl. & Mem0 & LangMem & Graphiti \\
@@ -639,7 +633,8 @@ reader could recover rather than competing directly. Hindsight's retrieval
 budget is qualitative and cannot be set to the $k$ used elsewhere.}
 \label{tab:reader}
 \small
-\begin{tabular}{lccc}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
 \toprule
 Configuration & overall & \texttt{valid\_time} & \texttt{purge} \\
 \midrule
@@ -810,8 +805,12 @@ database with a per-run database path.
 
 \section{Reproducibility}
 
-Runs are sealed with canonical config, environment, source-tree hash and
-per-file checksums, and verified by an aggregate checker. The frozen synthetic
+All artifacts are at \url{https://github.com/suanlab/temvera}, with a frozen
+snapshot attached to its submission release. Every figure this paper prints is
+paired with a recomputation from a sealed run, and one command checks them all
+offline, with no API key, database server or dataset download. Runs are sealed
+with canonical config, environment, source-tree hash and per-file checksums, and
+verified by an aggregate checker. The frozen synthetic
 fixture is byte-reproducible and split-disjoint. Tests and lint pass on CPython
 3.11. The LongMemEval corpus itself is downloaded rather than redistributed.
 The \runeseven{} run does ship a history database of memories its
@@ -856,7 +855,21 @@ included in the artifact, but no participants were recruited, so we make no
 human-effectiveness claim. Running it requires ethics review or a documented
 exemption, a pilot for variance, and an a priori power analysis.
 
-\bibliographystyle{ACM-Reference-Format}
+\section*{Acknowledgment}
+
+% ICDE 2027 requires disclosure of AI-generated content (text, figures, code)
+% here; this section does not count toward the page limit. AUTHOR: confirm this
+% statement describes how the work was actually done before submitting.
+This work was carried out with substantial assistance from an AI system,
+Anthropic's Claude, used through the Claude Code agent. It generated much of the
+experiment harness, the analysis and plotting code that produces every table and
+figure, and drafts of the manuscript text, and it was used to audit the
+reported numbers against the sealed runs. The author directed the research,
+made the design and venue decisions, and takes full responsibility for the
+content. Every reported figure is recomputed from sealed runs by scripts released
+with the artifact.
+
+\bibliographystyle{IEEEtranN}
 \bibliography{refs}
 
 \end{document}

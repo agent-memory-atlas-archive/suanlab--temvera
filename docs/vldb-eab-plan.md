@@ -1,5 +1,11 @@
 # VLDB EA&B submission plan
 
+> **Fallback since 2026-10-02 (D-015).** The submission target is ICDE 2027
+> (EAB, round 2, due 2026-11-11); see [submission-checklist.md](submission-checklist.md).
+> This plan stays valid for PVLDB if ICDE rejects on 2027-02-10. Its
+> formatting notes describe the PVLDB manuscript, now the git tag
+> `pvldb-manuscript`; the live manuscript is IEEE-formatted.
+
 > Decision D-014 (2026-08-14). Target: PVLDB **Experiments, Analysis & Benchmark**
 > track. No arXiv preprint (user decision).
 

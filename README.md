@@ -6,7 +6,7 @@ Temvera is a research project investigating how long-running AI agents should
 store, revise, retrieve, forget, and audit memory. The project treats memory as
 an evolving data-management problem rather than a flat vector store.
 
-## Paper artifact (PVLDB, Experiment, Analysis & Benchmark)
+## Paper artifact (ICDE 2027, Experimental, Analysis, and Benchmark)
 
 *Temporal Fields Are Not Temporal Correctness: Measuring Bitemporal and Deletion
 Semantics in Deployed Agent Memory.*

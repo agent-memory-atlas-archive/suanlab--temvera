@@ -165,3 +165,34 @@
 - **Consequence:** our own substrate must be demoted from a compared system to a
   reference implementation, since an EA&B paper comparing systems where one is
   the authors' own invites a conflict-of-interest reading.
+
+## D-015 — Submit to ICDE 2027 (EAB, round 2); keep PVLDB as the fallback
+
+- **Status:** accepted 2026-10-02 by user decision; supersedes D-014 as the
+  submission target. D-014's reasoning about fit still holds and is why PVLDB is
+  the fallback rather than abandoned.
+- **Decision:** Submit to the **ICDE 2027 research track as an Experimental,
+  Analysis, and Benchmark (EAB) paper**, second round, due **2026-11-11
+  17:00 Pacific**. Rebuttal 2027-01-08 to 01-15; notification 2027-02-10;
+  accept/reject only, no revision.
+- **Reason:** ICDE's EAB category is structurally the closest match to PVLDB
+  EA&B on the list the author was choosing from: a dedicated EAB category,
+  artifacts that are *mandatory* for EAB ("No exceptions"), single-blind review
+  so the public repository can stay as it is, and the same 12-page limit
+  excluding references. SIGMOD was rejected for double-blind review against an
+  already-public repository whose README carries the paper's title; EDBT for a
+  five-day deadline and a lower tier.
+- **Why this order and not PVLDB first:** the two cannot run concurrently
+  (PVLDB reviews return ~mid-December, after ICDE closes). Submitting to ICDE
+  first keeps PVLDB available: an ICDE rejection on 2027-02-10 still leaves the
+  PVLDB volume 20 final deadline of 2027-03-01 (abstract 2027-02-25). The
+  reverse order would spend PVLDB, whose rejection carries a one-year embargo.
+- **Cost accepted:** ICDE offers no revision, which PVLDB would have. The extra
+  ten days over a 1 November PVLDB submission are spent on the experiments the
+  August gap analysis asked for — the LongMemEval real-data workload and the
+  order-of-magnitude scale sweep — now unblocked by a working API key.
+- **Fallback:** the PVLDB-formatted manuscript is tagged `pvldb-manuscript`.
+- **ICDE-specific obligations:** the title must *start* with
+  `[Experiment, Analysis, and Benchmark]`; use of AI-generated content (text,
+  figures, code) must be disclosed in the acknowledgments, which do not count
+  toward the page limit; IEEE conference format; submission through CMT.

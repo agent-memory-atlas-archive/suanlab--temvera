@@ -36,6 +36,9 @@ def render(latex: str) -> str:
         body = re.sub(rf"\\{command}\{{([^}}]*)\}}", r"\1", body)
     body = re.sub(r"\$([^$]*)\$", r"\1", body)
     body = body.replace(r"\,", " ").replace(r"\%", "%").replace(r"\&", "&")
+    # A tie is a non-breaking space in LaTeX; in plain text it is just a space.
+    # Missed once: "4.7~s" would have gone into the CMT field verbatim.
+    body = body.replace("~", " ")
     body = re.sub(r"\\[a-zA-Z]+", "", body)
     body = body.replace("---", "\u2014")
 
