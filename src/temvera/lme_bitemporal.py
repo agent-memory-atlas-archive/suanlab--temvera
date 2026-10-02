@@ -400,24 +400,35 @@ def run_lme_bitemporal(
     for qid in question_ids:
         pair, label, instance = pairs[qid], labels[qid], raw[qid]
         queries = queries_for(pair, label)
+        # The later value cannot legitimately appear before the update, so any
+        # occurrence in the earlier session is incidental -- usually a small
+        # number word in the assistant's advice ("here are five tips"). Such a
+        # label can score a correct answer as stale, so results are also
+        # reported without them.
+        incidental = any(
+            mentions(text, label["later_value"])
+            for _, text in _turns(instance, pair.earlier.session_id)
+        )
         system = system_factory(qid)
         seen: list[str] = []
         with measure_openai(meter):
             system.reset()
             for phase, session in (("earlier", pair.earlier), ("later", pair.later)):
                 for moment, line in _turns(instance, session.session_id):
-                    system.ingest(WorkloadTurn(recorded_at=moment, text=line,
-                                               event_id=f"{qid}:{len(seen):04d}"))
+                    with meter.time_ingest():
+                        system.ingest(WorkloadTurn(recorded_at=moment, text=line,
+                                                   event_id=f"{qid}:{len(seen):04d}"))
                     seen.append(line)
                 for query in (q for q in queries if q.after == phase):
-                    answer = system.answer(NLQueryCase(
-                        case_id=query.case_id, query_text=query.query_text,
-                        subject="", attribute=label["attribute"],
-                        valid_at=query.valid_at, transaction_at=query.transaction_at,
-                        expected_values=frozenset({query.expected}),
-                        stale_values=frozenset({query.stale}),
-                        category=query.category,
-                    ))
+                    with meter.time_query():
+                        answer = system.answer(NLQueryCase(
+                            case_id=query.case_id, query_text=query.query_text,
+                            subject="", attribute=label["attribute"],
+                            valid_at=query.valid_at, transaction_at=query.transaction_at,
+                            expected_values=frozenset({query.expected}),
+                            stale_values=frozenset({query.stale}),
+                            category=query.category,
+                        ))
                     full = "\n".join(seen)
                     transcript.append({
                         "case_id": query.case_id, "question_id": qid,
@@ -425,6 +436,7 @@ def run_lme_bitemporal(
                         "query": query.query_text, "answer": answer,
                         "expected_values": [query.expected], "stale_values": [query.stale],
                         "label_method": label.get("method", ""),
+                        "incidental_value": incidental,
                         **score(answer, query.expected, query.stale),
                         "full_context": score(full, query.expected, query.stale),
                     })
@@ -434,7 +446,10 @@ def run_lme_bitemporal(
     summary: dict[str, Any] = {}
     for category in CATEGORIES:
         rows = [row for row in transcript if row["category"] == category]
+        clean = [row for row in rows if not row["incidental_value"]]
         summary[category] = {
+            "cases_without_incidental_values": len(clean),
+            "exact_without_incidental_values": sum(row["exact"] for row in clean),
             "cases": len(rows),
             "exact": sum(row["exact"] for row in rows),
             "present_expected": sum(row["present_expected"] for row in rows),

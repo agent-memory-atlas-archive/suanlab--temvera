@@ -224,3 +224,25 @@ def test_replay_hides_the_later_session_from_the_earlier_checkpoint(tmp_path) ->
     assert not rows["current"]["exact"] and not rows["valid_time"]["exact"]
     assert rows["current"]["present_expected"] and rows["current"]["present_stale"]
     assert result["summary"]["valid_time"]["cases"] == 1
+    # latency is part of what the paper reports, so the runner must record it
+    assert result["telemetry"]["ingest_latency"]["n"] == 2  # one turn per answer session
+    assert result["telemetry"]["query_latency"]["n"] == 3
+
+
+def test_later_value_appearing_before_the_update_is_flagged_incidental(tmp_path) -> None:
+    leaky = _instance(haystack_sessions=[
+        [{"role": "user", "content": "Unrelated chatter about tennis."}],
+        [{"role": "user", "content": "I set a personal best time of 27:12."},
+         {"role": "assistant", "content": "Try intervals; some runners hit 25:50."}],
+        [{"role": "user", "content": "I hope to beat my personal best of 25:50."}],
+    ])
+    dataset = tmp_path / "lme.json"
+    dataset.write_text(json.dumps([leaky]))
+    labels = tmp_path / "labels.json"
+    labels.write_text(json.dumps({"labels": {"q1": _LABEL}}))
+    result = run_lme_bitemporal(
+        {"dataset_path": str(dataset), "labels_path": str(labels)},
+        lambda label: _EchoSystem(), system_name="echo",
+    )
+    assert all(row["incidental_value"] for row in result["transcript"])
+    assert result["summary"]["current"]["cases_without_incidental_values"] == 0
