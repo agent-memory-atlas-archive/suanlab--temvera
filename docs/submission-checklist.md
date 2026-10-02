@@ -23,8 +23,7 @@ by `scripts/make_abstract.py` from the paper source, and `tests/test_abstract.py
 fails if the two drift apart, so it cannot go stale the way it did once already.
 
 **Author**: Suan Lee, School of Computer Science, Semyung University, Jecheon,
-South Korea. Contact address is currently personal; substitute an institutional
-one if preferred.
+South Korea. Contact: suanlee@semyung.ac.kr.
 
 **Reproducibility package** (required *at initial submission* for volume 20, not
 at camera-ready): <https://github.com/suanlab/temvera> — instructions in the

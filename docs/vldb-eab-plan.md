@@ -18,8 +18,7 @@ Target: the **1 October 2026** rolling deadline, which falls in **PVLDB Volume
 - **Single-blind.** "VLDB is a single-blind conference. Therefore, authors MUST
   include their names and affiliations on the first page of the manuscript."
   `paper/main.tex` carries: Suan Lee, School of Computer Science, Semyung
-  University, Jecheon, South Korea. The contact address is currently a personal
-  one.
+  University, Jecheon, South Korea. The contact address is the institutional one.
 - **Title tag** `[Experiment, Analysis & Benchmark]` must appear **both in the
   PDF and in the CMT submission title**.
 - **Reproducibility package at initial submission**, not at camera-ready: "For
