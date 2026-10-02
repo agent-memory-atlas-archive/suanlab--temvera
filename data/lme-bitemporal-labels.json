@@ -1,5 +1,400 @@
 {
-  "schema_version": 1,
-  "note": "Superseded values recovered by hand from LongMemEval knowledge-update instances. The benchmark ships only the updated value; these make an as-of query answerable. 'n/a' marks an instance with no recoverable prior value.",
-  "labels": {}
+  "labelling": {
+    "models": [
+      "gpt-4o-mini",
+      "gpt-4o"
+    ],
+    "prompt_sha256": "c71f4a8b87f756ca4b11253cb60421ea31e5ed13df1c5840d2e1bf678005bfba",
+    "rule": "accept iff both pass the per-session verbatim check and agree, after normalisation, on both values and on the question's direction"
+  },
+  "labels": {
+    "01493427": {
+      "earlier_value": "17",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "06db6396": {
+      "earlier_value": "4",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "5",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "08e075c7": {
+      "earlier_value": "6 months",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "9 months",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "0e4e4c46": {
+      "earlier_value": "124 points",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "132 points",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "10e09553": {
+      "earlier_value": "7",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "9",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "184da446": {
+      "earlier_value": "200",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "220",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "18bc8abd": {
+      "earlier_value": "Sweet Baby Ray's",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Kansas City Masterpiece",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "1cea1afa": {
+      "earlier_value": "500",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "600",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "22d2cb42": {
+      "earlier_value": "Rhythm Central",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "the music shop on Main St",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "2698e78f": {
+      "earlier_value": "every two weeks",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "every week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "3ba21379": {
+      "earlier_value": "Ford Mustang Shelby GT350R",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Ford F-150 pickup truck",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "41698283": {
+      "earlier_value": "50mm prime lens",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "70-200mm zoom lens",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "45dc21b6": {
+      "earlier_value": "two",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "3",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "4b24c848": {
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "4d6b87c8": {
+      "earlier_value": "20",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "50635ada": {
+      "earlier_value": "Premier Silver",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "Premier Gold",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "59524333": {
+      "earlier_value": "7:00 pm",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "6:00 pm",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "603deb26": {
+      "earlier_value": "5",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "618f13b2": {
+      "earlier_value": "four",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "six",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6a1eabeb": {
+      "earlier_value": "27:12",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25:50",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6a27ffc2": {
+      "earlier_value": "20",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "30",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6aeb4375": {
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "four",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "71315a70": {
+      "earlier_value": "5-6 hours",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10-12 hours",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "72e3ee87": {
+      "earlier_value": "10",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "50",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "7e974930": {
+      "earlier_value": "$350",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "$420",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "830ce83f": {
+      "earlier_value": "Chicago",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "the suburbs",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "852ce960": {
+      "earlier_value": "$350,000",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "$400,000",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "8fb83627": {
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "945e3d21": {
+      "earlier_value": "twice a week",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "three times a week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "9bbe84a2": {
+      "earlier_value": "level 100",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "level 150",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "9ea5eabc": {
+      "earlier_value": "Hawaii",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Paris",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "a1eacc2a": {
+      "earlier_value": "four",
+      "gold_mentions": [],
+      "later_value": "7",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "a2f3aa27": {
+      "earlier_value": "1250",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "1300",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "affe2881": {
+      "earlier_value": "27",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "32",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "c6853660": {
+      "earlier_value": "one cup",
+      "gold_mentions": [
+        "earlier",
+        "later"
+      ],
+      "later_value": "two cups",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "c7dc5443": {
+      "earlier_value": "3-2",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "5-2",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "cc5ded98": {
+      "earlier_value": "about an hour",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "about two hours",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "cf22b7bf": {
+      "earlier_value": "5 pounds",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10 pounds",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "dad224aa": {
+      "earlier_value": "8:30 am",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "7:30 am",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "db467c8c": {
+      "earlier_value": "six months",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "nine months",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "eace081b": {
+      "earlier_value": "Kauai",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Oahu",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "f685340e": {
+      "earlier_value": "weekly",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "every other week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "both"
+    },
+    "f9e8c073": {
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    }
+  },
+  "note": "Supersessions recovered from LongMemEval knowledge-update instances: the value as stated in the earlier session and as stated in the later one, and which of them the benchmark's question asks about. The benchmark ships only a single gold answer, whose direction varies by question.",
+  "schema_version": 2
 }

@@ -11,6 +11,9 @@ data/raw/
 # Working sheet for hand-labelling: embeds LongMemEval conversation text, which
 # we label from but do not redistribute. Only the labels we produce are tracked.
 data/lme-bitemporal-review.json
+data/lme-proposals-*.json
+data/lme-disagreements.json
+data/lme-review-sheet.md
 data/interim/
 data/processed/
 experiments/runs/*

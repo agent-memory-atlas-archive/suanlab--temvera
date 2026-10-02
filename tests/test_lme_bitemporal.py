@@ -6,7 +6,13 @@ from datetime import datetime
 
 import pytest
 
-from temvera.lme_bitemporal import Session, candidates_for, parse_date, update_pairs
+from temvera.lme_bitemporal import (
+    Session,
+    candidates_for,
+    check_extraction,
+    parse_date,
+    update_pairs,
+)
 
 
 def _session(sid: str, when: str, *turns: str) -> Session:
@@ -79,3 +85,44 @@ def test_candidate_ranks_the_sentence_that_carries_the_superseded_value() -> Non
 @pytest.mark.parametrize("text", ["2023/05/25 (Thu) 20:21", "2023/12/31 (Sun) 23:59"])
 def test_dates_round_trip(text: str) -> None:
     assert isinstance(parse_date(text), datetime)
+
+
+def _pair():
+    return update_pairs([_instance()])[0]
+
+
+def test_supersession_stated_verbatim_in_each_session_is_accepted() -> None:
+    assert check_extraction(_pair(), "27:12", "25:50") == ""
+
+
+def test_earlier_value_must_come_from_the_earlier_session() -> None:
+    """Attribution fixes transaction time, so the wrong session is a wrong label."""
+    reason = check_extraction(_pair(), "25:50", "25:50")
+    assert reason == "earlier value not verbatim in the earlier session"
+
+
+def test_hallucinated_later_value_is_rejected() -> None:
+    reason = check_extraction(_pair(), "27:12", "24:59")
+    assert reason == "later value not verbatim in the later session"
+
+
+def test_identical_values_are_not_a_supersession() -> None:
+    same = _instance(
+        haystack_sessions=[
+            [{"role": "user", "content": "Unrelated chatter about tennis."}],
+            [{"role": "user", "content": "My best is 25:50 already."}],
+            [{"role": "user", "content": "I hope to beat my personal best of 25:50."}],
+        ]
+    )
+    assert check_extraction(update_pairs([same])[0], "25:50", "25:50") == (
+        "values are identical"
+    )
+
+
+def test_missing_value_is_reported_not_accepted() -> None:
+    assert check_extraction(_pair(), None, "25:50") == "a session states no value"
+
+
+def test_abstention_items_are_not_update_pairs() -> None:
+    """Their gold is "not enough information", so there is no superseded value."""
+    assert update_pairs([_instance(question_id="q1_abs")]) == []
