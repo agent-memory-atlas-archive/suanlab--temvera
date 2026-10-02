@@ -13,6 +13,16 @@ reproducibility (D-010).
 
 from __future__ import annotations
 
+import os
+
+# Third-party usage telemetry is off by default for research runs. Mem0 and
+# Graphiti both ship PostHog clients; Mem0 builds one per Memory instance and
+# flushes them all at interpreter exit, which held a 32-entity scale probe open
+# for 2 h 13 min after its results were sealed. They also send events to a third
+# party mid-experiment. Both libraries read these variables at import time, so
+# they are set here, before either is imported; an explicit setting wins.
+os.environ.setdefault("MEM0_TELEMETRY", "False")
+
 from typing import Any
 
 from .nl_workload import NLQueryCase, WorkloadTurn

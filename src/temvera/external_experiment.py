@@ -18,6 +18,7 @@ The runner is adapter-agnostic: any object satisfying the harness
 
 from __future__ import annotations
 
+import os
 import random
 from typing import Any, Callable
 
@@ -282,6 +283,7 @@ def run_mem0_comparison(config: dict[str, Any]) -> dict[str, Any]:
         ).version,
         "history_db_isolated": True,
         "vector_store_isolated": True,
+        "mem0_telemetry": os.environ.get("MEM0_TELEMETRY"),
         "llm_model": model,
         "embed_model": embed_model,
         "replay": result["replay"],

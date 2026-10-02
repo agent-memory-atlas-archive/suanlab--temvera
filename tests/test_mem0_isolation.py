@@ -23,3 +23,14 @@ def test_the_shared_default_path_is_never_used() -> None:
 def test_an_explicit_path_is_respected() -> None:
     config = default_mem0_config(vector_path="/tmp/example-store")
     assert config["vector_store"]["config"]["path"] == "/tmp/example-store"
+
+
+def test_third_party_telemetry_is_off_unless_asked_for() -> None:
+    """Mem0 and Graphiti PostHog clients are disabled for research runs."""
+    import os
+
+    import temvera.graphiti_adapter  # noqa: F401
+    import temvera.mem0_adapter  # noqa: F401
+
+    assert os.environ["MEM0_TELEMETRY"].lower() in ("false", "0", "no")
+    assert os.environ["GRAPHITI_TELEMETRY_ENABLED"].lower() in ("false", "0", "no")
