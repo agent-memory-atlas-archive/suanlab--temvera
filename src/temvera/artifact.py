@@ -57,6 +57,7 @@ def create_artifact_archive(root: Path, output: Path) -> dict[str, Any]:
             key=lambda path: str(path.relative_to(root)),
         )
     )
+    files = tuple(path for path in files if path not in _git_ignored(root, files))
     if any(not path.is_file() or path.is_symlink() for path in files):
         raise ValueError("artifact inputs must be regular files")
     file_hashes = {
@@ -127,6 +128,31 @@ def verify_artifact_archive(archive: Path) -> bool:
             return recorded == actual
     except (KeyError, OSError, tarfile.TarError, json.JSONDecodeError):
         return False
+
+
+def _git_ignored(root: Path, paths: tuple[Path, ...]) -> set[Path]:
+    """Paths git ignores in ``root``; empty when ``root`` is not a work tree.
+
+    The packager walks the filesystem, so anything sitting under a packaged
+    directory goes in unless excluded. Excluding by prefix failed twice: first
+    data/raw, then the LongMemEval labelling sheets, which quote the corpus and
+    are ignored for exactly that reason. Deferring to .gitignore means a file
+    kept out of the public repository is kept out of the artifact too, without
+    a second list to maintain.
+    """
+    import subprocess
+
+    if not (root / ".git").exists() or not paths:
+        return set()
+    relative = "\0".join(str(path.relative_to(root)) for path in paths)
+    result = subprocess.run(
+        ["git", "-C", str(root), "check-ignore", "--stdin", "-z"],
+        input=relative.encode(), capture_output=True, check=False,
+    )
+    # exit 1 means "nothing ignored"; anything above it is a real failure
+    if result.returncode > 1:
+        raise RuntimeError(f"git check-ignore failed: {result.stderr.decode()}")
+    return {root / name for name in result.stdout.decode().split("\0") if name}
 
 
 def _files(directory: Path) -> list[Path]:

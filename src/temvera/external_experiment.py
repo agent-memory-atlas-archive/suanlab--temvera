@@ -25,7 +25,12 @@ from typing import Any, Callable
 from .external_harness import MemorySystem, OracleMemorySystem, score_answer
 from .generator import generate_histories
 from .mem0_adapter import Mem0System, default_mem0_config
-from .nl_workload import build_nl_cases, naturalize_events, render_turns
+from .nl_workload import (
+    build_nl_cases,
+    fallback_tokens,
+    naturalize_events,
+    render_turns,
+)
 from .telemetry import Meter, measure_openai
 
 _METRICS = ("exact_state_accuracy", "evidence_recall", "stale_use_rate")
@@ -56,17 +61,20 @@ def _events_for(
     profile: dict[str, Any],
     naturalize: bool,
     attributes: int = 1,
+    distinct_values: bool = False,
+    pools: str = "standard",
 ):
     events = generate_histories(
         seed=seed,
         entities=entities,
         revisions=revisions,
         attributes=attributes,
+        distinct_values=distinct_values,
         reconfirm_probability=float(profile.get("reconfirm_probability", 0.0)),
         expire_probability=float(profile.get("expire_probability", 0.0)),
         purge_probability=float(profile.get("purge_probability", 0.0)),
     )
-    return naturalize_events(events) if naturalize else events
+    return naturalize_events(events, pools=pools) if naturalize else events
 
 
 def score_on_events(
@@ -168,11 +176,14 @@ def run_external_comparison(
     naturalize = bool(config.get("naturalize", True))
     rows: list[dict[str, Any]] = []
     transcript: list[dict[str, Any]] = []
+    fallbacks: list[dict[str, Any]] = []
     meter = Meter()
     for seed, entities, revisions, profile in _cells(config):
         events = _events_for(
             seed, entities, revisions, profile, naturalize,
             int(config.get("attributes", 1)),
+            distinct_values=bool(config.get("distinct_values", False)),
+            pools=str(config.get("natural_pools", "standard")),
         )
         cell = {
             "seed": seed,
@@ -180,6 +191,7 @@ def run_external_comparison(
             "revisions": revisions,
             "profile": str(profile.get("name", "as_configured")),
         }
+        fallbacks.append({**cell, **fallback_tokens(events)})
         label = f"{cell['profile']}-e{entities}-r{revisions}-s{seed}"
         with measure_openai(meter):
             target = score_on_events(
@@ -201,6 +213,13 @@ def run_external_comparison(
         "rows": rows,
         "summary": summary,
         "telemetry": meter.as_dict(),
+        # Synthetic tokens left after relabelling, per cell: zero is the claim
+        # the workload makes, so it is recorded rather than assumed.
+        "naturalization_fallbacks": fallbacks,
+        "workload": {
+            "distinct_values": bool(config.get("distinct_values", False)),
+            "natural_pools": str(config.get("natural_pools", "standard")),
+        },
         "transcript": transcript,
     }
 

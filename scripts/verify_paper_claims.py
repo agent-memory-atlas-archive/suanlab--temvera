@@ -335,6 +335,9 @@ CLAIMS: list[Claim] = [
     Claim("5.5", "Cognee chunks query mean", "4.53",
           lambda: telemetry("external-cognee-chunks-grid-v1", "query_latency", "mean_s"), 0.006,
           near="graph build runs at the first query of each checkpoint"),
+    Claim("5.5", "scale-cost e8 synthetic value tokens, %", "19",
+          lambda: _scale_cost_fallback_pct(8), 0.5,
+          near="than the natural-name relabelling holds"),
     # -- 5.6 external validity -------------------------------------------------
     Claim("5.6", "knowledge-update recall", "0.724", lambda: longmem("longmemeval-e7-v2", "knowledge-update"),
           near="mean gold-token recall was knowledge-update"),
@@ -381,6 +384,23 @@ CLAIMS: list[Claim] = [
           lambda: micro("external-langmem-v1", "valid_time", cells()),
           near="none; ``extracts, consolidates''"),
 ]
+
+def _scale_cost_fallback_pct(entities: int) -> float:
+    """Share of distinct values in scale-cost-mem0-v1 left as synthetic tokens."""
+    from temvera.external_experiment import _events_for
+    from temvera.nl_workload import fallback_tokens
+
+    config = json.loads((RUNS / "scale-cost-mem0-v1" / "config.json").read_text())
+    scale = next(s for s in config["scales"] if s["entities"] == entities)
+    fell = total = 0
+    for seed in config["seeds"]:
+        counts = fallback_tokens(_events_for(seed, entities, scale["revisions"],
+                                             config["profiles"][0], True,
+                                             config.get("attributes", 1)))
+        fell += counts["values"]
+        total += counts["values_total"]
+    return 100 * fell / total
+
 
 def _x_cells():
     return matched_cells(

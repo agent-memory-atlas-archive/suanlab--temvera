@@ -737,7 +737,10 @@ with Table~\ref{tab:external}: it is the first multi-attribute configuration
 (three attributes per entity, each drawn from a different semantic class) and
 therefore a different workload. Exact accuracy moved $0.610 \to 0.527 \to 0.539$
 as entities grew $2 \to 4 \to 8$, which is not monotone and rests on three seeds
-per scale.
+per scale. The 8-entity point is also not like the other two: its histories
+draw more distinct values than the natural-name relabelling holds, and 19\% of
+them fell back to synthetic tokens of the kind the relabelling exists to avoid
+(none did at 2 or 4 entities). We draw nothing from the trend.
 
 \subsection{External validity}\label{sec:external}
 

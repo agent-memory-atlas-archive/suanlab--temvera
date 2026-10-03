@@ -13,6 +13,9 @@ byte-identical turns and cases.
 
 from __future__ import annotations
 
+import functools
+import re
+
 from dataclasses import dataclass, replace
 from datetime import datetime
 
@@ -91,14 +94,163 @@ def _pick(pool: tuple[str, ...], index: int, kind: str) -> str:
     return pool[index] if index < len(pool) else f"{kind}-{index}"
 
 
-def naturalize_events(events: tuple[MemoryEvent, ...]) -> tuple[MemoryEvent, ...]:
+# --- Large pools for scale experiments -------------------------------------
+#
+# The standard pools above hold 40 names and 20-60 values per attribute, and
+# _pick silently falls back to tokens like "Person-102" or "employer-95" past
+# them. Those are exactly the synthetic tokens the relabelling exists to avoid,
+# and a 2026-10 scale sweep found 19% of values synthetic at 8 entities, 55% at
+# 32 and 66% at 128 -- a confound that grew with the variable being studied. The
+# large pools are composed from word lists, cover 128 entities with distinct
+# values, refuse to fall back, and guarantee that no name or value is a
+# substring of any other, because the scorer matches by substring.
+
+_FIRST = (
+    "Aisha", "Bruno", "Chen", "Dara", "Elif", "Farah", "Goran", "Hana", "Ingrid",
+    "Jonas", "Kofi", "Lena", "Mateo", "Nadia", "Omar", "Priya", "Quinn", "Rosa",
+    "Sven", "Tomas", "Uma", "Viktor", "Wen", "Ximena", "Yusuf", "Zara", "Amara",
+    "Bjorn", "Carmen", "Dmitri", "Esther", "Felix", "Greta", "Hugo", "Ines",
+    "Jamal", "Keiko", "Liam", "Mira", "Nikolai", "Olga", "Pablo", "Rania",
+    "Sami", "Tariq", "Valentina", "Wanjiru", "Yara", "Zoltan", "Anika",
+)
+_LAST = (
+    "Okafor", "Brennan", "Lindqvist", "Moreau", "Tanaka", "Haddad", "Novak",
+    "Castillo", "Petrov", "Nakamura", "Fischer", "Ramos", "Kowalski", "Achebe",
+    "Delgado", "Eriksen", "Fontaine", "Gallagher", "Horvath", "Ibrahim",
+    "Jansen", "Kapoor", "Mendoza", "Nwosu", "Pereira", "Quist", "Rahman",
+    "Schreiber", "Takahashi", "Ustinov", "Varga", "Whitaker", "Yilmaz", "Zhou",
+    "Bianchi", "Coleman", "Dumont", "Esposito", "Farouk", "Garnier",
+)
+_TOWN_HEAD = (
+    "Ash", "Oak", "Elm", "Birch", "Cedar", "Maple", "Willow", "Alder", "Hazel",
+    "Rowan", "Thorn", "Fern", "Heath", "Moor", "Brook", "Mill", "Stone", "Iron",
+    "Copper", "Silver", "Gold", "Red", "Black", "White", "Green", "North",
+    "South", "East", "West", "High", "Kings", "Queens", "Bishops", "Market",
+    "Castle", "Bridge", "Dun", "Glen", "Pen", "Wyn",
+)
+_TOWN_TAIL = (
+    "ford", "ton", "field", "bury", "ham", "wick", "dale", "mouth", "worth",
+    "stead", "ley", "port", "haven", "minster", "gate", "holm", "thorpe",
+    "combe", "cliff", "more", "well", "hurst", "mere", "chester", "brook",
+)
+_FIRM_HEAD = (
+    "Vant", "Corv", "Zenth", "Quil", "Nexo", "Lum", "Oriz", "Pyx", "Solv",
+    "Trel", "Brax", "Calt", "Dov", "Elv", "Fyr", "Gal", "Hux", "Jor", "Kest", "Mav",
+)
+_FIRM_TAIL = ("ara", "ix", "ium", "ora", "eon", "ica", "ent", "ova", "yx", "anta")
+_FIRM_KIND = (
+    "Analytics", "Logistics", "Health", "Foods", "Robotics", "Capital", "Media",
+    "Energy", "Labs", "Biotech", "Mobility", "Studios", "Freight", "Insurance",
+)
+_PHONE_BRAND = (
+    "Galaxy", "Pixel", "Xperia", "Moto", "Nokia", "Redmi", "Zenfone", "Nord",
+    "Aquos", "Reno", "Mate", "Vivo",
+)
+_PHONE_LINE = ("A", "S", "X", "G", "Z", "V")
+_SENIORITY = ("Senior", "Junior", "Principal", "Staff", "Associate", "Chief")
+_DOMAIN = (
+    "Data", "Product", "Platform", "Security", "Cloud", "Mobile", "Brand",
+    "Growth", "Payments", "Search", "Network", "Quality", "Research", "Content",
+    "Finance", "Clinical",
+)
+_ROLE = (
+    "Engineer", "Analyst", "Manager", "Designer", "Scientist", "Architect",
+    "Strategist", "Specialist", "Consultant", "Coordinator",
+)
+_DIET_HOW = (
+    "strictly", "mostly", "seasonally", "weekday", "budget", "locally sourced",
+    "high-protein", "low-sugar",
+)
+_DIET_WHAT = (
+    "vegan", "pescatarian", "keto", "paleo", "gluten-free", "dairy-free", "halal",
+    "kosher", "low-carb", "Mediterranean", "flexitarian", "nut-free",
+)
+
+
+def _interleave(heads: tuple[str, ...], tails: tuple[str, ...], join: str) -> list[str]:
+    """All head/tail combinations, ordered so consecutive picks differ in both."""
+    out = []
+    for step in range(len(heads) * len(tails)):
+        head = heads[step % len(heads)]
+        tail = tails[(step // len(heads) + step) % len(tails)]
+        out.append(f"{head}{join}{tail}")
+    return list(dict.fromkeys(out))
+
+
+def _containment_free(groups: list[list[str]]) -> list[tuple[str, ...]]:
+    """Drop entries that contain another entry, keeping every group's order.
+
+    Entries are visited shortest first, and each is checked by enumerating its
+    own substrings against the set of entries already kept: O(n * L^2) rather
+    than comparing every pair, which took 95 s at import time when tried. Of a
+    conflicting pair the shorter survives; duplicates across groups keep their
+    first occurrence.
+    """
+    owner: dict[str, int] = {}
+    for index, group in enumerate(groups):
+        for entry in group:
+            owner.setdefault(entry.casefold(), index)
+    kept: set[str] = set()
+    for folded in sorted(owner, key=lambda text: (len(text), text)):
+        size = len(folded)
+        inner = {folded[i:j] for i in range(size) for j in range(i + 1, size)}
+        if not inner & kept:
+            kept.add(folded)
+    out = []
+    for index, group in enumerate(groups):
+        out.append(tuple(dict.fromkeys(
+            entry for entry in group
+            if entry.casefold() in kept and owner[entry.casefold()] == index)))
+    return out
+
+
+@functools.lru_cache(maxsize=1)
+def _large_pools() -> tuple[tuple[str, ...], dict[str, tuple[str, ...]]]:
+    """Built on first use, not at import: most runs never need them."""
+    groups = [
+        _interleave(_FIRST, _LAST, " "),
+        _interleave(_TOWN_HEAD, _TOWN_TAIL, ""),
+        [f"{stem} {kind}" for stem in _interleave(_FIRM_HEAD, _FIRM_TAIL, "")
+         for kind in _FIRM_KIND],
+        [f"{brand} {line}{number}" for number in range(10, 100)
+         for line in _PHONE_LINE for brand in _PHONE_BRAND],
+        [f"{a} {d} {r}" for r in _ROLE for d in _DOMAIN for a in _SENIORITY],
+        [f"{how} {what}" for what in _DIET_WHAT for how in _DIET_HOW],
+    ]
+    persons, towns, firms, phones, titles, diets = _containment_free(groups)
+    return persons, {
+        "home city": towns,
+        "employer": firms,
+        "phone model": phones,
+        "job title": titles,
+        "dietary preference": diets,
+    }
+
+
+def _pick_strict(pool: tuple[str, ...], index: int, kind: str) -> str:
+    if index >= len(pool):
+        raise ValueError(
+            f"large {kind} pool exhausted at {index} (holds {len(pool)}); "
+            "refusing to fall back to a synthetic token"
+        )
+    return pool[index]
+
+
+def naturalize_events(
+    events: tuple[MemoryEvent, ...], pools: str = "standard"
+) -> tuple[MemoryEvent, ...]:
     """Relabel synthetic subjects/attributes/values to distinct natural names.
 
     Injective over the distinct tokens actually present, so no two originals
     collapse to one name. Belief and event identifiers are unchanged.
     """
     subjects = sorted({e.subject for e in events if e.subject})
-    subject_map = {name: _pick(_PERSONS, i, "Person") for i, name in enumerate(subjects)}
+    if pools not in ("standard", "large"):
+        raise ValueError(f"unknown pools: {pools}")
+    large = pools == "large"
+    persons, value_pools = _large_pools() if large else (_PERSONS, _VALUE_POOLS)
+    pick = _pick_strict if large else _pick
+    subject_map = {name: pick(persons, i, "Person") for i, name in enumerate(subjects)}
 
     # Values are relabelled per attribute so each attribute draws from its own
     # semantic class. Belief ids carry the attribute, so a value string is
@@ -111,10 +263,10 @@ def naturalize_events(events: tuple[MemoryEvent, ...]) -> tuple[MemoryEvent, ...
     per_attribute: dict[str, int] = {}
     for value in sorted(attribute_of):
         natural = _ATTRIBUTE_NAMES.get(attribute_of[value], "home city")
-        pool = _VALUE_POOLS.get(natural, _CITIES)
+        pool = value_pools.get(natural, value_pools["home city"] if large else _CITIES)
         index = per_attribute.get(natural, 0)
         per_attribute[natural] = index + 1
-        value_map[value] = _pick(pool, index, natural.replace(" ", "-"))
+        value_map[value] = pick(pool, index, natural.replace(" ", "-"))
     out: list[MemoryEvent] = []
     for event in events:
         out.append(
@@ -263,3 +415,22 @@ def build_nl_cases(events: tuple[MemoryEvent, ...]) -> tuple[NLQueryCase, ...]:
             )
         )
     return tuple(cases)
+
+
+_FALLBACK = re.compile(r"^(?:Person|[a-z]+(?:-[a-z]+)*)-\d+$")
+
+
+def fallback_tokens(events: tuple[MemoryEvent, ...]) -> dict[str, int]:
+    """How many distinct names and values are synthetic fallback tokens.
+
+    Recorded with every run, so a confound like the one that motivated the
+    large pools is visible in the artifact instead of being found by accident.
+    """
+    names = {e.subject for e in events if e.subject}
+    values = {str(e.value) for e in events if e.value}
+    return {
+        "names": sum(bool(_FALLBACK.match(n)) for n in names),
+        "names_total": len(names),
+        "values": sum(bool(_FALLBACK.match(v)) for v in values),
+        "values_total": len(values),
+    }

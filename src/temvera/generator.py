@@ -26,7 +26,17 @@ def generate_histories(
     expire_probability: float = 0.0,
     purge_probability: float = 0.0,
     attributes: int = 1,
+    distinct_values: bool = False,
 ) -> tuple[MemoryEvent, ...]:
+    """Seeded bitemporal histories.
+
+    By default values are drawn with replacement from 100 per attribute, so at
+    scale many subjects share a value and a revision can redraw the value it
+    replaces. ``distinct_values`` gives every ingest a value of its own instead.
+    It still consumes the same random draw, so a seed yields a history of the
+    same shape -- same dates, reconfirms, expiries and purges -- in which only
+    value identity differs. That makes the two modes a controlled comparison.
+    """
     if entities < 1 or revisions < 1:
         raise ValueError("entities and revisions must be positive")
     if not 1 <= attributes <= len(ATTRIBUTES):
@@ -49,6 +59,7 @@ def generate_histories(
     start = datetime(2025, 1, 1, tzinfo=timezone.utc)
     events: list[MemoryEvent] = []
     sequence = 0
+    issued: dict[str, int] = {}
     for entity_number in range(entities):
       for attribute_index in range(attributes):
         attribute = ATTRIBUTES[attribute_index]
@@ -79,9 +90,7 @@ def generate_histories(
                     belief_id=belief_id,
                     subject=f"{prefix}entity-{entity_number:03d}",
                     attribute=attribute,
-                    value=f"{attribute[:5]}-{rng.randrange(100):02d}"
-                    if attributes > 1
-                    else f"place-{rng.randrange(100):02d}",
+                    value=_value(rng, attribute, attributes, distinct_values, issued),
                     valid_from=valid_from,
                     recorded_at=recorded_at,
                     sources=(f"{prefix}source-{sequence:05d}",),
@@ -229,3 +238,19 @@ def generate_lifecycle_suite(*, seed: int) -> tuple[MemoryEvent, ...]:
             start + timedelta(days=20),
         ),
     )
+
+
+def _value(
+    rng: random.Random,
+    attribute: str,
+    attributes: int,
+    distinct: bool,
+    issued: dict[str, int],
+) -> str:
+    """One value token; the random draw is consumed in both modes."""
+    draw = rng.randrange(100)
+    stem = attribute[:5] if attributes > 1 else "place"
+    if not distinct:
+        return f"{stem}-{draw:02d}"
+    issued[stem] = issued.get(stem, 0) + 1
+    return f"{stem}-u{issued[stem]:05d}"

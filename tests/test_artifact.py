@@ -124,3 +124,26 @@ def test_artifact_excludes_third_party_data_and_bytecode(tmp_path) -> None:
         names = tar.getnames()
     assert not [name for name in names if name.startswith("data/raw")]
     assert not [name for name in names if "__pycache__" in name]
+
+
+def test_artifact_excludes_whatever_git_ignores(tmp_path) -> None:
+    """Files kept out of the public repository stay out of the artifact."""
+    import shutil
+    import subprocess
+
+    if shutil.which("git") is None:  # pragma: no cover
+        import pytest
+
+        pytest.skip("git not available")
+    root = tmp_path / "repo"
+    root.mkdir()
+    _fixture(root)
+    subprocess.run(["git", "init", "-q", str(root)], check=True)
+    (root / ".gitignore").write_text("data/working-sheet.json\n", encoding="utf-8")
+    (root / "data" / "working-sheet.json").write_text('{"quotes": "corpus text"}\n',
+                                                       encoding="utf-8")
+    archive = tmp_path / "artifact.tar.gz"
+    manifest = create_artifact_archive(root, archive)
+    assert "data/working-sheet.json" not in manifest["files"]
+    assert "data/fixture.txt" in manifest["files"]
+    assert verify_artifact_archive(archive)
