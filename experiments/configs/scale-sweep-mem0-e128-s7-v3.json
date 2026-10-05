@@ -1,0 +1,30 @@
+{
+  "attributes": 3,
+  "benchmark": "temvera-scale-sweep-mem0-e128-s7-v3",
+  "bootstrap_samples": 2000,
+  "distinct_values": true,
+  "embed_model": "text-embedding-3-small",
+  "model": "gpt-4o-mini",
+  "natural_pools": "large",
+  "naturalize": true,
+  "profiles": [
+    {
+      "expire_probability": 0.35,
+      "name": "mixed_lifecycle",
+      "purge_probability": 0.25,
+      "reconfirm_probability": 0.5
+    }
+  ],
+  "replay": "transaction_checkpoint",
+  "scales": [
+    {
+      "entities": 128,
+      "revisions": 4
+    }
+  ],
+  "search_limit": 5,
+  "seeds": [
+    7
+  ],
+  "user_id": "temvera-sweep3-mem0-e128-s7"
+}

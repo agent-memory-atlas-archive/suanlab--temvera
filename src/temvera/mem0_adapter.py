@@ -75,6 +75,68 @@ def default_mem0_config(
     return config
 
 
+def _silence_mem0_telemetry() -> None:
+    """Stop Mem0 constructing a PostHog client on every add and search.
+
+    mem0 0.1.118's ``capture_event`` builds a fresh ``AnonymousTelemetry`` --
+    and with it a PostHog client whose ``Consumer`` thread never stops -- on
+    every call. ``MEM0_TELEMETRY=False`` only flags the client disabled after
+    it has started that thread, so the leak survives it. Measured: about three
+    leaked threads per ingest; 12,322 threads and 7,971% CPU in one 128-entity
+    run on a shared server; and every Mem0 process hanging for hours at exit
+    while it joined them, which was first misattributed to network flushing.
+
+    With telemetry off, the event is not built at all. Modules that imported the
+    function by name are patched too, since they hold their own reference.
+    """
+    if os.environ.get("MEM0_TELEMETRY", "true").lower() in ("true", "1", "yes"):
+        return
+    import importlib
+
+    def _no_event(*args: Any, **kwargs: Any) -> None:
+        return None
+
+    for name in ("mem0.memory.telemetry", "mem0.memory.main", "mem0.proxy.main"):
+        try:
+            module = importlib.import_module(name)
+        except Exception:  # pragma: no cover - optional submodule
+            continue
+        if hasattr(module, "capture_event"):
+            module.capture_event = _no_event
+
+
+_TRANSIENT = ("APIConnectionError", "APITimeoutError", "RateLimitError",
+              "InternalServerError", "ConnectError", "ReadTimeout")
+
+
+def _with_retries(call, *, attempts: int = 6, base_delay: float = 2.0,
+                  sleep=None, on_retry=None):
+    """Run ``call``, retrying transient network and rate-limit failures.
+
+    A single SSL EOF from the API once ended a 25-hour run with nothing written,
+    because the harness writes results only at the end. Retries use exponential
+    backoff and are counted, so a run that needed them says so in its record.
+    Errors that are not transient are raised at once.
+    """
+    import time
+
+    sleep = sleep or time.sleep
+    for attempt in range(1, attempts + 1):
+        try:
+            return call()
+        except Exception as error:  # noqa: BLE001 - classified below
+            transient = type(error).__name__ in _TRANSIENT or any(
+                type(cause).__name__ in _TRANSIENT
+                for cause in (error.__cause__, error.__context__) if cause
+            )
+            if not transient or attempt == attempts:
+                raise
+            if on_retry is not None:
+                on_retry(error)
+            sleep(base_delay * 2 ** (attempt - 1))
+    raise AssertionError("unreachable")  # pragma: no cover
+
+
 class Mem0System:
     """Mem0 OSS store as a harness-compatible memory system."""
 
@@ -87,11 +149,16 @@ class Mem0System:
     ) -> None:
         from mem0 import Memory
 
+        _silence_mem0_telemetry()
         self._config = config or default_mem0_config()
         self._user_id = user_id
         self._search_limit = search_limit
         self._memory = Memory.from_config(self._config)
         self.last_added: list[dict[str, Any]] = []
+        self.retries = 0
+
+    def _count_retry(self, error: Exception) -> None:
+        self.retries += 1
 
     @property
     def version(self) -> str:
@@ -107,7 +174,8 @@ class Mem0System:
             pass
 
     def ingest(self, turn: WorkloadTurn) -> None:
-        self._memory.add(turn.text, user_id=self._user_id)
+        _with_retries(lambda: self._memory.add(turn.text, user_id=self._user_id),
+                      on_retry=self._count_retry)
 
     def delete_memories_mentioning(self, needle: str) -> int:
         """Call Mem0's native `delete` for memories containing `needle`.
@@ -130,8 +198,11 @@ class Mem0System:
         return removed
 
     def answer(self, case: NLQueryCase) -> str:
-        result = self._memory.search(
-            case.query_text, user_id=self._user_id, limit=self._search_limit
+        result = _with_retries(
+            lambda: self._memory.search(
+                case.query_text, user_id=self._user_id, limit=self._search_limit
+            ),
+            on_retry=self._count_retry,
         )
         rows = result.get("results", result) if isinstance(result, dict) else result
         memories = [

@@ -283,14 +283,18 @@ def run_mem0_comparison(config: dict[str, Any]) -> dict[str, Any]:
 
     history_db = str(_Path(tempfile.mkdtemp(prefix="mem0-grid-")) / "history.db")
 
+    made: list[Mem0System] = []
+
     def factory(label: str) -> MemorySystem:
-        return Mem0System(
+        system = Mem0System(
             config=default_mem0_config(
                 model=model, embed_model=embed_model, history_db_path=history_db
             ),
             user_id=f"{base_user}-{label}",
             search_limit=search_limit,
         )
+        made.append(system)
+        return system
 
     result = run_external_comparison(config, factory, system_name="mem0")
     result["backbone"] = {
@@ -303,6 +307,9 @@ def run_mem0_comparison(config: dict[str, Any]) -> dict[str, Any]:
         "history_db_isolated": True,
         "vector_store_isolated": True,
         "mem0_telemetry": os.environ.get("MEM0_TELEMETRY"),
+        "mem0_telemetry_events_built": False,
+        # transient API failures retried with backoff; zero is the clean case
+        "api_retries": sum(system.retries for system in made),
         "llm_model": model,
         "embed_model": embed_model,
         "replay": result["replay"],
