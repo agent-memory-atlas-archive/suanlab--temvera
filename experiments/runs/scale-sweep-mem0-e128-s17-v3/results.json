@@ -1,0 +1,166 @@
+{
+  "backbone": {
+    "api_retries": 0,
+    "embed_model": "text-embedding-3-small",
+    "history_db_isolated": true,
+    "llm_model": "gpt-4o-mini",
+    "mem0_telemetry": "False",
+    "mem0_telemetry_events_built": false,
+    "mem0_version": "0.1.118",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "system": "mem0",
+    "vector_store_isolated": true
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 128,
+      "names": 0,
+      "names_total": 128,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "values": 0,
+      "values_total": 1536
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 0.20151133501259447,
+      "abstention_cases": 397,
+      "by_category_exact": {
+        "expiry_boundary": 0.2532467532467532,
+        "purge": 0.0056179775280898875,
+        "transaction_as_of": 0.9095052083333334,
+        "valid_time": 0.19576271186440677
+      },
+      "cases": 3380,
+      "entities": 128,
+      "evidence_recall": 0.5494082840236686,
+      "exact_state_accuracy": 0.5053254437869823,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "stale_use_rate": 0.4709735040190533,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 397,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 3380,
+      "entities": 128,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "mem0": {
+        "expiry_boundary": 0.2532467532467532,
+        "purge": 0.0056179775280898875,
+        "transaction_as_of": 0.9095052083333334,
+        "valid_time": 0.19576271186440677
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=128,revisions=4": {
+        "mem0": {
+          "ci95_high": 0.5053254437869823,
+          "ci95_low": 0.5053254437869823,
+          "exact_mean": 0.5053254437869823,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      }
+    },
+    "overall": {
+      "mem0": {
+        "abstention_accuracy": 0.20151133501259447,
+        "evidence_recall": 0.5494082840236686,
+        "exact_state_accuracy": 0.5053254437869823,
+        "stale_use_rate": 0.4709735040190533
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 2.02506523,
+    "ingest_latency": {
+      "mean_s": 4.323758865998315,
+      "n": 3742,
+      "p50_s": 3.971480706706643,
+      "p95_s": 6.271645825356245,
+      "total_s": 16179.505676565692
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.1740142807458147,
+      "n": 3380,
+      "p50_s": 0.1677482333034277,
+      "p95_s": 0.21201021410524845,
+      "total_s": 588.1682689208537
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 7373,
+        "completion_tokens": 1177315,
+        "cost_usd": 2.02135065,
+        "prompt_tokens": 8766411,
+        "total_tokens": 9943726
+      },
+      "text-embedding-3-small": {
+        "calls": 8798,
+        "completion_tokens": 0,
+        "cost_usd": 0.00371458,
+        "prompt_tokens": 185729,
+        "total_tokens": 185729
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": true,
+    "natural_pools": "large"
+  }
+}

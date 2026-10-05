@@ -724,6 +724,62 @@ draw more distinct values than the natural-name relabelling holds, and 19\% of
 them fell back to synthetic tokens of the kind the relabelling exists to avoid
 (none did at 2 or 4 entities). We draw nothing from the trend.
 
+\subsection{Does scale change the picture?}\label{sec:scale}
+
+The grid above holds three to six people with one attribute each. To test
+whether the failure modes are artifacts of small stores, we ran Mem0 and
+Graphiti on histories of 8, 32 and 128 people, three attributes each and four
+revisions, three seeds per scale: 623, 2{,}507 and 10{,}037 questions per
+system. Two properties of the workload must be held fixed for this to measure
+scale and nothing else: every value is distinct, and every name and value is
+natural --- the relabelling refuses to fall back to synthetic tokens, and every
+run records that it did not. A first attempt held neither
+(\S\ref{sec:negative}).
+
+\begin{table}[t]
+\centering
+\caption{Scale, under the controlled workload. Case-weighted rates with
+Wilson 95\% intervals for the comparisons the text draws. Recall is the share
+of valued questions whose answer contains the expected value; ``with stale''
+the share of questions with a superseded value whose answer contains it.}
+\label{tab:scale}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+& & 8 & 32 & 128 \\
+\midrule
+Mem0     & \texttt{transaction\_as\_of} & 0.944 & 0.956 & 0.903 \\
+         & \texttt{valid\_time}         & 0.206 & 0.211 & 0.195 \\
+         & recall                       & 0.578 & 0.592 & 0.603 \\
+         & with stale                   & 0.432 & 0.463 & 0.498 \\
+\midrule
+Graphiti & \texttt{transaction\_as\_of} & 0.250 & 0.250 & 0.250 \\
+         & \texttt{valid\_time}         & 0.004 & 0.000 & 0.005 \\
+         & recall                       & 0.913 & 0.977 & 0.783 \\
+         & with stale                   & 0.991 & 0.998 & 0.995 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Neither failure mode is a small-store artifact.} Mem0's valid-time
+accuracy is flat across a sixteen-fold range of entities, and Graphiti's never
+exceeds 0.005. Graphiti's transaction-scoped accuracy is 0.250 at every scale,
+and the number is not a coincidence: it is exactly the share of those questions
+with no superseded value to filter. On those it answers 1{,}129 of 1{,}152 at
+128 entities; on the rest, 22 of 3{,}456. Graphiti answers correctly when there
+is nothing to filter, and almost never otherwise --- the mechanism of
+\S\ref{sec:results}, now at every scale we measured. It still finds the
+queried value in most cases, though recall falls at 128 entities
+(0.977 [0.970, 0.983] to 0.783 [0.774, 0.791]).
+
+Mem0 does degrade at the largest scale, but only mildly and not on the
+temporal axis: transaction-scoped accuracy falls from 0.956 [0.942, 0.966] at
+32 entities to 0.903 [0.894, 0.911] at 128, and the share of answers carrying a
+superseded value rises from 0.432 to 0.498, while recall holds near 0.6. Its
+historical deficit is a property of consolidation, as the main grid showed, and
+does not wait for scale to appear.
+
 \subsection{External validity}\label{sec:external}
 
 On human-written LongMemEval conversations \citep{longmemeval}, retrieval
@@ -787,6 +843,20 @@ reported. And a first purge scan reported Mem0 at zero residual because it read
 Graphiti's raw database but only Mem0's
 API-exposed memories; the corrected scan adds Mem0's vector store and history
 database with a per-run database path.
+
+\textbf{A first scale sweep was withdrawn.} Its relabelling ran out of natural
+names and values and silently fell back to synthetic tokens as the store grew
+--- 19\%, 55\% and 66\% of values at 8, 32 and 128 entities --- and values were
+drawn with replacement, so people increasingly shared them. Graphiti appeared
+to \emph{improve} at 128 entities, with exact accuracy rising from 0.117 to
+0.216: answers that lost the queried value lost the superseded one too, and an
+abstention question scores the absence of a superseded value as correct. The
+controlled sweep of \S\ref{sec:scale} replays the same seeded histories with
+only value identity changed, and at 32 entities Graphiti's recall moves from
+0.705 to 0.977. Two lessons generalise. A scale experiment on LLM-backed memory
+must hold token naturalness fixed, since it moves recall more than scale does;
+and an exact-match metric rewards an empty answer on abstention questions, so
+recall must be reported beside it.
 
 \section{Reproducibility}
 

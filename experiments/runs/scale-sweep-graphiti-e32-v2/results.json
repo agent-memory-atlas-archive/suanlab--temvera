@@ -1,0 +1,260 @@
+{
+  "backbone": {
+    "backend": "neo4j",
+    "embed_model": "text-embedding-3-small",
+    "graphiti_version": "0.29.2",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "search_recipe": "hybrid_rrf",
+    "system": "graphiti",
+    "temporal_filter": false
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 32,
+      "names": 0,
+      "names_total": 32,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "values": 0,
+      "values_total": 384
+    },
+    {
+      "entities": 32,
+      "names": 0,
+      "names_total": 32,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "values": 0,
+      "values_total": 384
+    },
+    {
+      "entities": 32,
+      "names": 0,
+      "names_total": 32,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "values": 0,
+      "values_total": 384
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 85,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.25,
+        "valid_time": 0.0
+      },
+      "cases": 828,
+      "entities": 32,
+      "evidence_recall": 0.8780193236714976,
+      "exact_state_accuracy": 0.11594202898550725,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "stale_use_rate": 0.7286300858529302,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 85,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 828,
+      "entities": 32,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 98,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.25,
+        "valid_time": 0.0
+      },
+      "cases": 846,
+      "entities": 32,
+      "evidence_recall": 0.8581560283687943,
+      "exact_state_accuracy": 0.11347517730496454,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "stale_use_rate": 0.7350364963503649,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 98,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 846,
+      "entities": 32,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 89,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.25,
+        "valid_time": 0.0
+      },
+      "cases": 833,
+      "entities": 32,
+      "evidence_recall": 0.8775510204081632,
+      "exact_state_accuracy": 0.11524609843937575,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "stale_use_rate": 0.7293594964827842,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 89,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 833,
+      "entities": 32,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "graphiti": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.25,
+        "valid_time": 0.0
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=32,revisions=4": {
+        "graphiti": {
+          "ci95_high": 0.11594202898550725,
+          "ci95_low": 0.11347517730496454,
+          "exact_mean": 0.1148877682432825,
+          "n_seeds": 3
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 3
+        }
+      }
+    },
+    "overall": {
+      "graphiti": {
+        "abstention_accuracy": 0.0,
+        "evidence_recall": 0.871242124149485,
+        "exact_state_accuracy": 0.1148877682432825,
+        "stale_use_rate": 0.7310086928953599
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 2.9198802500000003,
+    "ingest_latency": {
+      "mean_s": 11.397561287302237,
+      "n": 2787,
+      "p50_s": 11.4630646109581,
+      "p95_s": 17.49650576710701,
+      "total_s": 31765.003307711333
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 1.3829135849892107,
+      "n": 2507,
+      "p50_s": 1.2691227309405804,
+      "p95_s": 2.5110069680958986,
+      "total_s": 3466.964357567951
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 8537,
+        "completion_tokens": 383212,
+        "cost_usd": 2.91449805,
+        "prompt_tokens": 17897139,
+        "total_tokens": 18280351
+      },
+      "text-embedding-3-small": {
+        "calls": 18302,
+        "completion_tokens": 0,
+        "cost_usd": 0.0053822,
+        "prompt_tokens": 269110,
+        "total_tokens": 269110
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": true,
+    "natural_pools": "large"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "command": "temvera external-mem0 experiments/configs/scale-sweep-mem0-e8-v2.json experiments/runs/scale-sweep-mem0-e8-v2",
+  "created_at": "2026-10-03T23:58:35.209136+00:00",
+  "git_revision": "bde0f6cab487b3f7bfbe830df5d7e9d78a8d2f73",
+  "platform": "Linux-6.8.0-101-generic-x86_64-with-glibc2.35",
+  "python": "3.11.15 (main, Jun 23 2026, 15:19:43) [Clang 22.1.3 ]",
+  "source_sha256": "b826372bd79044d7cf04dbdfc1c90c4f5285df26e2eb130d84e139cb93574af9"
+}

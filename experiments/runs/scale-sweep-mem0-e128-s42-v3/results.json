@@ -1,0 +1,166 @@
+{
+  "backbone": {
+    "api_retries": 0,
+    "embed_model": "text-embedding-3-small",
+    "history_db_isolated": true,
+    "llm_model": "gpt-4o-mini",
+    "mem0_telemetry": "False",
+    "mem0_telemetry_events_built": false,
+    "mem0_version": "0.1.118",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "system": "mem0",
+    "vector_store_isolated": true
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 128,
+      "names": 0,
+      "names_total": 128,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "values": 0,
+      "values_total": 1536
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 0.20833333333333334,
+      "abstention_cases": 360,
+      "by_category_exact": {
+        "expiry_boundary": 0.28076923076923077,
+        "purge": 0.0075,
+        "transaction_as_of": 0.8971354166666666,
+        "valid_time": 0.18661971830985916
+      },
+      "cases": 3332,
+      "entities": 128,
+      "evidence_recall": 0.5618247298919568,
+      "exact_state_accuracy": 0.5,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "stale_use_rate": 0.4800347222222222,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 360,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 3332,
+      "entities": 128,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "mem0": {
+        "expiry_boundary": 0.28076923076923077,
+        "purge": 0.0075,
+        "transaction_as_of": 0.8971354166666666,
+        "valid_time": 0.18661971830985916
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=128,revisions=4": {
+        "mem0": {
+          "ci95_high": 0.5,
+          "ci95_low": 0.5,
+          "exact_mean": 0.5,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      }
+    },
+    "overall": {
+      "mem0": {
+        "abstention_accuracy": 0.20833333333333334,
+        "evidence_recall": 0.5618247298919568,
+        "exact_state_accuracy": 0.5,
+        "stale_use_rate": 0.4800347222222222
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 1.99083298,
+    "ingest_latency": {
+      "mean_s": 4.32730268779585,
+      "n": 3678,
+      "p50_s": 4.000432746484876,
+      "p95_s": 6.332208277657628,
+      "total_s": 15915.819285713136
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.17241617914910864,
+      "n": 3332,
+      "p50_s": 0.16783501021564007,
+      "p95_s": 0.20449135825037956,
+      "total_s": 574.49070892483
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 7235,
+        "completion_tokens": 1161402,
+        "cost_usd": 1.9871775,
+        "prompt_tokens": 8602242,
+        "total_tokens": 9763644
+      },
+      "text-embedding-3-small": {
+        "calls": 8640,
+        "completion_tokens": 0,
+        "cost_usd": 0.00365548,
+        "prompt_tokens": 182774,
+        "total_tokens": 182774
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": true,
+    "natural_pools": "large"
+  }
+}

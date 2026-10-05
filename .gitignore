@@ -58,6 +58,20 @@ experiments/runs/*
 !experiments/runs/external-hindsight-reflect-v1/
 !experiments/runs/external-hindsight-recall-v1/
 !experiments/runs/purge-residual-v3-nl/
+# Scale sweep: v1 confounded (kept as evidence for E-077), v2/v3 controlled.
+!experiments/runs/scale-sweep-graphiti-e128-v1/
+!experiments/runs/scale-sweep-graphiti-e128-v2/
+!experiments/runs/scale-sweep-graphiti-e32-v1/
+!experiments/runs/scale-sweep-graphiti-e32-v2/
+!experiments/runs/scale-sweep-graphiti-e8-v1/
+!experiments/runs/scale-sweep-graphiti-e8-v2/
+!experiments/runs/scale-sweep-mem0-e128-s17-v3/
+!experiments/runs/scale-sweep-mem0-e128-s42-v3/
+!experiments/runs/scale-sweep-mem0-e128-s7-v3/
+!experiments/runs/scale-sweep-mem0-e32-v1/
+!experiments/runs/scale-sweep-mem0-e32-v2/
+!experiments/runs/scale-sweep-mem0-e8-v1/
+!experiments/runs/scale-sweep-mem0-e8-v2/
 
 .env
 .env.*

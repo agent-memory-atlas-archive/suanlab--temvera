@@ -1,0 +1,166 @@
+{
+  "backbone": {
+    "api_retries": 0,
+    "embed_model": "text-embedding-3-small",
+    "history_db_isolated": true,
+    "llm_model": "gpt-4o-mini",
+    "mem0_telemetry": "False",
+    "mem0_telemetry_events_built": false,
+    "mem0_version": "0.1.118",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "system": "mem0",
+    "vector_store_isolated": true
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 128,
+      "names": 0,
+      "names_total": 128,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "values": 0,
+      "values_total": 1536
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 0.15542521994134897,
+      "abstention_cases": 341,
+      "by_category_exact": {
+        "expiry_boundary": 0.20553359683794467,
+        "purge": 0.002840909090909091,
+        "transaction_as_of": 0.90234375,
+        "valid_time": 0.20270270270270271
+      },
+      "cases": 3325,
+      "entities": 128,
+      "evidence_recall": 0.5618045112781955,
+      "exact_state_accuracy": 0.5049624060150376,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "stale_use_rate": 0.4794952681388013,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 341,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 3325,
+      "entities": 128,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 4,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "mem0": {
+        "expiry_boundary": 0.20553359683794467,
+        "purge": 0.002840909090909091,
+        "transaction_as_of": 0.90234375,
+        "valid_time": 0.20270270270270271
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=128,revisions=4": {
+        "mem0": {
+          "ci95_high": 0.5049624060150376,
+          "ci95_low": 0.5049624060150376,
+          "exact_mean": 0.5049624060150376,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      }
+    },
+    "overall": {
+      "mem0": {
+        "abstention_accuracy": 0.15542521994134897,
+        "evidence_recall": 0.5618045112781955,
+        "exact_state_accuracy": 0.5049624060150376,
+        "stale_use_rate": 0.4794952681388013
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 1.9912153200000002,
+    "ingest_latency": {
+      "mean_s": 4.321608555518598,
+      "n": 3687,
+      "p50_s": 4.003695663064718,
+      "p95_s": 6.300961215049028,
+      "total_s": 15933.77074419707
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.17285745677307135,
+      "n": 3325,
+      "p50_s": 0.16816190630197525,
+      "p95_s": 0.21034753695130348,
+      "total_s": 574.7510437704623
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 7265,
+        "completion_tokens": 1153878,
+        "cost_usd": 1.9875576000000001,
+        "prompt_tokens": 8634872,
+        "total_tokens": 9788750
+      },
+      "text-embedding-3-small": {
+        "calls": 8642,
+        "completion_tokens": 0,
+        "cost_usd": 0.00365772,
+        "prompt_tokens": 182886,
+        "total_tokens": 182886
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": true,
+    "natural_pools": "large"
+  }
+}

@@ -179,6 +179,7 @@ class Claim:
     compute: Callable[[], float]
     tol: float = 0.0006
     near: str | None = None
+    window: int = 200
     """Distinctive phrase the number must appear within 200 characters of.
 
     Document-wide presence is not enough. The drift this script exists to catch
@@ -360,6 +361,49 @@ CLAIMS: list[Claim] = [
     Claim("abs", "Cognee chunks valid_time, top of the retaining range", "0.015",
           lambda: micro("external-cognee-chunks-grid-v1", "valid_time", cells()),
           near="score between 0.000 and"),
+    # -- 5.x scale, prose and the withdrawn first sweep ------------------------
+    Claim("5.scale", "questions per system at 8 entities", "623",
+          lambda: scale_rate("mem0", 8, "questions"), 0.5, near="three seeds per scale:"),
+    Claim("5.scale", "questions per system at 32 entities", "2{,}507",
+          lambda: scale_rate("mem0", 32, "questions"), 0.5, near="three seeds per scale:"),
+    Claim("5.scale", "questions per system at 128 entities", "10{,}037",
+          lambda: scale_rate("mem0", 128, "questions"), 0.5, near="three seeds per scale:"),
+    Claim("5.scale", "Graphiti tx hits, nothing to filter, 128", "1{,}129",
+          lambda: graphiti_tx_split(128, False, 0), 0.5, near="On those it answers"),
+    Claim("5.scale", "Graphiti tx cases, nothing to filter, 128", "1{,}152",
+          lambda: graphiti_tx_split(128, False, 1), 0.5, near="On those it answers"),
+    Claim("5.scale", "Graphiti tx hits, superseded value present, 128", "22",
+          lambda: graphiti_tx_split(128, True, 0), 0.5, near="on the rest,"),
+    Claim("5.scale", "Graphiti tx cases, superseded value present, 128", "3{,}456",
+          lambda: graphiti_tx_split(128, True, 1), 0.5, near="on the rest,"),
+    Claim("5.scale", "Graphiti recall 32, Wilson low", "0.970",
+          lambda: scale_rate("graphiti", 32, "recall", 0), near="recall falls at 128 entities"),
+    Claim("5.scale", "Graphiti recall 32, Wilson high", "0.983",
+          lambda: scale_rate("graphiti", 32, "recall", 1), near="recall falls at 128 entities"),
+    Claim("5.scale", "Graphiti recall 128, Wilson low", "0.774",
+          lambda: scale_rate("graphiti", 128, "recall", 0), near="recall falls at 128 entities"),
+    Claim("5.scale", "Graphiti recall 128, Wilson high", "0.791",
+          lambda: scale_rate("graphiti", 128, "recall", 1), near="recall falls at 128 entities"),
+    Claim("5.scale", "Mem0 tx 32, Wilson low", "0.942",
+          lambda: scale_rate("mem0", 32, "transaction_as_of", 0), near="transaction-scoped accuracy falls from"),
+    Claim("5.scale", "Mem0 tx 32, Wilson high", "0.966",
+          lambda: scale_rate("mem0", 32, "transaction_as_of", 1), near="transaction-scoped accuracy falls from"),
+    Claim("5.scale", "Mem0 tx 128, Wilson low", "0.894",
+          lambda: scale_rate("mem0", 128, "transaction_as_of", 0), near="transaction-scoped accuracy falls from"),
+    Claim("5.scale", "Mem0 tx 128, Wilson high", "0.911",
+          lambda: scale_rate("mem0", 128, "transaction_as_of", 1), near="transaction-scoped accuracy falls from"),
+    Claim("6", "first sweep: synthetic values at 8 entities, %", "19",
+          lambda: v1_fallback_pct(8), 0.5, near="silently fell back to synthetic tokens"),
+    Claim("6", "first sweep: synthetic values at 32 entities, %", "55",
+          lambda: v1_fallback_pct(32), 0.5, near="silently fell back to synthetic tokens"),
+    Claim("6", "first sweep: synthetic values at 128 entities, %", "66",
+          lambda: v1_fallback_pct(128), 0.5, near="silently fell back to synthetic tokens"),
+    Claim("6", "first sweep: Graphiti exact at 8 entities", "0.117",
+          lambda: v1_graphiti(8, "exact"), near="exact accuracy rising from"),
+    Claim("6", "first sweep: Graphiti exact at 128 entities", "0.216",
+          lambda: v1_graphiti(128, "exact"), near="exact accuracy rising from"),
+    Claim("6", "first sweep: Graphiti recall at 32 entities", "0.705",
+          lambda: v1_graphiti(32, "recall"), near="Graphiti's recall moves from"),
     # -- 5.6 external validity -------------------------------------------------
     Claim("5.6", "knowledge-update recall", "0.724", lambda: longmem("longmemeval-e7-v2", "knowledge-update"),
           near="mean gold-token recall was knowledge-update"),
@@ -424,6 +468,97 @@ def _scale_cost_fallback_pct(entities: int) -> float:
     return 100 * fell / total
 
 
+# --- scale sweep (Section 5.x) -------------------------------------------------
+
+_SCALE = {
+    ("mem0", 8): ["scale-sweep-mem0-e8-v2"],
+    ("mem0", 32): ["scale-sweep-mem0-e32-v2"],
+    ("mem0", 128): [f"scale-sweep-mem0-e128-s{s}-v3" for s in (7, 17, 42)],
+    ("graphiti", 8): ["scale-sweep-graphiti-e8-v2"],
+    ("graphiti", 32): ["scale-sweep-graphiti-e32-v2"],
+    ("graphiti", 128): ["scale-sweep-graphiti-e128-v2"],
+}
+
+
+def _pooled(names: list[str]) -> list:
+    return [row for name in names for row in tr(name) if row.get("system") != "oracle"]
+
+
+def _share(rows: list, test):
+    from temvera.reanalysis import Proportion
+
+    return Proportion(sum(bool(test(row)) for row in rows), len(rows))
+
+
+def scale_rate(system: str, entities: int, what: str, bound: int | None = None) -> float:
+    """A cell of the scale table, or one end of its Wilson interval."""
+    rows = _pooled(_SCALE[(system, entities)])
+    if what in ("transaction_as_of", "valid_time"):
+        p = _share([r for r in rows if r["category"] == what], lambda r: r["exact"])
+    elif what == "recall":
+        p = _share([r for r in rows if r["expected_values"]], lambda r: r["present_expected"])
+    elif what == "stale":
+        p = _share([r for r in rows if r["stale_values"]], lambda r: r["present_stale"])
+    elif what == "questions":
+        return float(len(rows))
+    else:
+        raise KeyError(what)
+    return p.rate if bound is None else p.wilson()[bound]
+
+
+def graphiti_tx_split(entities: int, superseded: bool, part: int) -> float:
+    """Hits (part 0) or total (part 1) of Graphiti's transaction questions,
+    split by whether a superseded value exists to filter."""
+    rows = [r for r in _pooled(_SCALE[("graphiti", entities)])
+            if r["category"] == "transaction_as_of" and bool(r["stale_values"]) == superseded]
+    return float(sum(r["exact"] for r in rows) if part == 0 else len(rows))
+
+
+def v1_graphiti(entities: int, what: str) -> float:
+    rows = _pooled([f"scale-sweep-graphiti-e{entities}-v1"])
+    if what == "exact":
+        return overall_counts(rows).rate
+    return _share([r for r in rows if r["expected_values"]], lambda r: r["present_expected"]).rate
+
+
+def v1_fallback_pct(entities: int) -> float:
+    """Share of distinct values the first sweep left as synthetic tokens."""
+    from temvera.external_experiment import _events_for
+    from temvera.nl_workload import fallback_tokens
+
+    config = json.loads((RUNS / f"scale-sweep-graphiti-e{entities}-v1" / "config.json").read_text())
+    fell = total = 0
+    for seed in (7, 17, 42):
+        counts = fallback_tokens(_events_for(seed, entities, 4, config["profiles"][0], True, 3))
+        fell += counts["values"]
+        total += counts["values_total"]
+    return 100 * fell / total
+
+
+def _scale_claims() -> list:
+    out = []
+    table = {
+        "mem0": [("transaction_as_of", ("0.944", "0.956", "0.903")),
+                 ("valid_time", ("0.206", "0.211", "0.195")),
+                 ("recall", ("0.578", "0.592", "0.603")),
+                 ("stale", ("0.432", "0.463", "0.498"))],
+        "graphiti": [("transaction_as_of", ("0.250", "0.250", "0.250")),
+                     ("valid_time", ("0.004", "0.000", "0.005")),
+                     ("recall", ("0.913", "0.977", "0.783")),
+                     ("stale", ("0.991", "0.998", "0.995"))],
+    }
+    anchors = {"mem0": "Mem0     & \\texttt{transaction\\_as\\_of}",
+               "graphiti": "Graphiti & \\texttt{transaction\\_as\\_of}"}
+    for system, rows in table.items():
+        for what, printed in rows:
+            for entities, value in zip((8, 32, 128), printed):
+                out.append(Claim(
+                    "Tab.scale", f"{system} {what} at {entities} entities", value,
+                    lambda s=system, e=entities, w=what: scale_rate(s, e, w),
+                    near=anchors[system], window=280))
+    return out
+
+
 def _x_cells():
     return matched_cells(
         load_run(RUNS / "external-graphiti-filtered-v2"),
@@ -443,7 +578,7 @@ def _matched_temporal(run: str) -> float:
     return sum(r["token_recall"] for r in rows) / len(rows)
 
 
-CLAIMS = CLAIMS + _grid_claims()
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims()
 
 
 def main() -> int:
@@ -457,7 +592,7 @@ def main() -> int:
     absent: list[str] = []
     for claim in CLAIMS:
         actual = claim.compute()
-        if abs(actual - float(claim.printed)) > claim.tol:
+        if abs(actual - float(claim.printed.replace("{,}", ""))) > claim.tol:
             drift.append(f"  {claim.where:<7} {claim.label:<44} paper {claim.printed}, runs {actual:.4f}")
         window = tex
         if claim.near is not None:
@@ -465,7 +600,7 @@ def main() -> int:
             if spot < 0:
                 absent.append(f"  {claim.where:<7} {claim.label:<44} anchor text gone: {claim.near!r}")
                 continue
-            window = tex[spot : spot + 200 + len(claim.near)]
+            window = tex[spot : spot + claim.window + len(claim.near)]
         if not re.search(rf"(?<![\d.]){re.escape(claim.printed)}(?![\d])", window):
             where = "near its anchor" if claim.near else "in main.tex"
             absent.append(f"  {claim.where:<7} {claim.label:<44} {claim.printed} not {where}")
