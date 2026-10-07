@@ -1,5 +1,6 @@
 {
   "benchmark": "temvera-lme-bitemporal-cognee-chunks-agreement-v1",
+  "cognee_root": "/tmp/temvera-cognee-lme-cognee-chunks-v1",
   "dataset_path": "data/raw/longmemeval_oracle.json",
   "embed_model": "text-embedding-3-small",
   "label_method_prefix": "agreement:",
