@@ -705,6 +705,15 @@ price on every write, in exchange for the current-state accuracy
 filtering it, like Graphiti, is not cheaper at read time either, since its cost
 is also incurred on write.
 
+Cost reproduces; latency does not. Re-running the identical workload weeks
+later made the same 2036 chat calls over essentially the same tokens, for
+\$0.528, yet mean ingest latency was 6.825\,s and the ingest-to-query ratio
+25$\times$, because the provider's response time had moved. We therefore read
+the asymmetry and not its magnitude: writes cost more than an order of
+magnitude more time than reads on both days. The first measurement also ran
+with a thread leak in Mem0's telemetry; the re-measurement without it was
+slower, not faster, so the leak is not what the published number reflects.
+
 The write/read split is a design choice, not a constant. Cognee inverts it:
 over the same 20-cell grid (477 ingests, 484 queries), \texttt{add} only stages
 text and averages $0.65$\,s, while its query path averages $6.91$\,s because the

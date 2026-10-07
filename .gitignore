@@ -51,6 +51,7 @@ experiments/runs/*
 !experiments/runs/external-graphiti-hybrid-v1/
 !experiments/runs/external-langmem-v1/
 !experiments/runs/scale-cost-mem0-v1/
+!experiments/runs/scale-cost-mem0-v2/
 !experiments/runs/external-cognee-chunks-v1/
 !experiments/runs/external-cognee-v1/
 !experiments/runs/external-cognee-chunks-grid-v1/

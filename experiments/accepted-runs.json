@@ -29,6 +29,7 @@
     "purge-residual-v3-api",
     "purge-residual-v3-nl",
     "scale-cost-mem0-v1",
+    "scale-cost-mem0-v2",
     "scale-sweep-graphiti-e128-v1",
     "scale-sweep-graphiti-e128-v2",
     "scale-sweep-graphiti-e32-v1",
