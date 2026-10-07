@@ -23,6 +23,7 @@ import urllib.request
 from typing import Any
 
 from .nl_workload import NLQueryCase, WorkloadTurn
+from .worker_errors import check_fatal
 
 
 class HindsightUnavailable(RuntimeError):
@@ -70,6 +71,17 @@ class HindsightSystem:
         return len(self._errors)
 
     @property
+    def error_messages(self) -> list[str]:
+        return list(self._errors)
+
+    def _record(self, message: str) -> None:
+        # The daemon reports an upstream LLM failure as a server error whose
+        # body names the cause; a revoked key there must stop the run, not
+        # turn every answer into an empty one.
+        check_fatal(message)
+        self._errors.append(message)
+
+    @property
     def version(self) -> str:
         try:
             from importlib.metadata import version
@@ -88,9 +100,12 @@ class HindsightSystem:
         try:
             with urllib.request.urlopen(request, timeout=self._timeout) as response:
                 return json.loads(response.read() or b"{}")
-        except urllib.error.URLError as error:
-            self._errors.append(f"{path}: {error}")
+        except urllib.error.HTTPError as error:
+            body = error.read().decode(errors="replace")[:500]
+            self._record(f"{path}: HTTP {error.code}: {body}")
             return {}
+        except urllib.error.URLError as error:
+            raise HindsightUnavailable(f"{self._base}: {error.reason}") from error
 
     def _delete(self, path: str) -> None:
         request = urllib.request.Request(
@@ -98,8 +113,11 @@ class HindsightSystem:
         )
         try:
             urllib.request.urlopen(request, timeout=self._timeout).close()
+        except urllib.error.HTTPError as error:
+            body = error.read().decode(errors="replace")[:500]
+            self._record(f"DELETE {path}: HTTP {error.code}: {body}")
         except urllib.error.URLError as error:
-            self._errors.append(f"DELETE {path}: {error}")
+            raise HindsightUnavailable(f"{self._base}: {error.reason}") from error
 
     def reset(self) -> None:
         """Drop the bank so each cell starts from an empty store."""

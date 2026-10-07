@@ -32,6 +32,7 @@ from .nl_workload import (
     render_turns,
 )
 from .telemetry import Meter, measure_openai
+from .worker_errors import summarize
 
 _METRICS = ("exact_state_accuracy", "evidence_recall", "stale_use_rate")
 
@@ -491,6 +492,9 @@ def run_langmem_comparison(config: dict[str, Any]) -> dict[str, Any]:
         "replay": result["replay"],
         "naturalized": result["naturalized"],
         "worker_errors": sum(s.worker_errors for s in made),
+        "worker_error_messages": summarize(
+            message for s in made for message in s.error_messages
+        ),
     }
     return result
 
@@ -546,6 +550,9 @@ def run_cognee_comparison(config: dict[str, Any]) -> dict[str, Any]:
         "replay": result["replay"],
         "naturalized": result["naturalized"],
         "worker_errors": sum(s.worker_errors for s in made),
+        "worker_error_messages": summarize(
+            message for s in made for message in s.error_messages
+        ),
     }
     return result
 
@@ -581,6 +588,9 @@ def run_hindsight_comparison(config: dict[str, Any]) -> dict[str, Any]:
         "replay": result["replay"],
         "naturalized": result["naturalized"],
         "worker_errors": sum(s.worker_errors for s in made),
+        "worker_error_messages": summarize(
+            message for s in made for message in s.error_messages
+        ),
     }
     return result
 

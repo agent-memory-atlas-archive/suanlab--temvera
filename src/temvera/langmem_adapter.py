@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from .nl_workload import NLQueryCase, WorkloadTurn
+from .worker_errors import check_fatal
 
 
 class LangMemUnavailable(RuntimeError):
@@ -52,7 +53,7 @@ class LangMemSystem:
             "search_limit": search_limit,
         }
         self._process: subprocess.Popen | None = None
-        self._errors = 0
+        self._errors: list[str] = []
 
     @property
     def version(self) -> str:
@@ -70,7 +71,11 @@ class LangMemSystem:
     @property
     def worker_errors(self) -> int:
         """Requests the worker reported as failed; surfaced, never swallowed."""
-        return self._errors
+        return len(self._errors)
+
+    @property
+    def error_messages(self) -> list[str]:
+        return list(self._errors)
 
     def _start(self) -> None:
         self._process = subprocess.Popen(
@@ -100,7 +105,9 @@ class LangMemSystem:
         self._process.stdin.flush()
         response = self._read()
         if not response.get("ok"):
-            self._errors += 1
+            message = str(response.get("error", "unknown"))
+            check_fatal(message)
+            self._errors.append(message)
         return response
 
     def reset(self) -> None:

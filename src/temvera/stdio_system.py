@@ -17,10 +17,12 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
 from .nl_workload import NLQueryCase, WorkloadTurn
+from .worker_errors import check_fatal, redact
 
 
 class WorkerUnavailable(RuntimeError):
@@ -60,6 +62,7 @@ class StdioSystem:
         self._config.update(extra_config or {})
         self._env = {**os.environ, **(env or {})}
         self._process: subprocess.Popen | None = None
+        self._stderr: Any = None
         self._errors: list[str] = []
 
     @property
@@ -86,11 +89,13 @@ class StdioSystem:
         return list(self._errors)
 
     def _start(self) -> None:
+        # Kept, not discarded, so a worker that dies can say why.
+        self._stderr = tempfile.TemporaryFile("w+b")
         self._process = subprocess.Popen(
             [self._interpreter, self._worker, json.dumps(self._config)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
+            stderr=self._stderr,
             text=True,
             bufsize=1,
             env=self._env,
@@ -102,8 +107,18 @@ class StdioSystem:
         assert self._process is not None and self._process.stdout is not None
         line = self._process.stdout.readline()
         if not line:
-            raise WorkerUnavailable(f"{self.distribution} worker exited unexpectedly")
+            raise WorkerUnavailable(
+                f"{self.distribution} worker exited unexpectedly; stderr tail:\n"
+                + self._stderr_tail()
+            )
         return json.loads(line)
+
+    def _stderr_tail(self, size: int = 4000) -> str:
+        if self._stderr is None:
+            return ""
+        self._stderr.seek(0, os.SEEK_END)
+        self._stderr.seek(max(0, self._stderr.tell() - size))
+        return redact(self._stderr.read().decode(errors="replace"))
 
     def _call(self, request: dict[str, Any]) -> dict[str, Any]:
         if self._process is None:
@@ -113,7 +128,9 @@ class StdioSystem:
         self._process.stdin.flush()
         response = self._read()
         if not response.get("ok"):
-            self._errors.append(str(response.get("error", "unknown")))
+            message = str(response.get("error", "unknown"))
+            check_fatal(message)
+            self._errors.append(message)
         return response
 
     def reset(self) -> None:
@@ -136,6 +153,9 @@ class StdioSystem:
             except Exception:
                 self._process.kill()
             self._process = None
+        if self._stderr is not None:
+            self._stderr.close()
+            self._stderr = None
 
 
 class CogneeSystem(StdioSystem):
