@@ -1,0 +1,13 @@
+{
+  "bank_prefix": "lme-agree-hindsight-recall-v1",
+  "benchmark": "temvera-lme-bitemporal-hindsight-recall-agreement-v1",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "embed_model": "text-embedding-3-small",
+  "label_method_prefix": "agreement:",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "model": "gpt-4o-mini",
+  "read_mode": "recall",
+  "search_limit": 5,
+  "user_id": "temvera-lme-hindsight-recall",
+  "workload": "lme_bitemporal"
+}

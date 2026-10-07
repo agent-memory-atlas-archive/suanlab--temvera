@@ -1,0 +1,13 @@
+{
+  "benchmark": "temvera-lme-bitemporal-graphiti-agreement-v1",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "embed_model": "text-embedding-3-small",
+  "graphiti_group_prefix": "lme-agree-v1",
+  "label_method_prefix": "agreement:",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "model": "gpt-4o-mini",
+  "search_limit": 5,
+  "search_recipe": "hybrid_rrf",
+  "user_id": "temvera-lme-graphiti",
+  "workload": "lme_bitemporal"
+}

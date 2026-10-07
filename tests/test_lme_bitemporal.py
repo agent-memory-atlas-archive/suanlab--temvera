@@ -246,3 +246,17 @@ def test_later_value_appearing_before_the_update_is_flagged_incidental(tmp_path)
     )
     assert all(row["incidental_value"] for row in result["transcript"])
     assert result["summary"]["current"]["cases_without_incidental_values"] == 0
+
+
+def test_run_records_its_labels_and_can_filter_by_method(tmp_path) -> None:
+    dataset = tmp_path / "lme.json"
+    dataset.write_text(json.dumps([_instance()]))
+    labels = tmp_path / "labels.json"
+    labels.write_text(json.dumps({"labels": {"q1": {**_LABEL, "method": "adjudicated:author"}}}))
+    common = {"dataset_path": str(dataset), "labels_path": str(labels)}
+    kept = run_lme_bitemporal({**common, "label_method_prefix": "adjudicated:"},
+                              lambda label: _EchoSystem(), system_name="echo")
+    assert set(kept["labels_used"]) == {"q1"} and len(kept["labels_sha256"]) == 64
+    dropped = run_lme_bitemporal({**common, "label_method_prefix": "agreement:"},
+                                 lambda label: _EchoSystem(), system_name="echo")
+    assert dropped["instances"] == 0 and dropped["transcript"] == []

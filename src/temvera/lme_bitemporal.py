@@ -18,6 +18,7 @@ Labels are only used once confirmed.
 from __future__ import annotations
 
 import difflib
+import hashlib
 import json
 import re
 from dataclasses import dataclass, field
@@ -389,7 +390,14 @@ def run_lme_bitemporal(
 
     raw = {inst["question_id"]: inst
            for inst in json.loads(Path(config["dataset_path"]).read_text(encoding="utf-8"))}
-    labels = json.loads(Path(config["labels_path"]).read_text(encoding="utf-8"))["labels"]
+    labels_text = Path(config["labels_path"]).read_text(encoding="utf-8")
+    labels = json.loads(labels_text)["labels"]
+    # The label file grows as the author adjudicates, so a run takes the labels
+    # of one method and records exactly which, and the file's hash, itself.
+    prefix = config.get("label_method_prefix")
+    if prefix:
+        labels = {q: lab for q, lab in labels.items()
+                  if str(lab.get("method", "")).startswith(prefix)}
     pairs = {pair.question_id: pair for pair in update_pairs(raw.values())}
     question_ids = sorted(qid for qid in labels if qid in pairs)
     if config.get("limit"):
@@ -460,6 +468,9 @@ def run_lme_bitemporal(
         }
     return {
         "workload": "lme_bitemporal",
+        "labels_sha256": hashlib.sha256(labels_text.encode()).hexdigest(),
+        "label_method_prefix": prefix,
+        "labels_used": {qid: labels[qid] for qid in question_ids},
         "replay": "transaction_checkpoint",
         "naturalized": False,
         "instances": len(question_ids),

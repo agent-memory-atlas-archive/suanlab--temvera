@@ -1,0 +1,12 @@
+{
+  "benchmark": "temvera-lme-bitemporal-cognee-chunks-agreement-v1",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "embed_model": "text-embedding-3-small",
+  "label_method_prefix": "agreement:",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "model": "gpt-4o-mini",
+  "search_limit": 5,
+  "search_type": "CHUNKS",
+  "user_id": "temvera-lme-cognee-chunks",
+  "workload": "lme_bitemporal"
+}

@@ -1,0 +1,11 @@
+{
+  "benchmark": "temvera-lme-bitemporal-mem0-agreement-v1",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "embed_model": "text-embedding-3-small",
+  "label_method_prefix": "agreement:",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "model": "gpt-4o-mini",
+  "search_limit": 5,
+  "user_id": "temvera-lme-mem0",
+  "workload": "lme_bitemporal"
+}
