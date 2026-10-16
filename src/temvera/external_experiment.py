@@ -517,9 +517,13 @@ def run_cognee_comparison(config: dict[str, Any]) -> dict[str, Any]:
     def factory(label: str) -> MemorySystem:
         # Each cell gets its own store root; Cognee persists locally, so sharing
         # one would let an earlier cell's graph leak into a later one.
+        cell_root = f"{root}/{label}"
         cell_env = {
-            "COGNEE_SYSTEM_ROOT_DIRECTORY": f"{root}/{label}",
-            "COGNEE_DATA_ROOT_DIRECTORY": f"{root}/{label}/data",
+            # Cognee's own setting names; the worker also sets the roots through
+            # its API and reports them back, and the adapter checks the report.
+            "SYSTEM_ROOT_DIRECTORY": cell_root,
+            "DATA_ROOT_DIRECTORY": f"{cell_root}/data",
+            "CACHE_ROOT_DIRECTORY": f"{cell_root}/cache",
             "LLM_API_KEY": key,
             "LLM_PROVIDER": "openai",
             "LLM_MODEL": model,
@@ -530,7 +534,11 @@ def run_cognee_comparison(config: dict[str, Any]) -> dict[str, Any]:
         system = CogneeSystem(
             search_limit=search_limit,
             env=cell_env,
-            extra_config={"search_type": config.get("search_type", "GRAPH_COMPLETION")},
+            extra_config={
+                "search_type": config.get("search_type", "GRAPH_COMPLETION"),
+                "system_root": cell_root,
+                "data_root": f"{cell_root}/data",
+            },
         )
         made.append(system)
         return system
@@ -544,6 +552,9 @@ def run_cognee_comparison(config: dict[str, Any]) -> dict[str, Any]:
         "system": "cognee",
         "cognee_version": made[0].version if made else "unknown",
         "store": "local (sqlite + embedded vector/graph, no server)",
+        # Runs before this field existed shared one metadata database inside the
+        # installed package; see docs/evidence-ledger.md E-081.
+        "store_isolated": True,
         "search_type": config.get("search_type", "GRAPH_COMPLETION"),
         "llm_model": model,
         "embed_model": embed_model,

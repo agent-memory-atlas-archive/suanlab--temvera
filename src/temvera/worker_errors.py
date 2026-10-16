@@ -21,6 +21,10 @@ _FATAL = (
     "Incorrect API key",
     "HTTP 401",
     "HTTP 403",
+    # An exhausted account: retrying cannot help, and the run would otherwise
+    # continue on empty answers until it finished.
+    "insufficient_quota",
+    "no credits remaining",
 )
 _SECRET = re.compile(r"sk-[A-Za-z0-9_\-*.…]{4,}")
 

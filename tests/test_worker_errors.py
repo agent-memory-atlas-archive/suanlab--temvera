@@ -52,6 +52,8 @@ def test_redact_masks_api_keys():
 def test_auth_failures_are_fatal_and_others_are_not():
     with pytest.raises(FatalWorkerError):
         check_fatal("AuthenticationError: Error code: 401")
+    with pytest.raises(FatalWorkerError):
+        check_fatal("RateLimitError: You have no credits remaining.")
     check_fatal("RateLimitError: slow down")
 
 
@@ -126,3 +128,40 @@ def test_hindsight_unreachable_daemon_is_not_an_empty_answer():
     system = HindsightSystem(base_url=f"http://127.0.0.1:{port}", timeout=2)
     with pytest.raises(HindsightUnavailable):
         system.ingest(_turn("x"))
+
+
+_COGNEE_LIKE = """
+import json, sys
+config = json.loads(sys.argv[1])
+print(json.dumps({"ok": True, "ready": True, "system_root": sys.argv[2]}), flush=True)
+for line in sys.stdin:
+    print(json.dumps({"ok": True}), flush=True)
+    if json.loads(line)["op"] == "stop":
+        break
+"""
+
+
+def _cognee(tmp_path, reported: str):
+    from temvera.stdio_system import CogneeSystem
+
+    script = tmp_path / "worker.py"
+    script.write_text(_COGNEE_LIKE.replace("sys.argv[2]", repr(reported)))
+    return CogneeSystem(
+        python=sys.executable,
+        worker=str(script),
+        extra_config={"system_root": str(tmp_path / "cell")},
+    )
+
+
+def test_cognee_refuses_a_store_root_it_did_not_ask_for(tmp_path):
+    system = _cognee(tmp_path, "/site-packages/cognee/.cognee_system")
+    with pytest.raises(WorkerUnavailable, match="store root"):
+        system.reset()
+    system.close()
+
+
+def test_cognee_accepts_the_requested_store_root(tmp_path):
+    system = _cognee(tmp_path, str(tmp_path / "cell"))
+    system.reset()
+    assert system.worker_errors == 0
+    system.close()

@@ -96,13 +96,32 @@ class _Worker:
         return " | ".join(part for part in flattened[: self._limit] if part)
 
 
+def _set_roots(system_root: str, data_root: str) -> str:
+    # Cognee 1.4.2 reads SYSTEM_ROOT_DIRECTORY, not a COGNEE_-prefixed name, and
+    # otherwise keeps its metadata database inside the installed package, where
+    # every run on the machine shares it. Concurrent runs corrupted that file
+    # ("database disk image is malformed"). Setting the roots through the API
+    # also re-derives the relational, graph and vector paths from them.
+    import cognee
+    from cognee.base_config import get_base_config
+
+    if system_root:
+        cognee.config.system_root_directory(system_root)
+    if data_root:
+        cognee.config.data_root_directory(data_root)
+    return get_base_config().system_root_directory
+
+
 def main() -> int:
     config = json.loads(sys.argv[1]) if len(sys.argv) > 1 else {}
+    root = _set_roots(
+        str(config.get("system_root", "")), str(config.get("data_root", ""))
+    )
     worker = _Worker(
         int(config.get("search_limit", 5)),
         str(config.get("search_type", "GRAPH_COMPLETION")),
     )
-    _send({"ok": True, "ready": True})
+    _send({"ok": True, "ready": True, "system_root": root})
     for line in sys.stdin:
         line = line.strip()
         if not line:

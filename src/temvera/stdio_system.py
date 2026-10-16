@@ -100,8 +100,13 @@ class StdioSystem:
             bufsize=1,
             env=self._env,
         )
-        if not self._read().get("ready"):
+        handshake = self._read()
+        if not handshake.get("ready"):
             raise WorkerUnavailable(f"{self.distribution} worker failed to start")
+        self._check_handshake(handshake)
+
+    def _check_handshake(self, handshake: dict[str, Any]) -> None:
+        return None
 
     def _read(self) -> dict[str, Any]:
         assert self._process is not None and self._process.stdout is not None
@@ -170,3 +175,13 @@ class CogneeSystem(StdioSystem):
     interpreter_env = "COGNEE_PYTHON"
     worker_script = "scripts/cognee_worker.py"
     distribution = "cognee"
+
+    def _check_handshake(self, handshake: dict[str, Any]) -> None:
+        # A store root that silently falls back to the shared default is how
+        # concurrent runs once wrote into one database; refuse to start instead.
+        wanted = self._config.get("system_root")
+        if wanted and handshake.get("system_root") != wanted:
+            raise WorkerUnavailable(
+                f"cognee store root is {handshake.get('system_root')!r}, "
+                f"not the requested {wanted!r}"
+            )
