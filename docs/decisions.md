@@ -196,3 +196,22 @@
   `[Experiment, Analysis, and Benchmark]`; use of AI-generated content (text,
   figures, code) must be disclosed in the acknowledgments, which do not count
   toward the page limit; IEEE conference format; submission through CMT.
+
+## D-016 — Score the LongMemEval workload on the two-model agreement labels only
+
+- **Date:** 2026-10-16.
+- **Decision:** The real-data workload is scored on the **43** knowledge-update
+  pairs where gpt-4o-mini and gpt-4o extracted the same supersession label and
+  both values passed the per-session verbatim check. The **26** pairs where
+  the two models disagreed are **excluded, not adjudicated**.
+- **Reason:** author adjudication of 26 items, five at a time, would not fit
+  the time left before the ICDE deadline. Agreement is a fixed, mechanical rule
+  that a reader can re-apply from the released proposals; a partial
+  adjudication would not be.
+- **Cost accepted:** the 26 excluded pairs are not a random sample. Two models
+  disagreeing marks a harder or more ambiguous update, so n=43 likely
+  over-represents clean single-value revisions. The paper must report n=43 out
+  of 69 candidate pairs, say how the subset was chosen, and must not present it
+  as the whole knowledge-update split.
+- **Not done:** the `adjudicated:author` path (`scripts/apply_lme_decisions.py`)
+  stays in the tree, unused; no adjudication decisions were recorded.
