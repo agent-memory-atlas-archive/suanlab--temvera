@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 
@@ -260,3 +261,19 @@ def test_run_records_its_labels_and_can_filter_by_method(tmp_path) -> None:
     dropped = run_lme_bitemporal({**common, "label_method_prefix": "agreement:"},
                                  lambda label: _EchoSystem(), system_name="echo")
     assert dropped["instances"] == 0 and dropped["transcript"] == []
+
+
+def test_labels_and_exclusions_partition_the_candidate_pairs():
+    root = Path(__file__).resolve().parents[1]
+    labels = json.loads((root / "data" / "lme-bitemporal-labels.json").read_text())["labels"]
+    excluded = json.loads((root / "data" / "lme-bitemporal-exclusions.json").read_text())
+    ids = {item["question_id"] for item in excluded["excluded"]}
+    assert len(ids) == len(excluded["excluded"])
+    assert ids.isdisjoint(labels)
+    assert excluded["candidate_pairs"] == len(labels) + len(ids)
+    raw = root / "data" / "raw" / "longmemeval_oracle.json"
+    if raw.exists():
+        from temvera.lme_bitemporal import update_pairs
+
+        pairs = {pair.question_id for pair in update_pairs(json.loads(raw.read_text()))}
+        assert pairs == ids | set(labels)

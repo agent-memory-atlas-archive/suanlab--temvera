@@ -1,0 +1,111 @@
+{
+  "candidate_pairs": 69,
+  "excluded": [
+    {
+      "kind": "disagree",
+      "question_id": "031748ae"
+    },
+    {
+      "kind": "values agree, direction differs",
+      "question_id": "07741c44"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "07741c45"
+    },
+    {
+      "kind": "values agree, direction differs",
+      "question_id": "0977f2af"
+    },
+    {
+      "kind": "values agree, direction differs",
+      "question_id": "0ddfec37"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "0f05491a"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "26bdc477"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "42ec0761"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "5831f84d"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "5a4f22c0"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "5c40ec5b"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "6071bd76"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "69fee5aa"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "7401057b"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "89941a93"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "89941a94"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "b01defab"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "b6019101"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "ba61f0b9"
+    },
+    {
+      "kind": "values agree, direction differs",
+      "question_id": "c4ea545c"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "ce6d2d27"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "d7c942c3"
+    },
+    {
+      "kind": "extraction rejected",
+      "question_id": "dfde3500"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "e493bb7c"
+    },
+    {
+      "kind": "values agree, direction differs",
+      "question_id": "e66b632c"
+    },
+    {
+      "kind": "disagree",
+      "question_id": "ed4ddc30"
+    }
+  ],
+  "note": "LongMemEval knowledge-update pairs excluded from the real-data workload (D-016): the two extractors disagreed, or a value failed the per-session verbatim check, and the pairs were not adjudicated. Question IDs only; no corpus text.",
+  "schema_version": 1
+}

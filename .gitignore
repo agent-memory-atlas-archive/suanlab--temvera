@@ -73,6 +73,16 @@ experiments/runs/*
 !experiments/runs/scale-sweep-mem0-e32-v2/
 !experiments/runs/scale-sweep-mem0-e8-v1/
 !experiments/runs/scale-sweep-mem0-e8-v2/
+# Real-data (LongMemEval) runs, agreement labels (D-016); Cognee chunks grid
+# replication with isolated stores (E-081). Earlier versions are invalid, not cited.
+!experiments/runs/external-cognee-chunks-grid-v3/
+!experiments/runs/lme-bitemporal-mem0-agreement-v1/
+!experiments/runs/lme-bitemporal-langmem-agreement-v1/
+!experiments/runs/lme-bitemporal-graphiti-agreement-v1/
+!experiments/runs/lme-bitemporal-cognee-chunks-agreement-v3/
+!experiments/runs/lme-bitemporal-cognee-graph-agreement-v3/
+!experiments/runs/lme-bitemporal-hindsight-recall-agreement-v2/
+!experiments/runs/lme-bitemporal-hindsight-reflect-agreement-v2/
 
 .env
 .env.*

@@ -156,7 +156,7 @@ GRID = (
     "external-mem0-grid-v2",
     "external-langmem-v1",
     "external-graphiti-hybrid-v1",
-    "external-cognee-chunks-grid-v1",
+    "external-cognee-chunks-grid-v3",
     "external-hindsight-recall-v1",
     "external-cognee-grid-v1",
     "external-hindsight-reflect-v1",
@@ -180,6 +180,7 @@ class Claim:
     tol: float = 0.0006
     near: str | None = None
     window: int = 200
+    after: str | None = None
     """Distinctive phrase the number must appear within 200 characters of.
 
     Document-wide presence is not enough. The drift this script exists to catch
@@ -194,7 +195,7 @@ def _grid_claims() -> list[Claim]:
         "Mem0": ("external-mem0-grid-v2", "0.603", "0.364", "0.044"),
         "LangMem": ("external-langmem-v1", "0.576", "0.323", "0.133"),
         "Graphiti": ("external-graphiti-hybrid-v1", "0.196", "0.000", "0.022"),
-        "Cognee chunks": ("external-cognee-chunks-grid-v1", "0.207", "0.015", "0.089"),
+        "Cognee chunks": ("external-cognee-chunks-grid-v3", "0.194", "0.000", "0.022"),
         "Hindsight recall": ("external-hindsight-recall-v1", "0.194", "0.000", "0.022"),
         "Cognee graph-compl.": ("external-cognee-grid-v1", "0.930", "0.985", "0.622"),
         "Hindsight reflect": ("external-hindsight-reflect-v1", "0.407", "0.344", "0.311"),
@@ -333,9 +334,13 @@ CLAIMS: list[Claim] = [
     Claim("5.5", "Cognee query mean", "6.91",
           lambda: telemetry("external-cognee-grid-v1", "query_latency", "mean_s"), 0.006,
           near="while its query path averages"),
-    Claim("5.5", "Cognee chunks query mean", "4.53",
-          lambda: telemetry("external-cognee-chunks-grid-v1", "query_latency", "mean_s"), 0.006,
+    Claim("5.5", "Cognee chunks query mean", "4.56",
+          lambda: telemetry("external-cognee-chunks-grid-v3", "query_latency", "mean_s"), 0.006,
           near="graph build runs at the first query of each checkpoint"),
+    Claim("5.5", "Cognee reader share of query time, s", "2.4",
+          lambda: telemetry("external-cognee-grid-v1", "query_latency", "mean_s")
+          - telemetry("external-cognee-chunks-grid-v3", "query_latency", "mean_s"), 0.06,
+          near="textsc{chunks}, so roughly"),
     Claim("5.5", "scale-cost e8 synthetic value tokens, %", "19",
           lambda: _scale_cost_fallback_pct(8), 0.5,
           near="than the natural-name relabelling holds"),
@@ -358,9 +363,9 @@ CLAIMS: list[Claim] = [
     Claim("abs", "LangMem valid_time (micro)", "0.323",
           lambda: micro("external-langmem-v1", "valid_time", cells()),
           near="historical ones poorly"),
-    Claim("abs", "Cognee chunks valid_time, top of the retaining range", "0.015",
-          lambda: micro("external-cognee-chunks-grid-v1", "valid_time", cells()),
-          near="score between 0.000 and"),
+    Claim("abs", "Cognee chunks valid_time, as the other two retaining stores", "0.000",
+          lambda: micro("external-cognee-chunks-grid-v3", "valid_time", cells()),
+          near="three independent implementations score"),
     # -- 5.x scale, prose and the withdrawn first sweep ------------------------
     Claim("5.scale", "questions per system at 8 entities", "623",
           lambda: scale_rate("mem0", 8, "questions"), 0.5, near="three seeds per scale:"),
@@ -453,8 +458,8 @@ CLAIMS: list[Claim] = [
     Claim("Tab.claims", "Hindsight valid_time beside its claim", "0.000",
           lambda: micro("external-hindsight-recall-v1", "valid_time", cells()),
           near="Temporal + Semantic + Entity Memory Architecture"),
-    Claim("Tab.claims", "Cognee valid_time beside its claim", "0.015",
-          lambda: micro("external-cognee-chunks-grid-v1", "valid_time", cells()),
+    Claim("Tab.claims", "Cognee valid_time beside its claim", "0.000",
+          lambda: micro("external-cognee-chunks-grid-v3", "valid_time", cells()),
           near="documents a \\texttt{forget} operation"),
     Claim("Tab.claims", "Mem0 valid_time beside its claim", "0.364",
           lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
@@ -591,7 +596,172 @@ def _matched_temporal(run: str) -> float:
     return sum(r["token_recall"] for r in rows) / len(rows)
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims()
+# -- Real conversations: LongMemEval knowledge-update supersessions ----------
+# Every figure here is a count of cases (one row per question), so there is no
+# micro/macro choice to declare; rates are the counts over their stated cases.
+_LME = {
+    "Mem0": "lme-bitemporal-mem0-agreement-v1",
+    "LangMem": "lme-bitemporal-langmem-agreement-v1",
+    "Graphiti": "lme-bitemporal-graphiti-agreement-v1",
+    "Cognee chunks": "lme-bitemporal-cognee-chunks-agreement-v3",
+    "Hindsight recall": "lme-bitemporal-hindsight-recall-agreement-v2",
+    "Cognee graph": "lme-bitemporal-cognee-graph-agreement-v3",
+    "Hindsight reflect": "lme-bitemporal-hindsight-reflect-agreement-v2",
+}
+_LME_RETAINING = ("Graphiti", "Cognee chunks", "Hindsight recall")
+_EXCLUSIONS = ROOT / "data" / "lme-bitemporal-exclusions.json"
+
+
+def lme(system: str, category: str, field: str = "exact") -> float:
+    """One count from a real-data run's summary."""
+    return float(res(_LME[system])["summary"][category][field])
+
+
+def lme_both(system: str, category: str) -> float:
+    """Answers stating both the expected and the superseded value."""
+    path = RUNS / _LME[system] / "transcript.jsonl"
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    rows = [r for r in rows if r["category"] == category]
+    return float(sum(r["present_expected"] and r["present_stale"] for r in rows))
+
+
+def lme_wilson(system: str, category: str, bound: int) -> float:
+    from temvera.reanalysis import Proportion
+
+    summary = res(_LME[system])["summary"][category]
+    return Proportion(summary["exact"], summary["cases"]).wilson()[bound]
+
+
+def lme_pairs(what: str) -> float:
+    data = json.loads(_EXCLUSIONS.read_text(encoding="utf-8"))
+    used = {int(res(run)["instances"]) for run in _LME.values()}
+    assert len(used) == 1, "real-data runs disagree on how many pairs they used"
+    if what == "candidates":
+        assert data["candidate_pairs"] == used.pop() + len(data["excluded"])
+        return float(data["candidate_pairs"])
+    return float(len(data["excluded"]) if what == "excluded" else used.pop())
+
+
+def _real_claims() -> list:
+    out = [
+        Claim("5.real", "candidate pairs", "69", lambda: lme_pairs("candidates"),
+              near="value for all"),
+        Claim("5.real", "pairs used (agreement)", "43", lambda: lme_pairs("used"),
+              near="We use the"),
+        Claim("5.real", "pairs excluded", "26", lambda: lme_pairs("excluded"),
+              near="exclude the other"),
+        Claim("5.real", "full conversation control (count)", "30",
+              lambda: lme("Mem0", "transaction_as_of", "full_context_exact"),
+              near="the full conversation itself"),
+        Claim("5.real", "pairs with incidental later value", "13",
+              lambda: lme("Mem0", "transaction_as_of", "cases")
+              - lme("Mem0", "transaction_as_of", "cases_without_incidental_values"),
+              near="cases. The"),
+        Claim("Tab.real", "caption pairs", "43", lambda: lme_pairs("used"),
+              near="Real conversations:"),
+        Claim("Tab.real", "caption valid-time cases", "41",
+              lambda: lme("Mem0", "valid_time", "cases"), near="Exact answers out of 43 ("),
+        Claim("5.real", "retaining old kept, fewest", "31",
+              lambda: min(lme(s, "valid_time", "present_expected") for s in _LME_RETAINING),
+              near="return the superseded value in"),
+        Claim("5.real", "retaining old kept, most", "41",
+              lambda: max(lme(s, "valid_time", "present_expected") for s in _LME_RETAINING),
+              near="return the superseded value in 31 to"),
+        Claim("5.real", "retaining valid_time exact, fewest", "0",
+              lambda: min(lme(s, "valid_time") for s in _LME_RETAINING),
+              near="but answer only"),
+        Claim("5.real", "retaining valid_time exact, most", "5",
+              lambda: max(lme(s, "valid_time") for s in _LME_RETAINING),
+              near="but answer only 0 to"),
+        Claim("5.real", "Mem0 valid_time exact (count)", "2",
+              lambda: lme("Mem0", "valid_time"), near="The consolidating stores answer"),
+        Claim("5.real", "LangMem valid_time exact (count)", "6",
+              lambda: lme("LangMem", "valid_time"), near="The consolidating stores answer 2 and"),
+        Claim("5.real", "Mem0 old kept (count)", "18",
+              lambda: lme("Mem0", "valid_time", "present_expected"),
+              near="fewer than half of their answers"),
+        Claim("5.real", "LangMem old kept (count)", "17",
+              lambda: lme("LangMem", "valid_time", "present_expected"),
+              near="fewer than half of their answers (18 and"),
+        Claim("5.real", "Cognee graph valid_time exact (count)", "29",
+              lambda: lme("Cognee graph", "valid_time"), near="LLM, Cognee's graph answers"),
+        Claim("5.real", "Cognee graph valid_time Wilson low", "0.56",
+              lambda: lme_wilson("Cognee graph", "valid_time", 0), 0.006,
+              near="LLM, Cognee's graph answers"),
+        Claim("5.real", "Cognee graph valid_time Wilson high", "0.82",
+              lambda: lme_wilson("Cognee graph", "valid_time", 1), 0.006,
+              near="LLM, Cognee's graph answers"),
+        Claim("5.real", "Hindsight reflect valid_time exact (count)", "12",
+              lambda: lme("Hindsight reflect", "valid_time"),
+              near="0.82]) and Hindsight's answers"),
+        Claim("5.real", "Hindsight reflect valid_time Wilson low", "0.18",
+              lambda: lme_wilson("Hindsight reflect", "valid_time", 0), 0.006,
+              near="0.82]) and Hindsight's answers"),
+        Claim("5.real", "Hindsight reflect valid_time Wilson high", "0.44",
+              lambda: lme_wilson("Hindsight reflect", "valid_time", 1), 0.006,
+              near="0.82]) and Hindsight's answers"),
+        Claim("5.real", "grid Cognee reader valid_time hits", "192",
+              lambda: micro_counts("external-cognee-grid-v1", "valid_time", cells())[0], 0.5,
+              near="the reader ordering"),
+        Claim("5.real", "grid Hindsight reader valid_time hits", "67",
+              lambda: micro_counts("external-hindsight-reflect-v1", "valid_time", cells())[0],
+              0.5, near="the reader ordering"),
+        Claim("5.real", "grid reader valid_time cases", "195",
+              lambda: micro_counts("external-cognee-grid-v1", "valid_time", cells())[1], 0.5,
+              near="the reader ordering"),
+        Claim("5.real", "grid Mem0 transaction_as_of (micro)", "0.952",
+              lambda: micro("external-mem0-grid-v2", "transaction_as_of", cells()),
+              near="On the grid, Mem0 and LangMem"),
+        Claim("5.real", "grid LangMem transaction_as_of (micro)", "0.890",
+              lambda: micro("external-langmem-v1", "transaction_as_of", cells()),
+              near="On the grid, Mem0 and LangMem"),
+        Claim("5.real", "Mem0 current exact (count)", "22",
+              lambda: lme("Mem0", "current"), near="here they\nanswer"),
+        Claim("5.real", "LangMem current exact (count)", "18",
+              lambda: lme("LangMem", "current"), near="here they\nanswer 22 and"),
+        Claim("5.real", "Mem0 current, both values stated (count)", "16",
+              lambda: lme_both("Mem0", "current"), near="Mem0 states both values in"),
+        Claim("5.real", "best current exact over configurations (count)", "26",
+              lambda: max(lme(s, "current") for s in _LME),
+              near="No configuration answers more than"),
+        Claim("intro", "real-data supersessions", "43", lambda: lme_pairs("used"),
+              near="both failure modes reappear"),
+        Claim("5.real", "pairs, closing caveat", "43", lambda: lme_pairs("used"),
+              near="These are", after="No configuration answers more than"),
+        Claim("Lim", "pairs in the real-data check", "43", lambda: lme_pairs("used"),
+              near="the real-data check covers"),
+        Claim("Repro", "excluded pairs listed by ID", "26", lambda: lme_pairs("excluded"),
+              near="derived are released; the"),
+    ]
+    table = [
+        ("Mem0 (consolidates)                 &", "Mem0", ("37", "22", "2", "18")),
+        ("LangMem (consolidates)              &", "LangMem", ("24", "18", "6", "17")),
+        ("Graphiti (retains)                  &", "Graphiti", ("33", "6", "5", "31")),
+        ("Cognee \\textsc{chunks} (retains)    &", "Cognee chunks", ("30", "0", "0", "41")),
+        ("Hindsight \\textsc{recall} (retains) &", "Hindsight recall", ("42", "2", "3", "38")),
+        ("Cognee \\textsc{graph-completion}    &", "Cognee graph", ("41", "26", "29", "33")),
+        ("Hindsight \\textsc{reflect}          &", "Hindsight reflect", ("42", "20", "12", "22")),
+    ]
+    columns = (("transaction_as_of", "exact"), ("current", "exact"),
+               ("valid_time", "exact"), ("valid_time", "present_expected"))
+    for anchor, system, printed in table:
+        for (category, field), value in zip(columns, printed):
+            out.append(Claim(
+                "Tab.real", f"{system} {category} {field} (count)", value,
+                lambda s=system, c=category, f=field: lme(s, c, f),
+                near=anchor, window=40, after="\\label{tab:realdata}"))
+    full = (("transaction_as_of", "full_context_exact"), ("current", "full_context_exact"),
+            ("valid_time", "full_context_exact"), ("valid_time", "full_context_expected"))
+    for (category, field), value in zip(full, ("30", "0", "0", "41")):
+        out.append(Claim(
+            "Tab.real", f"full conversation {category} {field} (count)", value,
+            lambda c=category, f=field: lme("Mem0", c, f),
+            near="Full conversation                   &", window=40,
+            after="\\label{tab:realdata}"))
+    return out
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims()
 
 
 def main() -> int:
@@ -609,7 +779,8 @@ def main() -> int:
             drift.append(f"  {claim.where:<7} {claim.label:<44} paper {claim.printed}, runs {actual:.4f}")
         window = tex
         if claim.near is not None:
-            spot = tex.find(claim.near)
+            start = tex.find(claim.after) if claim.after is not None else 0
+            spot = tex.find(claim.near, max(start, 0)) if start >= 0 else -1
             if spot < 0:
                 absent.append(f"  {claim.where:<7} {claim.label:<44} anchor text gone: {claim.near!r}")
                 continue

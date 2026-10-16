@@ -1,0 +1,567 @@
+{
+  "backbone": {
+    "backend": "neo4j",
+    "embed_model": "text-embedding-3-small",
+    "graphiti_version": "0.29.2",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": false,
+    "replay": "transaction_checkpoint",
+    "search_recipe": "hybrid_rrf",
+    "system": "graphiti",
+    "temporal_filter": false
+  },
+  "instances": 43,
+  "label_method_prefix": "agreement:",
+  "labels_sha256": "a3889cd59d147e088c7982b71a63cea547f2b9730352236964fbe5377292077e",
+  "labels_used": {
+    "01493427": {
+      "attribute": "new postcards added",
+      "earlier_value": "17",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "06db6396": {
+      "attribute": "projects completed since starting painting classes",
+      "earlier_value": "4",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "5",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "08e075c7": {
+      "attribute": "Fitbit Charge 3 usage duration",
+      "earlier_value": "6 months",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "9 months",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "0e4e4c46": {
+      "attribute": "highest score in Ticket to Ride",
+      "earlier_value": "124 points",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "132 points",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "10e09553": {
+      "attribute": "largemouth bass caught on Lake Michigan trip with Alex",
+      "earlier_value": "7",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "9",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "184da446": {
+      "attribute": "pages of 'A Short History of Nearly Everything' read",
+      "earlier_value": "200",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "220",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "18bc8abd": {
+      "attribute": "BBQ sauce brand",
+      "earlier_value": "Sweet Baby Ray's",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Kansas City Masterpiece",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "1cea1afa": {
+      "attribute": "Instagram followers",
+      "earlier_value": "500",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "600",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "22d2cb42": {
+      "attribute": "guitar servicing location",
+      "earlier_value": "Rhythm Central",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "the music shop on Main St",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "2698e78f": {
+      "attribute": "therapy session frequency with Dr. Smith",
+      "earlier_value": "every two weeks",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "every week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "3ba21379": {
+      "attribute": "vehicle model",
+      "earlier_value": "Ford Mustang Shelby GT350R",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Ford F-150 pickup truck",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "41698283": {
+      "attribute": "camera lens",
+      "earlier_value": "50mm prime lens",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "70-200mm zoom lens",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "45dc21b6": {
+      "attribute": "Emma's recipes tried",
+      "earlier_value": "two",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "3",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "4b24c848": {
+      "attribute": "tops bought from H&M",
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "4d6b87c8": {
+      "attribute": "to-watch list titles",
+      "earlier_value": "20",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "50635ada": {
+      "attribute": "frequent flyer status on United Airlines",
+      "earlier_value": "Premier Silver",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "Premier Gold",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "59524333": {
+      "attribute": "usual gym time",
+      "earlier_value": "7:00 pm",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "6:00 pm",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "603deb26": {
+      "attribute": "times tried making a Negroni at home",
+      "earlier_value": "5",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "618f13b2": {
+      "attribute": "times worn new black Converse Chuck Taylor All Star sneakers",
+      "earlier_value": "four",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "six",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6a1eabeb": {
+      "attribute": "personal best time in the charity 5K run",
+      "earlier_value": "27:12",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "25:50",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6a27ffc2": {
+      "attribute": "Corey Schafer's Python programming series videos completed",
+      "earlier_value": "20",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "30",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "6aeb4375": {
+      "attribute": "Korean restaurants tried",
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "four",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "71315a70": {
+      "attribute": "hours spent on abstract ocean sculpture",
+      "earlier_value": "5-6 hours",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10-12 hours",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "72e3ee87": {
+      "attribute": "episodes of the Science series completed on Crash Course",
+      "earlier_value": "10",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "50",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "7e974930": {
+      "attribute": "earnings at the Downtown Farmers Market",
+      "earlier_value": "$350",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "$420",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "830ce83f": {
+      "attribute": "Rachel's relocation",
+      "earlier_value": "Chicago",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "the suburbs",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "852ce960": {
+      "attribute": "pre-approval amount",
+      "earlier_value": "$350,000",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "$400,000",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "8fb83627": {
+      "attribute": "National Geographic issues finished",
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "945e3d21": {
+      "attribute": "yoga class frequency",
+      "earlier_value": "twice a week",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "three times a week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "9bbe84a2": {
+      "attribute": "Apex Legends level goal",
+      "earlier_value": "level 100",
+      "gold_mentions": [
+        "earlier"
+      ],
+      "later_value": "level 150",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "earlier"
+    },
+    "9ea5eabc": {
+      "attribute": "most recent family trip location",
+      "earlier_value": "Hawaii",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Paris",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "a1eacc2a": {
+      "attribute": "number of short stories written",
+      "earlier_value": "four",
+      "gold_mentions": [],
+      "later_value": "7",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "a2f3aa27": {
+      "attribute": "Instagram followers",
+      "earlier_value": "1250",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "1300",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "affe2881": {
+      "attribute": "species count in local park",
+      "earlier_value": "27",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "32",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "c6853660": {
+      "attribute": "morning coffee limit",
+      "earlier_value": "one cup",
+      "gold_mentions": [
+        "earlier",
+        "later"
+      ],
+      "later_value": "two cups",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "c7dc5443": {
+      "attribute": "volleyball league record",
+      "earlier_value": "3-2",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "5-2",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "cc5ded98": {
+      "attribute": "time dedicated to coding exercises each day",
+      "earlier_value": "about an hour",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "about two hours",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "cf22b7bf": {
+      "attribute": "weight lost",
+      "earlier_value": "5 pounds",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "10 pounds",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "dad224aa": {
+      "attribute": "Saturday wake-up time",
+      "earlier_value": "8:30 am",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "7:30 am",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "db467c8c": {
+      "attribute": "parents staying duration",
+      "earlier_value": "six months",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "nine months",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "eace081b": {
+      "attribute": "birthday trip location",
+      "earlier_value": "Kauai",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "Oahu",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "f685340e": {
+      "attribute": "tennis frequency",
+      "earlier_value": "weekly",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "every other week",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "both"
+    },
+    "f9e8c073": {
+      "attribute": "bereavement support group sessions attended",
+      "earlier_value": "three",
+      "gold_mentions": [
+        "later"
+      ],
+      "later_value": "five",
+      "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    }
+  },
+  "naturalized": false,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "cases": 43,
+      "cases_without_incidental_values": 30,
+      "category": "transaction_as_of",
+      "exact": 33,
+      "exact_without_incidental_values": 24,
+      "full_context_exact": 30,
+      "full_context_expected": 43,
+      "present_expected": 33,
+      "present_stale": 0,
+      "system": "graphiti"
+    },
+    {
+      "cases": 43,
+      "cases_without_incidental_values": 30,
+      "category": "current",
+      "exact": 6,
+      "exact_without_incidental_values": 5,
+      "full_context_exact": 0,
+      "full_context_expected": 43,
+      "present_expected": 34,
+      "present_stale": 33,
+      "system": "graphiti"
+    },
+    {
+      "cases": 41,
+      "cases_without_incidental_values": 29,
+      "category": "valid_time",
+      "exact": 5,
+      "exact_without_incidental_values": 4,
+      "full_context_exact": 0,
+      "full_context_expected": 41,
+      "present_expected": 31,
+      "present_stale": 32,
+      "system": "graphiti"
+    }
+  ],
+  "summary": {
+    "current": {
+      "cases": 43,
+      "cases_without_incidental_values": 30,
+      "exact": 6,
+      "exact_without_incidental_values": 5,
+      "full_context_exact": 0,
+      "full_context_expected": 43,
+      "present_expected": 34,
+      "present_stale": 33
+    },
+    "transaction_as_of": {
+      "cases": 43,
+      "cases_without_incidental_values": 30,
+      "exact": 33,
+      "exact_without_incidental_values": 24,
+      "full_context_exact": 30,
+      "full_context_expected": 43,
+      "present_expected": 33,
+      "present_stale": 0
+    },
+    "valid_time": {
+      "cases": 41,
+      "cases_without_incidental_values": 29,
+      "exact": 5,
+      "exact_without_incidental_values": 4,
+      "full_context_exact": 0,
+      "full_context_expected": 41,
+      "present_expected": 31,
+      "present_stale": 32
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 2.2438504299999997,
+    "ingest_latency": {
+      "mean_s": 9.758891685360508,
+      "n": 1010,
+      "p50_s": 7.5658513735979795,
+      "p95_s": 25.130315167829394,
+      "total_s": 9856.480602214113
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.20774852900993168,
+      "n": 127,
+      "p50_s": 0.20526591129601002,
+      "p95_s": 0.24544623494148254,
+      "total_s": 26.384063184261322
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 4380,
+        "completion_tokens": 382918,
+        "cost_usd": 2.2401103499999997,
+        "prompt_tokens": 13402397,
+        "total_tokens": 13785315
+      },
+      "text-embedding-3-small": {
+        "calls": 7365,
+        "completion_tokens": 0,
+        "cost_usd": 0.00374008,
+        "prompt_tokens": 187004,
+        "total_tokens": 187004
+      }
+    }
+  },
+  "workload": "lme_bitemporal"
+}

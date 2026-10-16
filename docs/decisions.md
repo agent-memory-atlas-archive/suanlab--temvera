@@ -202,8 +202,12 @@
 - **Date:** 2026-10-16.
 - **Decision:** The real-data workload is scored on the **43** knowledge-update
   pairs where gpt-4o-mini and gpt-4o extracted the same supersession label and
-  both values passed the per-session verbatim check. The **26** pairs where
-  the two models disagreed are **excluded, not adjudicated**.
+  both values passed the per-session verbatim check. The other **26** of the
+  69 candidate pairs are **excluded, not adjudicated**: 15 where the models
+  proposed different values, 5 where they agreed on the values but not on which
+  one the question asks for, and 6 where an extraction failed the verbatim
+  check. Their question IDs (no corpus text) are tracked in
+  `data/lme-bitemporal-exclusions.json`.
 - **Reason:** author adjudication of 26 items, five at a time, would not fit
   the time left before the ICDE deadline. Agreement is a fixed, mechanical rule
   that a reader can re-apply from the released proposals; a partial

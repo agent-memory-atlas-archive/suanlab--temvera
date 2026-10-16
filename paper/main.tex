@@ -51,8 +51,8 @@ Hindsight---under forward-checkpoint transaction-time replay. Two designs emerge
 \emph{Consolidating} stores overwrite superseded values, so they answer current
 queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323).
 \emph{Retaining} stores keep the history but do not filter it: read at the
-retrieval layer, three independent implementations score between 0.000 and
-0.015 on valid-time queries, a deficit that also depends on the retrieval
+retrieval layer, three independent implementations score 0.000 on
+valid-time queries, a deficit that also depends on the retrieval
 budget. An LLM reading the same stores shows the history was there---Cognee's
 reader answers 192 of 195 valid-time cases---but cannot be relied on to use it:
 Hindsight's answers 67. Deletion divides the same way: native deletion APIs
@@ -104,7 +104,8 @@ agents actually perform}. We answer it by measurement:
 \paragraph{Contributions.}
 (i) An identical-history comparison of five deployed memory systems, separating
 consolidating from retaining designs; each side of the taxonomy is confirmed on
-implementations held out from its construction.
+implementations held out from its construction, and both failure modes reappear
+on 43 human-written supersessions from LongMemEval (\S\ref{sec:realdata}).
 (ii) A separation of \emph{information loss} from \emph{missing filtering},
 obtained by reading two systems' stores both at the retrieval layer and through
 an LLM, which also shows that a reader repairs the gap in one system and not the
@@ -277,7 +278,7 @@ System & Documented temporal claim & \texttt{valid\_time} \\
 \midrule
 Graphiti  & ``Query what's true now, or what was true at any point in time'' & 0.000 \\
 Hindsight$^\dagger$ & ``Temporal + Semantic + Entity Memory Architecture'' & 0.000 \\
-Cognee    & none; documents a \texttt{forget} operation & 0.015 \\
+Cognee    & none; documents a \texttt{forget} operation & 0.000 \\
 Mem0      & none; ``long-term memory'' & 0.364 \\
 LangMem   & none; ``extracts, consolidates'' & 0.323 \\
 \bottomrule
@@ -623,7 +624,7 @@ Configuration & overall & \texttt{valid\_time} & \texttt{purge} \\
 Mem0 (consolidates)              & 0.603 & 0.364 \scriptsize{(71/195)} & 0.044 \\
 LangMem (consolidates)           & 0.576 & 0.323 \scriptsize{(63/195)} & 0.133 \\
 Graphiti (retains)               & 0.196 & 0.000 \scriptsize{(0/195)}  & 0.022 \\
-Cognee \textsc{chunks} (retains) & 0.207 & 0.015 \scriptsize{(3/195)}  & 0.089 \\
+Cognee \textsc{chunks} (retains) & 0.194 & 0.000 \scriptsize{(0/195)}  & 0.022 \\
 Hindsight \textsc{recall} (retains) & 0.194 & 0.000 \scriptsize{(0/195)}  & 0.022 \\
 \midrule
 Cognee \textsc{graph-completion} & \textbf{0.930} & \textbf{0.985} \scriptsize{(192/195)} & \textbf{0.622} \\
@@ -634,7 +635,7 @@ Hindsight \textsc{reflect}       & 0.407 & 0.344 \scriptsize{(67/195)} & 0.311 \
 
 \textbf{The retrieval layer fails uniformly.} Three independently built
 retaining systems land within noise of each other --- Graphiti $0.196$, Cognee
-$0.207$, Hindsight $0.194$ overall, with valid-time $0.000$, $0.015$ and $0.000$
+$0.194$, Hindsight $0.194$ overall, and all three score $0.000$ on valid time
 over 195 cases each. Retaining history but not filtering it is therefore a
 property of the design class, not of one implementation.
 
@@ -717,7 +718,7 @@ slower, not faster, so the leak is not what the published number reflects.
 The write/read split is a design choice, not a constant. Cognee inverts it:
 over the same 20-cell grid (477 ingests, 484 queries), \texttt{add} only stages
 text and averages $0.65$\,s, while its query path averages $6.91$\,s because the
-graph build runs at the first query of each checkpoint ($4.53$\,s under
+graph build runs at the first query of each checkpoint ($4.56$\,s under
 \textsc{chunks}, so roughly $2.4$\,s of the remainder is the reader LLM). Mem0 pays at write, Cognee at read, for comparable work. Token
 cost is reported for Mem0 only. Cognee and LangMem run in separate interpreters
 and Hindsight as a service, outside our instrumentation, and Graphiti's
@@ -788,6 +789,79 @@ temporal axis: transaction-scoped accuracy falls from 0.956 [0.942, 0.966] at
 superseded value rises from 0.432 to 0.498, while recall holds near 0.6. Its
 historical deficit is a property of consolidation, as the main grid showed, and
 does not wait for scale to appear.
+
+\subsection{Does it hold on real conversations?}\label{sec:realdata}
+
+The grid controls the history; it cannot show that the failure modes survive
+human-written text. LongMemEval's knowledge-update questions
+\citep{longmemeval} supply that case: a user states a fact in one session and
+revises it in a later one, each session timestamped. The benchmark ships the
+current value as gold but never the superseded one, so we recovered both. Two
+extractors (\texttt{gpt-4o-mini} and \texttt{gpt-4o}) each proposed the
+attribute and its earlier and later value for all 69 non-abstention instances,
+and a value counted only if it appeared verbatim in its own session. We use the
+43 pairs on which they agreed and exclude the other 26 without adjudication.
+Disagreement plausibly marks the harder revisions, so this subset is not a
+random sample of the split.
+
+Each pair is replayed into a fresh store, session by session in recorded order.
+After the earlier session we ask ``What is my \emph{attribute}?''; after the
+later one, ``\ldots now?'' and, for a calendar day between the two sessions,
+``What was my \emph{attribute} on \emph{day}?'' --- omitted for the two pairs
+whose sessions share a day. Scoring is the grid's: an answer is exact if it
+states the expected value on token boundaries and does not state the
+superseded one. The first question is asked before the revision exists, so it
+has nothing to filter and serves as a control; the full conversation itself
+passes it in 30 of 43 cases. The 13 it fails are pairs whose earlier session
+already mentions the later value incidentally (``here are five tips'');
+excluding them changes none of the comparisons below.
+
+\begin{table}[t]
+\centering
+\caption{Real conversations: 43 LongMemEval knowledge-update supersessions, a
+fresh store for each. Exact answers out of 43 (41 for valid time). The control
+is asked before the revision exists. ``Old kept'' counts valid-time answers
+that contain the superseded value at all, exact or not.}
+\label{tab:realdata}
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Configuration & control & current & \texttt{valid\_time} & old kept \\
+\midrule
+Mem0 (consolidates)                 & 37 & 22 & 2  & 18 \\
+LangMem (consolidates)              & 24 & 18 & 6  & 17 \\
+Graphiti (retains)                  & 33 & 6  & 5  & 31 \\
+Cognee \textsc{chunks} (retains)    & 30 & 0  & 0  & 41 \\
+Hindsight \textsc{recall} (retains) & 42 & 2  & 3  & 38 \\
+\midrule
+Cognee \textsc{graph-completion}    & 41 & \textbf{26} & \textbf{29} & 33 \\
+Hindsight \textsc{reflect}          & 42 & 20 & 12 & 22 \\
+\midrule
+Full conversation                   & 30 & 0  & 0  & 41 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The grid's two failure modes reappear.} At valid time the retaining
+stores, read at the retrieval layer, return the superseded value in 31 to 41 of
+41 cases but answer only 0 to 5 exactly: the history is kept and not filtered,
+as on the grid. The consolidating stores answer 2 and 6, and the old value
+appears in fewer than half of their answers (18 and 17): it is gone. Read by an
+LLM, Cognee's graph answers 29 of 41 valid-time questions (Wilson 95\%
+[0.56, 0.82]) and Hindsight's answers 12 ([0.18, 0.44]) --- the reader ordering
+of the grid, where they answered 192 and 67 of 195, with disjoint intervals
+here too.
+
+\textbf{Real text is harder on current queries.} On the grid, Mem0 and LangMem
+answered current, transaction-scoped questions at 0.952 and 0.890; here they
+answer 22 and 18 of 43, and Mem0 states both values in 16 of its answers. A
+store that consolidated every revision would not. This is consistent with,
+though not traced to, the dropped \texttt{UPDATE} actions reported in
+\S\ref{sec:external}. No configuration answers more than 26 of 43.
+
+These are 43 cases on one backbone in one run, so we read them as a check of
+direction rather than as rates; every answer is in the released transcripts.
 
 \subsection{External validity}\label{sec:external}
 
@@ -877,15 +951,18 @@ with canonical config, environment, source-tree hash and per-file checksums, and
 verified by an aggregate checker. The frozen synthetic
 fixture is byte-reproducible and split-disjoint. Tests and lint pass on CPython
 3.11. The LongMemEval corpus itself is downloaded rather than redistributed.
-The \runeseven{} run does ship a history database of memories its
-extractor derived from that corpus, which the MIT licence permits and which
-cannot be removed without breaking the run's checksums.
+Two kinds of sealed output do carry its text, which the MIT licence permits and
+which cannot be removed without breaking the runs' checksums: the
+\runeseven{} run's history database of extracted memories, and the real-data
+runs' transcripts, which record retrieved passages verbatim. The labels we
+derived are released; the 26 excluded pairs are listed by question ID only.
 
 \section*{Limitations}
 
-Histories are synthetic with hand-specified operation profiles, so
+The grid's histories are synthetic with hand-specified operation profiles, so
 contradiction density is approximated by operation mix and revision count rather
-than sampled from real usage. Five external systems in seven configurations, all
+than sampled from real usage; the real-data check covers 43 supersessions chosen
+by extractor agreement, not at random, and is one run. Five external systems in seven configurations, all
 on a single backbone (\texttt{gpt-4o-mini}) with LLM extraction that is not
 bit-reproducible; our one same-protocol replication moved a small-denominator
 category by 0.125, which is why we draw no conclusion from expiry. The deletion

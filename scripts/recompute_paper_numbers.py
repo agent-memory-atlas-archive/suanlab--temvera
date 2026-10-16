@@ -36,7 +36,7 @@ SYSTEMS = {
     "Mem0": "external-mem0-grid-v2",
     "LangMem": "external-langmem-v1",
     "Graphiti": "external-graphiti-hybrid-v1",
-    "Cognee-retr": "external-cognee-chunks-grid-v1",
+    "Cognee-retr": "external-cognee-chunks-grid-v3",
     "Hindsight-retr": "external-hindsight-recall-v1",
     "Cognee-read": "external-cognee-grid-v1",
     "Hindsight-read": "external-hindsight-reflect-v1",
