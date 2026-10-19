@@ -1,0 +1,1068 @@
+{
+  "backbone": {
+    "api_retries": 0,
+    "embed_model": "text-embedding-3-small",
+    "history_db_isolated": true,
+    "llm_model": "gpt-4o",
+    "mem0_telemetry": "False",
+    "mem0_telemetry_events_built": false,
+    "mem0_version": "0.1.118",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "system": "mem0",
+    "vector_store_isolated": true
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 13,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 17,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 23,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 42,
+      "values": 0,
+      "values_total": 5
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 13,
+      "values": 0,
+      "values_total": 18
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 17,
+      "values": 0,
+      "values_total": 17
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 23,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 42,
+      "values": 0,
+      "values_total": 17
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 5
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 13,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 17,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 23,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 42,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 13,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 17,
+      "values": 0,
+      "values_total": 15
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 23,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 42,
+      "values": 0,
+      "values_total": 17
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 0.7272727272727273,
+      "exact_state_accuracy": 0.7272727272727273,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.2727272727272727,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 10,
+      "entities": 3,
+      "evidence_recall": 0.7,
+      "exact_state_accuracy": 0.7,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 13,
+      "stale_use_rate": 0.3,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 10,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 13,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 0.7272727272727273,
+      "exact_state_accuracy": 0.7272727272727273,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 17,
+      "stale_use_rate": 0.2727272727272727,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 0.7272727272727273,
+      "exact_state_accuracy": 0.7272727272727273,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 23,
+      "stale_use_rate": 0.2727272727272727,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 23,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.8,
+        "valid_time": 0.5
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 0.7272727272727273,
+      "exact_state_accuracy": 0.6363636363636364,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 42,
+      "stale_use_rate": 0.3333333333333333,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.9411764705882353,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 0.6571428571428571,
+      "exact_state_accuracy": 0.6285714285714286,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.3611111111111111,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 0.6571428571428571,
+      "exact_state_accuracy": 0.6571428571428571,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.34285714285714286,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 0.6571428571428571,
+      "exact_state_accuracy": 0.6571428571428571,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.34285714285714286,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.875,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 34,
+      "entities": 6,
+      "evidence_recall": 0.6470588235294118,
+      "exact_state_accuracy": 0.5882352941176471,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.3888888888888889,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 34,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.9411764705882353,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 0.6571428571428571,
+      "exact_state_accuracy": 0.6285714285714286,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.3611111111111111,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 0.25,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 0.6666666666666666,
+      "exact_state_accuracy": 0.6666666666666666,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.3333333333333333,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "purge": 0.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 0.6666666666666666,
+      "exact_state_accuracy": 0.6666666666666666,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 13,
+      "stale_use_rate": 0.3333333333333333,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 13,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 13,
+      "entities": 3,
+      "evidence_recall": 0.6923076923076923,
+      "exact_state_accuracy": 0.6923076923076923,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 17,
+      "stale_use_rate": 0.3076923076923077,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 13,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 0.75,
+      "exact_state_accuracy": 0.75,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 23,
+      "stale_use_rate": 0.25,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 23,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 13,
+      "entities": 3,
+      "evidence_recall": 0.6923076923076923,
+      "exact_state_accuracy": 0.6923076923076923,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 42,
+      "stale_use_rate": 0.3076923076923077,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 1,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 13,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.16666666666666666,
+        "transaction_as_of": 0.9444444444444444,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 0.5897435897435898,
+      "exact_state_accuracy": 0.5641025641025641,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.425,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 3,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.8888888888888888,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 38,
+      "entities": 6,
+      "evidence_recall": 0.631578947368421,
+      "exact_state_accuracy": 0.5526315789473685,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.4418604651162791,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 3,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 38,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.2222222222222222
+      },
+      "cases": 38,
+      "entities": 6,
+      "evidence_recall": 0.5789473684210527,
+      "exact_state_accuracy": 0.5263157894736842,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.4883720930232558,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 38,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 8,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 0.9444444444444444,
+        "valid_time": 0.5
+      },
+      "cases": 40,
+      "entities": 6,
+      "evidence_recall": 0.55,
+      "exact_state_accuracy": 0.5,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.5,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 8,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 40,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 6,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.2222222222222222
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 0.5641025641025641,
+      "exact_state_accuracy": 0.5128205128205128,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.47619047619047616,
+      "system": "mem0"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 6,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "mem0": {
+        "expiry_boundary": 0.0,
+        "purge": 0.05952380952380952,
+        "transaction_as_of": 0.9667565359477124,
+        "valid_time": 0.41388888888888886
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=3,revisions=2": {
+        "mem0": {
+          "ci95_high": 0.7217948717948718,
+          "ci95_low": 0.6717948717948717,
+          "exact_mean": 0.6935897435897436,
+          "n_seeds": 5
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 5
+        }
+      },
+      "profile=mixed_lifecycle,entities=6,revisions=3": {
+        "mem0": {
+          "ci95_high": 0.5519568151147098,
+          "ci95_low": 0.510391363022942,
+          "exact_mean": 0.5311740890688259,
+          "n_seeds": 5
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 5
+        }
+      },
+      "profile=revision_only,entities=3,revisions=2": {
+        "mem0": {
+          "ci95_high": 0.7272727272727273,
+          "ci95_low": 0.6672727272727272,
+          "exact_mean": 0.7036363636363636,
+          "n_seeds": 5
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 5
+        }
+      },
+      "profile=revision_only,entities=6,revisions=3": {
+        "mem0": {
+          "ci95_high": 0.6514285714285715,
+          "ci95_low": 0.6100840336134453,
+          "exact_mean": 0.6319327731092437,
+          "n_seeds": 5
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 5
+        }
+      }
+    },
+    "overall": {
+      "mem0": {
+        "abstention_accuracy": 0.55,
+        "evidence_recall": 0.6633521174388048,
+        "exact_state_accuracy": 0.6400832423510442,
+        "stale_use_rate": 0.3555907432360921
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 3.50182708,
+    "ingest_latency": {
+      "mean_s": 2.846327017242991,
+      "n": 477,
+      "p50_s": 2.886599788442254,
+      "p95_s": 3.7566899806261063,
+      "total_s": 1357.6979872249067
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.15276504713610922,
+      "n": 484,
+      "p50_s": 0.1477228607982397,
+      "p95_s": 0.18551719561219215,
+      "total_s": 73.93828281387687
+    },
+    "usage": {
+      "gpt-4o": {
+        "calls": 928,
+        "completion_tokens": 86885,
+        "cost_usd": 3.5014275,
+        "prompt_tokens": 1053031,
+        "total_tokens": 1139916
+      },
+      "text-embedding-3-small": {
+        "calls": 938,
+        "completion_tokens": 0,
+        "cost_usd": 0.00039957999999999997,
+        "prompt_tokens": 19979,
+        "total_tokens": 19979
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": false,
+    "natural_pools": "standard"
+  }
+}

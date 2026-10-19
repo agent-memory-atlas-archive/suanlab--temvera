@@ -55,8 +55,9 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Scale sweep 8 → 32 → 128 entities with accuracy (§VI-F, E-077); 512 was
       **not run**, and Mem0's dropped updates were not separated from retrieval
       failure at scale. Latency re-measured once (E-080): it does not reproduce.
-- [ ] Second backbone (`gpt-4o`) on the main grid — **not done**. The only
-      second-backbone evidence remains the filtered-Graphiti `gpt-4o` runs.
+- [x] Second backbone (`gpt-4o`) on the main grid for Mem0 and Graphiti
+      (E-084): no category moves by more than 2 cases. LangMem, Cognee and
+      Hindsight were not re-run.
 - [x] Re-audit: every new number has a row in `scripts/verify_paper_claims.py`
       (218 claims); a full read of the PDF found and fixed five errors
       (`311df3f`).

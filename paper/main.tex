@@ -501,6 +501,14 @@ moved $0.000 \to 0.125$ (2 of 16 cases) between runs, exactly the instability it
 Wilson interval predicts. We therefore draw no conclusion from either system's
 expiry number.
 
+\textbf{A stronger backbone changes nothing.} Re-running the whole 20-cell grid
+for Mem0 and Graphiti with \texttt{gpt-4o} in place of \texttt{gpt-4o-mini},
+otherwise unchanged, moves no category by more than 2 of its cases. Mem0 goes
+from $0.603$ to $0.607$ overall and from $0.364$ to $0.374$ on valid time;
+Graphiti from $0.196$ to $0.194$ overall, and on valid time it answers 0 of 195
+under both. The deficits belong to how the stores retain and retrieve, not to
+how well the extractor reads.
+
 \textbf{Does Graphiti's own filter repair it?} Enabling its native valid-time
 \texttt{SearchFilter} raises exact from $0.224$ to $0.318$ and cuts stale-use
 from $0.561$ to $0.360$, but collapses evidence recall from $0.873$ to $0.318$:
@@ -971,9 +979,9 @@ derived are released; the 26 excluded pairs are listed by question ID only.
 The grid's histories are synthetic with hand-specified operation profiles, so
 contradiction density is approximated by operation mix and revision count rather
 than sampled from real usage; the real-data check covers 43 supersessions chosen
-by extractor agreement, not at random, and is one run. Five external systems in seven configurations, all
-on a single backbone (\texttt{gpt-4o-mini}) with LLM extraction that is not
-bit-reproducible; our one same-protocol replication moved a small-denominator
+by extractor agreement, not at random, and is one run. Five external systems in seven configurations
+run on \texttt{gpt-4o-mini}; only Mem0 and Graphiti were re-run on a second
+backbone, and LLM extraction is not bit-reproducible; our one same-protocol replication moved a small-denominator
 category by 0.125, which is why we draw no conclusion from expiry. The deletion
 result rests on a single seeded history, so it establishes a direction, not a
 rate. The literature review is single-reviewer. Purge claims cover declared

@@ -83,6 +83,9 @@ experiments/runs/*
 !experiments/runs/lme-bitemporal-cognee-graph-agreement-v3/
 !experiments/runs/lme-bitemporal-hindsight-recall-agreement-v2/
 !experiments/runs/lme-bitemporal-hindsight-reflect-agreement-v2/
+# Second backbone: the cited Mem0 and Graphiti grids re-run on gpt-4o.
+!experiments/runs/external-graphiti-hybrid-gpt4o-v1/
+!experiments/runs/external-mem0-grid-gpt4o-v1/
 
 .env
 .env.*

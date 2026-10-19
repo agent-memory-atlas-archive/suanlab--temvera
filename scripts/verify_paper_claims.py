@@ -152,6 +152,19 @@ def lost_history_share(run: str) -> float:
     return 100 * len(lost) / len(wrong)
 
 
+def _backbone_max_shift() -> float:
+    """Largest change in correct answers, over categories and both systems."""
+    pairs = (("external-mem0-grid-v2", "external-mem0-grid-gpt4o-v1"),
+             ("external-graphiti-hybrid-v1", "external-graphiti-hybrid-gpt4o-v1"))
+    shifts = []
+    for mini, big in pairs:
+        for category in (None, "transaction_as_of", "valid_time", "expiry_boundary", "purge"):
+            (a, n), (b, m) = micro_counts(mini, category, cells()), micro_counts(big, category, cells())
+            assert n == m, "the two backbones were scored on different cases"
+            shifts.append(abs(a - b))
+    return float(max(shifts))
+
+
 def _expiry_cases() -> float:
     """Expiry cases on the matched cells, identical for every configuration."""
     counts = {micro_counts(r, "expiry_boundary", cells())[1] for r in GRID}
@@ -367,6 +380,32 @@ CLAIMS: list[Claim] = [
           lambda: _expiry_cases(), 0.5, near="Expiry rests on"),
     Claim("Fig.1", "Wilson upper bound of 0 of 16", "0.19",
           lambda: _wilson_zero_of(_expiry_cases()), 0.006, near="Expiry rests on"),
+    # -- second backbone: Mem0 and Graphiti grid on gpt-4o (case-weighted) -----
+    Claim("5.2", "largest per-category change, gpt-4o vs mini (cases)", "2",
+          lambda: _backbone_max_shift(), 0.5, near="otherwise unchanged, moves no category"),
+    Claim("5.2", "Mem0 overall, mini (micro)", "0.603",
+          lambda: micro("external-mem0-grid-v2", cells=cells()), near="Mem0 goes\nfrom"),
+    Claim("5.2", "Mem0 overall, gpt-4o (micro)", "0.607",
+          lambda: micro("external-mem0-grid-gpt4o-v1", cells=cells()), near="Mem0 goes\nfrom"),
+    Claim("5.2", "Mem0 valid_time, mini (micro)", "0.364",
+          lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
+          near="overall and from"),
+    Claim("5.2", "Mem0 valid_time, gpt-4o (micro)", "0.374",
+          lambda: micro("external-mem0-grid-gpt4o-v1", "valid_time", cells()),
+          near="overall and from"),
+    Claim("5.2", "Graphiti overall, mini (micro)", "0.196",
+          lambda: micro("external-graphiti-hybrid-v1", cells=cells()), near="Graphiti from"),
+    Claim("5.2", "Graphiti overall, gpt-4o (micro)", "0.194",
+          lambda: micro("external-graphiti-hybrid-gpt4o-v1", cells=cells()), near="Graphiti from"),
+    Claim("5.2", "Graphiti valid_time hits, gpt-4o", "0",
+          lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[0],
+          0.5, near="on valid time it answers"),
+    Claim("5.2", "Graphiti valid_time hits, mini", "0",
+          lambda: micro_counts("external-graphiti-hybrid-v1", "valid_time", cells())[0],
+          0.5, near="on valid time it answers"),
+    Claim("5.2", "Graphiti valid_time cases", "195",
+          lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[1],
+          0.5, near="on valid time it answers"),
     # -- abstract: figures printed only in the abstract and tables -------------
     Claim("abs", "LangMem transaction_as_of (micro)", "0.890",
           lambda: micro("external-langmem-v1", "transaction_as_of", cells()),
