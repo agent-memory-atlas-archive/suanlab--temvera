@@ -45,7 +45,7 @@ daemon. The two paths are deliberately
 decoupled: you can confirm what we computed before deciding whether to re-run
 generation. [REPRODUCING.md](REPRODUCING.md) has the full protocol, and a frozen
 snapshot with checksums is attached to the
-[`icde-eab-v1` release](https://github.com/suanlab/temvera/releases/tag/icde-eab-v1).
+[`icde-eab-v2` release](https://github.com/suanlab/temvera/releases/tag/icde-eab-v2).
 
 ## Research thesis
 

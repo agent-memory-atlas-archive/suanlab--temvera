@@ -122,5 +122,5 @@ LongMemEval content above is the one exception.
 
 Repository-authored material and the fully synthetic fixture are distributable
 under Apache-2.0. Frozen, byte-reproducible snapshots are attached to the
-GitHub releases (`icde-eab-v1` for the ICDE submission); no DOI archive has
+GitHub releases (`icde-eab-v2` for the ICDE submission); no DOI archive has
 been made (D-009).
