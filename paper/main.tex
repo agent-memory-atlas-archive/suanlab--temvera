@@ -54,11 +54,12 @@ across every store a query can reach. Agent memory systems now advertise these
 capabilities; we measure whether they deliver them.
 
 We replay deterministic lifecycle histories, rendered as natural language and
-scored against an oracle cross-checked by an independent SQLite implementation,
+scored against an independently cross-checked oracle,
 into five open-source systems---Mem0, LangMem, Graphiti, Cognee and
 Hindsight---under forward-checkpoint transaction-time replay. Two designs emerge.
 \emph{Consolidating} stores overwrite superseded values, so they answer current
-queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323).
+queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323),
+just under a ceiling (0.385) that the history alone fixes.
 \emph{Retaining} stores keep the history but do not filter it: read at the
 retrieval layer, three independent implementations score 0.000 on
 valid-time queries. An LLM reading the same stores shows the history was there---Cognee's
