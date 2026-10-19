@@ -1,5 +1,21 @@
 # Release Verification Record
 
+## 2026-10-20 icde-eab-v3, checked from the archive alone
+
+The v3 candidate was extracted into an empty directory outside any git
+repository and every check the release notes name was run there, with the
+package imported from the extracted `src/`:
+
+- `verify-artifacts` over the 56 accepted runs and `verify-artifact-package`.
+- `scripts/recompute_paper_numbers.py --check`.
+- `scripts/verify_paper_claims.py`: 257 claims.
+- `scripts/analyze_filtering_laws.py`: both bounds, no rebuilt-case mismatch.
+- `scripts/make_figures.py`: all three figures byte-identical to the shipped ones.
+- The full pytest suite, and the paper builds (11 pages).
+
+Doing this exposed that earlier archives omitted `scripts/` and `paper/` and two
+cited runs (evidence ledger E-088). Those archives are left as published.
+
 ## 2026-07-16 current local candidate
 
 The repository was copied to `/tmp` without `.git` or caches and tested with

@@ -16,6 +16,7 @@ from .experiment import verify_run_set
 
 ROOT_FILES = (
     "AGENTS.md",
+    "ARTIFACT-CHECKSUMS.txt",
     "CITATION.cff",
     "CONTRIBUTING.md",
     "LICENSE",
@@ -23,7 +24,11 @@ ROOT_FILES = (
     "REPRODUCING.md",
     "pyproject.toml",
 )
-ROOT_DIRECTORIES = ("src", "tests", "docs", "data", "experiments/configs")
+# `scripts` and `paper` were missing until icde-eab-v3, so earlier archives
+# could not run the claim checker their own release notes pointed to.
+ROOT_DIRECTORIES = (
+    "src", "tests", "docs", "data", "experiments/configs", "scripts", "paper",
+)
 # Paths never packaged. `data/raw` holds third-party datasets we download but do
 # not redistribute, and compiled bytecode is noise that also breaks byte
 # determinism across interpreters.

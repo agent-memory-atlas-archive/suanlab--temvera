@@ -10,17 +10,11 @@ from temvera.experiment import seal_run
 
 
 def _fixture(root: Path) -> None:
-    for name in (
-        "AGENTS.md",
-        "CITATION.cff",
-        "CONTRIBUTING.md",
-        "LICENSE",
-        "README.md",
-        "REPRODUCING.md",
-        "pyproject.toml",
-    ):
+    from temvera.artifact import ROOT_DIRECTORIES, ROOT_FILES
+
+    for name in ROOT_FILES:
         (root / name).write_text(name, encoding="utf-8")
-    for directory in ("src", "tests", "docs", "data", "experiments/configs"):
+    for directory in ROOT_DIRECTORIES:
         path = root / directory
         path.mkdir(parents=True)
         (path / "fixture.txt").write_text(directory, encoding="utf-8")
@@ -147,3 +141,30 @@ def test_artifact_excludes_whatever_git_ignores(tmp_path) -> None:
     assert "data/working-sheet.json" not in manifest["files"]
     assert "data/fixture.txt" in manifest["files"]
     assert verify_artifact_archive(archive)
+
+
+def test_archive_carries_what_its_release_notes_tell_readers_to_run():
+    # The first three releases shipped without scripts/ and paper/, so the
+    # claim checker named in their notes could not run from the archive.
+    from temvera.artifact import ROOT_DIRECTORIES
+
+    for needed in ("scripts", "paper", "src", "tests", "data"):
+        assert needed in ROOT_DIRECTORIES
+
+
+def test_every_run_the_paper_scripts_read_is_accepted():
+    # Two runs the claim checker read were tracked but never accepted, so the
+    # archive -- which ships accepted runs only -- could not verify the paper.
+    import json
+    import re
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    accepted = set(json.loads((root / "experiments" / "accepted-runs.json").read_text())["accepted_runs"])
+    on_disk = {p.name for p in (root / "experiments" / "runs").iterdir() if p.is_dir()}
+    read = set()
+    for script in ("verify_paper_claims.py", "recompute_paper_numbers.py",
+                   "make_figures.py", "analyze_filtering_laws.py"):
+        text = (root / "scripts" / script).read_text(encoding="utf-8")
+        read |= {name for name in re.findall(r'"([a-z0-9][a-z0-9-]*)"', text) if name in on_disk}
+    assert read and read <= accepted, sorted(read - accepted)
