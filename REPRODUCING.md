@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 218 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 257 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -71,6 +71,11 @@ since the paper uses both and confusing them makes correct numbers look wrong.
 Figures are regenerated from the same sealed runs with
 `python scripts/make_figures.py`, and are byte-reproducible: a regenerated
 figure should be identical to the shipped one.
+
+The two bounds of §VI-H are recomputed by
+`python scripts/analyze_filtering_laws.py`, which rebuilds each history from
+its run's seeds and exits non-zero if a rebuilt question disagrees with the
+sealed one; the claim checker calls the same functions.
 
 ## External-system experiments (require credentials)
 
@@ -122,5 +127,5 @@ LongMemEval content above is the one exception.
 
 Repository-authored material and the fully synthetic fixture are distributable
 under Apache-2.0. Frozen, byte-reproducible snapshots are attached to the
-GitHub releases (`icde-eab-v2` for the ICDE submission); no DOI archive has
+GitHub releases (`icde-eab-v3` for the ICDE submission); no DOI archive has
 been made (D-009).

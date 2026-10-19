@@ -61,5 +61,6 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Re-audit: every new number has a row in `scripts/verify_paper_claims.py`
       (218 claims); a full read of the PDF found and fixed five errors
       (`311df3f`).
-- [x] Re-cut the artifact release at the submission commit: tag `icde-eab-v2`
-      (supersedes `icde-eab-v1`, which lacked the PDF metadata).
+- [x] Re-cut the artifact release at the submission commit: tag `icde-eab-v3`
+      (supersedes `icde-eab-v2`, which predates the second backbone, the two
+      bounds and the Related Work update; `icde-eab-v1` lacked PDF metadata).
