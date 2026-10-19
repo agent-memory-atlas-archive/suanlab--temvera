@@ -152,6 +152,19 @@ def lost_history_share(run: str) -> float:
     return 100 * len(lost) / len(wrong)
 
 
+def _expiry_cases() -> float:
+    """Expiry cases on the matched cells, identical for every configuration."""
+    counts = {micro_counts(r, "expiry_boundary", cells())[1] for r in GRID}
+    assert len(counts) == 1, f"expiry denominators differ: {counts}"
+    return float(counts.pop())
+
+
+def _wilson_zero_of(n: float) -> float:
+    from temvera.reanalysis import Proportion
+
+    return Proportion(0, int(n)).wilson()[1]
+
+
 GRID = (
     "external-mem0-grid-v2",
     "external-langmem-v1",
@@ -344,6 +357,16 @@ CLAIMS: list[Claim] = [
     Claim("5.5", "scale-cost e8 synthetic value tokens, %", "19",
           lambda: _scale_cost_fallback_pct(8), 0.5,
           near="than the natural-name relabelling holds"),
+    Claim("5.4", "reader expiry, best of the two (micro)", "0.125",
+          lambda: max(micro(r, "expiry_boundary", cells())
+                      for r in ("external-cognee-grid-v1", "external-hindsight-reflect-v1")),
+          near="Expiry stays low for both readers"),
+    Claim("5.4", "expiry cases per configuration", "16",
+          lambda: _expiry_cases(), 0.5, near="Expiry stays low for both readers"),
+    Claim("Fig.1", "expiry cases per configuration", "16",
+          lambda: _expiry_cases(), 0.5, near="Expiry rests on"),
+    Claim("Fig.1", "Wilson upper bound of 0 of 16", "0.19",
+          lambda: _wilson_zero_of(_expiry_cases()), 0.006, near="Expiry rests on"),
     # -- abstract: figures printed only in the abstract and tables -------------
     Claim("abs", "LangMem transaction_as_of (micro)", "0.890",
           lambda: micro("external-langmem-v1", "transaction_as_of", cells()),

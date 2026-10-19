@@ -69,7 +69,7 @@ def figure_categories(cells) -> None:
         ("LangMem", category_counts(load_transcript(LANGMEM), cells=cells), "#4f8f5b"),
         ("Graphiti", category_counts(load_transcript(GRAPHITI), cells=cells), "#c2703d"),
         ("Cognee (chunks)", category_counts(load_transcript(COGNEE), cells=cells), "#8a6bbf"),
-        ("Hindsight (chunks)", category_counts(load_transcript(HINDSIGHT), cells=cells), "#b08a3e"),
+        ("Hindsight (recall)", category_counts(load_transcript(HINDSIGHT), cells=cells), "#b08a3e"),
         ("Cognee (reader)", category_counts(load_transcript(COGNEE_READER), cells=cells), "#3f7f7f"),
         ("Hindsight (reader)", category_counts(load_transcript(HINDSIGHT_READER), cells=cells), "#7f5f9f"),
     )
@@ -94,13 +94,15 @@ def figure_categories(cells) -> None:
     ax.set_xticklabels([LABELS[c] for c in CATEGORIES], fontsize=9)
     ax.set_ylabel("exact accuracy")
     ax.set_ylim(0, 1.12)
-    ax.legend(frameon=False, loc="upper right", fontsize=7, ncol=2)
+    # Below the axes: inside, seven entries cover the oracle line and its label.
+    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.2),
+              fontsize=7, ncol=4)
     ax.set_title(
         "Per-category exact accuracy, 20 matched cells (Wilson 95% intervals)",
         fontsize=10,
     )
     fig.tight_layout()
-    fig.savefig(OUT / "categories.pdf", metadata=_PDF_METADATA)
+    fig.savefig(OUT / "categories.pdf", metadata=_PDF_METADATA, bbox_inches="tight")
     plt.close(fig)
 
 

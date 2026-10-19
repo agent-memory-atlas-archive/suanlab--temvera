@@ -179,7 +179,7 @@ metadata than in what can be \emph{predicated} on it. We therefore classify
 support into five levels, which turn out to explain every measurement in
 \S\ref{sec:results}:
 
-\begin{description}
+\begin{description}[\IEEEsetlabelwidth{\textsc{mismatch}}]
   \item[\textsc{absent}] the information is not stored;
   \item[\textsc{prose}] stored, but only inside free text, so no predicate can
         filter on it;
@@ -431,10 +431,10 @@ Exact at $k{=}1$             & 0.630 & 0.595 & 0.442 \\
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/categories.pdf}
-\Description{Grouped bar chart of exact accuracy by lifecycle category for Mem0, LangMem and Graphiti. Mem0 and LangMem are high on transaction-scoped queries and moderate on valid time; Graphiti is near zero on valid time and expiry. Error bars are widest on expiry, which rests on sixteen cases.}
-\caption{Per-category exact accuracy over the matched cells. Expiry rests on 16
-cases for both systems, so its interval admits accuracies up to $0.19$; the
-valid-time gap is the only category difference that is well separated.}
+\Description{Grouped bar chart of exact accuracy by lifecycle category for all seven configurations. Mem0 and LangMem are high on transaction-scoped queries and moderate on valid time; the three retrieval-layer retaining stores are near zero on valid time; Cognee's reader is near one on transaction and valid time. Error bars are widest on expiry, which rests on sixteen cases.}
+\caption{Per-category exact accuracy over the matched cells, all seven
+configurations. Expiry rests on 16 cases per system, so even a score of zero
+admits accuracies up to $0.19$; we draw no conclusion from that category.}
 \label{fig:categories}
 \end{figure}
 
@@ -664,7 +664,7 @@ if the read path is built to use what the store kept.
 The reader configurations differ from the rest in whether an LLM synthesises the
 answer, so they are an upper bound on what a reader can recover
 rather than a like-for-like win over the other columns, all of which are scored
-at the retrieval layer. Expiry remains low for every configuration
+at the retrieval layer. Expiry stays low for both readers
 ($0.125$ at best over 16 cases), so we draw no conclusion there.
 
 \subsection{Where cost and latency live}
@@ -973,8 +973,8 @@ copies.
 
 \section*{Ethics Statement}
 
-This work evaluates three open-source memory libraries on fully synthetic
-histories and on a public benchmark, and reports defects we found in them. We
+This work evaluates five open-source memory systems on synthetic histories and
+on a public benchmark, and reports defects we found in them. We
 report an implementation defect in one system that causes silent loss of memory
 updates; because it biases that system's measured scores downward, our reported
 numbers are conservative rather than unfairly harsh, and we state this in the
