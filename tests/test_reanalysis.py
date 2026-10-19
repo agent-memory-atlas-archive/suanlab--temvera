@@ -127,3 +127,27 @@ class ConsolidatedValuesTest(unittest.TestCase):
 
         oracle, at = self._oracle("purge")
         self.assertEqual(consolidated_values(oracle, "s", "a", at), frozenset())
+
+
+class ConsolidationSweepTest(unittest.TestCase):
+    def test_sweep_matches_the_oracle_on_every_case(self) -> None:
+        from temvera.generator import generate_histories
+        from temvera.nl_workload import build_nl_cases
+        from temvera.oracle import LifecycleOracle
+        from temvera.reanalysis import consolidated_values, consolidation_answerable
+
+        for seed in (7, 13, 42):
+            events = generate_histories(
+                seed=seed, entities=6, revisions=4, attributes=2,
+                reconfirm_probability=0.5, expire_probability=0.35, purge_probability=0.25,
+            )
+            cases = build_nl_cases(events)
+            oracle = LifecycleOracle(events)
+            swept = consolidation_answerable(events, cases)
+            for case in cases:
+                kept = consolidated_values(oracle, case.subject, case.attribute,
+                                           case.transaction_at)
+                expected = set(case.expected_values)
+                self.assertEqual(swept[case.case_id], bool(expected) and expected <= kept,
+                                 case.case_id)
+            self.assertTrue(any(swept.values()) and not all(swept.values()))

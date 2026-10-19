@@ -255,3 +255,38 @@ def consolidated_values(oracle: Any, subject: str, attribute: str, at: Any) -> f
         return frozenset()
     latest = max(live, key=lambda b: (b.valid_from, b.recorded_at, b.belief_id))
     return frozenset({latest.value})
+
+
+def consolidation_answerable(events: Iterable[Any], cases: Iterable[Any]) -> dict[str, bool]:
+    """``consolidated_values`` for many cases in one pass over the history.
+
+    Equivalent to asking the oracle per case (tests check this), but sweeps the
+    events once in transaction order instead of rebuilding state per question,
+    which is what makes the bound cheap enough to verify on every test run.
+    """
+    from .model import Operation
+
+    ordered = sorted(events, key=lambda e: (e.recorded_at, e.event_id))
+    pending = sorted(cases, key=lambda c: c.transaction_at)
+    live: dict[str, Any] = {}
+    out: dict[str, bool] = {}
+    index = 0
+    for case in pending:
+        while index < len(ordered) and ordered[index].recorded_at <= case.transaction_at:
+            event = ordered[index]
+            if event.operation is Operation.INGEST:
+                live[event.belief_id] = event
+            elif event.operation is Operation.SUPERSEDE:
+                live.pop(event.target_id, None)
+            elif event.operation is Operation.PURGE:
+                live.pop(event.belief_id, None)
+            index += 1
+        candidates = [e for e in live.values()
+                      if e.subject == case.subject and e.attribute == case.attribute]
+        kept = (
+            {max(candidates, key=lambda e: (e.valid_from, e.recorded_at, e.belief_id)).value}
+            if candidates else set()
+        )
+        expected = set(case.expected_values)
+        out[case.case_id] = bool(expected) and expected <= kept
+    return out

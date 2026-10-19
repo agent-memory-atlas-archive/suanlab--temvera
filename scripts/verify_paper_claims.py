@@ -829,7 +829,162 @@ def _real_claims() -> list:
     return out
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims()
+# -- Two bounds (sec:bounds): recomputed by scripts/analyze_filtering_laws.py --
+_laws = None
+
+
+def laws():
+    """The analysis script, loaded once; it rebuilds histories from run seeds."""
+    global _laws
+    if _laws is None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "analyze_filtering_laws", ROOT / "scripts" / "analyze_filtering_laws.py")
+        _laws = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_laws)
+    return _laws
+
+
+_MEM0_SCALE = {8: ["scale-sweep-mem0-e8-v2"], 32: ["scale-sweep-mem0-e32-v2"],
+               128: ["scale-sweep-mem0-e128-s7-v3", "scale-sweep-mem0-e128-s17-v3",
+                     "scale-sweep-mem0-e128-s42-v3"]}
+_GRAPHITI_RUNS = ("external-graphiti-hybrid-v1", "external-graphiti-hybrid-gpt4o-v1",
+                  "scale-sweep-graphiti-e8-v2", "scale-sweep-graphiti-e32-v2",
+                  "scale-sweep-graphiti-e128-v2")
+_RETAINING_RUNS = _GRAPHITI_RUNS + ("external-cognee-chunks-grid-v3",
+                                    "external-hindsight-recall-v1")
+_ceilings: dict = {}
+
+
+def ceiling(run: str) -> tuple:
+    if run not in _ceilings:
+        _ceilings[run] = laws().ceiling(run)
+        assert _ceilings[run][4] == 0, f"{run}: rebuilt history disagrees with the sealed run"
+    return _ceilings[run]
+
+
+def ceiling_rate(runs: list[str], what: str) -> float:
+    """Pooled over runs: 'ceiling' share answerable, 'exact', 'beyond' (count),
+    'correct' (count)."""
+    a = n = inside = beyond = 0
+    for run in runs:
+        ra, rn, ri, rb, _ = ceiling(run)
+        a, n, inside, beyond = a + ra, n + rn, inside + ri, beyond + rb
+    return {"ceiling": a / n, "exact": (inside + beyond) / n, "beyond": float(beyond),
+            "correct": float(inside + beyond), "answerable": float(a), "n": float(n)}[what]
+
+
+def retaining_split(what: str) -> float:
+    """Extremes over the synthetic retaining runs: lowest exact rate with nothing to
+    filter, highest with something to filter."""
+    splits = [laws().split(run, c) for run in _RETAINING_RUNS
+              for c in ("transaction_as_of", "valid_time")]
+    if what == "free_min":
+        return min(kf / nf for kf, nf, _, _ in splits if nf)
+    if what == "free_max":
+        return max(kf / nf for kf, nf, _, _ in splits if nf)
+    return max(kc / nc for _, _, kc, nc in splits if nc)
+
+
+def real_split(system: str, what: str) -> float:
+    from temvera.reanalysis import Proportion
+
+    run = {"Graphiti": "lme-bitemporal-graphiti-agreement-v1",
+           "Cognee chunks": "lme-bitemporal-cognee-chunks-agreement-v3",
+           "Hindsight recall": "lme-bitemporal-hindsight-recall-agreement-v2"}[system]
+    _, _, kc, nc = laws().split_real(run)
+    p = Proportion(kc, nc)
+    return {"hits": float(kc), "n": float(nc), "rate": p.rate,
+            "low": p.wilson()[0], "high": p.wilson()[1]}[what]
+
+
+def graphiti_synthetic_conflict_high() -> float:
+    from temvera.reanalysis import Proportion
+
+    return max(Proportion(kc, nc).wilson()[1]
+               for run in _GRAPHITI_RUNS for c in ("transaction_as_of", "valid_time")
+               for _, _, kc, nc in [laws().split(run, c)] if nc)
+
+
+def _bounds_claims() -> list:
+    grid = ["external-mem0-grid-v2"]
+    return [
+        Claim("5.bounds", "main-grid valid-time ceiling (micro)", "0.385",
+              lambda: ceiling_rate(grid, "ceiling"), near="On the main\ngrid that ceiling is"),
+        Claim("5.bounds", "main-grid answerable questions", "75",
+              lambda: ceiling_rate(grid, "answerable"), 0.5, near="On the main\ngrid that ceiling is"),
+        Claim("5.bounds", "main-grid valid-time questions", "195",
+              lambda: ceiling_rate(grid, "n"), 0.5, near="On the main\ngrid that ceiling is"),
+        Claim("5.bounds", "Mem0 valid_time, mini (micro)", "0.364",
+              lambda: ceiling_rate(grid, "exact"), near="(75 of 195): Mem0 reaches"),
+        Claim("5.bounds", "Mem0 valid_time, gpt-4o (micro)", "0.374",
+              lambda: ceiling_rate(["external-mem0-grid-gpt4o-v1"], "exact"),
+              near="(75 of 195): Mem0 reaches"),
+        # The prose says none of the three main-grid runs answers above the
+        # ceiling; there is no digit to anchor, so this lambda carries the check.
+        Claim("5.bounds", "LangMem valid_time (micro)", "0.323",
+              lambda: ceiling_rate(["external-langmem-v1"], "exact")
+              if not any(ceiling_rate([r], "beyond") for r in
+                         ("external-mem0-grid-v2", "external-mem0-grid-gpt4o-v1",
+                          "external-langmem-v1"))
+              else -1.0,  # a failed guard must read as drift; NaN would not
+              near="(75 of 195): Mem0 reaches"),
+        *[Claim("5.bounds", f"scale ceiling at {e} entities (case-weighted)", "0.250",
+                lambda e=e: ceiling_rate(_MEM0_SCALE[e], "ceiling"),
+                near="In the scale sweep the ceiling is") for e in (8, 32, 128)],
+        Claim("5.bounds", "Mem0 valid_time at 8 entities", "0.206",
+              lambda: ceiling_rate(_MEM0_SCALE[8], "exact"), near="and Mem0's"),
+        Claim("5.bounds", "Mem0 valid_time at 32 entities", "0.211",
+              lambda: ceiling_rate(_MEM0_SCALE[32], "exact"), near="and Mem0's"),
+        Claim("5.bounds", "Mem0 valid_time at 128 entities (3 seeds pooled)", "0.195",
+              lambda: ceiling_rate(_MEM0_SCALE[128], "exact"), near="and Mem0's"),
+        Claim("5.bounds", "scale answers above the ceiling", "13",
+              lambda: ceiling_rate(sum(_MEM0_SCALE.values(), []), "beyond"), 0.5,
+              near="sit under it,"),
+        Claim("5.bounds", "scale correct valid-time answers", "915",
+              lambda: ceiling_rate(sum(_MEM0_SCALE.values(), []), "correct"), 0.5,
+              near="sit under it,"),
+        Claim("5.bounds", "first bound exceeded, Mem0 mini", "9",
+              lambda: float(laws().first_ceiling_beyond("external-mem0-grid-v2")), 0.5,
+              near="it was exceeded by"),
+        Claim("5.bounds", "first bound exceeded, LangMem", "7",
+              lambda: float(laws().first_ceiling_beyond("external-langmem-v1")), 0.5,
+              near="it was exceeded by 9 Mem0 and"),
+        Claim("5.bounds", "retaining, nothing to filter, lowest", "0.972",
+              lambda: retaining_split("free_min"), near="the three retaining stores answer"),
+        Claim("5.bounds", "retaining, nothing to filter, highest", "1.000",
+              lambda: retaining_split("free_max"), near="the three retaining stores answer"),
+        Claim("5.bounds", "retaining, something to filter, highest", "0.009",
+              lambda: retaining_split("conflict_max"), near="nothing to filter and at most"),
+        Claim("5.bounds", "main-grid share with nothing to filter (transaction)", "0.408",
+              lambda: laws().split("external-cognee-chunks-grid-v3", "transaction_as_of")[1] / 228,
+              near="at every scale, and"),
+        Claim("5.bounds", "Graphiti main-grid transaction (micro)", "0.412",
+              lambda: micro("external-graphiti-hybrid-v1", "transaction_as_of", cells()),
+              near="Graphiti with one answer more"),
+        Claim("5.bounds", "real-data questions with something to filter", "84",
+              lambda: real_split("Graphiti", "n"), 0.5, near="test is the real conversations"),
+        Claim("5.bounds", "Cognee real-data filtered hits", "0",
+              lambda: real_split("Cognee chunks", "hits"), 0.5, near="with something to filter, Cognee answers"),
+        Claim("5.bounds", "Hindsight real-data filtered hits", "5",
+              lambda: real_split("Hindsight recall", "hits"), 0.5, near="Cognee answers 0 and Hindsight"),
+        Claim("5.bounds", "Graphiti real-data filtered hits", "11",
+              lambda: real_split("Graphiti", "hits"), 0.5, near="but Graphiti"),
+        Claim("5.bounds", "Graphiti real-data filtering rate", "0.131",
+              lambda: real_split("Graphiti", "rate"), near="but Graphiti"),
+        # The prose says this interval lies above every synthetic one; the
+        # lambda fails the check outright if that stops being true.
+        Claim("5.bounds", "Graphiti real-data Wilson low", "0.075",
+              lambda: real_split("Graphiti", "low")
+              if real_split("Graphiti", "low") > graphiti_synthetic_conflict_high()
+              else -1.0, near="but Graphiti"),  # -1, not NaN: NaN never reads as drift
+        Claim("5.bounds", "Graphiti real-data Wilson high", "0.219",
+              lambda: real_split("Graphiti", "high"), near="but Graphiti"),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims()
 
 
 def main() -> int:

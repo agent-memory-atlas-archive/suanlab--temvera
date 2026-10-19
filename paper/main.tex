@@ -135,14 +135,35 @@ A \citep{graphnativebitemporal} graph-native bitemporal memory store keeps valid
 intervals with point-in-time retrieval, and TOKI \citep{toki} defines bitemporal operators
 over a dual-row schema with released code. MemStrata \citep{memstrata} pairs a bi-temporal ledger
 with a deterministic (subject, relation, object) supersession rule and reports
-stale-fact rate as its headline metric. We therefore claim none of these.
+stale-fact rate as its headline metric, and MemTX \citep{memtx} and MemTxn
+\citep{memtxn} add transactional commit and recovery boundaries to agent memory.
+We therefore claim none of these.
 
 \paragraph{Forgetting evaluation is prior art.}
-ForgetEval \citep{forgeteval} generates seeded lifecycle cases with deterministic substring scoring
+ForgetEval \citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases with deterministic substring scoring
 across supersession, decay, amnesia, purge and drift; MemoryAgentBench \citep{memoryagentbench} evaluates
 selective forgetting among four competencies. Springdrift \citep{springdrift} already combines
 append-only memory, auditability and git-backed recovery, which retires any
-``first git-native auditable memory'' framing.
+``first git-native auditable memory'' framing. Deletion is measured too:
+Bemula \citep{bemula} evaluates six mainstream memory systems on forget requests
+made in dialogue and finds that none passes more than 1.5\% of them end to end;
+MemCut \citep{memcut} recovers deleted secrets from objects that survive deletion
+across five memory designs, and MemLeak \citep{memleak} from retained images and
+correlated text. These judge deletion by what a reader can recover; we compare a
+prose request with each system's native deletion API and scan the stores for
+the payload itself.
+
+\paragraph{Measuring deployed memory.}
+Zhou et al.\ \citep{agentnative} evaluate twelve memory systems from a
+data-management perspective, including update correctness, and Wolff and
+Bennati \citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and
+Cognee. STALE \citep{stale} and StateMemBench \citep{statemembench} find that
+memory systems often answer with a superseded state, Supersede \citep{supersede}
+isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth
+First \citep{groundtruthfirst} asks as-of-date questions over facts with
+validity intervals. These score the current state or valid time; none we found
+asks what a deployed system \emph{knew} at an earlier time, which
+forward-checkpoint replay makes measurable.
 
 \paragraph{Deployed systems and security.}
 Mem0 \citep{mem0}, Zep/Graphiti \citep{zep,graphiti}, MemGPT/Letta \citep{memgpt},
@@ -153,9 +174,10 @@ defence baseline.
 \paragraph{What is left.}
 No prior work we found measures, under one controlled history, both bitemporal
 answer correctness \emph{and} where deleted content physically survives across a
-system's derived stores. Our literature review is single-reviewer with a
+system's derived stores; the works above each measure one side, on other
+systems or by other means. Our literature review is single-reviewer with a
 deterministic 10\% rescreen; searches, exclusions and rescreens are logged and
-frozen with the artifact.
+frozen with the artifact, the last search on 19 October 2026.
 
 \section{Reference implementation}
 
@@ -879,6 +901,46 @@ though not traced to, the dropped \texttt{UPDATE} actions reported in
 
 These are 43 cases on one backbone in one run, so we read them as a check of
 direction rather than as rates; every answer is in the released transcripts.
+
+\subsection{Two bounds the measurements obey}\label{sec:bounds}
+
+The two failure modes are not only observed; each follows from what its design
+keeps, and the history alone fixes how far it can go.
+
+\textbf{Consolidation has a ceiling.} A consolidating store replaces a value
+when a newer one supersedes it, keeps it when it merely expires, and drops it
+when it is purged. Whatever it does internally, it can hold at most the latest
+value per subject that was neither superseded nor purged, so no reader can
+answer a valid-time question whose answer is any other value, and the share it
+could answer is computable from the history before the system runs. On the main
+grid that ceiling is 0.385 (75 of 195): Mem0 reaches 0.364 on
+\texttt{gpt-4o-mini} and 0.374 on \texttt{gpt-4o}, LangMem 0.323, and none
+answers a single question above it. In the scale sweep the ceiling is 0.250 at
+8, 32 and 128 entities alike, and Mem0's 0.206, 0.211 and 0.195 sit under it,
+with 13 of its 915 correct answers above it. Mem0's flat valid-time accuracy
+across scale (\S\ref{sec:scale}) is this ceiling, which the four-revision
+workload fixes. We did not get the bound right first: counting only values still
+valid at query time, it was exceeded by 9 Mem0 and 7 LangMem answers, every one
+about an expired value, which is how we learned that expiry does not overwrite.
+Because the corrected form was fixed after seeing those exceptions, its fit on
+the main grid is post hoc; the scale runs, scored only afterwards, are its
+held-out test.
+
+\textbf{Retaining stores answer what needs no filtering.} Split each question by
+whether a superseded value is known when it is asked. Read at the retrieval
+layer, the three retaining stores answer 0.972 to 1.000 of the questions with
+nothing to filter and at most 0.009 of the rest, on both backbones and at every
+scale. Their accuracy is therefore the share of questions with nothing to
+filter: 0.250 for Graphiti at every scale, and 0.408 on the main grid's
+transaction-scoped questions, which Cognee and Hindsight score exactly and
+Graphiti with one answer more (0.412). We noticed this from the scale result,
+so on synthetic histories it describes rather than predicts. Its out-of-sample
+test is the real conversations, and there it partly fails: of the 84 questions
+with something to filter, Cognee answers 0 and Hindsight 5, but Graphiti 11
+(0.131 [0.075, 0.219]), above every synthetic interval. How often a retaining
+store happens to filter is not a fixed property of the store; we suspect,
+without having tested it, that real sessions crowd the old value out of the top
+five with unrelated facts.
 
 \subsection{External validity}\label{sec:external}
 

@@ -22,8 +22,7 @@ from pathlib import Path
 
 from temvera.external_experiment import _events_for
 from temvera.nl_workload import build_nl_cases
-from temvera.oracle import LifecycleOracle
-from temvera.reanalysis import Proportion, consolidated_values
+from temvera.reanalysis import Proportion, consolidation_answerable
 
 RUNS = Path(__file__).resolve().parents[1] / "experiments" / "runs"
 
@@ -60,63 +59,106 @@ def show(k: int, n: int) -> str:
     return f"{k}/{n} = {k / n:.3f} [{low:.3f}, {high:.3f}]"
 
 
-def h1() -> None:
+def split(run: str, category: str) -> tuple[int, int, int, int]:
+    """(exact, n) with nothing to filter, then (exact, n) with something to filter."""
+    rs = [r for r in rows(run) if r["category"] == category and r["expected_values"]]
+    free = [r for r in rs if not r["stale_values"]]
+    conflict = [r for r in rs if r["stale_values"]]
+    return (sum(r["exact"] for r in free), len(free),
+            sum(r["exact"] for r in conflict), len(conflict))
+
+
+def split_real(run: str) -> tuple[int, int, int, int]:
+    """Real data: the control (no incidental value) has nothing to filter; current
+    and valid-time questions all have a superseded value."""
+    rs = rows(run)
+    free = [r for r in rs if r["category"] == "transaction_as_of" and not r["incidental_value"]]
+    conflict = [r for r in rs if r["category"] in ("current", "valid_time")]
+    return (sum(r["exact"] for r in free), len(free),
+            sum(r["exact"] for r in conflict), len(conflict))
+
+
+def ceiling(run: str) -> tuple[int, int, int, int, int]:
+    """Valid-time (answerable, questions, exact inside, exact beyond, mismatches)."""
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    sealed = [r for r in rows(run) if r["category"] == "valid_time"]
+    bound: dict[tuple, tuple[bool, frozenset]] = {}
+    for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in sealed}):
+        profile, entities, revisions, seed = cell
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        cases = build_nl_cases(events)
+        answerable = consolidation_answerable(events, cases)
+        for case in cases:
+            bound[cell + (case.case_id,)] = (answerable[case.case_id], case.expected_values)
+    inside = beyond = answerable_n = mismatches = 0
+    for r in sealed:
+        answerable, expected = bound[(r["profile"], r["entities"], r["revisions"], r["seed"],
+                                      r["case_id"])]
+        mismatches += set(expected) != set(r["expected_values"])
+        answerable_n += answerable
+        inside += r["exact"] and answerable
+        beyond += r["exact"] and not answerable
+    return answerable_n, len(sealed), inside, beyond, mismatches
+
+
+def first_ceiling_beyond(run: str) -> int:
+    """Correct valid-time answers outside the first, falsified bound, which kept
+    only values still valid at the question's transaction time. Kept so the
+    paper's account of that failure recomputes like any other number."""
+    from temvera.oracle import LifecycleOracle
+
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    sealed = [r for r in rows(run) if r["category"] == "valid_time" and r["exact"]]
+    beyond = 0
+    for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in sealed}):
+        profile, entities, revisions, seed = cell
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        oracle = LifecycleOracle(events)
+        values = {e.belief_id: e.value for e in events if e.value is not None}
+        cases = {c.case_id: c for c in build_nl_cases(events)}
+        for r in (r for r in sealed if (r["profile"], r["entities"], r["revisions"], r["seed"]) == cell):
+            case = cases[r["case_id"]]
+            current = {values[b.belief_id] for b in oracle.query(
+                case.subject, case.attribute,
+                valid_at=case.transaction_at, transaction_at=case.transaction_at)}
+            beyond += not (set(case.expected_values) <= current)
+    return beyond
+
+
+def main() -> int:
     print("H1  exact rate with nothing to filter | with something to filter (phi)")
     for system, runs in RETAINING.items():
         for run in runs:
             for category in ("transaction_as_of", "valid_time"):
-                rs = [r for r in rows(run) if r["category"] == category and r["expected_values"]]
-                free = [r for r in rs if not r["stale_values"]]
-                conflict = [r for r in rs if r["stale_values"]]
-                print(f"  {system:16s} {run:36s} {category:17s} pi={len(free) / len(rs):.3f}  "
-                      f"{show(sum(r['exact'] for r in free), len(free)):28s} "
-                      f"{show(sum(r['exact'] for r in conflict), len(conflict))}")
+                kf, nf, kc, nc = split(run, category)
+                print(f"  {system:16s} {run:36s} {category:17s} pi={nf / (nf + nc):.3f}  "
+                      f"{show(kf, nf):28s} {show(kc, nc)}")
     print("  real data: the control is asked before the revision exists; current and"
           " valid-time questions all have a superseded value")
     for system, run in REAL.items():
-        rs = rows(run)
-        free = [r for r in rs if r["category"] == "transaction_as_of" and not r["incidental_value"]]
-        conflict = [r for r in rs if r["category"] in ("current", "valid_time")]
-        print(f"  {system:16s} {run:45s} {show(sum(r['exact'] for r in free), len(free)):28s} "
-              f"{show(sum(r['exact'] for r in conflict), len(conflict))}")
-
-
-def h2() -> int:
+        kf, nf, kc, nc = split_real(run)
+        print(f"  {system:16s} {run:45s} {show(kf, nf):28s} {show(kc, nc)}")
     print("\nH2  valid-time ceiling for a consolidating store | exact | exact beyond it")
-    mismatches = 0
+    total_mismatches = 0
     for system, runs in CONSOLIDATING.items():
         for run in runs:
-            config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
-            profiles = {p["name"]: p for p in config["profiles"]}
-            sealed = [r for r in rows(run) if r["category"] == "valid_time"]
-            ceiling: dict[tuple, tuple[bool, frozenset]] = {}
-            for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in sealed}):
-                profile, entities, revisions, seed = cell
-                events = _events_for(seed, entities, revisions, profiles[profile],
-                                     bool(config.get("naturalize", True)),
-                                     int(config.get("attributes", 1)),
-                                     bool(config.get("distinct_values", False)),
-                                     config.get("natural_pools", "standard"))
-                oracle = LifecycleOracle(events)
-                for case in build_nl_cases(events):
-                    kept = consolidated_values(oracle, case.subject, case.attribute,
-                                               case.transaction_at)
-                    answerable = bool(case.expected_values) and case.expected_values <= kept
-                    ceiling[cell + (case.case_id,)] = (answerable, case.expected_values)
-            inside = beyond = answerable_n = 0
-            for r in sealed:
-                answerable, expected = ceiling[(r["profile"], r["entities"], r["revisions"],
-                                                r["seed"], r["case_id"])]
-                mismatches += set(expected) != set(r["expected_values"])
-                answerable_n += answerable
-                inside += r["exact"] and answerable
-                beyond += r["exact"] and not answerable
-            print(f"  {system:8s} {run:30s} ceiling {show(answerable_n, len(sealed)):30s} "
-                  f"exact {show(inside + beyond, len(sealed)):30s} beyond {beyond}")
-    print(f"  rebuilt cases disagreeing with the sealed ones: {mismatches}")
-    return mismatches
+            answerable, n, inside, beyond, mismatches = ceiling(run)
+            total_mismatches += mismatches
+            print(f"  {system:8s} {run:30s} ceiling {show(answerable, n):30s} "
+                  f"exact {show(inside + beyond, n):30s} beyond {beyond}")
+    print(f"  rebuilt cases disagreeing with the sealed ones: {total_mismatches}")
+    return 1 if total_mismatches else 0
 
 
 if __name__ == "__main__":
-    h1()
-    sys.exit(1 if h2() else 0)
+    sys.exit(main())

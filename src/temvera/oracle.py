@@ -15,6 +15,10 @@ class LifecycleOracle:
     def __init__(self, events: Iterable[MemoryEvent] = ()) -> None:
         self._events = list(events)
         self._validate_unique_ids()
+        # Folding the log is O(events) per call and queries repeat transaction
+        # times, so states are memoised; ``append`` invalidates. Callers get a
+        # copy, so mutating a returned state cannot corrupt the cache.
+        self._states: dict[datetime, dict[str, Belief]] = {}
 
     @property
     def events(self) -> tuple[MemoryEvent, ...]:
@@ -24,8 +28,15 @@ class LifecycleOracle:
         if any(existing.event_id == event.event_id for existing in self._events):
             raise ValueError(f"duplicate event_id: {event.event_id}")
         self._events.append(event)
+        self._states.clear()
 
     def state_as_of(self, transaction_at: datetime) -> dict[str, Belief]:
+        cached = self._states.get(transaction_at)
+        if cached is None:
+            cached = self._states[transaction_at] = self._fold(transaction_at)
+        return dict(cached)
+
+    def _fold(self, transaction_at: datetime) -> dict[str, Belief]:
         state: dict[str, Belief] = {}
         ordered = sorted(
             (e for e in self._events if e.recorded_at <= transaction_at),
