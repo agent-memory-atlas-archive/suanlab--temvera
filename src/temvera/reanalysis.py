@@ -231,3 +231,27 @@ def compare_systems(
             "abstention_on_cells_with_cases": abstention(rows).as_dict(),
         }
     return report
+
+
+def consolidated_values(oracle: Any, subject: str, attribute: str, at: Any) -> frozenset[str]:
+    """What a consolidating store can still hold for one subject and attribute.
+
+    Consolidation overwrites a value only when a newer one supersedes it. Expiry
+    ends a value without replacing it, so the store keeps it (often with an end
+    marker), and purge removes it. The result is the latest value, as known at
+    ``at``, that was neither superseded nor purged -- an upper bound on what any
+    reader of such a store can answer. A first version of this bound counted
+    only values still valid at ``at`` and was contradicted by the runs: every
+    answer beyond it concerned an expired value (evidence ledger E-085).
+    """
+    live = [
+        belief
+        for belief in oracle.state_as_of(at).values()
+        if belief.subject == subject
+        and belief.attribute == attribute
+        and belief.superseded_by is None
+    ]
+    if not live:
+        return frozenset()
+    latest = max(live, key=lambda b: (b.valid_from, b.recorded_at, b.belief_id))
+    return frozenset({latest.value})

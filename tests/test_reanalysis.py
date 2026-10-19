@@ -77,3 +77,53 @@ class KSweepTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ConsolidatedValuesTest(unittest.TestCase):
+    def _oracle(self, *tail):
+        from datetime import datetime, timezone
+
+        from temvera.model import MemoryEvent, Operation
+        from temvera.oracle import LifecycleOracle
+
+        def day(n):
+            return datetime(2025, 1, n, tzinfo=timezone.utc)
+
+        def ingest(belief, value, n):
+            return MemoryEvent(event_id=f"i-{belief}", operation=Operation.INGEST,
+                               belief_id=belief, subject="s", attribute="a", value=value,
+                               valid_from=day(n), recorded_at=day(n))
+
+        events = [ingest("b1", "old", 1)]
+        for kind in tail:
+            if kind == "supersede":
+                events += [MemoryEvent(event_id="s-b2", operation=Operation.SUPERSEDE,
+                                       belief_id="b2", target_id="b1", valid_from=day(5),
+                                       recorded_at=day(5)),
+                           ingest("b2", "new", 5)]
+            elif kind == "expire":
+                events.append(MemoryEvent(event_id="x-b1", operation=Operation.EXPIRE,
+                                          belief_id="b1", recorded_at=day(9),
+                                          valid_to=day(8)))
+            elif kind == "purge":
+                events.append(MemoryEvent(event_id="p-b1", operation=Operation.PURGE,
+                                          belief_id="b1", recorded_at=day(9)))
+        return LifecycleOracle(events), day(20)
+
+    def test_supersession_replaces_the_value(self) -> None:
+        from temvera.reanalysis import consolidated_values
+
+        oracle, at = self._oracle("supersede")
+        self.assertEqual(consolidated_values(oracle, "s", "a", at), frozenset({"new"}))
+
+    def test_expiry_keeps_the_value(self) -> None:
+        from temvera.reanalysis import consolidated_values
+
+        oracle, at = self._oracle("expire")
+        self.assertEqual(consolidated_values(oracle, "s", "a", at), frozenset({"old"}))
+
+    def test_purge_leaves_nothing(self) -> None:
+        from temvera.reanalysis import consolidated_values
+
+        oracle, at = self._oracle("purge")
+        self.assertEqual(consolidated_values(oracle, "s", "a", at), frozenset())
