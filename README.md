@@ -6,7 +6,7 @@ Temvera is a research project investigating how long-running AI agents should
 store, revise, retrieve, forget, and audit memory. The project treats memory as
 an evolving data-management problem rather than a flat vector store.
 
-## Paper artifact (ICDE 2027, Experimental, Analysis, and Benchmark)
+## Paper artifact (ICDE 2027, Experiment, Analysis, and Benchmark)
 
 *Temporal Fields Are Not Temporal Correctness: Measuring Bitemporal and Deletion
 Semantics in Deployed Agent Memory.*
@@ -28,9 +28,9 @@ git clone https://github.com/suanlab/temvera && cd temvera
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -e '.[dev]'
 
-temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 30 sealed runs
+temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 52 sealed runs
 python scripts/recompute_paper_numbers.py --check    # rebuild every table
-python scripts/verify_paper_claims.py                # 87 printed figures vs. their runs
+python scripts/verify_paper_claims.py                # 218 printed figures vs. their runs
 pytest && ruff check .
 ```
 
@@ -39,12 +39,13 @@ figure as printed in the paper with a recomputation from a sealed run, and fails
 if either half moves.
 
 Regenerating the runs is a separate, credentialed step — it needs an OpenAI key,
-a Neo4j server, and a second interpreter for LangMem, whose `openai` requirement
-conflicts with the pinned Mem0 and Graphiti. The two paths are deliberately
+a Neo4j server, separate interpreters for LangMem and Cognee, whose `openai`
+requirements conflict with the pinned Mem0 and Graphiti, and a local Hindsight
+daemon. The two paths are deliberately
 decoupled: you can confirm what we computed before deciding whether to re-run
 generation. [REPRODUCING.md](REPRODUCING.md) has the full protocol, and a frozen
 snapshot with checksums is attached to the
-[`pvldb-eab-v1` release](https://github.com/suanlab/temvera/releases/tag/pvldb-eab-v1).
+[`icde-eab-v1` release](https://github.com/suanlab/temvera/releases/tag/icde-eab-v1).
 
 ## Research thesis
 

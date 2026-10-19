@@ -49,11 +49,15 @@ South Korea — suanlee@semyung.ac.kr.
 
 ## Planned before submission (D-015's extra time)
 
-- [ ] LongMemEval real-data bitemporal workload: label the 75 superseded values,
-      run the five systems, add a section.
-- [ ] Order-of-magnitude scale sweep (8 → 32 → 128 → 512 entities), with accuracy
-      and latency; separate retrieval failure from Mem0's dropped updates, which
-      appear at larger scale.
-- [ ] Second backbone (`gpt-4o`) on the main grid for at least two systems.
-- [ ] Re-audit: every new number gets a row in `scripts/verify_paper_claims.py`.
-- [ ] Re-cut the artifact release at the submission commit.
+- [x] LongMemEval real-data bitemporal workload: all seven configurations, §VI-G
+      (E-083). Scored on the 43 of 69 pairs the two extractors agreed on; the 26
+      others excluded, not adjudicated (D-016).
+- [x] Scale sweep 8 → 32 → 128 entities with accuracy (§VI-F, E-077); 512 was
+      **not run**, and Mem0's dropped updates were not separated from retrieval
+      failure at scale. Latency re-measured once (E-080): it does not reproduce.
+- [ ] Second backbone (`gpt-4o`) on the main grid — **not done**. The only
+      second-backbone evidence remains the filtered-Graphiti `gpt-4o` runs.
+- [x] Re-audit: every new number has a row in `scripts/verify_paper_claims.py`
+      (218 claims); a full read of the PDF found and fixed five errors
+      (`311df3f`).
+- [x] Re-cut the artifact release at the submission commit: tag `icde-eab-v1`.
