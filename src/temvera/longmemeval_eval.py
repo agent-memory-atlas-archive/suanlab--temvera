@@ -2,8 +2,9 @@
 
 The synthetic E1 grids characterise Mem0 as strong on transaction-scoped
 *current* queries and weak on *historical* valid-time reasoning (E-053). This
-module tests whether that asymmetry reproduces on human-written conversations
-rather than generated histories, using the LongMemEval oracle split (evidence
+module tests whether that asymmetry reproduces on LongMemEval's conversations
+(simulated by an LLM in self-chat, then edited by annotators) rather than on
+histories we generate, using the LongMemEval oracle split (evidence
 sessions only, so ingestion stays small).
 
 Two question types are contrasted:

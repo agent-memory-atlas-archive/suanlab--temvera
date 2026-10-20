@@ -2,8 +2,8 @@
 
 The synthetic grid gives control; it does not give realism, which is the first
 thing an experiments-track reviewer will press on. LongMemEval's
-``knowledge-update`` instances are the missing half: human-written conversations
-in which a fact is stated, then superseded, each session carrying a real
+``knowledge-update`` instances are the missing half: conversations we did not
+generate (an LLM simulated them in self-chat and annotators edited them) in which a fact is stated, then superseded, each session carrying a real
 timestamp. That is a supersession with a real valid time and a real transaction
 time, and the benchmark already ships the *current* value as gold.
 

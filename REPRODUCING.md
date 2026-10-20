@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 277 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 291 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because

@@ -66,10 +66,11 @@ afterwards).
 retrieval layer, three independent implementations score 0.000 on
 valid-time queries. An LLM reading the same stores shows the history was there---Cognee's
 reader answers 192 of 195 valid-time cases---but cannot be relied on to use it:
-Hindsight's answers 67. Deletion divides the same way: native deletion APIs
-clear retrieval-reachable stores, while deletion requested in prose is silently
-ignored. Both failure modes hold from 8 to 128 people per history and reappear
-on 43 human-written supersessions from LongMemEval. Cost is write-dominated, and where it falls is a design choice.
+Hindsight's answers 67. In Mem0 and Graphiti, deletion divides the same way: native
+deletion APIs clear retrieval-reachable stores, while deletion requested in prose
+is silently ignored. Both failure modes hold from 8 to 128 people per history and reappear
+on 43 supersessions in LongMemEval's annotator-edited conversations. Cost is write-dominated in Mem0 and read-dominated in Cognee: where it falls is
+a design choice.
 
 We claim no novelty for bitemporal modelling or forgetting evaluation. The
 contribution is measurement, and the finding that a system can expose temporal
@@ -117,26 +118,31 @@ agents actually perform}. We answer it by measurement:
 (i) An identical-history comparison of five deployed memory systems, separating
 consolidating from retaining designs; each side of the taxonomy is confirmed on
 implementations held out from its construction, and both failure modes reappear
-on 43 human-written supersessions from LongMemEval (\S\ref{sec:realdata}).
+on 43 supersessions in LongMemEval's annotator-edited conversations
+(\S\ref{sec:realdata}). A
+ceiling computable from the history alone caps the consolidating stores
+(\S\ref{sec:bounds}), and a retroactive correction, tested against predictions
+committed before the runs, overwrites Mem0's present (\S\ref{sec:corrections}).
 (ii) A separation of \emph{information loss} from \emph{missing filtering},
 obtained by reading two systems' stores both at the retrieval layer and through
 an LLM, which also shows that a reader repairs the gap in one system and not the
 other.
 (iii) A cross-store deletion-completeness measurement under both a prose
-instruction and each system's native API, which the closest prior systems
-describe as a feature but do not measure.
+instruction and each system's native API, which the systems describe as a
+feature but do not measure, and which prior deletion benchmarks judge by what a
+reader recovers rather than by what the stores retain.
 (iv) Measured write/read cost and latency, and a reproducible sealed harness
 whose every reported number recomputes offline from per-case transcripts,
-including preserved negative results and three retracted measurements.
+including preserved negative results and four retracted measurements.
 Code, data, sealed runs, and the scripts that recompute every reported number
 from them are public at \url{https://github.com/suanlab/temvera}.
 
 \section{Related Work}
 
 \paragraph{Temporal modelling is prior art.}
-A \citep{graphnativebitemporal} graph-native bitemporal memory store keeps valid- and transaction-time
+A graph-native bitemporal memory store \citep{graphnativebitemporal} keeps valid- and transaction-time
 intervals with point-in-time retrieval, and TOKI \citep{toki} defines bitemporal operators
-over a dual-row schema with released code. MemStrata \citep{memstrata} pairs a bi-temporal ledger
+over a dual-row schema. MemStrata \citep{memstrata} pairs a bi-temporal ledger
 with a deterministic (subject, relation, object) supersession rule and reports
 stale-fact rate as its headline metric, and MemTX \citep{memtx} and MemTxn
 \citep{memtxn} add transactional commit and recovery boundaries to agent memory.
@@ -350,8 +356,9 @@ probabilities. Query truth is computed by the oracle independently of retrieval.
 a history in which every valid interval and every recording time is known, and
 whose mix of revision, expiry and purge can be varied; no public conversational
 benchmark labels more than the current value. Synthetic histories give that
-control, and real conversations check it (\S\ref{sec:realdata}). The price is
-realism, which is why the real-data check is read as direction, not as rates.
+control, and a public benchmark's conversations check it (\S\ref{sec:realdata}).
+The price is realism, which is why that check is read as direction, not as
+rates.
 
 \paragraph{Rendering.} Histories are rendered to dated conversational turns.
 The generator's synthetic tokens (\texttt{entity-000}, \texttt{place-38})
@@ -379,6 +386,8 @@ abstention is computed only over cells that contain abstention cases. Two
 comparisons are cell-averaged instead, because they aggregate cells whose
 denominators differ --- the internal baselines of Table~\ref{tab:baselines} and
 the filtered-Graphiti runs --- and both are marked where they are used.
+Intervals are per estimate and are not adjusted for multiple comparisons; the
+comparisons we draw are descriptive.
 
 \paragraph{The oracle defines ground truth.} Expected values are computed by the
 oracle, so an oracle "system" scores $1.0$ by construction; it is not an
@@ -387,9 +396,15 @@ independent SQLite implementation is a differential-testing check on our own two
 implementations of one specification, not external validation.
 
 \paragraph{Systems.} Internal baselines (append-only, full/recent context, BM25,
-last-write-wins) and the oracle; external systems Mem0 \texttt{0.1.118}, LangMem,
-Graphiti \texttt{0.29.2} on Neo4j~5.26, Cognee \texttt{1.4.2} and Hindsight, all
-with \texttt{gpt-4o-mini} at temperature~0 and \embedmodel.
+last-write-wins) and the oracle; external systems Mem0 \texttt{0.1.118}, LangMem \texttt{0.0.30},
+Graphiti \texttt{0.29.2} on Neo4j~5.26, Cognee \texttt{1.4.2} and Hindsight,
+all with \texttt{gpt-4o-mini} and \embedmodel{} (\texttt{gpt-4o} only where
+\S\ref{sec:results} says so). Mem0, Graphiti and Cognee run at temperature~0;
+LangMem and Hindsight keep their libraries' defaults --- LangMem's extractor
+sets no temperature, so the provider default applies, and Hindsight uses 0.1 to
+extract and 0.9 to reflect. The Hindsight runs did not record their version;
+the interpreter that served all of them had \texttt{hindsight-api 0.9.1}
+installed throughout.
 LangMem and Cognee require \texttt{openai} major versions incompatible with the
 pinned Mem0 and Graphiti, so they run in isolated interpreters behind a stdio
 protocol. Runs are sealed with
@@ -535,8 +550,8 @@ ran Mem0 against a shared history database that its own library corrupts under
 contention. We re-ran both under corrected configurations. Neither changed the
 result: Graphiti under its shipped hybrid retrieval scores $0.196$ against
 $0.194$ cosine-only with valid-time $0.000$ either way, and Mem0 with an
-isolated database scores $0.603$ against $0.612$. These reruns also provide our
-only same-protocol replication, and it is instructive: Mem0's expiry accuracy
+isolated database scores $0.603$ against $0.612$. These reruns were also our
+first same-protocol replication, and it is instructive: Mem0's expiry accuracy
 moved $0.000 \to 0.125$ (2 of 16 cases) between runs, exactly the instability its
 Wilson interval predicts. We therefore draw no conclusion from either system's
 expiry number.
@@ -590,7 +605,7 @@ non-restating instruction (Figure~\ref{fig:residual}).
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/residual.pdf}
-\Description{Bar chart of residual occurrences of a purged value per store, split by whether a query path can reach that store. Under a natural-language deletion instruction every system retains the value in reachable stores; under each system's native deletion API the reachable stores fall to zero and only audit logs and entity summaries retain it.}
+\Description{Bar chart of residual occurrences of a purged value per store, split by whether a query path can reach that store. Under a natural-language deletion instruction both deployed systems retain the value in reachable stores; under each system's native deletion API the reachable stores fall to zero and only audit logs and entity summaries retain it.}
 \caption{Where a purged payload survives, split by whether a query path can
 reach the store. Counts are substring occurrences over differently shaped stores
 and are not comparable in magnitude across systems; the reachability split is
@@ -709,14 +724,16 @@ Hindsight's reader, over its own retained store, reaches only $0.344$ --- below
 Mem0's $0.364$, a store that has thrown the history away. So the information is
 present in every retaining system, and a reader \emph{can} exploit it, but
 attaching an LLM does not reliably do so: recovery varies by nearly a factor of
-three between two systems that both retain. Transaction time is the exception
-that proves the mechanism: it is perfect for Cognee by construction, because
-forward-checkpoint replay leaves only what was known in the store.
+three between two systems that both retain. Transaction-scoped questions are the
+exception, and they show the mechanism: Cognee answers all of them by
+construction, because forward-checkpoint replay leaves only what was known in
+the store.
 
-That distinction does not rescue the consolidating systems. Mem0 ($0.364$) and
-LangMem ($0.323$) sit in the middle whichever way they are read, because a
-superseding write destroys its predecessor: there is nothing for a reader to
-recover. \textbf{Retention decides whether correctness is
+That distinction does not rescue the consolidating systems. We read Mem0
+($0.364$) and LangMem ($0.323$) only at the retrieval layer, but a reader could
+not lift them far: a superseding write destroys its predecessor, so their
+valid-time accuracy is capped by a ceiling the history fixes
+(\S\ref{sec:bounds}). \textbf{Retention decides whether correctness is
 recoverable at all; it does not make recovery automatic.} Retrieval-layer
 filtering is broken in every retaining system we measured, and whether a reader
 repairs it is a property of that reader's context and prompting rather than of
@@ -732,15 +749,15 @@ at the retrieval layer. Expiry stays low for both readers
 
 \subsection{Where cost and latency live}
 
-An LLM-backed memory store inverts the usual read/write cost profile, and the
-inversion is large enough to matter for design. Instrumenting the provider's
+Mem0, which extracts on write, inverts the usual read/write cost profile, and
+the inversion is large enough to matter for design. Instrumenting the provider's
 API calls directly --- accumulating each response's usage block rather than
 estimating --- over 1035 ingests and 949 queries on multi-attribute histories:
 
 \begin{table}[t]
 \centering
-\caption{Measured write/read asymmetry, 9 cells, 3 attributes per entity,
-\texttt{gpt-4o-mini}. Ingest is an extraction plus consolidation round trip;
+\caption{Measured write/read asymmetry for Mem0, 9 cells, 3 attributes per
+entity, \texttt{gpt-4o-mini}. Ingest is an extraction plus consolidation round trip;
 a query is a vector lookup.}
 \label{tab:cost}
 \small
@@ -765,9 +782,8 @@ Ingest is roughly $16\times$ slower than query, and embeddings account for
 write path performs. At these rates an ingested turn costs about
 \$0.0005. The practical consequence is that consolidating designs pay their
 price on every write, in exchange for the current-state accuracy
-\S\ref{sec:results} measures --- and that a store which retains history without
-filtering it, like Graphiti, is not cheaper at read time either, since its cost
-is also incurred on write.
+\S\ref{sec:results} measures. Graphiti also extracts on write, so we expect
+the same profile there, but its cost was not instrumented in these runs.
 
 Cost reproduces; latency does not. Re-running the identical workload weeks
 later made the same 2036 chat calls over essentially the same tokens, for
@@ -790,8 +806,8 @@ asynchronous client was not covered by it in these runs.
 We report accuracy on this sweep only as a sanity check and do not compare it
 with Table~\ref{tab:external}: it is the first multi-attribute configuration
 (three attributes per entity, each drawn from a different semantic class) and
-therefore a different workload. Exact accuracy moved $0.610 \to 0.527 \to 0.539$
-as entities grew $2 \to 4 \to 8$, which is not monotone and rests on three seeds
+therefore a different workload. Case-weighted exact accuracy moved
+$0.609 \to 0.527 \to 0.539$ as entities grew $2 \to 4 \to 8$, which is not monotone and rests on three seeds
 per scale. The 8-entity point is also not like the other two: its histories
 draw more distinct values than the natural-name relabelling holds, and 19\% of
 them fell back to synthetic tokens of the kind the relabelling exists to avoid
@@ -853,11 +869,12 @@ superseded value rises from 0.432 to 0.498, while recall holds near 0.6. Its
 historical deficit is a property of consolidation, as the main grid showed, and
 does not wait for scale to appear.
 
-\subsection{Does it hold on real conversations?}\label{sec:realdata}
+\subsection{Does it hold beyond our generator?}\label{sec:realdata}
 
 The grid controls the history; it cannot show that the failure modes survive
-human-written text. LongMemEval's knowledge-update questions
-\citep{longmemeval} supply that case: a user states a fact in one session and
+text we did not generate. LongMemEval's knowledge-update questions
+\citep{longmemeval} supply that case, in sessions an LLM simulated by self-chat
+and annotators then edited: a user states a fact in one session and
 revises it in a later one, each session timestamped. The benchmark ships the
 current value as gold but never the superseded one, so we recovered both. Two
 extractors (\texttt{gpt-4o-mini} and \texttt{gpt-4o}) each proposed the
@@ -881,7 +898,7 @@ excluding them changes none of the comparisons below.
 
 \begin{table}[t]
 \centering
-\caption{Real conversations: 43 LongMemEval knowledge-update supersessions, a
+\caption{Benchmark conversations: 43 LongMemEval knowledge-update supersessions, a
 fresh store for each. Exact answers out of 43 (41 for valid time). The control
 is asked before the revision exists. ``Old kept'' counts valid-time answers
 that contain the superseded value at all, exact or not.}
@@ -916,7 +933,7 @@ LLM, Cognee's graph answers 29 of 41 valid-time questions (Wilson 95\%
 of the grid, where they answered 192 and 67 of 195, with disjoint intervals
 here too.
 
-\textbf{Real text is harder on current queries.} On the grid, Mem0 and LangMem
+\textbf{Benchmark text is harder on current queries.} On the grid, Mem0 and LangMem
 answered current, transaction-scoped questions at 0.952 and 0.890; here they
 answer 22 and 18 of 43, and Mem0 states both values in 16 of its answers. A
 store that consolidated every revision would not. This is consistent with,
@@ -953,13 +970,13 @@ held-out test.
 \textbf{Retaining stores answer what needs no filtering.} Split each question by
 whether a superseded value is known when it is asked. Read at the retrieval
 layer, the three retaining stores answer 0.972 to 1.000 of the questions with
-nothing to filter and at most 0.009 of the rest, on both backbones and at every
-scale. Their accuracy is therefore the share of questions with nothing to
+nothing to filter and at most 0.009 of the rest --- Graphiti on both backbones
+and at every scale, Cognee and Hindsight on the main grid. Their accuracy is therefore the share of questions with nothing to
 filter: 0.250 for Graphiti at every scale, and 0.408 on the main grid's
 transaction-scoped questions, which Cognee and Hindsight score exactly and
 Graphiti with one answer more (0.412). We noticed this from the scale result,
 so on synthetic histories it describes rather than predicts. Its out-of-sample
-test is the real conversations, and there it partly fails: of the 84 questions
+test is the benchmark conversations, and there it partly fails: of the 84 questions
 with something to filter, Cognee answers 0 and Hindsight 5, but Graphiti 11
 (0.131 [0.075, 0.219]), above every synthetic interval. How often a retaining
 store happens to filter is not a fixed property of the store; we suspect,
@@ -995,7 +1012,7 @@ a correction is not tested here; none of the systems exposes that axis
 
 \subsection{External validity}\label{sec:external}
 
-On human-written LongMemEval conversations \citep{longmemeval}, retrieval
+On LongMemEval conversations \citep{longmemeval}, retrieval
 quality tracks how much temporal or cross-session reasoning a question demands:
 mean gold-token recall was knowledge-update $0.724$, single-session-user
 $0.622$, preference $0.314$, multi-session $0.287$, temporal-reasoning $0.221$,
@@ -1007,8 +1024,8 @@ deliberately \emph{not} the benchmark's LLM-judged QA metric, so these numbers
 are incomparable to any published figure. Second, the ranking is sensitive to
 protocol: LongMemEval's official retrieval scoring excludes no-evidence
 abstention instances, and excluding them here reorders the top two types
-(single-session-user $0.810$ above knowledge-update $0.794$). Third, gold answers
-range from 1 to 46 scoreable tokens across types, and several temporal-reasoning
+(single-session-user $0.810$ above knowledge-update $0.794$). Third, mean gold-answer
+length ranges from 2 to 46 scoreable tokens across types, and several temporal-reasoning
 golds are computed quantities carrying rubric text, which caps attainable recall
 on those instances --- so the cross-type gap is partly a property of the answer
 format, not only of retrieval difficulty. A distractor-laden run on the harder
@@ -1018,7 +1035,8 @@ against a ten-instance mean, and on matched instances the effect disappears
 
 Separately, Mem0 silently dropped memory \texttt{UPDATE}/\texttt{DELETE} actions
 during ingestion --- 15 across these 60 conversations, and 23 across 6
-conversations of the longer split --- which we traced to an unvalidated
+conversations of the longer split, counted from the library's error log during
+those runs, which the sealed artifacts do not keep --- which we traced to an unvalidated
 positional-id lookup swallowed by a broad exception handler while
 \texttt{add()} reports success. Dropped updates leave superseded values in
 place, so Mem0's scores here are conservative.
@@ -1028,7 +1046,7 @@ place, so Mem0's scores here are conservative.
 The same harness produced results that do not bear on the question this paper
 asks, and we summarise rather than develop them. On a hand-built retrieval
 fixture, a learned dense channel resolved held-out synonyms at recall@1 $1.0$
-where a dependency-free hashing channel scored $0.0$; calibrated channel
+on 10 queries where a dependency-free hashing channel scored $0.0$; calibrated channel
 weighting gave no held-out gain over fixed reciprocal rank fusion; and
 state-level confidence decay did not dominate rank-level decay. On a seeded
 threat fixture, signed tenant-scoped gating admitted $3/4$ attacks as inert data
@@ -1057,6 +1075,15 @@ Graphiti's raw database but only Mem0's
 API-exposed memories; the corrected scan adds Mem0's vector store and history
 database with a per-run database path.
 
+\textbf{Two harness defects were caught before citation.} A revoked API key
+made every call of two Hindsight runs fail, and the harness scored the empty
+answers as abstentions; it now stops on authentication errors. And Cognee read
+its storage location from a setting under a different name than the one we set,
+so all Cognee runs shared one metadata database. An earlier version of this
+paper reported a \textsc{chunks} run that logged 40 unexplained worker errors at
+0.207 overall; the replication with isolated stores that we now cite scores
+0.194 (\S\ref{sec:reader}).
+
 \textbf{A first scale sweep was withdrawn.} Its relabelling ran out of natural
 names and values and silently fell back to synthetic tokens as the store grew
 --- 19\%, 55\% and 66\% of values at 8, 32 and 128 entities --- and values were
@@ -1076,14 +1103,16 @@ recall must be reported beside it.
 All artifacts are at \url{https://github.com/suanlab/temvera}, with a frozen
 snapshot attached to its submission release. Every figure this paper prints is
 paired with a recomputation from a sealed run, and one command checks them all
-offline, with no API key, database server or dataset download. Runs are sealed
+offline, with no API key, database server or dataset download --- except four
+in \S\ref{sec:external}: Mem0's two dropped-update counts, which come from run
+logs, and the two gold-answer lengths, which need the dataset. Runs are sealed
 with canonical config, environment, source-tree hash and per-file checksums, and
 verified by an aggregate checker. The frozen synthetic
 fixture is byte-reproducible and split-disjoint. Tests and lint pass on CPython
 3.11. The LongMemEval corpus itself is downloaded rather than redistributed.
 Two kinds of sealed output do carry its text, which the MIT licence permits and
 which cannot be removed without breaking the runs' checksums: the
-\runeseven{} run's history database of extracted memories, and the real-data
+\runeseven{} run's history database of extracted memories, and the benchmark
 runs' transcripts, which record retrieved passages verbatim. The labels we
 derived are released; the 26 excluded pairs are listed by question ID only.
 
@@ -1091,11 +1120,13 @@ derived are released; the 26 excluded pairs are listed by question ID only.
 
 The grid's histories are synthetic with hand-specified operation profiles, so
 contradiction density is approximated by operation mix and revision count rather
-than sampled from real usage; the real-data check covers 43 supersessions chosen
+than sampled from real usage; the benchmark check covers 43 supersessions chosen
 by extractor agreement, not at random, and is one run. Five external systems in seven configurations
 run on \texttt{gpt-4o-mini}; only Mem0 and Graphiti were re-run on a second
-backbone, and LLM extraction is not bit-reproducible; our one same-protocol replication moved a small-denominator
-category by 0.125, which is why we draw no conclusion from expiry. The deletion
+backbone, and only those two were replicated; LLM extraction is not
+bit-reproducible, and LangMem and Hindsight do not run at temperature~0. The
+first same-protocol replication moved a small-denominator category by 0.125,
+which is why we draw no conclusion from expiry. The deletion
 result rests on a single seeded history, so it establishes a direction, not a
 rate. The literature review is single-reviewer. Purge claims cover declared
 stores and tested failure points, not backups, OS caches or provider-side
@@ -1130,13 +1161,15 @@ exemption, a pilot for variance, and an a priori power analysis.
 
 % ICDE 2027 requires disclosure of AI-generated content (text, figures, code)
 % here; this section does not count toward the page limit. Wording confirmed by
-% the author on 2026-10-05.
+% the author on 2026-10-05; the sentence on design and execution was set by the
+% author on 2026-10-21.
 This work was carried out with substantial assistance from an AI system,
 Anthropic's Claude, used through the Claude Code agent. It generated much of the
 experiment harness, the analysis and plotting code that produces every table and
 figure, and drafts of the manuscript text; it was used to search the literature
 and verify citations against their primary sources, and to audit the reported
-numbers against the sealed runs. The author directed the research, approved its
+numbers against the sealed runs. The author and the AI system designed the
+analyses and experiments together, and the AI system ran them. The author directed the research, approved its
 design, made the venue decisions, and takes full responsibility for the content.
 Every reported figure is recomputed from sealed runs by scripts released with
 the artifact.

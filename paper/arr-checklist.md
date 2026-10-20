@@ -1,3 +1,8 @@
+> **Superseded (2026-10-21).** This ACL Rolling Review checklist draft is kept for the record only. The current
+> manuscript is `paper/main.tex` (ICDE 2027 EAB); its wording and numbers take
+> precedence over anything here, which may be stale (e.g. LongMemEval described as
+> "human-written"; its sessions are LLM self-chat edited by annotators).
+
 # Responsible NLP Research checklist — draft answers
 
 > **Superseded (2026-09-06). Not required for this submission.** This was

@@ -1,3 +1,8 @@
+> **Superseded (2026-10-21).** This ICLR 2027 working draft is kept for the record only. The current
+> manuscript is `paper/main.tex` (ICDE 2027 EAB); its wording and numbers take
+> precedence over anything here, which may be stale (e.g. LongMemEval described as
+> "human-written"; its sessions are LLM self-chat edited by annotators).
+
 # Temporal Fields Are Not Temporal Correctness: Measuring Bitemporal and Deletion Semantics in Deployed Agent Memory
 
 > Full working draft for ICLR 2027 (abstract 2026-09-19, paper 2026-09-24).

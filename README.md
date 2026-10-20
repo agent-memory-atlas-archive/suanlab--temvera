@@ -30,7 +30,7 @@ pip install -e '.[dev]'
 
 temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 64 sealed runs
 python scripts/recompute_paper_numbers.py --check    # rebuild every table
-python scripts/verify_paper_claims.py                # 277 printed figures vs. their runs
+python scripts/verify_paper_claims.py                # 291 printed figures vs. their runs
 pytest && ruff check .
 ```
 

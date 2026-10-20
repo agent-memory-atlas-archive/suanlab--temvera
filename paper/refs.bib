@@ -1,8 +1,12 @@
-@article{mem0,
-  title  = {Mem0: Building Production-Ready {AI} Agents with Scalable Long-Term Memory},
-  author = {Chhikara, Prateek and Khant, Dev and Aryan, Saket and Singh, Taranjeet and Yadav, Deshraj},
-  journal = {arXiv preprint arXiv:2504.19413},
-  year   = {2025}
+@inproceedings{mem0,
+  title     = {Mem0: Building Production-Ready {AI} Agents with Scalable Long-Term Memory},
+  author    = {Chhikara, Prateek and Khant, Dev and Aryan, Saket and Singh, Taranjeet and Yadav, Deshraj},
+  booktitle = {ECAI 2025},
+  series    = {Frontiers in Artificial Intelligence and Applications},
+  publisher = {IOS Press},
+  doi       = {10.3233/FAIA251160},
+  year      = {2025},
+  note      = {arXiv:2504.19413}
 }
 
 @article{zep,
@@ -12,18 +16,21 @@
   year    = {2025}
 }
 
-@inproceedings{memgpt,
-  title     = {{MemGPT}: Towards {LLMs} as Operating Systems},
-  author    = {Packer, Charles and Wooders, Sarah and Lin, Kevin and Fang, Vivian and Patil, Shishir G. and Stoica, Ion and Gonzalez, Joseph E.},
-  booktitle = {arXiv preprint arXiv:2310.08560},
-  year      = {2023}
+@article{memgpt,
+  title   = {{MemGPT}: Towards {LLMs} as Operating Systems},
+  author  = {Packer, Charles and Wooders, Sarah and Lin, Kevin and Fang, Vivian and Patil, Shishir G. and Stoica, Ion and Gonzalez, Joseph E.},
+  journal = {arXiv preprint arXiv:2310.08560},
+  year    = {2023}
 }
 
-@article{hipporag2,
-  title   = {From {RAG} to Memory: Non-Parametric Continual Learning for Large Language Models},
-  author  = {Guti{\'e}rrez, Bernal Jim{\'e}nez and Shu, Yiheng and Qi, Weijian and Zhou, Sizhe and Su, Yu},
-  journal = {arXiv preprint arXiv:2502.14802},
-  year    = {2025}
+@inproceedings{hipporag2,
+  title     = {From {RAG} to Memory: Non-Parametric Continual Learning for Large Language Models},
+  author    = {Guti{\'e}rrez, Bernal Jim{\'e}nez and Shu, Yiheng and Qi, Weijian and Zhou, Sizhe and Su, Yu},
+  booktitle = {Proceedings of the 42nd International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {267},
+  pages     = {21497--21515},
+  year      = {2025}
 }
 
 @inproceedings{longmemeval,
@@ -34,25 +41,20 @@
   note      = {arXiv:2410.10813}
 }
 
-@article{locomo,
-  title   = {Evaluating Very Long-Term Conversational Memory of {LLM} Agents},
-  author  = {Maharana, Adyasha and Lee, Dong-Ho and Tulyakov, Sergey and Bansal, Mohit and Barbieri, Francesco and Fang, Yuwei},
-  journal = {arXiv preprint arXiv:2402.17753},
-  year    = {2024}
+@inproceedings{minja,
+  title     = {Memory Injection Attacks on {LLM} Agents via Query-Only Interaction},
+  author    = {Dong, Shen and Xu, Shaochen and He, Pengfei and Li, Yige and Tang, Jiliang and Liu, Tianming and Liu, Hui and Xiang, Zhen},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  note      = {arXiv:2503.03704}
 }
 
-@article{minja,
-  title   = {Memory Injection Attacks on {LLM} Agents via Query-Only Interaction},
-  author  = {Dong, Shen and Xu, Shaochen and He, Pengfei and Li, Yige and Tang, Jiliang and Liu, Tianming and Liu, Hui and Xiang, Zhen},
-  journal = {arXiv preprint arXiv:2503.03704},
-  year    = {2025}
-}
-
-@article{memoryagentbench,
-  title   = {Evaluating Memory in {LLM} Agents via Incremental Multi-Turn Interactions},
-  author  = {Hu, Yuanzhe and Wang, Yu and McAuley, Julian},
-  journal = {arXiv preprint arXiv:2507.05257},
-  year    = {2025}
+@inproceedings{memoryagentbench,
+  title     = {Evaluating Memory in {LLM} Agents via Incremental Multi-Turn Interactions},
+  author    = {Hu, Yuanzhe and Wang, Yu and McAuley, Julian},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2026},
+  note      = {arXiv:2507.05257}
 }
 
 @article{toki,
@@ -91,14 +93,15 @@
 }
 
 @misc{forgeteval,
-  title        = {{ForgetEval}: A Benchmark for Forgetting in Agent Memory},
-  author       = {{DeepLethe}},
+  title        = {{ForgetEval}: Benchmarking the Forgetting Axis of Agent Memory Systems},
+  author       = {Yang, Dongxu},
   howpublished = {\url{https://github.com/deeplethe/lethe}, commit b6053b7},
-  year         = {2026}
+  year         = {2026},
+  note         = {Benchmark code in the Lethe repository (DeepLethe)}
 }
 
 @misc{graphiti,
-  title        = {Graphiti: Temporally-Aware Knowledge Graphs for Agent Memory},
+  title        = {Graphiti: Build Temporal Context Graphs for {AI} Agents},
   author       = {{Zep}},
   howpublished = {\url{https://github.com/getzep/graphiti}, version 0.29.2},
   year         = {2026}
@@ -108,15 +111,19 @@
   title     = {Hindsight: Structured Agent Memory that Retains, Recalls, and Reflects},
   author    = {Latimer, Christopher and Boschi, Nicol\`o and Neeser, Andrew and Bartholomew, Chris and Srivastava, Gaurav and Wang, Xuan and Ramakrishnan, Naren},
   booktitle = {Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 3: System Demonstrations)},
+  pages     = {275--285},
+  publisher = {Association for Computational Linguistics},
+  doi       = {10.18653/v1/2026.acl-demo.27},
   year      = {2026},
   note      = {Implementation at \url{https://github.com/vectorize-io/hindsight}, commit 1549987}
 }
 
-@article{amemguard,
-  title   = {{A-MemGuard}: A Proactive Defense Framework for {LLM}-Based Agent Memory},
-  author  = {Wei, Qianshan and Yang, Tengchao and Wang, Yaochen and Li, Xinfeng and Li, Lijun and Yin, Zhenfei and Zhan, Yi and Holz, Thorsten and Lin, Zhiqiang and Wang, XiaoFeng},
-  journal = {arXiv preprint arXiv:2510.02373},
-  year    = {2025}
+@inproceedings{amemguard,
+  title     = {{A-MemGuard}: A Proactive Defense Framework for {LLM}-Based Agent Memory},
+  author    = {Wei, Qianshan and Yang, Tengchao and Wang, Yaochen and Li, Xinfeng and Li, Lijun and Yin, Zhenfei and Zhan, Yi and Holz, Thorsten and Lin, Zhiqiang and Wang, XiaoFeng},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year      = {2026},
+  note      = {arXiv:2510.02373}
 }
 
 @article{snodgrass1985,
@@ -126,14 +133,8 @@
   volume  = {14},
   number  = {4},
   pages   = {236--246},
+  doi     = {10.1145/971699.318921},
   year    = {1985}
-}
-
-@book{sql2011,
-  title     = {Temporal Data and the Relational Model},
-  author    = {Date, C. J. and Darwen, Hugh and Lorentzos, Nikos},
-  publisher = {Morgan Kaufmann},
-  year      = {2002}
 }
 
 @misc{forgetevalpaper,
@@ -141,6 +142,7 @@
   author        = {Yang, Dongxu},
   year          = {2026},
   eprint        = {2606.15903},
+  howpublished  = {arXiv preprint arXiv:2606.15903},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL},
   note          = {Introduces ForgetEval}
@@ -151,6 +153,7 @@
   author        = {Zhou, Wei and Zhou, Xuanhe and Han, Shaokun and Xu, Hongming and Li, Guoliang and Li, Zhiyu and Xiong, Feiyu and Wu, Fan},
   year          = {2026},
   eprint        = {2606.24775},
+  howpublished  = {arXiv preprint arXiv:2606.24775},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL}
 }
@@ -160,6 +163,7 @@
   author        = {Chao, Hanxiang and Bai, Yihan and Sheng, Rui and Li, Tianle and Sun, Yushi},
   year          = {2026},
   eprint        = {2605.06527},
+  howpublished  = {arXiv preprint arXiv:2605.06527},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL}
 }
@@ -169,6 +173,7 @@
   author        = {Fan, Xinyi and Liu, Miri and Yang, Ruozhen and Ouyang, Siru and Han, Jiawei},
   year          = {2026},
   eprint        = {2608.19652},
+  howpublished  = {arXiv preprint arXiv:2608.19652},
   archivePrefix = {arXiv},
   primaryClass  = {cs.AI}
 }
@@ -178,6 +183,7 @@
   author        = {Patel, Vedant},
   year          = {2026},
   eprint        = {2606.27472},
+  howpublished  = {arXiv preprint arXiv:2606.27472},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL}
 }
@@ -187,6 +193,7 @@
   author        = {Spencer, Quentin},
   year          = {2026},
   eprint        = {2607.21962},
+  howpublished  = {arXiv preprint arXiv:2607.21962},
   archivePrefix = {arXiv},
   primaryClass  = {cs.CL}
 }
@@ -196,6 +203,7 @@
   author        = {Li, Xiaoyang and Wang, Yiqi and Lu, Haohui and Chen, Zhi and Li, Mo and Song, Pingan and Zheng, Mingkai and Cai, Taotao},
   year          = {2026},
   eprint        = {2607.23929},
+  howpublished  = {arXiv preprint arXiv:2607.23929},
   archivePrefix = {arXiv},
   primaryClass  = {cs.AI}
 }
@@ -205,6 +213,7 @@
   author        = {Cui, Hanshuai and Tang, Zhiqing and Yao, Zhi and Meng, Fanshuai and Ma, Qianli and Jia, Weijia},
   year          = {2026},
   eprint        = {2607.27834},
+  howpublished  = {arXiv preprint arXiv:2607.27834},
   archivePrefix = {arXiv},
   primaryClass  = {cs.AI}
 }
@@ -214,6 +223,7 @@
   author        = {Xie, Bofan and Wang, Chaokun and Ge, Guanchen and Wang, Songyao and Niu, Fang and Zhang, Hang and Wang, Wei},
   year          = {2026},
   eprint        = {2610.18052},
+  howpublished  = {arXiv preprint arXiv:2610.18052},
   archivePrefix = {arXiv},
   primaryClass  = {cs.AI}
 }
@@ -223,6 +233,7 @@
   author        = {Zhang, Cheng and Cao, Xuanning and Zheng, Zhicheng and Xiong, Hui},
   year          = {2026},
   eprint        = {2610.21405},
+  howpublished  = {arXiv preprint arXiv:2610.21405},
   archivePrefix = {arXiv},
   primaryClass  = {cs.AI}
 }
@@ -232,6 +243,7 @@
   author        = {Wang, Kuan and Zhang, Chao},
   year          = {2026},
   eprint        = {2606.29788},
+  howpublished  = {arXiv preprint arXiv:2606.29788},
   archivePrefix = {arXiv},
   primaryClass  = {cs.LG}
 }
@@ -241,6 +253,7 @@
   author        = {Wolff, Benedict and Bennati, Jacopo},
   year          = {2026},
   eprint        = {2601.07978},
+  howpublished  = {arXiv preprint arXiv:2601.07978},
   archivePrefix = {arXiv},
   primaryClass  = {cs.IR}
 }
