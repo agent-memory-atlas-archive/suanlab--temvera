@@ -344,6 +344,13 @@ and is reported as such.
 entity/attribute state machines with configurable reconfirm, expire and purge
 probabilities. Query truth is computed by the oracle independently of retrieval.
 
+\paragraph{Why synthetic histories first.} Exact answers on both time axes need
+a history in which every valid interval and every recording time is known, and
+whose mix of revision, expiry and purge can be varied; no public conversational
+benchmark labels more than the current value. Synthetic histories give that
+control, and real conversations check it (\S\ref{sec:realdata}). The price is
+realism, which is why the real-data check is read as direction, not as rates.
+
 \paragraph{Rendering.} Histories are rendered to dated conversational turns.
 The generator's synthetic tokens (\texttt{entity-000}, \texttt{place-38})
 collapse under a semantic embedder, leaving systems unable to tell entities
@@ -385,6 +392,14 @@ LangMem and Cognee require \texttt{openai} major versions incompatible with the
 pinned Mem0 and Graphiti, so they run in isolated interpreters behind a stdio
 protocol. Runs are sealed with
 canonical config, environment, source hash and per-file checksums.
+
+\paragraph{Versions.} These systems change quickly, and our claims are about the
+versions named above, measured between July and October 2026. Every sealed run
+records the environment it ran under, and re-running a newer release is one
+command per system. What we conclude concerns design --- whether a store
+overwrites or retains, and where filtering happens --- which a point release is
+unlikely to change; the one implementation defect we report
+(\S\ref{sec:external}) is marked as such.
 
 \section{Results}\label{sec:results}
 
