@@ -52,6 +52,10 @@ def create_artifact_archive(root: Path, output: Path) -> dict[str, Any]:
     paths.append(accepted_manifest)
     for run_id in accepted:
         paths.extend(_files(runs_root / run_id))
+    # Single-file results (e.g. the synonym comparison) are not run directories,
+    # but the claim checker reads them, so they ship too; git-ignored ones are
+    # dropped below like everything else.
+    paths.extend(sorted(runs_root.glob("*.json")))
     files = tuple(
         sorted(
             (

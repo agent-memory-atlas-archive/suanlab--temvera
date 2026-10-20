@@ -175,6 +175,7 @@ def test_every_run_the_paper_scripts_read_is_accepted():
     root = Path(__file__).resolve().parents[1]
     accepted = set(json.loads((root / "experiments" / "accepted-runs.json").read_text())["accepted_runs"])
     on_disk = {p.name for p in (root / "experiments" / "runs").iterdir() if p.is_dir()}
+    files = {p.name for p in (root / "experiments" / "runs").glob("*.json")}
     read = set()
     for script in ("verify_paper_claims.py", "recompute_paper_numbers.py",
                    "make_figures.py", "analyze_filtering_laws.py",
@@ -182,3 +183,15 @@ def test_every_run_the_paper_scripts_read_is_accepted():
         text = (root / "scripts" / script).read_text(encoding="utf-8")
         read |= {name for name in re.findall(r'"([a-z0-9][a-z0-9-]*)"', text) if name in on_disk}
     assert read and read <= accepted, sorted(read - accepted)
+    # Single-file results the scripts read must be tracked, so the archive has them.
+    import subprocess
+
+    for script in ("verify_paper_claims.py", "recompute_paper_numbers.py"):
+        text = (root / "scripts" / script).read_text(encoding="utf-8")
+        for name in files:
+            if name in text:
+                tracked = subprocess.run(
+                    ["git", "ls-files", "--error-unmatch", f"experiments/runs/{name}"],
+                    cwd=root, capture_output=True,
+                )
+                assert tracked.returncode == 0 or not (root / ".git").exists(), name
