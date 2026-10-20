@@ -547,6 +547,12 @@ Graphiti from $0.196$ to $0.194$ overall, and on valid time it answers 0 of 195
 under both. The deficits belong to how the stores retain and retrieve, not to
 how well the extractor reads.
 
+\textbf{Repeated runs agree.} Three further runs of Mem0 and Graphiti on four
+of the grid's cells, otherwise identical, reproduce the cited runs' overall
+accuracy exactly --- 60 and 20 of 97 cases in all four runs of each --- and move
+no category by more than 1 case. Extraction is not bit-reproducible, but its
+run-to-run variation is far below the effects we report.
+
 \textbf{Does Graphiti's own filter repair it?} Enabling its native valid-time
 \texttt{SearchFilter} raises exact from $0.224$ to $0.318$ and cuts stale-use
 from $0.561$ to $0.360$, but collapses evidence recall from $0.873$ to $0.318$:

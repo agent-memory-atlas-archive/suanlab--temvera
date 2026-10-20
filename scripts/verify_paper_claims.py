@@ -152,6 +152,38 @@ def lost_history_share(run: str) -> float:
     return 100 * len(lost) / len(wrong)
 
 
+_REPLICATES = {
+    "mem0": ("external-mem0-grid-v2", "variance-mem0-r1-v1", "variance-mem0-r2-v1",
+             "variance-mem0-r3-v1"),
+    "graphiti": ("external-graphiti-hybrid-v1", "variance-graphiti-r1-v1",
+                 "variance-graphiti-r2-v1", "variance-graphiti-r3-v1"),
+}
+
+
+def replicate(system: str, what: str) -> float:
+    """Over the replicate runs' cells: the overall hits (identical across all
+    four runs, else -1), the case count, or the largest per-category shift."""
+    runs = _REPLICATES[system]
+    keep = {(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in tr(runs[1])}
+
+    def counts(run, category):
+        rows = [r for r in tr(run) if (r["profile"], r["entities"], r["revisions"],
+                                       r["seed"]) in keep
+                and (category is None or r["category"] == category)]
+        return sum(bool(r["exact"]) for r in rows), len(rows)
+
+    if what == "hits":
+        hits = {counts(run, None)[0] for run in runs}
+        return float(hits.pop()) if len(hits) == 1 else -1.0
+    if what == "cases":
+        return float(counts(runs[0], None)[1])
+    shifts = []
+    for category in ("transaction_as_of", "valid_time", "expiry_boundary", "purge"):
+        hits = [counts(run, category)[0] for run in runs]
+        shifts.append(max(hits) - min(hits))
+    return float(max(shifts))
+
+
 def _backbone_max_shift() -> float:
     """Largest change in correct answers, over categories and both systems."""
     pairs = (("external-mem0-grid-v2", "external-mem0-grid-gpt4o-v1"),
@@ -406,6 +438,18 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "Graphiti valid_time cases", "195",
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[1],
           0.5, near="on valid time it answers"),
+    # -- replicates: four cells, cited run + three repeats (case counts) -------
+    Claim("5.2", "Mem0 overall hits, identical in all four runs", "60",
+          lambda: replicate("mem0", "hits"), 0.5, near="reproduce the cited runs' overall"),
+    Claim("5.2", "Graphiti overall hits, identical in all four runs", "20",
+          lambda: replicate("graphiti", "hits"), 0.5, near="reproduce the cited runs' overall"),
+    Claim("5.2", "cases in the four replicate cells", "97",
+          lambda: replicate("mem0", "cases") if replicate("mem0", "cases")
+          == replicate("graphiti", "cases") else -1.0, 0.5,
+          near="reproduce the cited runs' overall"),
+    Claim("5.2", "largest per-category shift across replicates (cases)", "1",
+          lambda: max(replicate("mem0", "shift"), replicate("graphiti", "shift")), 0.5,
+          near="no category by more than", after="Repeated runs agree"),
     # -- abstract: figures printed only in the abstract and tables -------------
     Claim("abs", "LangMem transaction_as_of (micro)", "0.890",
           lambda: micro("external-langmem-v1", "transaction_as_of", cells()),
