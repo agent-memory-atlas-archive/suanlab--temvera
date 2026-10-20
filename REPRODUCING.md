@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 257 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 277 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -76,6 +76,12 @@ The two bounds of §VI-H are recomputed by
 `python scripts/analyze_filtering_laws.py`, which rebuilds each history from
 its run's seeds and exits non-zero if a rebuilt question disagrees with the
 sealed one; the claim checker calls the same functions.
+
+The retroactive-correction result of §VI-I is recomputed by
+`python scripts/analyze_corrections.py`. Its predictions and analysis were
+committed before the runs existed (`docs/preregistration-h6.md`, commit
+`5272ced`); the one check added afterwards is labelled post hoc in the script,
+the paper and the evidence ledger (E-090).
 
 ## External-system experiments (require credentials)
 
