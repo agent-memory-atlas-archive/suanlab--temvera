@@ -1,0 +1,39 @@
+{
+  "benchmark": "temvera-variance-graphiti-r2",
+  "bootstrap_samples": 2000,
+  "embed_model": "text-embedding-3-small",
+  "graphiti_group_prefix": "var2g",
+  "model": "gpt-4o-mini",
+  "naturalize": true,
+  "profiles": [
+    {
+      "expire_probability": 0.0,
+      "name": "revision_only",
+      "purge_probability": 0.0,
+      "reconfirm_probability": 0.0
+    },
+    {
+      "expire_probability": 0.35,
+      "name": "mixed_lifecycle",
+      "purge_probability": 0.25,
+      "reconfirm_probability": 0.5
+    }
+  ],
+  "replay": "transaction_checkpoint",
+  "scales": [
+    {
+      "entities": 3,
+      "revisions": 2
+    },
+    {
+      "entities": 6,
+      "revisions": 3
+    }
+  ],
+  "search_limit": 5,
+  "search_recipe": "hybrid_rrf",
+  "seeds": [
+    7
+  ],
+  "user_id": "temvera-variance-graphiti-r2"
+}
