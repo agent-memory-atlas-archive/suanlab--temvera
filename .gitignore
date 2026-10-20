@@ -126,3 +126,6 @@ paper/*.blg
 # Third-party API spec kept out of the public artifact: unreferenced,
 # unattributed, and downloadable from the vendor.
 openapi_letta.json
+
+# Local notes kept out of the public repository (e.g. rebuttal preparation).
+private/
