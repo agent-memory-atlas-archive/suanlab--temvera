@@ -1,0 +1,33 @@
+== seal verification ==
+  external-mem0-grid-v2              ok
+  external-langmem-v1                ok
+  external-graphiti-hybrid-v1        ok
+  external-cognee-chunks-grid-v3     ok
+  external-hindsight-recall-v1       ok
+  external-cognee-grid-v1            ok
+  external-hindsight-reflect-v1      ok
+  purge-residual-v3-nl               ok
+  purge-residual-v3-api              ok
+
+== Table 2: per-category exact accuracy, 20 matched cells ==
+category                       Mem0          LangMem         Graphiti      Cognee-retr   Hindsight-retr      Cognee-read   Hindsight-read
+transaction_as_of     0.952 217/228    0.890 203/228     0.412 94/228     0.408 93/228     0.408 93/228    1.000 228/228    0.509 116/228
+valid_time             0.364 71/195     0.323 63/195      0.000 0/195      0.000 0/195      0.000 0/195    0.985 192/195     0.344 67/195
+expiry_boundary          0.125 2/16       0.438 7/16       0.000 0/16       0.000 0/16       0.000 0/16       0.125 2/16       0.000 0/16
+purge                    0.044 2/45       0.133 6/45       0.022 1/45       0.022 1/45       0.022 1/45      0.622 28/45      0.311 14/45
+
+overall exact         0.603 292/484    0.576 279/484     0.196 95/484     0.194 94/484     0.194 94/484    0.930 450/484    0.407 197/484
+abstention               0.062 2/32      0.344 11/32       0.000 0/32       0.000 0/32       0.000 0/32       0.062 2/32       0.031 1/32
+
+== budget sweep (overall exact) ==
+k                  Mem0          LangMem         Graphiti      Cognee-retr   Hindsight-retr      Cognee-read   Hindsight-read
+1                 0.630            0.595            0.442            0.194            0.514            0.930            0.407
+2                 0.618            0.585            0.258            0.194            0.510            0.930            0.407
+3                 0.610            0.581            0.215            0.194            0.273            0.930            0.407
+5                 0.603            0.576            0.196            0.194            0.205            0.930            0.407
+
+== deletion residual by condition ==
+  natural-language     temvera=3 (raw_ledger_jsonl=3); mem0=15 (exposed_memories=3, vector_store=3, history_sqlite=9); graphiti=18 (edge_facts=3, entity_nodes=9, episode_bodies=6)
+  native API           temvera=3 (raw_ledger_jsonl=3); mem0=12 (history_sqlite=12); graphiti=3 (entity_nodes=3)
+
+All figures above are aggregations over sealed transcripts; no API access was used.

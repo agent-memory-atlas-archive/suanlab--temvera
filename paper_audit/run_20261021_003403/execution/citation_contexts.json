@@ -1,0 +1,180 @@
+{
+ "graphnativebitemporal": [
+  {
+   "line": 137,
+   "context": "\\paragraph{Temporal modelling is prior art.} A \\citep{graphnativebitemporal} graph-native bitemporal memory store keeps valid- and transaction-time intervals with point-in-time retrieval, and TOKI \\citep{toki} defines bitemporal operators"
+  }
+ ],
+ "toki": [
+  {
+   "line": 138,
+   "context": "A \\citep{graphnativebitemporal} graph-native bitemporal memory store keeps valid- and transaction-time intervals with point-in-time retrieval, and TOKI \\citep{toki} defines bitemporal operators over a dual-row schema with released code. MemStrata \\citep{memstrata} pairs a bi-temporal ledger"
+  }
+ ],
+ "memstrata": [
+  {
+   "line": 139,
+   "context": "intervals with point-in-time retrieval, and TOKI \\citep{toki} defines bitemporal operators over a dual-row schema with released code. MemStrata \\citep{memstrata} pairs a bi-temporal ledger with a deterministic (subject, relation, object) supersession rule and reports"
+  }
+ ],
+ "memtx": [
+  {
+   "line": 141,
+   "context": "with a deterministic (subject, relation, object) supersession rule and reports stale-fact rate as its headline metric, and MemTX \\citep{memtx} and MemTxn \\citep{memtxn} add transactional commit and recovery boundaries to agent memory."
+  }
+ ],
+ "memtxn": [
+  {
+   "line": 142,
+   "context": "stale-fact rate as its headline metric, and MemTX \\citep{memtx} and MemTxn \\citep{memtxn} add transactional commit and recovery boundaries to agent memory. We therefore claim none of these."
+  }
+ ],
+ "forgetevalpaper": [
+  {
+   "line": 146,
+   "context": "\\paragraph{Forgetting evaluation is prior art.} ForgetEval \\citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases with deterministic substring scoring across supersession, decay, amnesia, purge and drift; MemoryAgentBench \\citep{memoryagentbench} evaluates"
+  }
+ ],
+ "forgeteval": [
+  {
+   "line": 146,
+   "context": "\\paragraph{Forgetting evaluation is prior art.} ForgetEval \\citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases with deterministic substring scoring across supersession, decay, amnesia, purge and drift; MemoryAgentBench \\citep{memoryagentbench} evaluates"
+  }
+ ],
+ "memoryagentbench": [
+  {
+   "line": 147,
+   "context": "ForgetEval \\citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases with deterministic substring scoring across supersession, decay, amnesia, purge and drift; MemoryAgentBench \\citep{memoryagentbench} evaluates selective forgetting among four competencies. Springdrift \\citep{springdrift} already combines"
+  }
+ ],
+ "springdrift": [
+  {
+   "line": 148,
+   "context": "across supersession, decay, amnesia, purge and drift; MemoryAgentBench \\citep{memoryagentbench} evaluates selective forgetting among four competencies. Springdrift \\citep{springdrift} already combines append-only memory, auditability and git-backed recovery, which retires any"
+  }
+ ],
+ "bemula": [
+  {
+   "line": 151,
+   "context": "``first git-native auditable memory'' framing. Deletion is measured too: Bemula \\citep{bemula} evaluates six mainstream memory systems on forget requests made in dialogue and finds that none passes more than 1.5\\% of them end to end;"
+  }
+ ],
+ "memcut": [
+  {
+   "line": 153,
+   "context": "made in dialogue and finds that none passes more than 1.5\\% of them end to end; MemCut \\citep{memcut} recovers deleted secrets from objects that survive deletion across five memory designs, and MemLeak \\citep{memleak} from retained images and"
+  }
+ ],
+ "memleak": [
+  {
+   "line": 154,
+   "context": "MemCut \\citep{memcut} recovers deleted secrets from objects that survive deletion across five memory designs, and MemLeak \\citep{memleak} from retained images and correlated text. These judge deletion by what a reader can recover; we compare a"
+  }
+ ],
+ "agentnative": [
+  {
+   "line": 160,
+   "context": "\\paragraph{Measuring deployed memory.} Zhou et al.\\ \\citep{agentnative} evaluate twelve memory systems from a data-management perspective, including update correctness, and Wolff and"
+  }
+ ],
+ "wolffcost": [
+  {
+   "line": 162,
+   "context": "data-management perspective, including update correctness, and Wolff and Bennati \\citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and Cognee. STALE \\citep{stale} and StateMemBench \\citep{statemembench} find that"
+  }
+ ],
+ "stale": [
+  {
+   "line": 163,
+   "context": "Bennati \\citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and Cognee. STALE \\citep{stale} and StateMemBench \\citep{statemembench} find that memory systems often answer with a superseded state, Supersede \\citep{supersede}"
+  }
+ ],
+ "statemembench": [
+  {
+   "line": 163,
+   "context": "Bennati \\citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and Cognee. STALE \\citep{stale} and StateMemBench \\citep{statemembench} find that memory systems often answer with a superseded state, Supersede \\citep{supersede}"
+  }
+ ],
+ "supersede": [
+  {
+   "line": 164,
+   "context": "Cognee. STALE \\citep{stale} and StateMemBench \\citep{statemembench} find that memory systems often answer with a superseded state, Supersede \\citep{supersede} isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth"
+  }
+ ],
+ "groundtruthfirst": [
+  {
+   "line": 166,
+   "context": "isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth First \\citep{groundtruthfirst} asks as-of-date questions over facts with validity intervals. These score the current state or valid time; none we found"
+  }
+ ],
+ "mem0": [
+  {
+   "line": 172,
+   "context": "\\paragraph{Deployed systems and security.} Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage}"
+  }
+ ],
+ "zep": [
+  {
+   "line": 172,
+   "context": "\\paragraph{Deployed systems and security.} Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage}"
+  }
+ ],
+ "graphiti": [
+  {
+   "line": 172,
+   "context": "\\paragraph{Deployed systems and security.} Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage}"
+  }
+ ],
+ "memgpt": [
+  {
+   "line": 172,
+   "context": "\\paragraph{Deployed systems and security.} Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage}"
+  }
+ ],
+ "hipporag2": [
+  {
+   "line": 173,
+   "context": "Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage} proposes lineage-based action gating; A-MemGuard \\citep{amemguard} is a current"
+  }
+ ],
+ "hindsight": [
+  {
+   "line": 173,
+   "context": "Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage} proposes lineage-based action gating; A-MemGuard \\citep{amemguard} is a current"
+  }
+ ],
+ "minja": [
+  {
+   "line": 173,
+   "context": "Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage} proposes lineage-based action gating; A-MemGuard \\citep{amemguard} is a current"
+  }
+ ],
+ "memlineage": [
+  {
+   "line": 173,
+   "context": "Mem0 \\citep{mem0}, Zep/Graphiti \\citep{zep,graphiti}, MemGPT/Letta \\citep{memgpt}, HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage} proposes lineage-based action gating; A-MemGuard \\citep{amemguard} is a current"
+  }
+ ],
+ "amemguard": [
+  {
+   "line": 174,
+   "context": "HippoRAG~2 \\citep{hipporag2} and Hindsight \\citep{hindsight} form the baseline landscape. MINJA \\citep{minja} shows query-only poisoning; MemLineage \\citep{memlineage} proposes lineage-based action gating; A-MemGuard \\citep{amemguard} is a current defence baseline."
+  }
+ ],
+ "snodgrass1985": [
+  {
+   "line": 208,
+   "context": "The query we need is standard \\citep{snodgrass1985}: for subject $s$ and attribute $a$, return the value valid at event time $V$ according to what the"
+  }
+ ],
+ "longmemeval": [
+  {
+   "line": 860,
+   "context": "human-written text. LongMemEval's knowledge-update questions \\citep{longmemeval} supply that case: a user states a fact in one session and revises it in a later one, each session timestamped. The benchmark ships the"
+  },
+  {
+   "line": 998,
+   "context": "On human-written LongMemEval conversations \\citep{longmemeval}, retrieval quality tracks how much temporal or cross-session reasoning a question demands:"
+  }
+ ]
+}

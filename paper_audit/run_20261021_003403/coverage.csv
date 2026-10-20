@@ -1,0 +1,49 @@
+unit_id,path,locator,unit_type,read_status,checks_applied,evidence_or_gap
+U000,paper/main.tex,L1-L47,preamble/title/author,read_full,"Q01,Q23","title tag, PDF metadata, single-blind author block"
+U001,paper/main.tex,L49-L77,abstract,read_full,"Q03,Q05,Q11,Q14,Q16,Q23","issues I-16,I-19,I-26,I-30"
+U002,paper/main.tex,L79-L82,keywords,read_full,Q23,matches pdfkeywords
+U003,paper/main.tex,L86-L133,section,read_full,"Q03-Q19,Q24",Introduction
+U004,paper/main.tex,L134-L184,section,read_full,"Q03-Q19,Q24",Related Work
+U005,paper/main.tex,L185-L204,section,read_full,"Q03-Q19,Q24",Reference implementation
+U006,paper/main.tex,L205-L290,section,read_full,"Q03-Q19,Q24",Which fragment of bitemporal semantics does each system implement?
+U007,paper/main.tex,L291-L342,section,read_full,"Q03-Q19,Q24",What the systems say they do
+U008,paper/main.tex,L343-L405,section,read_full,"Q03-Q19,Q24",Experimental Setup
+U009,paper/main.tex,L406-L407,section,read_full,"Q03-Q19,Q24",Results
+U010,paper/main.tex,L408-L444,section,read_full,"Q03-Q19,Q24",The oracle is exact; non-temporal baselines are not
+U011,paper/main.tex,L445-L580,section,read_full,"Q03-Q19,Q24","Two designs: consolidate, or retain without filtering"
+U012,paper/main.tex,L581-L664,section,read_full,"Q03-Q19,Q24","Deletion: the API works, the instruction does not"
+U013,paper/main.tex,L665-L732,section,read_full,"Q03-Q19,Q24","Is the information lost, or merely unfiltered?"
+U014,paper/main.tex,L733-L799,section,read_full,"Q03-Q19,Q24",Where cost and latency live
+U015,paper/main.tex,L800-L855,section,read_full,"Q03-Q19,Q24",Does scale change the picture?
+U016,paper/main.tex,L856-L928,section,read_full,"Q03-Q19,Q24",Does it hold on real conversations?
+U017,paper/main.tex,L929-L968,section,read_full,"Q03-Q19,Q24",Two bounds the measurements obey
+U018,paper/main.tex,L969-L995,section,read_full,"Q03-Q19,Q24",What a retroactive correction does
+U019,paper/main.tex,L996-L1025,section,read_full,"Q03-Q19,Q24",External validity
+U020,paper/main.tex,L1026-L1040,section,read_full,"Q03-Q19,Q24",Measurements outside the thesis
+U021,paper/main.tex,L1041-L1073,section,read_full,"Q03-Q19,Q24",Negative Results and Corrections
+U022,paper/main.tex,L1074-L1089,section,read_full,"Q03-Q19,Q24",Reproducibility
+U023,paper/main.tex,L1090-L1103,section,read_full,"Q03-Q19,Q24",Limitations
+U024,paper/main.tex,L1104-L1119,section,read_full,"Q03-Q19,Q24",Ethics Statement
+U025,paper/main.tex,L1120-L1128,section,read_full,"Q03-Q19,Q24",Future Work
+U026,paper/main.tex,L1129-L1143,section,read_full,"Q03-Q19,Q24",Acknowledgment
+T-tab:fragment,paper/main.tex,L232,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:claims,paper/main.tex,L307,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:baselines,paper/main.tex,L430,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:external,paper/main.tex,L462,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-fig:categories,paper/main.tex,L487,figure,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-fig:budget,paper/main.tex,L529,figure,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-fig:residual,paper/main.tex,L598,figure,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:deletion-api,paper/main.tex,L638,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:reader,paper/main.tex,L680,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:cost,paper/main.tex,L745,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:scale,paper/main.tex,L818,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+T-tab:realdata,paper/main.tex,L888,table,read_full+rendered,"Q11,Q19",values covered by verify_paper_claims.py; figures regenerate byte-identical (execution/make_figures_copy.log)
+U-bib,paper/refs.bib,all 31 entries,bibliography,read_full,"Q12,Q13","references.csv; 29 cited, 2 uncited"
+U-abs,paper/abstract.txt,5 lines,submission abstract,read_full,"Q23,Q24",generated from main.tex by scripts/make_abstract.py; test_abstract.py guards drift
+U-fig,paper/figures/*.pdf,3 files,figures,rendered+regenerated,Q19,byte-identical after scripts/make_figures.py
+U-app,(none),-,appendix,not_present,Q01.3,manuscript has no appendix; artifact docs serve as supplement
+U-ver,scripts/verify_paper_claims.py,all,claim checker,read_full,"Q11,Q21",279 claims pass (baseline); revised copy 291 pass
+U-runs,experiments/runs (64 accepted),sealed,data,checksum-verified,"Q10,Q20,Q21",verify-artifacts valid; contents read only where a claim needed it
+U-ledger,docs/evidence-ledger.md,rows cited by the paper,evidence log,read_partial,"Q13,Q15","rows E-001,E-017,E-055,E-057,E-063-E-090 read; others not reviewed"
+U-x1,docs/paper-draft.md,header only,superseded ICLR draft,excluded,"Q01.1,Q20.4",not the target manuscript; stale (I-24)
+U-x2,paper/arr-checklist.md,header only,stale ACL ARR checklist,excluded,"Q01.1,Q20.4",not the target manuscript; stale (I-24)

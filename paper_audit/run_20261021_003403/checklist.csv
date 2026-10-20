@@ -1,0 +1,121 @@
+check_id,category,check_text,applicability,status,locations,evidence,issue_ids,verification
+Q01.1,검토 범위와 자료의 출처,검토 대상·버전 명확,applicable,PASS,paper/main.tex@ae5aadb,"단일 LaTeX 원고(ICDE 2027 EAB). docs/paper-draft.md(ICLR), paper/arr-checklist.md는 이전 투고처 산출물로 제외",I-24,coverage.csv
+Q01.2,검토 범위와 자료의 출처,모든 절·표·그림·각주·선언문을 읽고 빠진 범위 기록,applicable,PASS,main.tex L1-1147,전 절·표 9·그림 3·선언문·감사 문단을 순서대로 읽음; 부록 없음,,coverage.csv
+Q01.3,검토 범위와 자료의 출처,미제공 자료와 부재 자료 구분,applicable,PASS,§VI-J; experiments/runs,"부록 없음(부재), dropped-update 로그는 존재하지 않음(보존 안 됨)으로 구분",I-10,
+Q01.4,검토 범위와 자료의 출처,실측·시뮬레이션·합성 자료 성격 표시,applicable,FIXED,"Abstract, §I, §V, §VI-G, §VI-J",합성 자료는 명시돼 있었으나 LongMemEval을 'human-written'으로 잘못 기술,I-19,원문 §A.1-A.2 직접 확인 후 수정
+Q01.5,검토 범위와 자료의 출처,확인 범위를 넘는 작성 주체 추정 없음,applicable,PASS,Acknowledgment,작성 주체 추정하지 않음; 공개 문구의 범위만 세션 기록과 대조,I-17,
+Q02.1,대화 잔여물과 미완성 초안,챗봇 자기소개·응답 도입 혼입,applicable,PASS,main.tex 전체,잔여물 정규식 검색 결과 없음(L516 'cannot'은 본문 정상 문장),,grep
+Q02.2,대화 잔여물과 미완성 초안,지식 기준일·실행 불가 안내 혼재,applicable,PASS,main.tex 전체,잔여물 정규식 검색 결과 없음(L516 'cannot'은 본문 정상 문장),,grep
+Q02.3,대화 잔여물과 미완성 초안,자리표시자·TODO·미완성 인용,applicable,PASS,main.tex 전체,TODO/TBD/??/미완성 인용 없음; 주석 16줄은 빌드 메모로 인쇄되지 않음,,"grep, 빌드 0 undefined"
+Q02.4,대화 잔여물과 미완성 초안,정당한 인용·방법 설명과 구분,applicable,PASS,소스 주석,주석(조판·투고 규칙 메모)은 정당한 작업 메모,,
+Q02.5,대화 잔여물과 미완성 초안,제거 후에도 미검증·공개·한계 유지,applicable,PASS,"Limitations, §VI",제거한 잔여물 없음; 한계·공개 유지,,
+Q03.1,연구 질문의 유지와 주제 이탈,제목·초록·서론 질문과 결론의 일치,applicable,PASS,"Title, Abstract, §I, §VI",시간 정확성·삭제 측정이라는 질문이 결론까지 유지,,
+Q03.2,연구 질문의 유지와 주제 이탈,문제 A를 부수 성과 B로 대체하지 않음,applicable,PASS,§VI-K,부수 결과는 'Measurements outside the thesis'로 분리,,
+Q03.3,연구 질문의 유지와 주제 이탈,추가 구성요소의 기여 설명,applicable,FIXED,§I Contributions,§VI-H·§VI-I가 기여 목록에 없었음,I-15,p1 시각 확인
+Q03.4,연구 질문의 유지와 주제 이탈,질문 변경 시 정직한 제시,applicable,PASS,"§VI-H, §VI-I",사후 법칙과 사전 등록 실험을 구분해 서술,,
+Q03.5,연구 질문의 유지와 주제 이탈,각 절의 역할과 무관 내용,applicable,PASS,전 절,각 절의 역할 설명 가능,,
+Q04.1,연구 명분과 공백의 논증,구체적 문제 정의,applicable,PASS,§I,valid/transaction time과 삭제 잔존 문제를 구체적으로 정의,,
+Q04.2,연구 명분과 공백의 논증,선행연구 비교와 근거,applicable,PASS,§II,선행연구별 다룬 범위 비교(2026-10-19 갱신),,references.csv
+Q04.3,연구 명분과 공백의 논증,공백이 선언에 그치지 않음,applicable,PASS,§II 'What is left',"공백을 측정 범위(트랜잭션 시간, 저장소 스캔)로 정의하고 'none we found'로 한정",,
+Q04.4,연구 명분과 공백의 논증,설계가 공백에 직접 연결,applicable,PASS,"§I enumerate, §V",forward replay와 잔존 스캔이 공백에 직접 대응,,
+Q04.5,연구 명분과 공백의 논증,빠진 연결의 보완 가능성,applicable,PASS,-,보완 필요 연결 없음,,
+Q05.1,신규성과 기여의 범위,최초·최고 주장의 비교 범위,applicable,PASS,"§II, Abstract",'최초' 주장 없음; 부재 주장은 검색 범위로 한정(E-087),,
+Q05.2,신규성과 기여의 범위,재구현·조합과 새 기여 구분,applicable,PASS,"Abstract, §II",'We claim no novelty for bitemporal modelling...' 명시,,
+Q05.3,신규성과 기여의 범위,기여별 뒷받침 결과,applicable,FIXED,"§I (iii), §VI-E",삭제 기여 표현과 Graphiti 비용 단정이 근거와 어긋남,I-05;I-15,
+Q05.4,신규성과 기여의 범위,가까운 선행연구·반대 결과 누락 여부,applicable,FIXED,§II,TOKI 코드 공개 주장(저장소 404); 가까운 선행연구는 포함,I-20,
+Q05.5,신규성과 기여의 범위,비전과 실제 기여 구분,applicable,PASS,Future Work,비전과 수행 결과 분리,,
+Q06.1,방법의 구체성과 수행 사실,선정·측정·환경·대조 조건 명시,applicable,PASS,"§V, §VI-B, §VI-G",그리드·셀·제외 규칙 명시,I-14,
+Q06.2,방법의 구체성과 수행 사실,도구·모델·버전 정의와 출처,applicable,FIXED,§V Systems,"온도 설정 오기재, LangMem·Hindsight 버전 누락",I-01;I-02,코드·라이브러리 기본값 확인
+Q06.3,방법의 구체성과 수행 사실,전처리·분석 선택의 재현성,applicable,PASS,"§V Rendering, §VI-G",자연명 치환·우발 값 제외 절차와 이유 기술,,
+Q06.4,방법의 구체성과 수행 사실,일반 문장이 수행 정보를 대신하지 않음,applicable,PASS,-,일반 문장이 수행 정보를 대신하는 곳 없음,,
+Q06.5,방법의 구체성과 수행 사실,연구 유형에 맞는 절차 보고,applicable,PASS,§II 'What is left',"문헌 검토는 단일 검토자+10% 재검토, 동결 기록",,data/literature/review-snapshot-2026-10-19.json
+Q07.1,실험의 충분성과 파일럿 범위,실험이 핵심 주장을 직접 검증,applicable,PASS,§VI,각 주장에 대응 실험,,claim_evidence.csv
+Q07.2,실험의 충분성과 파일럿 범위,범위가 일반화에 충분,applicable,FIXED,Abstract,삭제 결과(2개 시스템·시드 1개)를 초록에서 일반화,I-16,
+Q07.3,실험의 충분성과 파일럿 범위,반복·독립 검증 부재의 영향 평가,applicable,FIXED,"§VI-B, Limitations","반복 실험 서술 갱신, 미반복 시스템 명시",I-03,
+Q07.4,실험의 충분성과 파일럿 범위,파일럿을 확증처럼 제시하지 않음,applicable,PASS,"§VI-G, §VI-J","'direction, not rates', 'pilot rather than a result'로 표시",,
+Q07.5,실험의 충분성과 파일럿 범위,추가 실험 필요를 문장으로 덮지 않음,applicable,PASS,experiment_plan.md,추가 실험 필요 항목을 문장으로 덮지 않고 계획서로 분리,,
+Q08.1,비교 실험과 대안 설명,충분히 강한 비교 대상,applicable,PASS,§VI-A~D,내부 기준선+5개 시스템 7개 구성,,
+Q08.2,비교 실험과 대안 설명,비교 조건의 공정성,applicable,FIXED,§V Systems,같은 기록·백본이나 온도가 시스템마다 달랐음을 공개,I-01,
+Q08.3,비교 실험과 대안 설명,구성요소 효과의 분리 근거,applicable,PASS,"§VI-D, §VI-B","검색 계층/reader 분리, 필터 on/off",,
+Q08.4,비교 실험과 대안 설명,실패·경계·민감도 검토,applicable,PASS,"§VI-B, §VI-F","k 스윕, 백본, 규모, 반복",,
+Q08.5,비교 실험과 대안 설명,선택적 보고 가능성 점검,applicable,PASS,§VII,부정적 결과·철회 보존; 선택적 보고 증거 없음,,
+Q09.1,통계와 불확실성,분석 단위·독립성 전제,applicable,PASS,§V Scoring,사례 가중/셀 평균을 구분해 표시,,
+Q09.2,통계와 불확실성,효과 크기·구간·반복의 정확한 보고,applicable,FIXED,§VI-E,비용 실험 수치가 표시 없이 셀 평균,I-08,재계산
+Q09.3,통계와 불확실성,통계량·p값·구간 해석 일치,not_applicable,NOT_APPLICABLE,-,p값·검정통계량을 보고하지 않음(구간만 서술적으로 사용),,
+Q09.4,통계와 불확실성,다중 비교·검정력 검토,applicable,FIXED,§V Scoring,다중 비교 언급 없음(서술적 비교라 영향 작음),I-27,2026-10-21 저자 결정 반영
+Q09.5,통계와 불확실성,비유의=무효과 오해 없음,applicable,PASS,§VI-B,k=1 'statistically indistinguishable'을 동등성으로 확대하지 않음,,
+Q10.1,데이터의 계보와 누출,데이터 출처·버전·권한,applicable,FIXED,"§VI-G, §VIII",LongMemEval 생성 방식 오기재 수정; MIT 라이선스 확인,I-19,
+Q10.2,데이터의 계보와 누출,분할 단위와 누출,applicable,PASS,"§V, §VI-G",학습 없음; 합성 픽스처 split-disjoint; 라벨 추출 모델과 시험 백본이 같은 계열인 선택 편향은 D-016과 본문에 명시,,
+Q10.3,데이터의 계보와 누출,평가 자료의 부당 사용,applicable,PASS,-,평가 자료로 매개변수를 고르지 않음,,
+Q10.4,데이터의 계보와 누출,대표성·레이블 품질 한계 반영,applicable,PASS,"§VI-G, Limitations",일치 라벨 선택 편향 명시,,
+Q10.5,데이터의 계보와 누출,합성 대체 경로 은폐,applicable,PASS,"src/temvera/worker_errors.py, nl_workload fallback",인증 오류는 실행 중단; 자연명 대체 시 기록·거부,I-28,
+Q11.1,수치와 결과의 내부 일관성,표본 수·분모 일치,applicable,FIXED,전 표,"279개 검증 통과, 분모 일관; 단 서론의 철회 건수(3)와 §VII(4) 불일치 수정, 검증기 행 없는 수치 12종 추가",I-29;I-07,execution/verify_claims.log
+Q11.2,수치와 결과의 내부 일관성,합계·비율·반올림·방향,applicable,FIXED,"§VI-E, §VI-J","0.610(셀 평균), '1 to 46' 부정확",I-08;I-09,재계산
+Q11.3,수치와 결과의 내부 일관성,방법에 없는 분석·결론 출현,applicable,FIXED,§VI-E,계측하지 않은 Graphiti 비용 결론,I-05,
+Q11.4,수치와 결과의 내부 일관성,지표 혼동,applicable,PASS,§V,exact/recall/stale-use 구분,,
+Q11.5,수치와 결과의 내부 일관성,규칙적·반복 값의 대안 설명,applicable,PASS,"§VI-F, §VI-H",0.250·0.408 반복값을 '걸러낼 게 없는 질문 비율'로 설명,,analyze_filtering_laws.py
+Q12.1,참고문헌의 존재와 메타데이터,전 항목 존재 확인,applicable,PASS,refs.bib 31개,전 항목 존재 확인(29개 인용),,references.csv
+Q12.2,참고문헌의 존재와 메타데이터,서지 정보가 같은 문헌을 가리킴,applicable,FIXED,"memgpt, forgeteval, graphiti",유형·제목·저자 불일치,I-21,
+Q12.3,참고문헌의 존재와 메타데이터,합성·가짜 제목 없음,applicable,PASS,refs.bib,합성·가짜 제목 없음(forgeteval 제목은 출처 표기 차이로 수정),I-21,
+Q12.4,참고문헌의 존재와 메타데이터,정정·출판본 관계,applicable,FIXED,5개 항목,출판본·DOI 추가,I-22,
+Q12.5,참고문헌의 존재와 메타데이터,인용 키·목록 대응,applicable,FIXED,12개 @misc,arXiv ID 미출력 수정; 미정의 인용 0,I-23,PDF에서 12개 ID 확인
+Q13.1,인용 내용과 원문 해석,인용이 주장을 실제로 지지,applicable,FIXED,"§II TOKI, §VI-G/J LongMemEval",지지되지 않는 서술 2건,I-19;I-20,
+Q13.2,인용 내용과 원문 해석,원문의 대상·조건 보존,applicable,FIXED,LongMemEval,데이터 생성 조건 보존하도록 수정,I-19,
+Q13.3,인용 내용과 원문 해석,직접 인용·재인용 표시 정확,applicable,PASS,Table II,"직접 인용은 배포 METADATA 문구(이전 검증 E-*), 논문 직접 인용 없음",,
+Q13.4,인용 내용과 원문 해석,초록만 본 내용을 확장하지 않음,applicable,PASS,§II,"10-19 추가 문헌은 초록 수준 사실만 기술, 시스템 목록 미기재",,
+Q13.5,인용 내용과 원문 해석,새 인용의 실제 확인,applicable,PASS,§II,새 인용은 arXiv 초록을 직접 확인,,references.csv
+Q14.1,추론과 일반화,상관·인과 구분,applicable,PASS,§VI-G 등,"'consistent with, though not traced to' 등 인과 표현 절제",,
+Q14.2,추론과 일반화,조건 없는 일반화,applicable,FIXED,"§VI-E, Abstract",비용·삭제 결과 일반화; §VI-H 두 모델 조건 확장도 수정,I-05;I-16;I-06,
+Q14.3,추론과 일반화,시뮬레이션을 실제 효과로 바꾸지 않음,applicable,PASS,"§V, §VI-G",합성/벤치마크 결과를 실사용 효과로 바꾸지 않음,I-19,
+Q14.4,추론과 일반화,사실·해석·가설 구분,applicable,PASS,§VI-H,"가설은 'we suspect, without having tested it'으로 표시",,
+Q14.5,추론과 일반화,결론 강도와 근거의 균형,applicable,FIXED,§VI-D,'whichever way they are read' 과장,I-04;I-30,
+Q15.1,논의와 탐색 과정,논의가 의미·대안을 설명,applicable,PASS,"§VI-D, §VI-H",의미·대안 설명 포함,,
+Q15.2,논의와 탐색 과정,예상 밖 결과 처리,applicable,PASS,§VI-H,"처음 상한 정의의 실패, 실데이터 반증을 서술",,
+Q15.3,논의와 탐색 과정,탐색적·확증적 분석 구분,applicable,PASS,"§VI-H, §VI-I",사후(post hoc)와 사전 등록 구분,,
+Q15.4,논의와 탐색 과정,사후 가설을 사전 가설처럼 쓰지 않음,applicable,PASS,§VI-I,사전 등록은 커밋 5272ced로 확인; 41/45는 사후로 표시,,git log
+Q15.5,논의와 탐색 과정,후속 연구와 미해결 문제 연결,applicable,PASS,Future Work,후속 연구를 수행한 것처럼 쓰지 않음,,
+Q16.1,한계와 핵심 주장 사이의 충돌,한계가 실제 설계에 해당,applicable,PASS,Limitations,실제 설계에 해당,,
+Q16.2,한계와 핵심 주장 사이의 충돌,한계와 초록·결론 충돌,applicable,FIXED,Abstract vs Limitations,삭제 범위·반복 서술 충돌 해소,I-03;I-16,
+Q16.3,한계와 핵심 주장 사이의 충돌,핵심 제약과 주변 제약 구분,applicable,PASS,Limitations,"핵심(합성 위주, 단일 백본 일부)과 주변 제약 구분",,
+Q16.4,한계와 핵심 주장 사이의 충돌,작업 상태 설명 혼입,applicable,PASS,-,작업 상태 설명 혼입 없음,,
+Q16.5,한계와 핵심 주장 사이의 충돌,한계 유지하며 주장 범위 수정,applicable,PASS,Limitations,한계를 줄이지 않고 확장(온도·반복),,
+Q17.1,어휘와 문장,강조 표현이 정보를 대신함,applicable,PASS,-,과장 수식어로 정보를 대신하는 곳 없음,,
+Q17.2,어휘와 문장,동의어 반복·과수식,applicable,PASS,-,중대한 반복 없음,,
+Q17.3,어휘와 문장,문장 구조 반복·명사화,applicable,FIXED,"§II, §VI-D","인용 위치, 관용구",I-12;I-13,
+Q17.4,어휘와 문장,금지어 규칙으로 판정하지 않음,applicable,PASS,-,금지어 규칙 미사용,,
+Q17.5,어휘와 문장,전문용어·불확실성·시제 보존,applicable,PASS,-,전문용어·불확실성 표현 보존,,
+Q18.1,문단과 전체 구성,문단의 논증 역할,applicable,PASS,-,문단별 역할 확인,,
+Q18.2,문단과 전체 구성,연결어의 관계 정확,applicable,PASS,-,연결어 관계 적절,,
+Q18.3,문단과 전체 구성,절 사이 정의·용어 일관,applicable,FIXED,"§VI-B/Limitations, LongMemEval 용어",반복 실험·데이터 용어 불일치,I-03;I-19,
+Q18.4,문단과 전체 구성,이식 가능한 일반 문단 구체화,applicable,PASS,-,이식 가능한 일반 문단 없음,,
+Q18.5,문단과 전체 구성,부록 이동 시 참조 유지,not_applicable,NOT_APPLICABLE,-,부록 이동 없음,,
+Q19.1,그림과 수식 및 증명,그림과 본문 설명 일치,applicable,FIXED,Fig.3 대체 텍스트,참조 구현에 틀린 서술,I-18,
+Q19.2,그림과 수식 및 증명,축·단위·오차·출처 정확,applicable,PASS,Fig.1-3,"축·구간·출처 확인(10-19 렌더), 재생성 바이트 동일",,execution/make_figures_copy.log
+Q19.3,그림과 수식 및 증명,이미지 생성·재사용 공개,applicable,PASS,Fig.1-3,모두 스크립트로 생성,,
+Q19.4,그림과 수식 및 증명,수식 기호·가정 정확,applicable,PASS,§V Scoring,exact 정의가 코드와 일치,,
+Q19.5,그림과 수식 및 증명,증명 단계 성립,applicable,PASS,§VI-H,"상한은 저장 내용에서 직접 따르는 논증으로 제시, 정리라 주장하지 않음; 경험 검증 병기",,
+Q20.1,저장소와 다수의 수정 파일,최종 결과 파일·설정 식별,applicable,PASS,experiments/accepted-runs.json,64개 채택 실행·설정 식별,,
+Q20.2,저장소와 다수의 수정 파일,원자료→표·그림 경로 추적,applicable,PASS,scripts/,실행→transcript→스크립트→표·그림 추적 가능,,reproducibility.md
+Q20.3,저장소와 다수의 수정 파일,버전 혼재 없음,applicable,PASS,-,무효 실행은 채택 목록에 없음; v1/v3 구분,,
+Q20.4,저장소와 다수의 수정 파일,오해 유발 잔여 코드·출력,applicable,FIXED,"docs/paper-draft.md, paper/arr-checklist.md",이전 투고처 산출물 잔존,I-24,2026-10-21 저자 결정 반영
+Q20.5,저장소와 다수의 수정 파일,비파괴적 정리,applicable,PASS,-,파일 수 자체를 결함으로 보지 않음; 삭제·이동 없음,,
+Q21.1,실행과 재현,실행 명령·의존성·난수 일치,applicable,PASS,README/REPRODUCING,문서화된 명령을 그대로 실행,,execution/commands.tsv
+Q21.2,실행과 재현,예시값·실패 은폐·캐시 오인 경로,applicable,FIXED,"§VI-J, §VIII",로그 기반 수치를 봉인 수치처럼 표기,I-10;I-11,
+Q21.3,실행과 재현,핵심 함수의 실제 실행,applicable,PASS,scripts/,주장에 쓰인 함수가 실제 실행됨,,
+Q21.4,실행과 재현,재실행 결과 비교,applicable,PASS,execution/,"재실행 결과 원래와 동일(그림 바이트 동일, 279개 일치)",,
+Q21.5,실행과 재현,달성 검증 수준 구분 보고,applicable,PASS,reproducibility.md,LLM 실험 재실행은 하지 않았고 봉인 기록 재계산 수준임을 구분,,
+Q22.1,공개와 책임,공개 약속과 실제 상태 일치,applicable,FIXED,"§VIII, GitHub 릴리스",최신 공개 릴리스가 현 원고보다 이전,I-25,2026-10-21 저자 결정 반영
+Q22.2,공개와 책임,비공개 사유와 검증 경로,not_applicable,NOT_APPLICABLE,-,비공개 자료 없음,,
+Q22.3,공개와 책임,승인·라이선스 확인,applicable,PASS,"§VIII, Ethics","LongMemEval MIT, 인간 대상 없음",,
+Q22.4,공개와 책임,AI 사용 공개의 정확성,applicable,FIXED,Acknowledgment,AI의 실험 제안·실행 사실 추가(저자 승인 필요),I-17,
+Q22.5,공개와 책임,이번 수정 작업 기록,applicable,PASS,"state.md, final_report.md",이번 감사의 도구·범위 기록,,
+Q23.1,투고 형식과 보고 완전성,투고처 공식 기준 확인,applicable,PASS,docs/submission-checklist.md,"ICDE 2027 CFP 요건(제목 태그, AI 공개, 12쪽) 2026-10-02 확인 기록; 오늘 재확인은 안 함",,
+Q23.2,투고 형식과 보고 완전성,보고 항목 위치,applicable,PASS,"§V, §VIII",보고 항목 위치 확인 가능,,
+Q23.3,투고 형식과 보고 완전성,제목·초록·키워드 정확,applicable,FIXED,Abstract,범위·데이터 서술 수정,I-16;I-19,
+Q23.4,투고 형식과 보고 완전성,번호·교차참조·형식 일관,applicable,PASS,전체,"교차참조·번호 정상, undefined 0",,빌드 로그
+Q23.5,투고 형식과 보고 완전성,분량·익명화 등 제출 조건,applicable,PASS,Abstract,초록 길이(270/280단어); 쪽수 12(참고문헌 포함)로 제한 내,I-26,2026-10-21 저자 결정 반영
+Q24.1,수정 후 통합 검증,변경 사항의 전 위치 반영,applicable,FIXED,revised 전체,"변경 수치·용어를 관련 위치 모두 반영, 검증기 291개 통과",I-31,원고 밖 문서는 OPEN(I-31)
+Q24.2,수정 후 통합 검증,새 사실·과장 미생성,applicable,PASS,revision_log.md,새 사실 미생성; 모든 변경에 출처,,
+Q24.3,수정 후 통합 검증,한계·반대 결과 유지,applicable,PASS,"Limitations, §VII",한계·반대 결과 유지·확장,,
+Q24.4,수정 후 통합 검증,빌드·참조·시각 검증,applicable,PASS,revised/paper/main.pdf,"빌드 성공, 넘침 0, undefined 0, p1·p4·p10·p11 시각 확인",,execution/render/
+Q24.5,수정 후 통합 검증,미해결 집계와 제출 가능 구분,applicable,PASS,final_report.md,"상태별 집계, 수정 완료와 제출 가능 구분",,

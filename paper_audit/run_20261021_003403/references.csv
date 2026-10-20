@@ -1,0 +1,32 @@
+reference_id,cited_locations,supplied_metadata,verified_metadata,source_url,access_date,access_level,existence_status,claim_support,correction
+graphnativebitemporal,§II L137,arXiv 2607.26520,confirmed: Niksarli & Baheti 2026,https://arxiv.org/abs/2607.26520,2026-10-21,abstract,CONFIRMED,"SUPPORTED (valid/transaction intervals, point-in-time retrieval)",none; sentence order fixed (I-12)
+toki,§II L138,arXiv 2606.06240,confirmed: Wang 2026,https://arxiv.org/abs/2606.06240,2026-10-21,abstract,CONFIRMED,PARTIAL: operators/dual-row supported; 'released code' not (repo 404),drop 'with released code' (I-20)
+memstrata,§II L139,arXiv 2606.26511,confirmed: Yadav 2026,https://arxiv.org/abs/2606.26511,2026-10-21,abstract,CONFIRMED,SUPPORTED,none
+memtx,§II L141,arXiv 2607.23929,confirmed: Li et al. 2026 (8 authors),https://arxiv.org/abs/2607.23929,2026-10-19,abstract,CONFIRMED,SUPPORTED (transactional commit),print arXiv id (I-23)
+memtxn,§II L142,arXiv 2607.27834,confirmed: Cui et al. 2026,https://arxiv.org/abs/2607.27834,2026-10-19,abstract,CONFIRMED,"SUPPORTED (transaction boundary, recovery)",print arXiv id (I-23)
+forgetevalpaper,§II L146,arXiv 2606.15903,confirmed: Yang 2026; comment links deeplethe/lethe,https://arxiv.org/abs/2606.15903,2026-10-19,abstract,CONFIRMED,"SUPPORTED (ForgetEval, deterministic substring)",print arXiv id (I-23)
+forgeteval,§II L146,GitHub deeplethe/lethe b6053b7; title 'A Benchmark for Forgetting...'; author DeepLethe,"repo+commit exist; title 'Benchmarking the Forgetting Axis of Agent Memory Systems'; author Yang, Dongxu",https://github.com/deeplethe/lethe,2026-10-21,full_text (README/docs),CONFIRMED,SUPPORTED,title/author fixed (I-21)
+memoryagentbench,§II L147,arXiv 2507.05257 (2025),confirmed; ICLR 2026 poster,https://iclr.cc/virtual/2026/poster/10010781,2026-10-21,abstract/landing,CONFIRMED,SUPPORTED (four competencies incl. selective forgetting),venue ICLR 2026 (I-22)
+springdrift,§II L148,arXiv 2604.04660,confirmed: Brady 2026,https://arxiv.org/abs/2604.04660,2026-10-21,abstract+README,CONFIRMED,SUPPORTED,none
+bemula,§II L151,arXiv 2610.18052,confirmed: Xie et al. 2026,https://arxiv.org/abs/2610.18052,2026-10-19,abstract (re-read by author pass),CONFIRMED,"SUPPORTED ('six mainstream memory systems', 'no system passes more than 1.5%')",print arXiv id (I-23)
+memcut,§II L153,arXiv 2610.21405,confirmed: Zhang et al. 2026,https://arxiv.org/abs/2610.21405,2026-10-19,abstract,CONFIRMED,SUPPORTED ('five memory designs'),print arXiv id (I-23)
+memleak,§II L154,arXiv 2606.29788,confirmed: Wang & Zhang 2026,https://arxiv.org/abs/2606.29788,2026-10-19,abstract,CONFIRMED,SUPPORTED (retained images and correlated text),print arXiv id (I-23)
+agentnative,§II L160,arXiv 2606.24775,confirmed: Zhou et al. 2026,https://arxiv.org/abs/2606.24775,2026-10-19,abstract,CONFIRMED,"SUPPORTED ('12 representative memory systems', update correctness)",print arXiv id (I-23)
+wolffcost,§II L162,arXiv 2601.07978,confirmed: Wolff & Bennati 2026,https://arxiv.org/abs/2601.07978,2026-10-19,abstract,CONFIRMED,"SUPPORTED (mem0, Graphiti, cognee; accuracy and TCO)",print arXiv id (I-23)
+stale,§II L163,arXiv 2605.06527,confirmed: Chao et al. 2026,https://arxiv.org/abs/2605.06527,2026-10-19,abstract,CONFIRMED,SUPPORTED,print arXiv id (I-23)
+statemembench,§II L163,arXiv 2608.19652,confirmed: Fan et al. 2026,https://arxiv.org/abs/2608.19652,2026-10-19,abstract (verbatim),CONFIRMED,SUPPORTED (current vs superseded state),print arXiv id (I-23)
+supersede,§II L164,arXiv 2606.27472,confirmed: Patel 2026,https://arxiv.org/abs/2606.27472,2026-10-19,abstract,CONFIRMED,SUPPORTED (LongMemEval knowledge-update),print arXiv id (I-23)
+groundtruthfirst,§II L166,arXiv 2607.21962,confirmed: Spencer 2026,https://arxiv.org/abs/2607.21962,2026-10-19,abstract (verbatim),CONFIRMED,"SUPPORTED (as-of-date question sets, validity intervals)",print arXiv id (I-23)
+mem0,§II L172,arXiv 2504.19413,"confirmed; ECAI 2025, DOI 10.3233/FAIA251160 (Crossref)",https://api.crossref.org/works/10.3233/FAIA251160,2026-10-21,abstract/Crossref,CONFIRMED,SUPPORTED (baseline mention),published version added (I-22)
+zep,§II L172,arXiv 2501.13956,confirmed,https://arxiv.org/abs/2501.13956,2026-10-21,abstract,CONFIRMED,SUPPORTED,none
+graphiti,§II L172,GitHub getzep/graphiti v0.29.2; title 'Temporally-Aware Knowledge Graphs...',tag exists; README heading 'Build Temporal Context Graphs for AI Agents',https://github.com/getzep/graphiti,2026-10-21,full_text (README),CONFIRMED,SUPPORTED,title fixed (I-21)
+memgpt,§II L172,@inproceedings booktitle=arXiv preprint,arXiv preprint 2310.08560; no venue found,https://arxiv.org/abs/2310.08560,2026-10-21,abstract,CONFIRMED,SUPPORTED,entry type fixed (I-21)
+hipporag2,§II L173,arXiv 2502.14802,"ICML 2025, PMLR 267:21497-21515",https://proceedings.mlr.press/v267/gutierrez25a.html,2026-10-21,landing,CONFIRMED,SUPPORTED,published version (I-22)
+hindsight,§II L173,"ACL 2026 demo, commit 1549987","matches ACL Anthology; pages 275-285, DOI 10.18653/v1/2026.acl-demo.27",https://aclanthology.org/2026.acl-demo.27/,2026-10-21,landing,CONFIRMED,SUPPORTED,pages/DOI added (I-22)
+minja,§II L173,arXiv 2503.03704,NeurIPS 2025 poster (same title/authors),https://neurips.cc/virtual/2025/poster/118152,2026-10-21,abstract/landing,CONFIRMED,SUPPORTED (query-only poisoning),venue added (I-22)
+memlineage,§II L173,arXiv 2605.14421,confirmed,https://arxiv.org/abs/2605.14421,2026-10-21,abstract,CONFIRMED,SUPPORTED,none
+amemguard,§II L174,arXiv 2510.02373,ICML 2026 poster,https://icml.cc/virtual/2026/poster/61006,2026-10-21,abstract/landing,CONFIRMED,SUPPORTED,venue added (I-22)
+snodgrass1985,§IV L208,"SIGMOD Record 14(4):236-246, 1985",matches Crossref; DOI 10.1145/971699.318921,https://api.crossref.org/works/10.1145/971699.318921,2026-10-21,full_text,CONFIRMED,SUPPORTED (valid/transaction time query),DOI added (I-22)
+longmemeval,"§VI-G L860, §VI-J L998","ICLR 2025, arXiv 2410.10813",confirmed,https://arxiv.org/html/2410.10813,2026-10-21,full_text,CONFIRMED,"NOT_SUPPORTED for 'human-written' (LLM self-chat, annotator-edited); rest SUPPORTED",paper text fixed (I-19)
+locomo,uncited,arXiv,"exists: arXiv 2402.17753; ACL 2024 long, pp. 13851-13870",https://aclanthology.org/2024.acl-long.747/,2026-10-21,landing,CONFIRMED,n/a (not printed),remove or leave (author Q)
+sql2011,uncited,2002,book exists; LoC says 2003; key misleading,https://openlibrary.org/isbn/9781558608559.json,2026-10-21,landing,CONFIRMED,n/a (not printed),remove or leave (author Q)

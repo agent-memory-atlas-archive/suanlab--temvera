@@ -1,0 +1,16 @@
+verify_artifacts	rc=0	0.3s	.venv/bin/temvera verify-artifacts experiments/accepted-runs.json experiments/runs
+recompute_tables	rc=0	1.0s	.venv/bin/python scripts/recompute_paper_numbers.py --check
+verify_claims	rc=0	7.2s	.venv/bin/python scripts/verify_paper_claims.py
+analyze_bounds	rc=0	3.8s	.venv/bin/python scripts/analyze_filtering_laws.py
+analyze_corrections	rc=0	0.3s	.venv/bin/python scripts/analyze_corrections.py
+make_figures_copy	rc=0	1.6s	.venv/bin/python -c 
+import shutil,subprocess,sys,pathlib,tempfile
+src=pathlib.Path('paper/figures'); before={p.name:p.read_bytes() for p in src.glob('*.pdf')}
+subprocess.run([sys.executable,'scripts/make_figures.py'],check=True)
+after={p.name:p.read_bytes() for p in src.glob('*.pdf')}
+print({k:(before[k]==after[k]) for k in before})
+pytest	rc=0	44.7s	.venv/bin/pytest -q
+ruff	rc=0	0.0s	.venv/bin/ruff check .
+build_original	rc=0	0.1s	bash -c cd paper && latexmk -pdf -interaction=nonstopmode -quiet main.tex && grep -c Overfull main.log; pdfinfo main.pdf | grep Pages
+verify_claims_revised	rc=0	6.9s	python revised/scripts/verify_paper_claims.py
+build_revised	rc=0	1.7s	latexmk -pdf revised/paper/main.tex

@@ -1,0 +1,30 @@
+H1  exact rate with nothing to filter | with something to filter (phi)
+  Graphiti         external-graphiti-hybrid-v1          transaction_as_of pi=0.408  93/93 = 1.000 [0.960, 1.000] 1/135 = 0.007 [0.001, 0.041]
+  Graphiti         external-graphiti-hybrid-v1          valid_time        pi=0.000  -                            0/195 = 0.000 [0.000, 0.019]
+  Graphiti         external-graphiti-hybrid-gpt4o-v1    transaction_as_of pi=0.408  93/93 = 1.000 [0.960, 1.000] 0/135 = 0.000 [0.000, 0.028]
+  Graphiti         external-graphiti-hybrid-gpt4o-v1    valid_time        pi=0.000  -                            0/195 = 0.000 [0.000, 0.019]
+  Graphiti         scale-sweep-graphiti-e8-v2           transaction_as_of pi=0.250  70/72 = 0.972 [0.904, 0.992] 2/216 = 0.009 [0.003, 0.033]
+  Graphiti         scale-sweep-graphiti-e8-v2           valid_time        pi=0.000  -                            1/228 = 0.004 [0.001, 0.024]
+  Graphiti         scale-sweep-graphiti-e32-v2          transaction_as_of pi=0.250  284/288 = 0.986 [0.965, 0.995] 4/864 = 0.005 [0.002, 0.012]
+  Graphiti         scale-sweep-graphiti-e32-v2          valid_time        pi=0.000  -                            0/876 = 0.000 [0.000, 0.004]
+  Graphiti         scale-sweep-graphiti-e128-v2         transaction_as_of pi=0.250  1129/1152 = 0.980 [0.970, 0.987] 22/3456 = 0.006 [0.004, 0.010]
+  Graphiti         scale-sweep-graphiti-e128-v2         valid_time        pi=0.000  -                            16/3500 = 0.005 [0.003, 0.007]
+  Cognee chunks    external-cognee-chunks-grid-v3       transaction_as_of pi=0.408  93/93 = 1.000 [0.960, 1.000] 0/135 = 0.000 [0.000, 0.028]
+  Cognee chunks    external-cognee-chunks-grid-v3       valid_time        pi=0.000  -                            0/195 = 0.000 [0.000, 0.019]
+  Hindsight recall external-hindsight-recall-v1         transaction_as_of pi=0.408  93/93 = 1.000 [0.960, 1.000] 0/135 = 0.000 [0.000, 0.028]
+  Hindsight recall external-hindsight-recall-v1         valid_time        pi=0.000  -                            0/195 = 0.000 [0.000, 0.019]
+  real data: the control is asked before the revision exists; current and valid-time questions all have a superseded value
+  Graphiti         lme-bitemporal-graphiti-agreement-v1          24/30 = 0.800 [0.627, 0.905] 11/84 = 0.131 [0.075, 0.219]
+  Cognee chunks    lme-bitemporal-cognee-chunks-agreement-v3     30/30 = 1.000 [0.886, 1.000] 0/84 = 0.000 [0.000, 0.044]
+  Hindsight recall lme-bitemporal-hindsight-recall-agreement-v2  29/30 = 0.967 [0.833, 0.994] 5/84 = 0.060 [0.026, 0.132]
+
+H2  valid-time ceiling for a consolidating store | exact | exact beyond it
+  Mem0     external-mem0-grid-v2          ceiling 75/195 = 0.385 [0.319, 0.455]  exact 71/195 = 0.364 [0.300, 0.434]  beyond 0
+  Mem0     external-mem0-grid-gpt4o-v1    ceiling 75/195 = 0.385 [0.319, 0.455]  exact 73/195 = 0.374 [0.309, 0.444]  beyond 0
+  Mem0     scale-sweep-mem0-e8-v2         ceiling 57/228 = 0.250 [0.198, 0.310]  exact 47/228 = 0.206 [0.159, 0.263]  beyond 0
+  Mem0     scale-sweep-mem0-e32-v2        ceiling 219/876 = 0.250 [0.222, 0.280] exact 185/876 = 0.211 [0.185, 0.239] beyond 1
+  Mem0     scale-sweep-mem0-e128-s7-v3    ceiling 296/1184 = 0.250 [0.226, 0.275] exact 240/1184 = 0.203 [0.181, 0.227] beyond 6
+  Mem0     scale-sweep-mem0-e128-s17-v3   ceiling 295/1180 = 0.250 [0.226, 0.275] exact 231/1180 = 0.196 [0.174, 0.219] beyond 4
+  Mem0     scale-sweep-mem0-e128-s42-v3   ceiling 284/1136 = 0.250 [0.226, 0.276] exact 212/1136 = 0.187 [0.165, 0.210] beyond 2
+  LangMem  external-langmem-v1            ceiling 75/195 = 0.385 [0.319, 0.455]  exact 63/195 = 0.323 [0.261, 0.392]  beyond 0
+  rebuilt cases disagreeing with the sealed ones: 0

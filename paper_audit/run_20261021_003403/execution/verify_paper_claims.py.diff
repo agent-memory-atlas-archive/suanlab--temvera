@@ -1,0 +1,99 @@
+--- scripts/verify_paper_claims.py	2026-10-20 21:19:24.306735992 +0900
++++ paper_audit/run_20261021_003403/revised/scripts/verify_paper_claims.py	2026-10-21 00:43:08.056820636 +0900
+@@ -41,9 +41,9 @@
+     overall_counts,
+ )
+ 
+-ROOT = Path(__file__).resolve().parents[1]
++ROOT = Path(__file__).resolve().parents[4]  # audit copy: the repository root, for sealed runs
+ RUNS = ROOT / "experiments" / "runs"
+-PAPER = ROOT / "paper" / "main.tex"
++PAPER = Path(__file__).resolve().parents[1] / "paper" / "main.tex"  # audit copy: revised manuscript
+ 
+ _transcripts: dict[str, list] = {}
+ _results: dict[str, dict] = {}
+@@ -764,7 +764,7 @@
+               - lme("Mem0", "transaction_as_of", "cases_without_incidental_values"),
+               near="cases. The"),
+         Claim("Tab.real", "caption pairs", "43", lambda: lme_pairs("used"),
+-              near="Real conversations:"),
++              near="Benchmark conversations:"),
+         Claim("Tab.real", "caption valid-time cases", "41",
+               lambda: lme("Mem0", "valid_time", "cases"), near="Exact answers out of 43 ("),
+         Claim("5.real", "retaining old kept, fewest", "31",
+@@ -850,7 +850,7 @@
+         Claim("5.real", "pairs, closing caveat", "43", lambda: lme_pairs("used"),
+               near="These are", after="No configuration answers more than"),
+         Claim("Lim", "pairs in the real-data check", "43", lambda: lme_pairs("used"),
+-              near="the real-data check covers"),
++              near="the benchmark check covers"),
+         Claim("Repro", "excluded pairs listed by ID", "26", lambda: lme_pairs("excluded"),
+               near="derived are released; the"),
+     ]
+@@ -1017,7 +1017,7 @@
+               lambda: micro("external-graphiti-hybrid-v1", "transaction_as_of", cells()),
+               near="Graphiti with one answer more"),
+         Claim("5.bounds", "real-data questions with something to filter", "84",
+-              lambda: real_split("Graphiti", "n"), 0.5, near="test is the real conversations"),
++              lambda: real_split("Graphiti", "n"), 0.5, near="test is the benchmark conversations"),
+         Claim("5.bounds", "Cognee real-data filtered hits", "0",
+               lambda: real_split("Cognee chunks", "hits"), 0.5, near="with something to filter, Cognee answers"),
+         Claim("5.bounds", "Hindsight real-data filtered hits", "5",
+@@ -1127,7 +1127,56 @@
+     ]
+ 
+ 
+-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims()
++# -- Added in the 2026-10-21 audit: numbers the paper printed without a row ----
++def _cost_sweep(entities: int) -> float:
++    """Case-weighted exact accuracy of the cost sweep at one entity count."""
++    rows = [r for r in tr("scale-cost-mem0-v1") if r["entities"] == entities]
++    return sum(bool(r["exact"]) for r in rows) / len(rows)
++
++
++def _audit_claims() -> list:
++    return [
++        Claim("5.5", "cost sweep exact at 2 entities (micro)", "0.609",
++              lambda: _cost_sweep(2), near="Case-weighted exact accuracy moved"),
++        Claim("5.5", "cost sweep exact at 4 entities (micro)", "0.527",
++              lambda: _cost_sweep(4), near="Case-weighted exact accuracy moved"),
++        Claim("5.5", "cost sweep exact at 8 entities (micro)", "0.539",
++              lambda: _cost_sweep(8), near="Case-weighted exact accuracy moved"),
++        Claim("5.5", "Cognee ingests on the grid", "477",
++              lambda: telemetry("external-cognee-grid-v1", "ingest_latency", "n"), 0.5,
++              near="over the same 20-cell grid ("),
++        Claim("5.5", "Cognee queries on the grid", "484",
++              lambda: telemetry("external-cognee-grid-v1", "query_latency", "n"), 0.5,
++              near="over the same 20-cell grid ("),
++        Claim("5.5", "embedding share of spend, %", "0.2",
++              lambda: 100 * telemetry("scale-cost-mem0-v1", "usage", "text-embedding-3-small",
++                                      "cost_usd") / telemetry("scale-cost-mem0-v1",
++                                                               "cost_usd_total"), 0.06,
++              near="embeddings account for"),
++        Claim("5.5", "cost per ingested turn, USD", "0.0005",
++              lambda: telemetry("scale-cost-mem0-v1", "cost_usd_total")
++              / telemetry("scale-cost-mem0-v1", "ingest_latency", "n"), 0.00006,
++              near="an ingested turn costs about"),
++        Claim("5.ext", "LongMemEval instances per type", "10",
++              lambda: float(min(__import__("collections").Counter(
++                  r["question_type"] for r in res("longmemeval-e7-v2")["per_instance"]).values())),
++              0.5, near="single-session-assistant $0.151$ ("),
++        Claim("5.other", "synonym queries", "10",
++              lambda: float(json.loads((RUNS / "vector-synonym-compare-v1.json").read_text())["queries"]),
++              0.5, near="recall@1 $1.0$"),
++        Claim("7", "Cognee chunks v1 worker errors", "40",
++              lambda: float(res("external-cognee-chunks-grid-v1")["backbone"]["worker_errors"]), 0.5,
++              near="paper reported a"),
++        Claim("7", "Cognee chunks v1 overall (micro)", "0.207",
++              lambda: micro("external-cognee-chunks-grid-v1", cells=cells()),
++              near="unexplained worker errors at"),
++        Claim("7", "Cognee chunks replication overall (micro)", "0.194",
++              lambda: micro("external-cognee-chunks-grid-v3", cells=cells()),
++              near="isolated stores that we now cite scores"),
++    ]
++
++
++CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims()
+ 
+ 
+ def main() -> int:
