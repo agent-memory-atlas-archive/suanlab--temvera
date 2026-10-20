@@ -337,7 +337,16 @@ def render_turns(events: tuple[MemoryEvent, ...]) -> tuple[WorkloadTurn, ...]:
         subject = event.subject or (ingest.subject if ingest else event.belief_id)
         attribute = event.attribute or (ingest.attribute if ingest else "value")
         value = event.value or (ingest.value if ingest else "")
-        if event.operation is Operation.INGEST:
+        if event.operation is Operation.INGEST and event.valid_to is not None:
+            # Only retroactive corrections ingest a closed interval; open
+            # ingests keep their original wording, so sealed workloads are
+            # rendered byte-identically.
+            text = (
+                f"[recorded {_day(event.recorded_at)}] {subject}'s {attribute} "
+                f"was {value} from {_day(event.valid_from)} until "
+                f"{_day(event.valid_to)}."
+            )
+        elif event.operation is Operation.INGEST:
             text = (
                 f"[recorded {_day(event.recorded_at)}] {subject}'s {attribute} "
                 f"is {value}, valid from {_day(event.valid_from)}."
@@ -346,6 +355,20 @@ def render_turns(events: tuple[MemoryEvent, ...]) -> tuple[WorkloadTurn, ...]:
             text = (
                 f"[recorded {_day(event.recorded_at)}] Confirmed that {subject}'s "
                 f"{attribute} is still {value}."
+            )
+        elif (
+            event.operation is Operation.SUPERSEDE
+            and event.target_id in ingests
+            and ingest is not None
+            and ingest.valid_to is not None
+            and event.valid_from == ingests[event.target_id].valid_from
+        ):
+            # A retroactive correction: the replaced value's whole interval.
+            text = (
+                f"[recorded {_day(event.recorded_at)}] Correction: {subject}'s "
+                f"{attribute} from {_day(event.valid_from)} until "
+                f"{_day(ingest.valid_to)} was actually {value}, not "
+                f"{ingests[event.target_id].value}."
             )
         elif event.operation is Operation.SUPERSEDE:
             valid_from = event.valid_from or event.recorded_at

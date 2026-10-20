@@ -74,6 +74,7 @@ def _events_for(
         reconfirm_probability=float(profile.get("reconfirm_probability", 0.0)),
         expire_probability=float(profile.get("expire_probability", 0.0)),
         purge_probability=float(profile.get("purge_probability", 0.0)),
+        correction_probability=float(profile.get("correction_probability", 0.0)),
     )
     return naturalize_events(events, pools=pools) if naturalize else events
 

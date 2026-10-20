@@ -88,3 +88,54 @@ def test_sweep_v2_configs_use_the_controlled_workload() -> None:
         config = json.loads(path.read_text())
         assert config["distinct_values"] is True, path
         assert config["natural_pools"] == "large", path
+
+
+def test_corrections_are_opt_in_and_leave_default_histories_unchanged():
+    from temvera.generator import generate_histories
+
+    base = dict(seed=11, entities=5, revisions=4, reconfirm_probability=0.5,
+                expire_probability=0.35, purge_probability=0.25)
+    assert generate_histories(**base) == generate_histories(**base, correction_probability=0.0)
+    corrected = generate_histories(**base, correction_probability=1.0)
+    assert any(e.event_id.endswith("-cs") for e in corrected)
+
+
+def test_a_correction_replaces_the_past_value_without_touching_the_present():
+    from temvera.generator import generate_histories
+    from temvera.model import Operation
+    from temvera.oracle import LifecycleOracle
+
+    events = generate_histories(seed=7, entities=3, revisions=3, correction_probability=1.0,
+                                distinct_values=True)
+    oracle = LifecycleOracle(events)
+    end = max(e.recorded_at for e in events)
+    for fix in (e for e in events if e.operation is Operation.INGEST and e.valid_to):
+        replaced = next(e for e in events if e.event_id.endswith("-cs")
+                        and e.belief_id == fix.belief_id)
+        old = next(e for e in events if e.belief_id == replaced.target_id
+                   and e.operation is Operation.INGEST)
+        # Before the correction is recorded, the old value is what was known...
+        before = oracle.query(fix.subject, fix.attribute, valid_at=fix.valid_from,
+                              transaction_at=old.recorded_at)
+        assert [b.value for b in before] == [old.value]
+        # ...after it, the corrected value holds over the corrected interval...
+        after = oracle.query(fix.subject, fix.attribute, valid_at=fix.valid_from,
+                             transaction_at=end)
+        assert [b.value for b in after] == [fix.value]
+        # ...and the present is untouched.
+        latest = max((e for e in events if e.operation is Operation.INGEST
+                      and e.subject == fix.subject and e.valid_to is None),
+                     key=lambda e: e.valid_from)
+        now = oracle.query(fix.subject, fix.attribute, valid_at=latest.valid_from,
+                           transaction_at=end)
+        assert [b.value for b in now] == [latest.value]
+
+
+def test_a_correction_is_rendered_as_one():
+    from temvera.generator import generate_histories
+    from temvera.nl_workload import render_turns
+
+    texts = [t.text for t in render_turns(generate_histories(
+        seed=7, entities=2, revisions=3, correction_probability=1.0))]
+    assert any("Correction:" in t and "was actually" in t and ", not " in t for t in texts)
+    assert any(" was " in t and " until " in t for t in texts)

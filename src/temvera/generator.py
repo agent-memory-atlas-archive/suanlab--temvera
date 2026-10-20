@@ -27,6 +27,7 @@ def generate_histories(
     purge_probability: float = 0.0,
     attributes: int = 1,
     distinct_values: bool = False,
+    correction_probability: float = 0.0,
 ) -> tuple[MemoryEvent, ...]:
     """Seeded bitemporal histories.
 
@@ -36,6 +37,13 @@ def generate_histories(
     It still consumes the same random draw, so a seed yields a history of the
     same shape -- same dates, reconfirms, expiries and purges -- in which only
     value identity differs. That makes the two modes a controlled comparison.
+
+    ``correction_probability`` adds, per subject and attribute, a retroactive
+    correction recorded after the rest of its history: an earlier, already
+    superseded value is replaced over its whole valid interval ("it was actually
+    X then"). Valid time is then earlier than transaction time by weeks, the
+    case that separates the two axes. The default of zero draws nothing extra,
+    so existing seeds stay byte-identical.
     """
     if entities < 1 or revisions < 1:
         raise ValueError("entities and revisions must be positive")
@@ -49,6 +57,7 @@ def generate_histories(
         reconfirm_probability,
         expire_probability,
         purge_probability,
+        correction_probability,
     )
     if any(value < 0 or value > 1 for value in probabilities):
         raise ValueError("operation probabilities must be between zero and one")
@@ -67,6 +76,7 @@ def generate_histories(
         # sealed runs remain byte-reproducible.
         suffix = "" if attributes == 1 else f"-{attribute_index:02d}"
         previous: str | None = None
+        chain: list[tuple[str, datetime]] = []
         for revision in range(revisions):
             sequence += 1
             belief_id = f"{prefix}b-{entity_number:03d}-{revision:03d}{suffix}"
@@ -106,6 +116,7 @@ def generate_histories(
                         recorded_at=recorded_at + timedelta(days=7),
                     )
                 )
+            chain.append((belief_id, valid_from))
             previous = belief_id
         assert previous is not None
         final_ingest = next(
@@ -134,6 +145,42 @@ def generate_histories(
                         valid_to=final_ingest.valid_from + timedelta(days=10),
                     )
                 )
+        if (
+            correction_probability
+            and len(chain) >= 2
+            and rng.random() < correction_probability
+        ):
+            corrected = rng.randrange(len(chain) - 1)
+            target, target_from = chain[corrected]
+            next_from = chain[corrected + 1][1]
+            sequence += 1
+            belief_id = f"{prefix}b-{entity_number:03d}-c{corrected:02d}{suffix}"
+            recorded_at = final_ingest.recorded_at + timedelta(days=25)
+            events.append(
+                MemoryEvent(
+                    event_id=f"{prefix}e-{sequence:05d}-cs",
+                    operation=Operation.SUPERSEDE,
+                    belief_id=belief_id,
+                    target_id=target,
+                    valid_from=target_from,
+                    recorded_at=recorded_at,
+                )
+            )
+            events.append(
+                MemoryEvent(
+                    event_id=f"{prefix}e-{sequence:05d}-ci",
+                    operation=Operation.INGEST,
+                    belief_id=belief_id,
+                    subject=f"{prefix}entity-{entity_number:03d}",
+                    attribute=attribute,
+                    value=_value(rng, attribute, attributes, distinct_values, issued),
+                    valid_from=target_from,
+                    valid_to=next_from,
+                    recorded_at=recorded_at,
+                    sources=(f"{prefix}source-{sequence:05d}",),
+                    authority=Authority.USER,
+                )
+            )
     return tuple(sorted(events, key=lambda event: (event.recorded_at, event.event_id)))
 
 
