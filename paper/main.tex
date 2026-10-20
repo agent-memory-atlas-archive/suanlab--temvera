@@ -59,7 +59,9 @@ into five open-source systems---Mem0, LangMem, Graphiti, Cognee and
 Hindsight---under forward-checkpoint transaction-time replay. Two designs emerge.
 \emph{Consolidating} stores overwrite superseded values, so they answer current
 queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323),
-just under a ceiling (0.385) that the history alone fixes.
+just under a ceiling (0.385) that the history alone fixes, and Mem0 applies a
+correction about the past to the present (1 of 45 current values answered
+afterwards).
 \emph{Retaining} stores keep the history but do not filter it: read at the
 retrieval layer, three independent implementations score 0.000 on
 valid-time queries. An LLM reading the same stores shows the history was there---Cognee's
@@ -71,7 +73,7 @@ on 43 human-written supersessions from LongMemEval. Cost is write-dominated, and
 
 We claim no novelty for bitemporal modelling or forgetting evaluation. The
 contribution is measurement, and the finding that a system can expose temporal
-fields, and even filter on them, without answering temporal queries correctly.
+fields without answering temporal queries correctly.
 \end{abstract}
 
 \begin{IEEEkeywords}
