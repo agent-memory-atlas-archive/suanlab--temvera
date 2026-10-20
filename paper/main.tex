@@ -964,6 +964,33 @@ store happens to filter is not a fixed property of the store; we suspect,
 without having tested it, that real sessions crowd the old value out of the top
 five with unrelated facts.
 
+\subsection{What a retroactive correction does}\label{sec:corrections}
+
+Every history so far was recorded in valid-time order. A retroactive correction
+--- ``Elif Tanaka's home city from 2 January until 4 February was actually
+Millholm'',
+recorded weeks later --- is the case that pulls the two time axes apart, so we
+added it to the generator and ran Mem0 and Graphiti on 80 subjects, 45 of which
+receive one and the rest serve as the control. The three predictions and the
+analysis were committed and published before the runs existed.
+
+\textbf{A consolidating store applies a correction about the past to the
+present.} Asked for the current value once the correction is recorded, Mem0
+answers 35 of 35 subjects without a correction and 1 of 45 with one; we
+predicted a drop of at least 0.10 and measured 0.978. Reading the answers
+afterwards, for 41 of the 45 the current value appears in no answer about that
+subject at all: the store has replaced it with the corrected past value. The
+corrected interval itself Mem0 answers 69 times in 78, against 0 of 70 for
+ordinary superseded intervals, also as predicted. Consolidation keeps one
+statement per subject, and the newest statement wins whatever time it is about.
+
+\textbf{A retaining store keeps both and filters neither.} Graphiti answers the
+corrected interval 1 time in 78, within the predicted 0.10: it returns the
+replaced value beside the correction. Forward replay asks each question at its
+own checkpoint, so whether a store can still say what it believed \emph{before}
+a correction is not tested here; none of the systems exposes that axis
+(Table~\ref{tab:fragment}, C2).
+
 \subsection{External validity}\label{sec:external}
 
 On human-written LongMemEval conversations \citep{longmemeval}, retrieval

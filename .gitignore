@@ -93,6 +93,9 @@ experiments/runs/*
 !experiments/runs/variance-graphiti-r1-v1/
 !experiments/runs/variance-graphiti-r2-v1/
 !experiments/runs/variance-graphiti-r3-v1/
+# Retroactive corrections, preregistered in docs/preregistration-h6.md.
+!experiments/runs/external-corrections-mem0-v1/
+!experiments/runs/external-corrections-graphiti-v1/
 
 .env
 .env.*

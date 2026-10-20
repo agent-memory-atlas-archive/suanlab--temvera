@@ -72,6 +72,47 @@ def classify(run: str) -> dict[str, list[bool]]:
     return out
 
 
+def vanished(run: str) -> tuple[int, int]:
+    """(subjects whose current value appears in no answer about them once the
+    correction is recorded, corrected subjects asked about after it).
+
+    Added after the preregistered results were read, to tell a value the store
+    no longer returns from one it merely ranked low; it is not a preregistered
+    test."""
+    import re
+
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    lines = (RUNS / run / "transcript.jsonl").read_text(encoding="utf-8").splitlines()
+    rows = [r for r in map(json.loads, lines) if r.get("system") != "oracle"]
+    gone = seen = 0
+    for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in rows}):
+        profile, entities, revisions, seed = cell
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        here = [r for r in rows if (r["profile"], r["entities"], r["revisions"], r["seed"]) == cell]
+        latest = {}
+        for e in events:
+            if e.operation is Operation.INGEST and e.valid_to is None:
+                key = (e.subject, e.attribute)
+                if key not in latest or e.valid_from > latest[key].valid_from:
+                    latest[key] = e
+        for e in events:
+            if e.operation is not Operation.INGEST or e.valid_to is None:
+                continue
+            after = [r for r in here if e.subject in r["query"]
+                     and re.search(r"known by (\S+)\?", r["query"]).group(1)
+                     >= e.recorded_at.date().isoformat()]
+            if after:
+                seen += 1
+                gone += not any(latest[(e.subject, e.attribute)].value in r["answer"]
+                                for r in after)
+    return gone, seen
+
+
 def show(hits: list[bool]) -> str:
     if not hits:
         return "-"
@@ -86,6 +127,8 @@ def main() -> int:
         print(system)
         for kind in KINDS:
             print(f"  {kind:20s} {show(result[kind])}")
+        gone, seen = vanished(run)
+        print(f"  current value absent from every later answer (post hoc): {gone}/{seen}")
     return 0
 
 

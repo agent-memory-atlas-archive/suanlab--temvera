@@ -1031,7 +1031,97 @@ def _bounds_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims()
+# -- Retroactive corrections (sec:corrections), preregistered H6 -------------
+_corr = None
+
+
+def corrections():
+    global _corr
+    if _corr is None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "analyze_corrections", ROOT / "scripts" / "analyze_corrections.py")
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _corr = {"module": module, "mem0": module.classify("external-corrections-mem0-v1"),
+                 "graphiti": module.classify("external-corrections-graphiti-v1")}
+    return _corr
+
+
+def corr(system: str, kind: str, what: str) -> float:
+    hits = corrections()[system][kind]
+    return float({"hits": sum(hits), "n": len(hits)}[what]) if what != "rate" \
+        else sum(hits) / len(hits)
+
+
+def corr_subjects(what: str) -> float:
+    import json as _json
+
+    from temvera.external_experiment import _events_for
+    from temvera.model import Operation
+
+    config = _json.loads((RUNS / "external-corrections-mem0-v1" / "config.json").read_text())
+    total = fixed = 0
+    for seed in config["seeds"]:
+        for scale in config["scales"]:
+            events = _events_for(seed, scale["entities"], scale["revisions"],
+                                 config["profiles"][0], True, 1, True, config["natural_pools"])
+            total += scale["entities"]
+            fixed += sum(1 for e in events if e.operation is Operation.INGEST and e.valid_to)
+    return float(total if what == "total" else fixed)
+
+
+def _preregistered(pattern: str) -> float:
+    """A threshold printed in the paper must be the one committed beforehand."""
+    text = (ROOT / "docs" / "preregistration-h6.md").read_text(encoding="utf-8")
+    return 0.10 if re.search(pattern, text) else -1.0
+
+
+def _corrections_claims() -> list:
+    return [
+        Claim("5.corr", "subjects", "80", lambda: corr_subjects("total"), 0.5,
+              near="ran Mem0 and Graphiti on"),
+        Claim("5.corr", "subjects with a correction", "45", lambda: corr_subjects("fixed"), 0.5,
+              near="ran Mem0 and Graphiti on"),
+        Claim("5.corr", "Mem0 present, uncorrected hits", "35",
+              lambda: corr("mem0", "present_uncorrected", "hits"), 0.5, near="answers 35 of"),
+        Claim("5.corr", "Mem0 present, uncorrected subjects", "35",
+              lambda: corr("mem0", "present_uncorrected", "n"), 0.5, near="answers 35 of"),
+        Claim("5.corr", "Mem0 present, corrected hits", "1",
+              lambda: corr("mem0", "present_corrected", "hits"), 0.5,
+              near="subjects without a correction and"),
+        Claim("5.corr", "Mem0 present, corrected subjects", "45",
+              lambda: corr("mem0", "present_corrected", "n"), 0.5,
+              near="subjects without a correction and"),
+        Claim("5.corr", "Mem0 present drop", "0.978",
+              lambda: corr("mem0", "present_uncorrected", "rate")
+              - corr("mem0", "present_corrected", "rate"), near="drop of at least 0.10 and measured"),
+        Claim("5.corr", "Mem0 current value absent afterwards (post hoc)", "41",
+              lambda: float(corrections()["module"].vanished("external-corrections-mem0-v1")[0]),
+              0.5, near="afterwards, for"),
+        Claim("5.corr", "Mem0 corrected interval hits", "69",
+              lambda: corr("mem0", "corrected", "hits"), 0.5, near="The\ncorrected interval itself Mem0 answers"),
+        Claim("5.corr", "Mem0 corrected interval questions", "78",
+              lambda: corr("mem0", "corrected", "n"), 0.5, near="The\ncorrected interval itself Mem0 answers"),
+        Claim("5.corr", "Mem0 ordinary superseded interval hits", "0",
+              lambda: corr("mem0", "past_uncorrected", "hits"), 0.5, near="against 0 of"),
+        Claim("5.corr", "Mem0 ordinary superseded interval questions", "70",
+              lambda: corr("mem0", "past_uncorrected", "n"), 0.5, near="against 0 of"),
+        Claim("5.corr", "H6a preregistered threshold", "0.10",
+              lambda: _preregistered(r"lower than on `present_uncorrected` by at least\s+0\.10"),
+              near="we\npredicted a drop of at least"),
+        Claim("5.corr", "H6b preregistered threshold", "0.10",
+              lambda: _preregistered(r"Graphiti's exact rate on `corrected`\s+is at most 0\.10"),
+              near="within the predicted"),
+        Claim("5.corr", "Graphiti corrected interval hits", "1",
+              lambda: corr("graphiti", "corrected", "hits"), 0.5, near="Graphiti answers the\ncorrected interval"),
+        Claim("5.corr", "Graphiti corrected interval questions", "78",
+              lambda: corr("graphiti", "corrected", "n"), 0.5, near="Graphiti answers the\ncorrected interval"),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims()
 
 
 def main() -> int:

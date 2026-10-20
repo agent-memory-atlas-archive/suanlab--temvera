@@ -78,14 +78,27 @@ def test_artifact_verification_detects_envelope_corruption(tmp_path) -> None:
     archive = tmp_path / "b.tar.gz"
     create_artifact_archive(root, archive)
     original = archive.read_bytes()
-    # Sweep several offsets rather than one: the previous single-offset test was
-    # flaky because a flip can land where it does not alter member content.
-    for fraction in (0.25, 0.5, 0.75, 0.9):
-        offset = int(len(original) * fraction)
+    # The property is that altered *content* is never accepted. Not every byte
+    # of a .tar.gz carries content: the gzip header's mtime and OS fields are
+    # outside the CRC, and some deflate bits decode to the same output. A flip
+    # there leaves the archive's content intact, so accepting it is correct.
+    # Asserting that four fixed offsets always fail was therefore flaky (about
+    # 2% of offsets are harmless, and the fixture's bytes vary with its seal
+    # time); every offset is now checked against the property itself.
+    import gzip
+    import zlib
+
+    content = gzip.decompress(original)
+    for offset in range(len(original)):
         payload = bytearray(original)
         payload[offset] ^= 1
         archive.write_bytes(payload)
-        assert not verify_artifact_archive(archive), f"missed corruption at {offset}"
+        if verify_artifact_archive(archive):
+            try:
+                altered = gzip.decompress(bytes(payload))
+            except (OSError, EOFError, zlib.error):
+                altered = None
+            assert altered == content, f"accepted altered content at offset {offset}"
 
 
 def test_artifact_excludes_third_party_data_and_bytecode(tmp_path) -> None:

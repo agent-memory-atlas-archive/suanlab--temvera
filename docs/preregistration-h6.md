@@ -42,3 +42,12 @@ and `present_uncorrected` (current value at the end of the history), and
 
 Counts are small (about 40 corrected subjects), so each comparison is read with
 Wilson intervals and stated as a direction, not a rate.
+
+## Outcome (added 2026-10-20, after the runs; the text above is unchanged)
+
+All three predictions held. Mem0, current value: 35/35 without a correction,
+1/45 with one (drop 0.978; H6a). Graphiti, corrected interval: 1/78 = 0.013
+(H6b). Mem0, corrected interval 69/78 against 0/70 for ordinary superseded
+intervals (H6c). A check added only after reading these results, and so not
+preregistered: for 41 of the 45 corrected subjects, Mem0's current value appears
+in no later answer about that subject (Graphiti: 14 of 45).
