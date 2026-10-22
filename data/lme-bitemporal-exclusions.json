@@ -2,110 +2,41 @@
   "candidate_pairs": 69,
   "excluded": [
     {
-      "kind": "disagree",
-      "question_id": "031748ae"
+      "kind": "adjudicated exclusion",
+      "question_id": "0977f2af",
+      "reason": "not a supersession: the two gadgets coexist and the question asks for order"
     },
     {
-      "kind": "values agree, direction differs",
-      "question_id": "07741c44"
+      "kind": "adjudicated exclusion",
+      "question_id": "5831f84d",
+      "reason": "the earlier session states two different counts (10 and a 12th video)"
     },
     {
-      "kind": "extraction rejected",
-      "question_id": "07741c45"
+      "kind": "adjudicated exclusion",
+      "question_id": "5a4f22c0",
+      "reason": "the earlier session states no company for Rachel"
     },
     {
-      "kind": "values agree, direction differs",
-      "question_id": "0977f2af"
+      "kind": "adjudicated exclusion",
+      "question_id": "5c40ec5b",
+      "reason": "the earlier session states no count"
     },
     {
-      "kind": "values agree, direction differs",
-      "question_id": "0ddfec37"
+      "kind": "adjudicated exclusion",
+      "question_id": "69fee5aa",
+      "reason": "the later value (38) does not appear in the later session"
     },
     {
-      "kind": "disagree",
-      "question_id": "0f05491a"
+      "kind": "adjudicated exclusion",
+      "question_id": "b01defab",
+      "reason": "the earlier session states no reading status"
     },
     {
-      "kind": "disagree",
-      "question_id": "26bdc477"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "42ec0761"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "5831f84d"
-    },
-    {
-      "kind": "extraction rejected",
-      "question_id": "5a4f22c0"
-    },
-    {
-      "kind": "extraction rejected",
-      "question_id": "5c40ec5b"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "6071bd76"
-    },
-    {
-      "kind": "extraction rejected",
-      "question_id": "69fee5aa"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "7401057b"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "89941a93"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "89941a94"
-    },
-    {
-      "kind": "extraction rejected",
-      "question_id": "b01defab"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "b6019101"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "ba61f0b9"
-    },
-    {
-      "kind": "values agree, direction differs",
-      "question_id": "c4ea545c"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "ce6d2d27"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "d7c942c3"
-    },
-    {
-      "kind": "extraction rejected",
-      "question_id": "dfde3500"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "e493bb7c"
-    },
-    {
-      "kind": "values agree, direction differs",
-      "question_id": "e66b632c"
-    },
-    {
-      "kind": "disagree",
-      "question_id": "ed4ddc30"
+      "kind": "adjudicated exclusion",
+      "question_id": "dfde3500",
+      "reason": "the later session states no day for the tutor"
     }
   ],
-  "note": "LongMemEval knowledge-update pairs excluded from the real-data workload (D-016): the two extractors disagreed, or a value failed the per-session verbatim check, and the pairs were not adjudicated. Question IDs only; no corpus text.",
+  "note": "LongMemEval knowledge-update pairs not used in the real-data workload. On 2026-10-22 the 26 pairs the two extractors had not agreed on were adjudicated (AI-proposed with evidence, author-approved): 19 were labelled and 7 excluded for the reasons given. Question IDs only; no corpus text. Decisions D-016 and D-017.",
   "schema_version": 1
 }

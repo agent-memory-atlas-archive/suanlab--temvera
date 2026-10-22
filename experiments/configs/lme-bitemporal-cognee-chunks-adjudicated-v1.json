@@ -1,0 +1,13 @@
+{
+  "benchmark": "temvera-lme-bitemporal-cognee-chunks-adjudicated-v1",
+  "cognee_root": "/tmp/temvera-cognee-lme-cognee-chunks-v1-adj",
+  "dataset_path": "data/raw/longmemeval_oracle.json",
+  "embed_model": "text-embedding-3-small",
+  "label_method_prefix": "adjudicated:",
+  "labels_path": "data/lme-bitemporal-labels.json",
+  "model": "gpt-4o-mini",
+  "search_limit": 5,
+  "search_type": "CHUNKS",
+  "user_id": "temvera-lme-cognee-chunks-adj",
+  "workload": "lme_bitemporal"
+}

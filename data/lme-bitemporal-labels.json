@@ -1,4 +1,41 @@
 {
+  "excluded": {
+    "0977f2af": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "not a supersession: the two gadgets coexist and the question asks for order"
+    },
+    "5831f84d": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the earlier session states two different counts (10 and a 12th video)"
+    },
+    "5a4f22c0": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the earlier session states no company for Rachel"
+    },
+    "5c40ec5b": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the earlier session states no count"
+    },
+    "69fee5aa": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the later value (38) does not appear in the later session"
+    },
+    "b01defab": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the earlier session states no reading status"
+    },
+    "dfde3500": {
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude); approved by the author on 2026-10-22",
+      "reason": "the later session states no day for the tutor"
+    }
+  },
   "labelling": {
     "models": [
       "gpt-4o-mini",
@@ -18,6 +55,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "031748ae": {
+      "attribute": "engineers led as Senior Software Engineer",
+      "choice": "E",
+      "earlier_value": "4 engineers",
+      "later_value": "five engineers",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "both"
+    },
     "06db6396": {
       "attribute": "projects completed since starting painting classes",
       "earlier_value": "4",
@@ -26,6 +72,24 @@
       ],
       "later_value": "5",
       "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "07741c44": {
+      "attribute": "location of old sneakers",
+      "choice": "E",
+      "earlier_value": "under my bed",
+      "later_value": "shoe rack",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
+    "07741c45": {
+      "attribute": "location of old sneakers",
+      "choice": "E",
+      "earlier_value": "under my bed",
+      "later_value": "shoe rack",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
       "question_asks_for": "later"
     },
     "08e075c7": {
@@ -38,6 +102,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "0ddfec37": {
+      "attribute": "autographed baseballs added in first three months",
+      "choice": "E",
+      "earlier_value": "15 autographed baseballs",
+      "later_value": "20 autographed baseballs",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
     "0e4e4c46": {
       "attribute": "highest score in Ticket to Ride",
       "earlier_value": "124 points",
@@ -46,6 +119,15 @@
       ],
       "later_value": "132 points",
       "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "0f05491a": {
+      "attribute": "stars needed to reach gold level",
+      "choice": "E",
+      "earlier_value": "125 stars",
+      "later_value": "120 stars",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
       "question_asks_for": "later"
     },
     "10e09553": {
@@ -108,6 +190,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "26bdc477": {
+      "attribute": "trips with Canon EOS 80D",
+      "choice": "E",
+      "earlier_value": "three trips",
+      "later_value": "five trips",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
     "3ba21379": {
       "attribute": "vehicle model",
       "earlier_value": "Ford Mustang Shelby GT350R",
@@ -126,6 +217,15 @@
       ],
       "later_value": "70-200mm zoom lens",
       "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "42ec0761": {
+      "attribute": "spare screwdriver",
+      "choice": "E",
+      "earlier_value": "misplaced",
+      "later_value": "have a spare",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
       "question_asks_for": "later"
     },
     "45dc21b6": {
@@ -188,6 +288,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "6071bd76": {
+      "attribute": "coffee-to-water ratio",
+      "choice": "E",
+      "earlier_value": "6 ounces",
+      "later_value": "5 ounces",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
     "618f13b2": {
       "attribute": "times worn new black Converse Chuck Taylor All Star sneakers",
       "earlier_value": "four",
@@ -248,6 +357,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "7401057b": {
+      "attribute": "free night's stays at any Hilton property",
+      "choice": "E",
+      "earlier_value": "single free night's stay",
+      "later_value": "two free night's stays",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
     "7e974930": {
       "attribute": "earnings at the Downtown Farmers Market",
       "earlier_value": "$350",
@@ -277,6 +395,24 @@
       "later_value": "$400,000",
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
+    },
+    "89941a93": {
+      "attribute": "number of bikes owned",
+      "choice": "E",
+      "earlier_value": "three bikes",
+      "later_value": "four bikes",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "89941a94": {
+      "attribute": "number of bikes",
+      "choice": "E",
+      "earlier_value": "three bikes",
+      "later_value": "four bikes",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
     },
     "8fb83627": {
       "attribute": "National Geographic issues finished",
@@ -346,6 +482,33 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "b6019101": {
+      "attribute": "MCU films watched in the last 3 months",
+      "choice": "E",
+      "earlier_value": "4 MCU films",
+      "later_value": "5 MCU films",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "ba61f0b9": {
+      "attribute": "number of women on Rachel's team",
+      "choice": "E",
+      "earlier_value": "5 women",
+      "later_value": "6 women",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "c4ea545c": {
+      "attribute": "gym frequency",
+      "choice": "E",
+      "earlier_value": "Tuesdays, Thursdays, and Saturdays",
+      "later_value": "four times a week",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "both"
+    },
     "c6853660": {
       "attribute": "morning coffee limit",
       "earlier_value": "one cup",
@@ -377,6 +540,15 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "ce6d2d27": {
+      "attribute": "cocktail-making class day",
+      "choice": "E",
+      "earlier_value": "Thursday",
+      "later_value": "Friday",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
     "cf22b7bf": {
       "attribute": "weight lost",
       "earlier_value": "5 pounds",
@@ -385,6 +557,15 @@
       ],
       "later_value": "10 pounds",
       "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "d7c942c3": {
+      "attribute": "mom's grocery list method",
+      "choice": "E",
+      "earlier_value": "paper list",
+      "later_value": "grocery list app",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
       "question_asks_for": "later"
     },
     "dad224aa": {
@@ -407,6 +588,24 @@
       "method": "agreement:gpt-4o-mini+gpt-4o",
       "question_asks_for": "later"
     },
+    "e493bb7c": {
+      "attribute": "location of 'Ethereal Dreams' painting",
+      "choice": "E",
+      "earlier_value": "above my living room sofa",
+      "later_value": "my bedroom",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "e66b632c": {
+      "attribute": "charity 5K personal best time",
+      "choice": "E",
+      "earlier_value": "27 minutes and 45 seconds",
+      "later_value": "26 minutes and 30 seconds",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
     "eace081b": {
       "attribute": "birthday trip location",
       "earlier_value": "Kauai",
@@ -415,6 +614,15 @@
       ],
       "later_value": "Oahu",
       "method": "agreement:gpt-4o-mini+gpt-4o",
+      "question_asks_for": "later"
+    },
+    "ed4ddc30": {
+      "attribute": "dozen eggs stocked",
+      "choice": "E",
+      "earlier_value": "30 dozen",
+      "later_value": "20 dozen",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
       "question_asks_for": "later"
     },
     "f685340e": {

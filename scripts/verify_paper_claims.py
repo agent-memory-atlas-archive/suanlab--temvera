@@ -739,13 +739,19 @@ def lme_wilson(system: str, category: str, bound: int) -> float:
 
 
 def lme_pairs(what: str) -> float:
+    """Pair counts for the real-data workload. Candidates are every labelled or
+    excluded pair; 'used' is what the agreement runs replayed; 'excluded' is the
+    candidates those runs did not use (adjudicated later, or excluded)."""
     data = json.loads(_EXCLUSIONS.read_text(encoding="utf-8"))
+    labels = json.loads((ROOT / "data" / "lme-bitemporal-labels.json").read_text())["labels"]
+    candidates = len(labels) + len(data["excluded"])
+    assert candidates == data["candidate_pairs"], "labels and exclusions no longer partition the pairs"
     used = {int(res(run)["instances"]) for run in _LME.values()}
     assert len(used) == 1, "real-data runs disagree on how many pairs they used"
+    used_n = used.pop()
     if what == "candidates":
-        assert data["candidate_pairs"] == used.pop() + len(data["excluded"])
-        return float(data["candidate_pairs"])
-    return float(len(data["excluded"]) if what == "excluded" else used.pop())
+        return float(candidates)
+    return float(candidates - used_n if what == "excluded" else used_n)
 
 
 def _real_claims() -> list:

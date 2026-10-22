@@ -219,3 +219,25 @@
   as the whole knowledge-update split.
 - **Not done:** the `adjudicated:author` path (`scripts/apply_lme_decisions.py`)
   stays in the tree, unused; no adjudication decisions were recorded.
+
+## D-017 — Adjudicate the 26 excluded LongMemEval pairs (AI-proposed, author-approved)
+
+- **Date:** 2026-10-22. Supersedes the "excluded, not adjudicated" part of D-016.
+- **Decision:** The 26 pairs the two extractors had not agreed on were
+  adjudicated. The AI proposed a label or an exclusion for each, quoting the
+  session sentences; the author approved all 26 proposals in one pass. 19 were
+  labelled (method `adjudicated:author`, field `proposed_by` records the AI's
+  role) and 7 excluded with reasons (`data/lme-bitemporal-exclusions.json`).
+  Every adjudicated value passed the same per-session verbatim check as the
+  agreement labels. Decisions file: `data/lme-decisions-2026-10-22.json`.
+- **Reason:** the agreement-only subset could be read as the easier cases; the
+  full set of usable pairs removes that objection (62 of 69).
+- **Runs:** the 19 adjudicated pairs run as separate configurations
+  (`*-adjudicated-v1`, prefix `adjudicated:`); the 43 agreement pairs keep their
+  sealed runs. The paper reports the 62 together and the 43 separately.
+- **Predictions, written before the adjudicated runs exist:** on the 19 added
+  pairs, (a) each retrieval-layer retaining configuration answers at most a
+  quarter of the valid-time questions exactly while returning the superseded
+  value in most of them; (b) Mem0's valid-time exact rate is at most 0.25;
+  (c) Cognee's graph reader answers more valid-time questions exactly than
+  Hindsight's reflect. Results are reported whatever they are.

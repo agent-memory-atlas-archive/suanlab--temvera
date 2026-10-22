@@ -1,0 +1,144 @@
+{
+  "031748ae": {
+    "choice": "E",
+    "earlier_value": "4 engineers",
+    "later_value": "five engineers",
+    "question_asks_for": "both"
+  },
+  "07741c44": {
+    "choice": "E",
+    "earlier_value": "under my bed",
+    "later_value": "shoe rack",
+    "question_asks_for": "earlier"
+  },
+  "07741c45": {
+    "choice": "E",
+    "earlier_value": "under my bed",
+    "later_value": "shoe rack",
+    "question_asks_for": "later"
+  },
+  "0977f2af": {
+    "choice": "X",
+    "reason": "not a supersession: the two gadgets coexist and the question asks for order"
+  },
+  "0ddfec37": {
+    "choice": "E",
+    "earlier_value": "15 autographed baseballs",
+    "later_value": "20 autographed baseballs",
+    "question_asks_for": "earlier"
+  },
+  "0f05491a": {
+    "choice": "E",
+    "earlier_value": "125 stars",
+    "later_value": "120 stars",
+    "question_asks_for": "later"
+  },
+  "26bdc477": {
+    "choice": "E",
+    "earlier_value": "three trips",
+    "later_value": "five trips",
+    "question_asks_for": "later"
+  },
+  "42ec0761": {
+    "choice": "E",
+    "earlier_value": "misplaced",
+    "later_value": "have a spare",
+    "question_asks_for": "later"
+  },
+  "5831f84d": {
+    "choice": "X",
+    "reason": "the earlier session states two different counts (10 and a 12th video)"
+  },
+  "5a4f22c0": {
+    "choice": "X",
+    "reason": "the earlier session states no company for Rachel"
+  },
+  "5c40ec5b": {
+    "choice": "X",
+    "reason": "the earlier session states no count"
+  },
+  "6071bd76": {
+    "choice": "E",
+    "earlier_value": "6 ounces",
+    "later_value": "5 ounces",
+    "question_asks_for": "later"
+  },
+  "69fee5aa": {
+    "choice": "X",
+    "reason": "the later value (38) does not appear in the later session"
+  },
+  "7401057b": {
+    "choice": "E",
+    "earlier_value": "single free night's stay",
+    "later_value": "two free night's stays",
+    "question_asks_for": "later"
+  },
+  "89941a93": {
+    "choice": "E",
+    "earlier_value": "three bikes",
+    "later_value": "four bikes",
+    "question_asks_for": "later"
+  },
+  "89941a94": {
+    "choice": "E",
+    "earlier_value": "three bikes",
+    "later_value": "four bikes",
+    "question_asks_for": "earlier"
+  },
+  "b01defab": {
+    "choice": "X",
+    "reason": "the earlier session states no reading status"
+  },
+  "b6019101": {
+    "choice": "E",
+    "earlier_value": "4 MCU films",
+    "later_value": "5 MCU films",
+    "question_asks_for": "later"
+  },
+  "ba61f0b9": {
+    "choice": "E",
+    "earlier_value": "5 women",
+    "later_value": "6 women",
+    "question_asks_for": "later"
+  },
+  "c4ea545c": {
+    "choice": "E",
+    "earlier_value": "Tuesdays, Thursdays, and Saturdays",
+    "later_value": "four times a week",
+    "question_asks_for": "both"
+  },
+  "ce6d2d27": {
+    "choice": "E",
+    "earlier_value": "Thursday",
+    "later_value": "Friday",
+    "question_asks_for": "later"
+  },
+  "d7c942c3": {
+    "choice": "E",
+    "earlier_value": "paper list",
+    "later_value": "grocery list app",
+    "question_asks_for": "later"
+  },
+  "dfde3500": {
+    "choice": "X",
+    "reason": "the later session states no day for the tutor"
+  },
+  "e493bb7c": {
+    "choice": "E",
+    "earlier_value": "above my living room sofa",
+    "later_value": "my bedroom",
+    "question_asks_for": "later"
+  },
+  "e66b632c": {
+    "choice": "E",
+    "earlier_value": "27 minutes and 45 seconds",
+    "later_value": "26 minutes and 30 seconds",
+    "question_asks_for": "earlier"
+  },
+  "ed4ddc30": {
+    "choice": "E",
+    "earlier_value": "30 dozen",
+    "later_value": "20 dozen",
+    "question_asks_for": "later"
+  }
+}
