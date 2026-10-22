@@ -119,6 +119,49 @@ class HindsightSystem:
         except urllib.error.URLError as error:
             raise HindsightUnavailable(f"{self._base}: {error.reason}") from error
 
+    def _get(self, path: str) -> dict[str, Any]:
+        request = urllib.request.Request(
+            f"{self._base}/v1/default/banks/{self._bank}{path}", method="GET"
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self._timeout) as response:
+                return json.loads(response.read() or b"{}")
+        except urllib.error.HTTPError as error:
+            body = error.read().decode(errors="replace")[:500]
+            self._record(f"GET {path}: HTTP {error.code}: {body}")
+            return {}
+        except urllib.error.URLError as error:
+            raise HindsightUnavailable(f"{self._base}: {error.reason}") from error
+
+    def delete_documents_matching(self, needles: list[str]) -> int:
+        """Delete every ingested document whose text contains a needle.
+
+        A document is one retained input; it is the finest unit Hindsight's API
+        can delete, short of the whole bank.
+        """
+        folded = [n.casefold() for n in needles]
+        listed = self._get("/documents?limit=1000").get("items", [])
+        doomed = []
+        for item in listed:
+            text = str(self._get(f"/documents/{item['id']}").get("original_text", ""))
+            if any(n in text.casefold() for n in folded):
+                doomed.append(item["id"])
+        for document_id in doomed:
+            self._delete(f"/documents/{document_id}")
+        return len(doomed)
+
+    def delete_documents_for_query(self, query: str) -> int:
+        """Delete the documents behind the memories a recall returns."""
+        response = self._post(
+            "/memories/recall", {"query": query, "budget": self._budget}
+        )
+        items = response.get("results") or response.get("memories") or []
+        doomed = sorted({str(item["document_id"]) for item in items[: self._limit]
+                         if isinstance(item, dict) and item.get("document_id")})
+        for document_id in doomed:
+            self._delete(f"/documents/{document_id}")
+        return len(doomed)
+
     def reset(self) -> None:
         """Drop the bank so each cell starts from an empty store."""
         self._delete("")

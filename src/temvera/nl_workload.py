@@ -328,7 +328,18 @@ def _day(moment: datetime) -> str:
     return moment.date().isoformat()
 
 
-def render_turns(events: tuple[MemoryEvent, ...]) -> tuple[WorkloadTurn, ...]:
+# Purge requests in the wordings the deletion study compares (H10). None
+# restates the value; wording 0 is the one every sealed run was rendered with.
+PURGE_WORDINGS = (
+    "Permanently delete everything you recorded about {subject}'s {attribute}.",
+    "Please forget {subject}'s {attribute}; I do not want it kept.",
+    "{subject} has asked for their {attribute} to be erased from your memory.",
+)
+
+
+def render_turns(
+    events: tuple[MemoryEvent, ...], *, purge_wording: int = 0
+) -> tuple[WorkloadTurn, ...]:
     """Render each event as one deterministic natural-language turn."""
     ingests = _ingest_by_belief(events)
     turns: list[WorkloadTurn] = []
@@ -387,10 +398,9 @@ def render_turns(events: tuple[MemoryEvent, ...]) -> tuple[WorkloadTurn, ...]:
             # The deletion instruction must NOT restate the payload: a system
             # that stores its input verbatim would otherwise be scored as
             # retaining the very value it was asked to delete.
-            text = (
-                f"[recorded {_day(event.recorded_at)}] Permanently delete "
-                f"everything you recorded about {subject}'s {attribute}."
-            )
+            text = f"[recorded {_day(event.recorded_at)}] " + PURGE_WORDINGS[
+                purge_wording
+            ].format(subject=subject, attribute=attribute)
         else:  # pragma: no cover - Operation is exhaustive
             raise ValueError(f"unhandled operation: {event.operation}")
         turns.append(

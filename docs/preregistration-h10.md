@@ -68,3 +68,23 @@ Nothing else was run.
 
 Analysis: counts per system and condition with Wilson intervals over purged
 subjects; no test beyond the thresholds above.
+
+## Addendum (2026-10-23, before the study runs; predictions unchanged)
+
+- **Smoke run, disclosed.** The harness was run once per system on seed 97,
+  which is not one of the study's ten seeds, with `prose-2`, `api-oracle` and
+  `api-caller`, to check the plumbing (outputs kept outside the repository).
+  Purged subjects leaking under `prose-2`: Mem0 0/3 (its extractor emitted 4
+  DELETE actions), LangMem 1/3, Graphiti 3/3, Cognee 3/3, Hindsight 3/3. Under
+  `api-oracle` none leaked in any system; under `api-caller` none leaked, but the
+  caller's deletions removed every never-purged subject in Mem0, Graphiti and
+  LangMem (Cognee 1 of 3, Hindsight 0). This is one history and changes no
+  prediction above; H10a may well fail for Mem0.
+- **Values never coincide.** The histories are generated with distinct values
+  (`distinct_values`), so a value of a purged subject is never also a kept
+  subject's value; the counts stay 24 purged and 36 kept.
+- **Two readings of a leak.** While building the study we found that the
+  generator's typed purge removes only the latest belief, whereas the request
+  asks for everything about the attribute (evidence ledger E-096). The primary
+  measure stays as stated above -- any value the subject ever had -- and each
+  record also reports whether the latest value alone leaks.

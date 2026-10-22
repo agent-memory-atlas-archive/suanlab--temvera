@@ -178,8 +178,32 @@ class Mem0System:
             pass
 
     def ingest(self, turn: WorkloadTurn) -> None:
-        _with_retries(lambda: self._memory.add(turn.text, user_id=self._user_id),
-                      on_retry=self._count_retry)
+        result = _with_retries(
+            lambda: self._memory.add(turn.text, user_id=self._user_id),
+            on_retry=self._count_retry,
+        )
+        # Kept so the deletion study can count the actions Mem0 says it took;
+        # nothing scored reads it.
+        self.last_added.append(result if isinstance(result, dict) else {"results": result})
+
+    def search_ids(self, query: str) -> list[str]:
+        """Ids of the memories a query returns, in rank order."""
+        result = (self._memory.search(query, filters={"user_id": self._user_id},
+                                      top_k=self._search_limit)
+                  if self._v2 else
+                  self._memory.search(query, user_id=self._user_id, limit=self._search_limit))
+        rows = result.get("results", result) if isinstance(result, dict) else result
+        return [str(row["id"]) for row in rows if isinstance(row, dict) and "id" in row]
+
+    def delete_ids(self, ids: list[str]) -> int:
+        removed = 0
+        for memory_id in ids:
+            try:
+                self._memory.delete(memory_id=memory_id)
+                removed += 1
+            except Exception:
+                pass
+        return removed
 
     def delete_memories_mentioning(self, needle: str) -> int:
         """Call Mem0's native `delete` for memories containing `needle`.

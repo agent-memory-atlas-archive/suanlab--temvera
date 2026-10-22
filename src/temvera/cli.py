@@ -91,6 +91,9 @@ def main() -> None:
     purge_residual = subparsers.add_parser("purge-residual")
     purge_residual.add_argument("config")
     purge_residual.add_argument("output")
+    deletion = subparsers.add_parser("deletion-study")
+    deletion.add_argument("config")
+    deletion.add_argument("output")
     decay = subparsers.add_parser("decay-smoke")
     decay.add_argument("--half-life-days", type=float, default=30.0)
     decay.add_argument("--minimum-confidence", type=float, default=0.25)
@@ -492,6 +495,28 @@ def main() -> None:
             command=f"temvera purge-residual {arguments.config} {arguments.output}",
         )
         print(json.dumps(result, sort_keys=True))
+    elif arguments.command == "deletion-study":
+        import tempfile
+        from pathlib import Path
+
+        from .deletion_study import run_deletion_study
+
+        config = json.loads(Path(arguments.config).read_text(encoding="utf-8"))
+        output = Path(arguments.output)
+        if output.exists():
+            raise SystemExit(f"refusing to overwrite: {output}")
+        with tempfile.TemporaryDirectory() as workdir:
+            result = run_deletion_study(config, workdir)
+        output.mkdir(parents=True)
+        (output / "results.json").write_text(
+            json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        )
+        seal_run(
+            output,
+            config=config,
+            command=f"temvera deletion-study {arguments.config} {arguments.output}",
+        )
+        print(json.dumps(result["summary"], sort_keys=True))
     elif arguments.command == "vector-synonym-compare":
         from pathlib import Path
 

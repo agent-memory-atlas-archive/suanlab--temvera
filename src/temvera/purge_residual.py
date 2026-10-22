@@ -85,10 +85,13 @@ def _count(text: str, needles: tuple[str, ...]) -> int:
 
 
 def scan_temvera(
-    events: tuple[MemoryEvent, ...], root: Path, transaction_at: datetime
+    events: tuple[MemoryEvent, ...],
+    root: Path,
+    transaction_at: datetime,
+    needles: tuple[str, ...] | None = None,
 ) -> SystemResidualReport:
     """Ingest into a JSONL store, rebuild projections, then scan every store."""
-    needles = purged_values(events)
+    needles = needles or purged_values(events)
     report = SystemResidualReport(system="temvera", purged_values=needles)
     store = JsonlEventStore(root)
     store.extend(events)
@@ -123,7 +126,11 @@ def scan_temvera(
     return report
 
 
-def scan_mem0(system: Any, events: tuple[MemoryEvent, ...]) -> SystemResidualReport:
+def scan_mem0(
+    system: Any,
+    events: tuple[MemoryEvent, ...],
+    needles: tuple[str, ...] | None = None,
+) -> SystemResidualReport:
     """Scan Mem0's exposed memories *and* its underlying stores.
 
     Scanning only the API-exposed memories would understate residuals relative
@@ -131,7 +138,7 @@ def scan_mem0(system: Any, events: tuple[MemoryEvent, ...]) -> SystemResidualRep
     the SQLite history database (which records old/new values per E-025) are
     scanned as well.
     """
-    needles = purged_values(events)
+    needles = needles or purged_values(events)
     report = SystemResidualReport(system="mem0", purged_values=needles)
     if not needles:
         return report
@@ -201,11 +208,12 @@ def scan_graphiti(
     uri: str,
     user: str,
     password: str,
+    needles: tuple[str, ...] | None = None,
 ) -> SystemResidualReport:
     """Cypher scan of Neo4j edge facts, node summaries, and episode bodies."""
     from neo4j import GraphDatabase
 
-    needles = purged_values(events)
+    needles = needles or purged_values(events)
     report = SystemResidualReport(system="graphiti", purged_values=needles)
     if not needles:
         return report
