@@ -63,3 +63,16 @@ not session dates; Graphiti's carry none.
   than Mem0 and more than LangMem under the same reader.
 - **H9g -- without session dates it cannot:** Graphiti and Hindsight recall,
   under the common reader, each answer at most 15 of 60.
+
+## Addendum 2 (2026-10-23, after the grid judge runs, before the LongMemEval ones)
+
+Seen so far: under the `gpt-4o` judge both readers answer 195 of 195 grid
+valid-time questions (Hindsight reflect 0.9.1: 67 exact; 1.1.0: 2 exact). The
+judge is now also run on the LongMemEval reader runs the paper cites
+(`lme-bitemporal-cognee-graph-{agreement-v3,adjudicated-v1}`,
+`lme-bitemporal-hindsight-reflect-{agreement-v2,adjudicated-v1}`), with both
+judges. Prediction, made knowing the grid result:
+
+- **H9h -- the real-data reader gap also shrinks:** judged, Hindsight reflect
+  answers more than its 17 exact of 60 valid-time questions, and the gap to
+  Cognee graph (40 exact) is smaller judged than exact.
