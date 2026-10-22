@@ -1,0 +1,41 @@
+{
+  "bank_prefix": "fsrecall",
+  "benchmark": "temvera-final-store-corrections-hindsight-recall-v1",
+  "bootstrap_samples": 2000,
+  "distinct_values": true,
+  "embed_model": "text-embedding-3-small",
+  "model": "gpt-4o-mini",
+  "natural_pools": "large",
+  "naturalize": true,
+  "profiles": [
+    {
+      "correction_probability": 0.5,
+      "expire_probability": 0.0,
+      "name": "corrections",
+      "purge_probability": 0.0,
+      "reconfirm_probability": 0.0
+    }
+  ],
+  "read_mode": "recall",
+  "replay": "single_pass",
+  "scales": [
+    {
+      "entities": 8,
+      "revisions": 3
+    }
+  ],
+  "search_limit": 5,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    42,
+    57,
+    99,
+    101,
+    131,
+    151
+  ],
+  "user_id": "temvera-final-store-hindsight-recall"
+}
