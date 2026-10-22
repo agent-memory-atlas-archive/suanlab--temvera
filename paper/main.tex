@@ -5,6 +5,7 @@
 \documentclass[conference]{IEEEtran}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{array}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -66,8 +67,8 @@ answered afterwards). \emph{Retaining} stores keep the history but do not filter
 it: at the retrieval layer three implementations answer no valid-time question,
 while a common reader recovers 0.73 to 0.77 of them, and changing only the
 retention policy under a fixed retriever and reader reproduces the split. Once a
-correction is stored, only a reader over dated source text can say what was
-known before it (Cognee, 41 of 45). Deletion divides too: three
+correction is stored, only an LLM reader over dated source text can say what was
+known before it (41 and 25 of 45). Deletion divides too: three
 systems ignore prose requests, Mem0 honours one wording of three and LangMem
 part of each; native APIs
 clear every answer when given the right records but leave copies in stores no
@@ -380,26 +381,13 @@ LangMem   & none; ``extracts, consolidates'' & 0.323 \\
 \end{tabular}
 \end{table}
 
-The ordering inverts. The two systems that advertise temporal capability are the
-two whose retrieval answered no valid-time query at all, while the two that
-advertise none --- one of which, LangMem, describes its own manager as
-consolidating, and so tells the reader plainly that history is not kept --- score
-highest. We do not read this as five systems' worth of evidence for a general
-law, and the mechanism in each case is the one \S\ref{sec:results} measures
-rather than anything about marketing. What it does establish is that
-documentation is not a usable proxy here: on this sample, reading the project's
-own description of its temporal support would have ranked the systems
-\emph{backwards}. That is the practical form of the paper's claim --- a system
-can expose temporal fields, document them accurately, and still not answer a
-temporal query --- and it is why we measure rather than survey.
-
-Two honest limits. Mem0 and LangMem are not failing a promise they made, so
-their low valid-time is a design consequence and not a discrepancy; the
-discrepancy rows are Graphiti and Hindsight. And Cognee's documented
-\texttt{forget} is the one claim here our residual protocol never exercised,
-since that experiment covered Mem0 and Graphiti only; \S\ref{sec:results}
-examines its API surface instead, which is weaker evidence than a measurement
-and is reported as such.
+The ordering inverts at the retrieval layer: the two systems that advertise
+temporal capability answer no valid-time question there, while the two that
+advertise none score highest. Read by an LLM the advertised systems do recover
+the history (\S\ref{sec:reader}), so their claims are not false, but the
+retrieval path a caller uses does not deliver them; documentation is no guide to
+which layer answers. Mem0 and LangMem make no temporal promise, so their low
+scores are a design consequence, not a discrepancy.
 
 \section{Experimental Setup}\label{sec:setup}
 
@@ -424,8 +412,10 @@ accuracy, isolating tokenisation from temporal semantics.
 
 \paragraph{Replay.} Transaction time is monotonic, so turns are ingested in
 recorded order and every query is answered at the checkpoint matching its
-transaction time. This costs $O(\text{turns})$ per cell and, unlike single-pass
-ingestion, actually tests whether a store can answer as of a past point.
+transaction time. This asks each question of the store as it stood then, which
+every system can answer without a transaction-time predicate; whether a store
+that has seen everything can still say what it knew earlier is a different
+question, which \S\ref{sec:corrections} asks of the final store.
 
 \paragraph{Scoring.} Deterministic. Let $E$ be the expected values at the queried
 $(\text{valid time}, \text{transaction time})$ and $S$ the superseded values for
@@ -479,7 +469,7 @@ Embeddings are \embedmodel{} except Hindsight's local
 \label{tab:settings}
 \footnotesize
 \setlength{\tabcolsep}{2.5pt}
-\begin{tabular}{@{}llll@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{2.25cm}l>{\raggedright\arraybackslash}p{2.45cm}@{}}
 \toprule
 System & Store & Temp. & What is scored \\
 \midrule
@@ -771,7 +761,7 @@ purge questions expected a value the request had asked to delete
 here.
 
 \textbf{Why the instruction has nothing to bind to.} The measurement above says
-prose deletion is ignored; reading the deletion surface of each library says why.
+prose deletion mostly fails; reading the deletion surface of each library says why.
 We inspected the installed distributions rather than their documentation:
 
 \begin{table}[t]
@@ -781,7 +771,7 @@ None accepts a condition over content, so ``forget what you know about this
 subject's home city'' is not an expressible request in any of them.}
 \label{tab:deletion-api}
 \small
-\begin{tabular}{@{}lp{4.3cm}@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{4.6cm}@{}}
 \toprule
 System & Finest nameable unit \\
 \midrule
@@ -970,16 +960,6 @@ graph build runs at the first query of each checkpoint ($4.56$\,s under
 cost is reported for Mem0 only. Cognee and LangMem run in separate interpreters
 and Hindsight as a service, outside our instrumentation, and Graphiti's
 asynchronous client was not covered by it in these runs.
-
-We report accuracy on this sweep only as a sanity check and do not compare it
-with Table~\ref{tab:external}: it is the first multi-attribute configuration
-(three attributes per entity, each drawn from a different semantic class) and
-therefore a different workload. Case-weighted exact accuracy moved
-$0.609 \to 0.527 \to 0.539$ as entities grew $2 \to 4 \to 8$, which is not monotone and rests on three seeds
-per scale. The 8-entity point is also not like the other two: its histories
-draw more distinct values than the natural-name relabelling holds, and 19\% of
-them fell back to synthetic tokens of the kind the relabelling exists to avoid
-(none did at 2 or 4 entities). We draw nothing from the trend.
 
 \subsection{Does scale change the picture?}\label{sec:scale}
 
@@ -1208,8 +1188,7 @@ statement per subject, and the newest statement wins whatever time it is about.
 corrected interval 1 time in 78, within the predicted 0.10: it returns the
 replaced value beside the correction.
 
-\textbf{Asked of the final store, only a reader over dated turns knows what it
-knew.} Forward replay asks each question at its own checkpoint, which every
+\textbf{Asked of the final store, only the readers know what it knew.} Forward replay asks each question at its own checkpoint, which every
 store answers by construction. We therefore also ingested each whole correction
 history into a fresh store of every configuration and asked the 45 questions
 about what was known of a corrected interval \emph{before} its correction:
@@ -1217,14 +1196,14 @@ about what was known of a corrected interval \emph{before} its correction:
 whose answer is the original value. Counting an answer correct only if it gives
 that value and not the correction, which was unknown at $T$, Mem0 and LangMem
 answer 0, the retrieval layers of Cognee, Hindsight and Graphiti 0, 4 and 9,
-Hindsight's reader HSPRE and Cognee's reader 41. Cognee answers because it stores
-the turns verbatim and each turn carries the date it was recorded, which its
-reader uses: no system has a transaction-time predicate (Table~\ref{tab:fragment},
-C2), but a reader over dated source text can stand in for one. The grid's scorer,
-which we had preregistered, does not count the correction as wrong here, because
-it was unknown at $T$; under it the retrieval layers score 21 to 27 and Cognee's
-reader 42, against the 5 and 15 we had predicted as the most any retrieval layer
-or reader would reach.
+and the readers of Hindsight and Cognee 25 and 41. The readers answer because the
+stored text keeps the date each turn was recorded, and they use it: no system
+has a transaction-time predicate (Table~\ref{tab:fragment}, C2), but a reader
+over dated source text can stand in for one. The grid's scorer, which we had
+preregistered, does not count the correction as wrong here, because it was
+unknown at $T$; under it the retrieval layers score 21 to 27 and the readers 34
+and 42, against the 5 and 15 we had predicted as the most any retrieval layer or
+reader would reach.
 
 \subsection{Do current releases change the picture?}\label{sec:releases}
 
@@ -1349,18 +1328,10 @@ paper reported a \textsc{chunks} run that logged 40 unexplained worker errors at
 0.194 (\S\ref{sec:reader}).
 
 \textbf{A first scale sweep was withdrawn.} Its relabelling ran out of natural
-names and values and silently fell back to synthetic tokens as the store grew
---- 19\%, 55\% and 66\% of values at 8, 32 and 128 entities --- and values were
-drawn with replacement, so people increasingly shared them. Graphiti appeared
-to \emph{improve} at 128 entities, with exact accuracy rising from 0.117 to
-0.216: answers that lost the queried value lost the superseded one too, and an
-abstention question scores the absence of a superseded value as correct. The
-controlled sweep of \S\ref{sec:scale} replays the same seeded histories with
-only value identity changed, and at 32 entities Graphiti's recall moves from
-0.705 to 0.977. Two lessons generalise. A scale experiment on LLM-backed memory
-must hold token naturalness fixed, since it moves recall more than scale does;
-and an exact-match metric rewards an empty answer on abstention questions, so
-recall must be reported beside it.
+names and silently fell back to synthetic tokens as the store grew --- 19\%, 55\%
+and 66\% of values at 8, 32 and 128 entities --- which moved recall more than
+scale did and made Graphiti appear to improve; \S\ref{sec:scale} replays the same
+histories with only value identity changed.
 
 \section{Reproducibility}
 
@@ -1414,15 +1385,6 @@ human-effectiveness claim. Finally, the deletion result has a user-facing
 consequence we want stated plainly --- an assistant asked in conversation to
 forget something may not do so --- which is a privacy risk for deployments that
 treat conversational deletion requests as effective.
-
-\section*{Future Work}
-
-Whether provenance-linked diffs actually help human
-auditors is the largest untested claim. A preregisterable protocol, a seeded
-planted-fault generator, a crossover assignment and a deterministic scorer are
-included in the artifact, but no participants were recruited, so we make no
-human-effectiveness claim. Running it requires ethics review or a documented
-exemption, a pilot for variance, and an a priori power analysis.
 
 \section*{Acknowledgment}
 

@@ -76,3 +76,4 @@ Analysis: case-weighted rates over the stated questions; the ceiling check uses
 | H12a | retain <= 0.05, consolidate <= 0.385 valid time as returned | 0.159; 0.385 | **falsified** for retain |
 | H12b | read: retain >= 0.70, consolidate <= 0.385 with <= 2% beyond the ceiling | 0.774; 0.379, 0 beyond | holds |
 | H12c | read: consolidate transaction-scoped >= retain, both >= 0.90 | 1.000, 1.000 | holds |
+| H11a | on the final store, <= 15 of 45 pre-correction questions for any configuration, <= 5 for retrieval layers; judged readers <= 15 | grid scorer: Mem0 0, LangMem 20, Graphiti 27, Cognee chunks 21, Hindsight recall 21, Hindsight reflect 34, Cognee graph 42; strict (correction also wrong, added after the runs): 0, 0, 9, 0, 4, 25, 41; judged: Hindsight reflect 27, Cognee graph 42 | **falsified**: the readers recover what was known before a correction from the recording dates in the stored text |

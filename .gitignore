@@ -111,6 +111,8 @@ experiments/runs/*
 !experiments/runs/external-hindsight-recall-latest-v1/
 !experiments/runs/external-hindsight-reflect-latest-v1/
 !experiments/runs/controlled-policy-v1/
+!experiments/runs/final-store-corrections-hindsight-reflect-v1/
+!experiments/runs/h11-judge-gpt4o-final-store-hindsight-reflect-v1/
 !experiments/runs/deletion-study-mem0-v1/
 !experiments/runs/deletion-study-graphiti-v1/
 !experiments/runs/deletion-study-cognee-v1/

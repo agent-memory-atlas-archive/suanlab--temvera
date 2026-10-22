@@ -17,7 +17,7 @@ guidelines as read on 2026-10-02.
 | Requirement (quoted or paraphrased from the call) | Status |
 |---|---|
 | "The title of an EAB paper should start with the tag: '[Experiment, Analysis, and Benchmark]'" — note *start*, and the Oxford "and" | in the PDF |
-| "Research and EAB papers must not exceed 12 pages, excluding references and the AI-generated content acknowledgement" | 13 pages total: body ends on page 11; acknowledgment and references from page 12 (checked 2026-10-22) |
+| "Research and EAB papers must not exceed 12 pages, excluding references and the AI-generated content acknowledgement" | 14 pages total: body ends on page 12; acknowledgment and references follow (checked 2026-10-23) |
 | IEEE conference format | `IEEEtran.cls` V1.8b, vendored |
 | "Submissions will be reviewed in a single-blind manner" | author block on page 1 |
 | "Experiment, Analysis, and Benchmark papers MUST provide all the artifacts required to reproduce the results. No exceptions" | public repository linked twice in the body |
@@ -83,3 +83,22 @@ South Korea — suanlee@semyung.ac.kr.
       paper, E-015 and NR-003, with the original text kept.
 - [x] Re-cut the release: tag `icde-eab-v5` supersedes `icde-eab-v4` (v1-v4
       are kept as published).
+
+## Added 2026-10-23 (two simulated EAB reviews and REVIEW_ICDE.md)
+
+- [x] H8: every system replicated (3 runs, 4 cells) and re-run on `gpt-4o`.
+- [x] H9: a common reader and an asserted-value judge; the Cognee/Hindsight
+      reader gap withdrawn as answer form (NR-007).
+- [x] H10: deletion across five systems, ten histories, three wordings, an
+      oracle and a realistic API caller, every store read.
+- [x] H11: the final store asked what it knew before a correction; a whole-
+      store census for superseded values and Graphiti's `invalid_at`.
+- [x] H12: only the retention policy changed, retriever and reader fixed.
+- [x] Cluster bootstrap, McNemar with Holm, TOST; related work rebuilt from the
+      closest works' full texts; database references added (Crossref-checked).
+- [x] Our own errors found and reported: the purge category's scope (NR-008),
+      the ablation saturation note (NR-003), ten failed predictions (§VII).
+- [x] Re-cut the release: tag `icde-eab-v6` supersedes `icde-eab-v5`.
+- [ ] Still open: a non-OpenAI backbone (needs a key in `.env`); human judging
+      of a sample of answers; systems-scalability (throughput, storage).
+

@@ -389,9 +389,6 @@ CLAIMS: list[Claim] = [
           lambda: telemetry("external-cognee-grid-v1", "query_latency", "mean_s")
           - telemetry("external-cognee-chunks-grid-v3", "query_latency", "mean_s"), 0.06,
           near="textsc{chunks}, so roughly"),
-    Claim("5.5", "scale-cost e8 synthetic value tokens, %", "19",
-          lambda: _scale_cost_fallback_pct(8), 0.5,
-          near="than the natural-name relabelling holds"),
     Claim("5.4", "reader expiry, best of the two (micro)", "0.125",
           lambda: max(micro(r, "expiry_boundary", cells())
                       for r in ("external-cognee-grid-v1", "external-hindsight-reflect-v1")),
@@ -484,12 +481,6 @@ CLAIMS: list[Claim] = [
           lambda: v1_fallback_pct(32), 0.5, near="silently fell back to synthetic tokens"),
     Claim("6", "first sweep: synthetic values at 128 entities, %", "66",
           lambda: v1_fallback_pct(128), 0.5, near="silently fell back to synthetic tokens"),
-    Claim("6", "first sweep: Graphiti exact at 8 entities", "0.117",
-          lambda: v1_graphiti(8, "exact"), near="exact accuracy rising from"),
-    Claim("6", "first sweep: Graphiti exact at 128 entities", "0.216",
-          lambda: v1_graphiti(128, "exact"), near="exact accuracy rising from"),
-    Claim("6", "first sweep: Graphiti recall at 32 entities", "0.705",
-          lambda: v1_graphiti(32, "recall"), near="Graphiti's recall moves from"),
     Claim("5.5", "re-measured Mem0 ingest mean", "6.825",
           lambda: telemetry("scale-cost-mem0-v2", "ingest_latency", "mean_s"),
           near="mean ingest latency was"),
@@ -1105,12 +1096,6 @@ def _cost_sweep(entities: int) -> float:
 
 def _audit_claims() -> list:
     return [
-        Claim("5.5", "cost sweep exact at 2 entities (micro)", "0.609",
-              lambda: _cost_sweep(2), near="Case-weighted exact accuracy moved"),
-        Claim("5.5", "cost sweep exact at 4 entities (micro)", "0.527",
-              lambda: _cost_sweep(4), near="Case-weighted exact accuracy moved"),
-        Claim("5.5", "cost sweep exact at 8 entities (micro)", "0.539",
-              lambda: _cost_sweep(8), near="Case-weighted exact accuracy moved"),
         Claim("5.5", "Cognee ingests on the grid", "477",
               lambda: telemetry("external-cognee-grid-v1", "ingest_latency", "n"), 0.5,
               near="over the same 20-cell grid ("),
@@ -1903,9 +1888,11 @@ def _abstract_claims() -> list:
                   "external-graphiti-hybrid-v1", "external-cognee-chunks-grid-v3",
                   "external-hindsight-recall-v1")), 0.0005, near="three implementations answer", after=A),
         Claim("abs", "Cognee reader, pre-correction (strict)", "41",
-              lambda: _pre_correction("cognee-graph", "strict"), 0.5, near="(Cognee,", after=A),
+              lambda: _pre_correction("cognee-graph", "strict"), 0.5, near="known before it (", after=A),
+        Claim("abs", "Hindsight reader, pre-correction (strict)", "25",
+              lambda: _pre_correction("hindsight-reflect", "strict"), 0.5, near="known before it (41 and", after=A),
         Claim("abs", "pre-correction questions", "45",
-              lambda: _pre_correction("cognee-graph", "questions"), 0.5, near="(Cognee, 41 of", after=A),
+              lambda: _pre_correction("cognee-graph", "questions"), 0.5, near="(41 and 25 of", after=A),
         Claim("abs", "systems ignoring prose", "three",
               lambda: float(sum(all(deletion(s, c, "leaked") == deletion(s, c, "purged")
                                     for c in ("prose-1", "prose-2", "prose-3")) for s in _DEL_SYSTEMS)),
@@ -1927,7 +1914,8 @@ def _pre_correction(name: str, key: str) -> float:
     sys.path.insert(0, str(ROOT / "scripts"))
     import analyze_corrections
 
-    judge = {"cognee-graph": "h11-judge-gpt4o-final-store-cognee-graph-v1"}.get(name)
+    judge = {"cognee-graph": "h11-judge-gpt4o-final-store-cognee-graph-v1",
+             "hindsight-reflect": "h11-judge-gpt4o-final-store-hindsight-reflect-v1"}.get(name)
     return float(analyze_corrections.pre_correction(f"final-store-corrections-{name}-v1", judge)[key])
 
 
@@ -1941,7 +1929,43 @@ def falsified_predictions() -> float:
     return float(total)
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims() + [Claim("7", "falsified preregistered predictions", "ten", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+def _final_store_claims() -> list:
+    A = "Asked of the final store, only the readers know what it knew"
+    pc = _pre_correction
+    return [
+        Claim("5.corr", "pre-correction questions", "45", lambda: pc("mem0", "questions"), 0.5,
+              near="and asked the", after=A),
+        Claim("5.corr", "Mem0 strict", "0", lambda: pc("mem0", "strict"), 0.5, near="Mem0 and LangMem\nanswer", after=A),
+        Claim("5.corr", "LangMem strict", "0", lambda: pc("langmem", "strict"), 0.5, near="Mem0 and LangMem\nanswer", after=A),
+        Claim("5.corr", "Cognee chunks strict", "0", lambda: pc("cognee-chunks", "strict"), 0.5,
+              near="Hindsight and Graphiti", after=A),
+        Claim("5.corr", "Hindsight recall strict", "4", lambda: pc("hindsight-recall", "strict"), 0.5,
+              near="Graphiti 0,", after=A),
+        Claim("5.corr", "Graphiti strict", "9", lambda: pc("graphiti", "strict"), 0.5, near="0, 4 and", after=A),
+        Claim("5.corr", "Hindsight reader strict", "25", lambda: pc("hindsight-reflect", "strict"), 0.5,
+              near="readers of Hindsight and Cognee", after=A),
+        Claim("5.corr", "Cognee reader strict", "41", lambda: pc("cognee-graph", "strict"), 0.5,
+              near="Hindsight and Cognee 25 and", after=A),
+        Claim("5.corr", "retrieval layers, grid scorer, lowest", "21",
+              lambda: min(pc(n, "exact") for n in ("cognee-chunks", "hindsight-recall", "graphiti")), 0.5,
+              near="retrieval layers score", after=A),
+        Claim("5.corr", "retrieval layers, grid scorer, highest", "27",
+              lambda: max(pc(n, "exact") for n in ("cognee-chunks", "hindsight-recall", "graphiti")), 0.5,
+              near="score 21 to", after=A),
+        Claim("5.corr", "Hindsight reader, grid scorer", "34", lambda: pc("hindsight-reflect", "exact"), 0.5,
+              near="and the readers", after="score 21 to 27"),
+        Claim("5.corr", "Cognee reader, grid scorer", "42", lambda: pc("cognee-graph", "exact"), 0.5,
+              near="readers 34\nand", after=A),
+        Claim("5.corr", "H11a retrieval-layer threshold", "5",
+              lambda: 5.0 if "no retrieval-layer configuration more than 5" in (ROOT / "docs" / "preregistration-h11-h12.md").read_text() else -1.0,
+              0.5, near="against the", after="score 21 to 27"),
+        Claim("5.corr", "H11a reader threshold", "15",
+              lambda: 15.0 if "answers more\n  than 15 exactly" in (ROOT / "docs" / "preregistration-h11-h12.md").read_text() else -1.0,
+              0.5, near="against the 5 and", after=A),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims() + _final_store_claims() + [Claim("7", "falsified preregistered predictions", "ten", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
