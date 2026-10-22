@@ -4,6 +4,7 @@
 % version of this manuscript is the git tag `pvldb-manuscript` (decision D-015).
 \documentclass[conference]{IEEEtran}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -172,7 +173,31 @@ isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth
 First \citep{groundtruthfirst} asks as-of-date questions over facts with
 validity intervals. These score the current state or valid time; none we found
 asks what a deployed system \emph{knew} at an earlier time, which
-forward-checkpoint replay makes measurable.
+forward-checkpoint replay makes measurable (Table~\ref{tab:related}).
+
+\begin{table}[t]
+\centering
+\caption{What closely related measurement studies evaluate. \checkmark: the
+work's abstract states it; ---: its abstract does not. ``Knew'' is a question
+about what the system had recorded by an earlier time (transaction time).}
+\label{tab:related}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Work & deployed & superseded & past & knew & deletion \\
+ & systems & values & valid time & then & residue \\
+\midrule
+Zhou et al.\ \citep{agentnative}   & \checkmark & \checkmark & --- & --- & --- \\
+STALE \citep{stale}                & \checkmark & \checkmark & --- & --- & --- \\
+StateMemBench \citep{statemembench} & \checkmark & \checkmark & --- & --- & --- \\
+Ground Truth First \citep{groundtruthfirst} & --- & \checkmark & \checkmark & --- & --- \\
+Bemula \citep{bemula}              & \checkmark & --- & --- & --- & \checkmark \\
+MemCut \citep{memcut}              & --- & --- & --- & --- & \checkmark \\
+This paper                         & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Deployed systems and security.}
 Mem0 \citep{mem0}, Zep/Graphiti \citep{zep,graphiti}, MemGPT/Letta \citep{memgpt},
@@ -740,6 +765,18 @@ repairs it is a property of that reader's context and prompting rather than of
 retention alone. A deployment on a consolidating store cannot be made correct
 without changing the store; a deployment on a retaining store can be, but only
 if the read path is built to use what the store kept.
+
+\textbf{One rule on the read path is enough.} The retaining stores return the
+dates along with the values: Cognee's chunks are the stored turns, and Hindsight
+restates each fact with its validity. A read path that keeps only the dated
+statements about the queried subject and answers with the latest one not after
+the question's valid time --- one rule, fixed and committed before it was run,
+using no LLM and no knowledge of the answer --- lifts valid-time accuracy from 0
+to 184 of 195 for Cognee and to 190 of 195 for Hindsight; the misses are
+statements the rule's pattern over-captures. Graphiti's facts carry no dates in
+their text, so the rule applies to only 17 of its 195 answers and recovers 6.
+Cognee's dates are the ones our rendering wrote, Hindsight's are its own. What
+the retrieval layer lacks is a predicate, not information.
 
 The reader configurations differ from the rest in whether an LLM synthesises the
 answer, so they are an upper bound on what a reader can recover

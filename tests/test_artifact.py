@@ -179,7 +179,7 @@ def test_every_run_the_paper_scripts_read_is_accepted():
     read = set()
     for script in ("verify_paper_claims.py", "recompute_paper_numbers.py",
                    "make_figures.py", "analyze_filtering_laws.py",
-                   "analyze_corrections.py"):
+                   "analyze_corrections.py", "analyze_read_path_filter.py"):
         text = (root / "scripts" / script).read_text(encoding="utf-8")
         read |= {name for name in re.findall(r'"([a-z0-9][a-z0-9-]*)"', text) if name in on_disk}
     assert read and read <= accepted, sorted(read - accepted)

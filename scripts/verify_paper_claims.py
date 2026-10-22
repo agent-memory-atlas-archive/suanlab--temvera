@@ -1182,7 +1182,41 @@ def _audit_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims()
+# -- Read-path filter (sec:reader): scripts/analyze_read_path_filter.py --------
+_rp = None
+
+
+def read_path(config: str, what: str) -> float:
+    global _rp
+    if _rp is None:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location(
+            "analyze_read_path_filter", ROOT / "scripts" / "analyze_read_path_filter.py")
+        _rp = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_rp)
+    return float(_rp.evaluate(_rp.CONFIGS[config])[what])
+
+
+def _read_path_claims() -> list:
+    A = "One rule on the read path is enough"
+    return [
+        Claim("5.4", "Cognee chunks valid-time hits with the rule", "184",
+              lambda: read_path("Cognee chunks", "exact"), 0.5, near="lifts valid-time accuracy from 0", after=A),
+        Claim("5.4", "valid-time questions", "195",
+              lambda: read_path("Cognee chunks", "questions"), 0.5, near="lifts valid-time accuracy from 0", after=A),
+        Claim("5.4", "Cognee chunks valid-time hits without the rule", "0",
+              lambda: read_path("Cognee chunks", "exact_unfiltered"), 0.5, near="lifts valid-time accuracy from", after=A),
+        Claim("5.4", "Hindsight recall valid-time hits with the rule", "190",
+              lambda: read_path("Hindsight recall", "exact"), 0.5, near="for Cognee and to", after=A),
+        Claim("5.4", "Graphiti answers where the rule applies", "17",
+              lambda: read_path("Graphiti", "applicable"), 0.5, near="the rule applies to only", after=A),
+        Claim("5.4", "Graphiti valid-time hits with the rule", "6",
+              lambda: read_path("Graphiti", "exact"), 0.5, near="answers and recovers", after=A),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims()
 
 
 def main() -> int:
