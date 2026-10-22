@@ -1,0 +1,544 @@
+{
+  "backbone": {
+    "backend": "neo4j",
+    "embed_model": "text-embedding-3-small",
+    "graphiti_version": "0.29.2",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": true,
+    "replay": "single_pass",
+    "search_recipe": "hybrid_rrf",
+    "system": "graphiti",
+    "temporal_filter": false
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 27
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 13,
+      "values": 0,
+      "values_total": 29
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 17,
+      "values": 0,
+      "values_total": 25
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 23,
+      "values": 0,
+      "values_total": 29
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 42,
+      "values": 0,
+      "values_total": 29
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 57,
+      "values": 0,
+      "values_total": 29
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 99,
+      "values": 0,
+      "values_total": 29
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 101,
+      "values": 0,
+      "values_total": 30
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 131,
+      "values": 0,
+      "values_total": 27
+    },
+    {
+      "entities": 8,
+      "names": 0,
+      "names_total": 8,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 151,
+      "values": 0,
+      "values_total": 31
+    }
+  ],
+  "naturalized": true,
+  "replay": "single_pass",
+  "rows": [
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.3076923076923077,
+        "valid_time": 0.0
+      },
+      "cases": 50,
+      "entities": 8,
+      "evidence_recall": 0.9,
+      "exact_state_accuracy": 0.16,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.64,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 50,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2857142857142857,
+        "valid_time": 0.0
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 0.6538461538461539,
+      "exact_state_accuracy": 0.15384615384615385,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.6699029126213593,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 13,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2916666666666667,
+        "valid_time": 0.0
+      },
+      "cases": 48,
+      "entities": 8,
+      "evidence_recall": 0.7708333333333334,
+      "exact_state_accuracy": 0.14583333333333334,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.6185567010309279,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 48,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 17,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2962962962962963,
+        "valid_time": 0.041666666666666664
+      },
+      "cases": 51,
+      "entities": 8,
+      "evidence_recall": 0.6274509803921569,
+      "exact_state_accuracy": 0.17647058823529413,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.6701030927835051,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 51,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 23,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2962962962962963,
+        "valid_time": 0.0
+      },
+      "cases": 51,
+      "entities": 8,
+      "evidence_recall": 0.7254901960784313,
+      "exact_state_accuracy": 0.1568627450980392,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.6574074074074074,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 51,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 42,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2857142857142857,
+        "valid_time": 0.0
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 0.8269230769230769,
+      "exact_state_accuracy": 0.15384615384615385,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 57,
+      "stale_use_rate": 0.6614173228346457,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 57,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.2857142857142857,
+        "valid_time": 0.041666666666666664
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 0.7307692307692307,
+      "exact_state_accuracy": 0.17307692307692307,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 99,
+      "stale_use_rate": 0.6310679611650486,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 52,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 99,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.27586206896551724,
+        "valid_time": 0.041666666666666664
+      },
+      "cases": 53,
+      "entities": 8,
+      "evidence_recall": 0.5471698113207547,
+      "exact_state_accuracy": 0.16981132075471697,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 101,
+      "stale_use_rate": 0.6741573033707865,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 53,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 101,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.3076923076923077,
+        "valid_time": 0.041666666666666664
+      },
+      "cases": 50,
+      "entities": 8,
+      "evidence_recall": 0.84,
+      "exact_state_accuracy": 0.18,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 131,
+      "stale_use_rate": 0.65,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 50,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 131,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.3333333333333333,
+        "valid_time": 0.0
+      },
+      "cases": 54,
+      "entities": 8,
+      "evidence_recall": 0.6666666666666666,
+      "exact_state_accuracy": 0.18518518518518517,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 151,
+      "stale_use_rate": 0.6697247706422018,
+      "system": "graphiti"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 54,
+      "entities": 8,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "corrections",
+      "revisions": 3,
+      "seed": 151,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "graphiti": {
+        "transaction_as_of": 0.29659821340855824,
+        "valid_time": 0.016666666666666666
+      },
+      "oracle": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=corrections,entities=8,revisions=3": {
+        "graphiti": {
+          "ci95_high": 0.17348433048433046,
+          "ci95_low": 0.15769909502262444,
+          "exact_mean": 0.16549324033757995,
+          "n_seeds": 10
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 10
+        }
+      }
+    },
+    "overall": {
+      "graphiti": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 0.7289149449329805,
+        "exact_state_accuracy": 0.16549324033757995,
+        "stale_use_rate": 0.6542337471855884
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 0.49244776,
+    "ingest_latency": {
+      "n": 0
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "n": 0
+    },
+    "usage": {
+      "gpt-4o-mini": {
+        "calls": 1461,
+        "completion_tokens": 65887,
+        "cost_usd": 0.4916802,
+        "prompt_tokens": 3014320,
+        "total_tokens": 3080207
+      },
+      "text-embedding-3-small": {
+        "calls": 2621,
+        "completion_tokens": 0,
+        "cost_usd": 0.00076756,
+        "prompt_tokens": 38378,
+        "total_tokens": 38378
+      }
+    }
+  },
+  "workload": {
+    "distinct_values": true,
+    "natural_pools": "large"
+  }
+}

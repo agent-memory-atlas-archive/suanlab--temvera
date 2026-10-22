@@ -1,0 +1,1 @@
+{"benchmark":"temvera-store-census-v1","embed_model":"text-embedding-3-small","model":"gpt-4o-mini","profile":{"expire_probability":0.0,"name":"revision_only","purge_probability":0.0,"reconfirm_probability":0.0},"replay":"single_pass","scales":[[3,2],[6,3]],"seeds":[7,13,17,23,42],"systems":["mem0","langmem","graphiti"]}

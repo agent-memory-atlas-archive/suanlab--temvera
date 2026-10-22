@@ -27,7 +27,8 @@ from temvera.reanalysis import Proportion
 
 RUNS = Path(__file__).resolve().parents[1] / "experiments" / "runs"
 SYSTEMS = {"Mem0": "external-corrections-mem0-v1", "Graphiti": "external-corrections-graphiti-v1"}
-KINDS = ("corrected", "present_corrected", "present_uncorrected", "past_uncorrected")
+KINDS = ("corrected", "present_corrected", "present_uncorrected", "past_uncorrected",
+         "pre_correction")
 
 
 def classify(run: str) -> dict[str, list[bool]]:
@@ -62,6 +63,12 @@ def classify(run: str) -> dict[str, list[bool]]:
             if fix is not None and case.transaction_at >= fix.recorded_at \
                     and fix.valid_from <= case.valid_at < fix.valid_to:
                 out["corrected"].append(row["exact"])
+            elif fix is not None and case.transaction_at < fix.recorded_at \
+                    and fix.valid_from <= case.valid_at < fix.valid_to:
+                # What was believed about the interval before its correction
+                # (H11a). Trivial under forward replay; a real transaction-time
+                # question when the final store is asked.
+                out["pre_correction"].append(row["exact"])
             elif case.transaction_at == end and key in latest \
                     and case.valid_at == latest[key].valid_from:
                 kind = "present_corrected" if fix is not None else "present_uncorrected"
@@ -69,6 +76,54 @@ def classify(run: str) -> dict[str, list[bool]]:
             elif case.transaction_at == end and fix is None and case.stale_values \
                     and case.category == "valid_time":
                 out["past_uncorrected"].append(row["exact"])
+    return out
+
+
+def pre_correction(run: str, judge: str | None = None) -> dict[str, int]:
+    """H11a: what was believed about a corrected interval before the correction.
+
+    ``exact`` is the grid's scorer as preregistered. It counts only values known
+    at the question's transaction time as stale, so an answer that also states
+    the later correction passes; ``strict`` (added after the runs) fails it too.
+    With ``judge`` (a sealed llm_rescore run of ``run``), ``judged`` uses the
+    value the answer asserts, and fails it if that is the correction.
+    """
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    lines = (RUNS / run / "transcript.jsonl").read_text(encoding="utf-8").splitlines()
+    rows = [r for r in map(json.loads, lines) if r.get("system") != "oracle"]
+    verdicts = None
+    if judge is not None:
+        judged = (RUNS / judge / "transcript.jsonl").read_text(encoding="utf-8").splitlines()
+        verdicts = [json.loads(line) for line in judged]
+        if [(r["case_id"], r["query"]) for r in verdicts] != [(r["case_id"], r["query"]) for r in rows]:
+            raise ValueError(f"{judge} does not rescore {run}")
+    by_cell: dict[tuple, dict] = defaultdict(dict)
+    for index, r in enumerate(rows):
+        by_cell[(r["profile"], r["entities"], r["revisions"], r["seed"])][r["case_id"]] = (
+            r, verdicts[index] if verdicts else None)
+    out = {"questions": 0, "exact": 0, "strict": 0, "judged": 0}
+    for (profile, entities, revisions, seed), sealed in sorted(by_cell.items()):
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        fixes = {(e.subject, e.attribute): e for e in events
+                 if e.operation is Operation.INGEST and e.valid_to is not None}
+        for case in build_nl_cases(events):
+            fix = fixes.get((case.subject, case.attribute))
+            if fix is None or not (case.transaction_at < fix.recorded_at
+                                   and fix.valid_from <= case.valid_at < fix.valid_to):
+                continue
+            row, verdict = sealed[case.case_id]
+            states_fix = fix.value.casefold() in row["answer"].casefold()
+            out["questions"] += 1
+            out["exact"] += bool(row["exact"])
+            out["strict"] += bool(row["exact"]) and not states_fix
+            if verdict is not None:
+                out["judged"] += bool(verdict["exact"]) and \
+                    fix.value.casefold() not in verdict["value"].casefold()
     return out
 
 

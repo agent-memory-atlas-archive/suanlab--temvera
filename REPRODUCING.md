@@ -88,6 +88,27 @@ The read-path rule of §VI-D is recomputed by
 committed (`3b594bc`) before they were applied to the current releases of
 §VI-J, which are therefore out of sample for it (E-092).
 
+The October 2026 revision added five preregistered studies (H8-H12), each with
+its predictions committed and pushed before its runs (`docs/preregistration-h*.md`,
+outcome tables at the end of each). Offline, from sealed runs:
+
+| What | Script |
+|---|---|
+| Cluster bootstrap, paired McNemar with Holm, TOST equivalence | `python scripts/analyze_statistics.py` |
+| Replicates and the `gpt-4o` backbone for LangMem, Cognee, Hindsight (H8) | `python scripts/analyze_h8.py` |
+| Purge category under the request's own scope (E-096) | `python scripts/analyze_purge_scope.py` |
+| What the final store knew before a correction (H11a) | `analyze_corrections.pre_correction` |
+
+These need an API key and are sealed into new runs:
+
+| What | Command |
+|---|---|
+| Common reader and asserted-value judge (H9) | `python scripts/llm_rescore.py {reader,judge} openai:<model> <source-run> <new-run>` |
+| Whole-store census (H11b) | `python scripts/store_census.py <new-run>` |
+| Retention policy swap, fixed retriever and reader (H12) | `python scripts/controlled_policy.py <new-run>` |
+| Deletion across five systems (H10) | `temvera deletion-study experiments/configs/deletion-study-<system>.json <new-run>`; Hindsight needs its own daemon and `HINDSIGHT_PSQL`, `HINDSIGHT_PG_INSTANCE` naming its psql and pg0 instance file |
+| Final-store correction runs (H11a) | `temvera external-<system> experiments/configs/final-store-corrections-<config>.json <new-run>` |
+
 ## External-system experiments (require credentials)
 
 Sections of the paper that compare deployed systems need resources the local

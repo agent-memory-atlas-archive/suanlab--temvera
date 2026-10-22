@@ -51,32 +51,33 @@ suanlee@semyung.ac.kr}}
 Long-running agents accumulate facts that change, expire, and must sometimes be
 deleted. Answering \emph{what was true then}, and \emph{what the agent knew then},
 requires separating valid time from transaction time and honouring deletion
-across every store a query can reach. Agent memory systems now advertise these
-capabilities; we measure whether they deliver them.
+in every store. Agent memory systems advertise both; we measure whether they
+deliver them.
 
-We replay deterministic lifecycle histories, scored against an independently
-cross-checked oracle, into five open-source systems---Mem0, LangMem, Graphiti, Cognee and
-Hindsight---under forward-checkpoint transaction-time replay. Two designs emerge.
-\emph{Consolidating} stores overwrite superseded values, so they answer current
-queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323),
-just under a ceiling (0.385) that the history alone fixes, and Mem0 applies a
-correction about the past to the present (1 of 45 current values answered
-afterwards).
-\emph{Retaining} stores keep the history but do not filter it: read at the
-retrieval layer, three independent implementations score 0.000 on valid-time
-queries, yet one deterministic read-path rule recovers up to 190 of 195 from
-the dates they return. An LLM reader recovers it for Cognee (192 of 195) but
-not for Hindsight (67). Mem0's current release switches to the second design, and
-its accuracy follows. In Mem0 and Graphiti, deletion
-divides the same way: native deletion APIs clear retrieval-reachable stores,
-while deletion requested in prose is silently ignored. Both failure modes hold
-from 8 to 128 people per history and on 62 supersessions in LongMemEval's
-annotator-edited conversations. Cost is write-dominated in Mem0 and
-read-dominated in Cognee: where it falls is a design choice.
+We replay deterministic lifecycle histories, scored by an oracle that a second
+implementation checks, into five open-source systems---Mem0, LangMem, Graphiti,
+Cognee and Hindsight---and commit the predictions of every follow-up experiment
+before running it. Two designs emerge. \emph{Consolidating} stores overwrite
+superseded values: they answer current queries well (0.952 and 0.890) and
+historical ones under a ceiling the history fixes (0.364 and 0.323 against
+0.385); read in full, they keep 0 and 7 of 75 superseded values; and Mem0
+applies a correction about the past to the present (1 of 45 current values
+answered afterwards). \emph{Retaining} stores keep the history but do not filter
+it: at the retrieval layer three implementations answer no valid-time question,
+while a common reader recovers 0.73 to 0.77 of them, and changing only the
+retention policy under a fixed retriever and reader reproduces the split. Once a
+correction is stored, only a reader over dated source text can say what was
+known before it (Cognee, 41 of 45). Deletion divides too: three
+systems ignore prose requests, Mem0 honours one wording of three and LangMem
+part of each; native APIs
+clear every answer when given the right records but leave copies in stores no
+query reads, and deleting what a search returns erases up to 28 of 36 people
+never named. The findings survive a second backbone,
+replicate runs, current releases (where Mem0 has switched designs) and 62
+supersessions in LongMemEval's conversations.
 
 We claim no novelty for bitemporal modelling or forgetting evaluation: the
-contribution is measurement, and the finding that a system can expose temporal
-fields without answering temporal queries correctly.
+contribution is measurement.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -139,10 +140,13 @@ assert, they answer 0.73 to 1.00, while the consolidating stores stay under
 their ceiling (\S\ref{sec:reader}). A gap we had reported between two readers
 was one of answer form. On benchmark text a plain reader recovers almost none of
 it, because it does not assume a value persists until revised.
-(iii) A cross-store deletion-completeness measurement under both a prose
-instruction and each system's native API, which the systems describe as a
-feature but do not measure, and which prior deletion benchmarks judge by what a
-reader recovers rather than by what the stores retain.
+(iii) A deletion measurement across all five systems that compares prose
+requests in three wordings with each native API, called with the right records
+and as a caller without them would, and reads every store for what survives
+(\S\ref{sec:deletion}): three systems ignore prose and two follow it only in
+part, the APIs
+clear every answer but leave copies off the query path in three systems, and a
+search-driven caller erases data it was never asked about.
 (iv) Measured write/read cost and latency, and a reproducible sealed harness
 whose every reported number recomputes offline from per-case transcripts,
 including preserved negative results and four retracted measurements.
@@ -321,16 +325,17 @@ would score LangMem as supporting valid time; no predicate can use it.
 
 \textbf{C3 separates closing an interval from overwriting a row.} Mem0 and
 LangMem consolidate: a superseding fact replaces its predecessor, so the prior
-value is destroyed rather than bounded. Graphiti closes intervals by setting
-\texttt{invalid\_at}, but does so unreliably: direct inspection of the edge
-metadata found supersessions that leave the field unset, and dated
-invalidations that are self-contradictory ($\texttt{invalid\_at} \le
-\texttt{valid\_at}$). We give no counts because that inspection ran against a
-graph later retracted for cross-run contamination
-(\S\ref{sec:negative}). C3 is therefore the axis on
-which the two design families separate, and \S\ref{sec:results} measures the
-consequence: consolidating stores lose history outright, while Graphiti retains
-it and fails to filter it.
+value is destroyed rather than bounded. We read whole stores to check this,
+not top-five retrievals: after ingesting each of the ten revision-only histories
+of the main grid, Mem0's store holds none of 75 superseded values and LangMem's
+holds 7, while Graphiti's holds all 75. Graphiti closes intervals by setting
+\texttt{invalid\_at}, but not reliably: for 61 of the 75 some edge stating the
+value has the field set, and for 43 it is the day the successor took effect. (An
+earlier inspection that also found self-contradictory intervals ran on a graph
+later withdrawn for contamination, \S\ref{sec:negative}; we no longer rely on
+it.) C3 is therefore the axis on which the two design families separate, and
+\S\ref{sec:results} measures the consequence: consolidating stores lose
+history, while Graphiti retains it and does not filter it.
 
 The reader should note where the causal chain terminates. C2 and C1 are
 data-model properties. C3's unreliability in Graphiti is not: it is a property of
@@ -683,52 +688,87 @@ ceiling is not an extraction-quality artifact: with \texttt{gpt-4o} in place of
 improves ($0.514 \to 0.625$) and purge degrades ($0.296 \to 0.176$); with two
 seeds these movements are within noise and we draw no conclusion from them.
 
-\subsection{Deletion: the API works, the instruction does not}
+\subsection{Deletion: the API works with the right handles; prose mostly does not}
+\label{sec:deletion}
 
-Our first attempt at this measurement was unfair in two ways, and correcting it
-reversed the conclusion. It gave our substrate a typed \texttt{purge} operation
-while giving the deployed systems an English sentence, and that sentence
-restated the value it asked to delete --- so any system storing its input
-verbatim was penalised by construction. We now run two conditions with a
-non-restating instruction (Figure~\ref{fig:residual}).
+We ran all five systems through one deletion protocol, with its predictions
+committed before the runs. Ten seeded histories hold 24 people whose attribute
+is purged and 36 who are never purged. Each system ingests a history, including
+the request, in one of three wordings, none of which restates the value
+(``Permanently delete everything you recorded about $X$'s $A$'', ``Please forget
+$X$'s $A$; I do not want it kept'', ``$X$ has asked for their $A$ to be erased
+from your memory''). Two further conditions add the native API after the first
+wording: an \emph{oracle} caller deletes every unit whose stored text holds a
+value the person ever had, the most any caller could do; a \emph{realistic}
+caller, which does not know the value, asks the store about $X$'s $A$ and deletes
+whatever comes back. We then ask every person's attribute and record a leak if
+any value it ever had appears in the answer, read every store through its own
+library, and count the never-purged people whose current value is gone
+(Table~\ref{tab:deletion}).
 
-\begin{figure}[t]
+\begin{table}[t]
 \centering
-\includegraphics[width=\linewidth]{figures/residual.pdf}
-\Description{Bar chart of residual occurrences of a purged value per store, split by whether a query path can reach that store. Under a natural-language deletion instruction both deployed systems retain the value in reachable stores; under each system's native deletion API the reachable stores fall to zero and only audit logs and entity summaries retain it.}
-\caption{Where a purged payload survives, split by whether a query path can
-reach the store. Counts are substring occurrences over differently shaped stores
-and are not comparable in magnitude across systems; the reachability split is
-the claim.}
-\label{fig:residual}
-\end{figure}
+\caption{Deletion in five systems over ten histories: purged people (of 24)
+whose value still appears in the answer, by condition; never-purged people (of
+36) still answered after the realistic caller's deletions; histories (of 9 with
+a purge) in which a store no query reads still holds a purged value after the
+oracle's deletions.}
+\label{tab:deletion}
+\footnotesize
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}lccccccc@{}}
+\toprule
+ & \multicolumn{3}{c}{prose wording} & \multicolumn{2}{c}{API caller} & kept & off-path \\
+System & 1 & 2 & 3 & oracle & realistic & (realistic) & residue \\
+\midrule
+Mem0      & 24 & 2  & 24 & 0 & 0 & 8  & 9 \\
+LangMem   & 15 & 3  & 6  & 0 & 0 & 19 & 0 \\
+Graphiti  & 24 & 24 & 24 & 0 & 0 & 18 & 0 \\
+Cognee    & 24 & 24 & 24 & 0 & 0 & 33 & 9 \\
+Hindsight & 24 & 24 & 24 & 0 & 0 & 36 & 9 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Under a \textbf{natural-language instruction}, residual occurrences of the
-purged value are the reference implementation 3 (audit ledger only), Mem0 15 (exposed memories 3,
-vector store 3, history 9), Graphiti 18 (edges 3, entity nodes 9, episodes 6).
-Under each system's \textbf{native deletion API} (\texttt{Memory.delete},
-\texttt{remove\_episode}) the picture changes completely: Mem0 falls to 12 with
-\emph{zero} in exposed memories and \emph{zero} in the vector store, and
-Graphiti falls to 3 with \emph{zero} in edges and episodes.
+\textbf{Prose is ignored by three systems, and by two only sometimes.} Graphiti,
+Cognee and Hindsight leak every purged person under every wording. Mem0 depends
+on the words: told ``Please forget'', its extractor emitted 23 \texttt{DELETE}
+actions and 2 people leak; told the other two, 24 of 24 leak, and it logged no
+dropped action in any of these runs, so the failure is not the defect of
+\S\ref{sec:external}. LangMem leaks 15, 3 and 6: its memory manager ships with
+deletion disabled, so it rewrites memories instead, and loses never-purged
+people on the way (it answers 30 of 36 under the first wording). We had
+predicted that every system would leak at least 80\% under every wording; that
+holds for three systems and fails for Mem0 and LangMem.
 
-Two conclusions follow, and the first contradicts what we previously reported.
-\textbf{Both systems' deletion APIs do clear their retrieval-reachable stores};
-purged content does not linger in the serving path when deletion is actually
-invoked. What fails is \textbf{deletion expressed in prose}: told in natural
-language to delete a fact, neither system acts on it, and the value remains
-retrievable. For agents that receive deletion requests conversationally --- the
-normal case for a user asking an assistant to forget something --- that gap is
-the operationally relevant one.
+\textbf{With the right handles, every API clears what queries reach, and
+something survives elsewhere.} Under the oracle caller no purged person leaks in
+any system. A store no query reads still holds the value in all 9 histories for
+Mem0 (its history table), Cognee (its relational database) and Hindsight (its
+log of LLM requests). Graphiti's entity summaries, which \texttt{remove\_episode}
+does not rewrite, hold it in all 9 as well; they are text a node search could
+return, though our probe did not surface them. Cognee's \texttt{forget} leaves it
+in its graph or vector store in up to 3 histories. Only LangMem, whose single
+store is the one it serves from, keeps nothing.
 
-Two residues survive API deletion. Mem0's SQLite history retains 12 occurrences
-and in fact \emph{grows}, because deletion appends history rows; Graphiti's
-LLM-generated entity summaries retain 3, which \texttt{remove\_episode} does not
-rewrite. Mem0's history and our own append-only ledger are the same class of
-store --- an audit log no query path reads --- so we do not claim our substrate
-is uniquely clean. Counts are substring occurrences over differently shaped
-stores and are not comparable in magnitude; the reachability split is the claim.
-This rests on a single seeded history (12 events, three purged values) and one
-backbone, with extraction that is not bit-reproducible.
+\textbf{Without the handles, deletion costs other people's data.} The realistic
+caller also removes every purged value, but a search for one person returns
+other people's memories, and deleting a returned memory or episode deletes what
+else it holds. Of the 36 never-purged people, Mem0 still answers 8, Graphiti 18,
+LangMem 19, Cognee 33 and Hindsight 36. A deletion request that reaches the API
+through a search is therefore not safe in three of five systems.
+
+\textbf{Deletion and past-time questions need one semantics.} After a purge,
+what should ``What was $X$'s home city in January?'' return? Erasure can be a
+valid-time event (the fact stops being true), a transaction-time event (the
+system stops having known it) or the physical removal of both, and the answer
+differs for each. None of the five systems states which it implements, and our
+own generator did not either: its typed purge removed only the latest value
+while the request asked for everything, so our reference implementation still
+holds earlier values in the projections a query reads, and 29 of the grid's 45
+purge questions expected a value the request had asked to delete
+(\S\ref{sec:reader}). We report both readings and use the request's own scope
+here.
 
 \textbf{Why the instruction has nothing to bind to.} The measurement above says
 prose deletion is ignored; reading the deletion surface of each library says why.
@@ -763,9 +803,8 @@ what is needed and leaves the predicate to the caller. It also settles the case
 \S\ref{sec:claims} left open. Cognee documents \texttt{forget} as one of four
 core operations, and \texttt{forget} is real --- but it takes a
 \texttt{data\_id}, a dataset, or \texttt{everything}, never a condition, so the
-documented operation does not answer the documented use. We did not run Cognee
-through the residual protocol, so this is a statement about its API surface and
-not a measurement of what survives in its stores.
+documented operation does not answer the documented use without a caller that
+already knows which items hold the fact.
 
 \subsection{Is the information lost, or merely unfiltered?}
 \label{sec:reader}
@@ -1111,7 +1150,10 @@ when it is purged. A store that does this for every revision holds at most the
 latest value per subject that was neither superseded nor purged, so it cannot
 answer a valid-time question whose answer is any other value, and the share it
 could answer is computable from the history before the system runs. On the main
-grid that ceiling is 0.385 (75 of 195): Mem0 reaches 0.364 on
+grid that ceiling is 0.385 (75 of 195). It is a statement about stores that
+meet its condition, and the full-store census of \S\ref{sec:fragment} shows how
+nearly the deployed ones do: Mem0 keeps none of 75 superseded values, LangMem 7.
+Mem0 reaches 0.364 on
 \texttt{gpt-4o-mini} and 0.374 on \texttt{gpt-4o}, LangMem 0.323, and none
 answers a single question above it. In the scale sweep the ceiling is 0.250 at
 8, 32 and 128 entities alike, and Mem0's 0.206, 0.211 and 0.195 sit under it,
@@ -1164,10 +1206,25 @@ statement per subject, and the newest statement wins whatever time it is about.
 
 \textbf{A retaining store keeps both and filters neither.} Graphiti answers the
 corrected interval 1 time in 78, within the predicted 0.10: it returns the
-replaced value beside the correction. Forward replay asks each question at its
-own checkpoint, so whether a store can still say what it believed \emph{before}
-a correction is not tested here; none of the systems exposes that axis
-(Table~\ref{tab:fragment}, C2).
+replaced value beside the correction.
+
+\textbf{Asked of the final store, only a reader over dated turns knows what it
+knew.} Forward replay asks each question at its own checkpoint, which every
+store answers by construction. We therefore also ingested each whole correction
+history into a fresh store of every configuration and asked the 45 questions
+about what was known of a corrected interval \emph{before} its correction:
+``What was $X$'s home city as of $V$, based only on what was known by $T$?'',
+whose answer is the original value. Counting an answer correct only if it gives
+that value and not the correction, which was unknown at $T$, Mem0 and LangMem
+answer 0, the retrieval layers of Cognee, Hindsight and Graphiti 0, 4 and 9,
+Hindsight's reader HSPRE and Cognee's reader 41. Cognee answers because it stores
+the turns verbatim and each turn carries the date it was recorded, which its
+reader uses: no system has a transaction-time predicate (Table~\ref{tab:fragment},
+C2), but a reader over dated source text can stand in for one. The grid's scorer,
+which we had preregistered, does not count the correction as wrong here, because
+it was unknown at $T$; under it the retrieval layers score 21 to 27 and Cognee's
+reader 42, against the 5 and 15 we had predicted as the most any retrieval layer
+or reader would reach.
 
 \subsection{Do current releases change the picture?}\label{sec:releases}
 
@@ -1249,13 +1306,18 @@ so the defect does not bias Mem0's aggregate in one known direction.
 Results of the harness that concern only our reference implementation ---
 retrieval-channel ablations, confidence decay, fusion calibration, signed
 provenance --- are preserved with their negative outcomes in the artifact and not
-developed here. Within the thesis, \textbf{four preregistered predictions
-failed} and are reported where they were tested: that Mem0's current release
-would still consolidate (\S\ref{sec:releases}); that a common reader would
-recover at least 0.80 of valid time from the retaining stores, and that LangMem
-read the same way would stay under its ceiling (\S\ref{sec:reader}); and that a
-plain reader would recover valid time from Cognee's dated chunks of benchmark
-text (\S\ref{sec:realdata}).
+developed here. Within the thesis, \textbf{ten preregistered predictions
+failed}, each reported where it was tested: that Mem0's current release would
+still consolidate (\S\ref{sec:releases}); that LangMem on \texttt{gpt-4o} would
+keep 0.80 of current answers (\S\ref{sec:results}); that a common reader would
+recover 0.80 of valid time from the retaining stores, that LangMem read the same
+way would stay under its ceiling, and that a retaining store under a fixed BM25
+would answer almost none as returned (\S\ref{sec:reader}); that a plain reader,
+or a judge, would recover more on benchmark text (\S\ref{sec:realdata}); that
+Graphiti would close fewer than half of its intervals correctly
+(\S\ref{sec:fragment}); that every system would ignore prose deletion
+(\S\ref{sec:deletion}); and that no store could say what it knew before a
+correction (\S\ref{sec:corrections}).
 
 \textbf{Two of our own claims did not survive this revision.} We had reported
 that Hindsight's reader recovers valid time far less often than Cognee's; it
@@ -1329,9 +1391,12 @@ run on \texttt{gpt-4o-mini} and were re-run on \texttt{gpt-4o}, one provider's
 models only; LLM extraction is not bit-reproducible, LangMem and Hindsight do not
 run at temperature~0, and Hindsight's reader is not stable across runs. The
 first same-protocol replication moved a small-denominator category by 0.125,
-which is why we draw no conclusion from expiry. The deletion
-result rests on a single seeded history, so it establishes a direction, not a
-rate. The literature review is single-reviewer. Purge claims cover declared
+which is why we draw no conclusion from expiry. The deletion study covers ten
+small histories, one backbone and our own readings of each store; it bounds
+what survives in what we read, not everywhere. Scale was measured for accuracy,
+not for throughput, storage or memory, and token cost only for Mem0. No person
+judged the answers; the asserted-value judge is checked against the exact scorer
+and a second judge only. The literature review is single-reviewer. Purge claims cover declared
 stores and tested failure points, not backups, OS caches or provider-side
 copies.
 

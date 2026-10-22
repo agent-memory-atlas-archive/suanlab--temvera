@@ -1,0 +1,8 @@
+{
+  "command": "temvera deletion-study experiments/configs/deletion-study-langmem.json experiments/runs/deletion-study-langmem-v1",
+  "created_at": "2026-10-22T18:28:35.962448+00:00",
+  "git_revision": "8e93e22aca7e229cd0ad8717b9033b9bcc1f45dc",
+  "platform": "Linux-6.8.0-101-generic-x86_64-with-glibc2.35",
+  "python": "3.11.15 (main, Jun 23 2026, 15:19:43) [Clang 22.1.3 ]",
+  "source_sha256": "bf741d6d31d7a7ac3d90999f3eea6959768e7956d95b9eed4e2f5e04524b2af8"
+}

@@ -76,3 +76,16 @@ judges. Prediction, made knowing the grid result:
 - **H9h -- the real-data reader gap also shrinks:** judged, Hindsight reflect
   answers more than its 17 exact of 60 valid-time questions, and the gap to
   Cognee graph (40 exact) is smaller judged than exact.
+
+## Outcomes (recorded 2026-10-23; evidence ledger E-095)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H9a | common reader >= 0.80 for Cognee chunks and Hindsight recall; Graphiti <= 0.20 | 0.728, 0.769; Graphiti 0.113 | **falsified** on the 0.80 threshold |
+| H9b | Mem0 and LangMem read <= 0.385, <= 2% beyond the ceiling | Mem0 0.374 (1 of 73 beyond); LangMem 0.364 (5 of 71 beyond) | **falsified** for LangMem |
+| H9c | Mem0 2.2.1 read >= 0.50 | 0.877 | holds |
+| H9d | judged >= exact; Hindsight reflect 1.1.0 > 0.50; Cognee >= 0.95 | 1.000 for all four judged runs | holds |
+| H9e | judge agrees with exact-correct >= 95%; judges agree >= 90% | 1202/1203; 99.6% | holds |
+| H9f | LongMemEval: Cognee chunks read >= 20/60 and above Mem0 and LangMem | 3/60 | **falsified** |
+| H9g | LongMemEval: Graphiti and Hindsight recall read <= 15/60 | 13, 0 | holds |
+| H9h | LongMemEval: judged Hindsight reflect > 17 and the gap to Cognee shrinks | 15 judged | **falsified** |

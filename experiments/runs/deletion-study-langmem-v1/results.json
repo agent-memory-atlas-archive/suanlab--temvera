@@ -1,0 +1,3942 @@
+{
+  "records": [
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Liam's home city is now Perth, valid from 2025-02-05. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Liam's home city is Perth, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Noah's home city is now Split, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Noah's home city is now Split, valid from 2025-02-02. | Memory Permanently delete everything recorded about Noah's home city. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete all recorded information about Yuna's home city as per the user's request on 2025-02-20. | Memory Delete all memories related to Yuna's home city.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split, effective February 2, 2025. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Forget Yuna's home city as per the user's request on 2025-02-20.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split, effective February 2, 2025. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split, effective February 2, 2025, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value. | Memory Forget Yuna's home city as per the user's request on 2025-02-20. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Noah's home city as per user's request. | Memory Forget Noah's home city as per the user's request, as they do not want it kept. | Memory Forget Noah's home city; the user does not want it kept. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Forget Yuna's home city as per the user's request on 2025-02-20. | Memory Forget Yuna's home city as per the user's instruction. The user does not wish to retain this information. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-04, replacing the previous value. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Sora's home city is Porto, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Yuna's home city is Nantes as of 2025-02-04, replacing the previous value. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Noah has requested the erasure of their home city from memory. | Memory As of 2025-02-16, Noah has requested that their home city be erased from memory. | Memory Yuna's home city is Nantes as of 2025-02-04, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-02-05. | Memory Liam's home city is Perth, valid from 2025-02-05.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-04, replacing the previous value. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory. | Memory Yuna has requested that their home city be erased from memory.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Sora's home city is Porto as of 2025-01-31. | Memory The user has requested to permanently delete all records related to Noah's home city. | Memory Permanently delete all recorded information about Yuna's home city. | Memory Delete all records related to Yuna's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Permanently delete all recorded information about Yuna's home city. | Memory Sora's home city is Porto as of 2025-01-31. | Memory Delete all records related to Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Sora's home city is Porto as of 2025-01-31. | Memory Permanently delete all recorded information about Yuna's home city. | Memory Delete all records related to Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto as of 2025-01-31. | Memory Permanently delete all recorded information about Yuna's home city. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory The user has requested to permanently delete all records related to Noah's home city. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Sora's home city is Porto as of 2025-01-31. | Memory Permanently delete all recorded information about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete all recorded information about Yuna's home city. | Memory Delete all records related to Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory User requested to permanently delete all recorded memories about Yuna's home city on 2025-02-20.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 5,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05. | Memory Omar's home city is Split, recorded on 2025-02-03, replacing the previous value from Cebu. This is consistent with the updates provided on both 2025-02-02. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, recorded on 2025-02-03, replacing the previous value from Cebu. This is consistent with the updates provided on both 2025-02-02. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city is Cebu, recorded on 2025-01-05, valid from 2025-01-05. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is Split, valid from 2025-02-02.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 10,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Omar's home city has been updated to Split as of February 5, 2025, replacing the previous location.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto, valid since 2025-02-03, reflecting the most recent information. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto, valid since 2025-02-03, reflecting the most recent information. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Permanently delete all records related to Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Permanently delete everything recorded about Noah's home city.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city has been updated to Split as of February 5, 2025, replacing the previous location. | Memory Omar's home city is Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 9,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth, valid from 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-01-31, replacing the previous value. | Memory Forget Omar's home city as per user's request. | Memory Forget Omar's home city as per user's request.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto as of 2025-02-03, replacing the previous value. | Memory Sora's home city is Porto as of 2025-02-03, which replaces the previous assertion. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Sora's home city is Porto as of 2025-02-03, replacing the previous value. | Memory Sora's home city is Porto as of 2025-02-03, which replaces the previous assertion.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User requested to forget Noah's home city. | Memory Forget Noah's home city as per user request. | Memory Forget Noah's home city as per user request. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Forget Omar's home city as per user's request. | Memory Forget Omar's home city as per user's request. | Memory Forget Omar's home city as per user's request. | Memory Forget the information regarding Omar's home city as per user's request. | Memory User requested to forget Omar's home city on 2025-02-22.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Mina has requested for their home city to be erased from my memory.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina has requested for their home city to be erased from my memory. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Permanently delete everything recorded about Omar's home city. | Memory Sora's home city is now Porto as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-02-01, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto as of 2025-02-03, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-02-01, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-02-01, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is Porto, valid from 2025-02-03. | Memory Sora's home city is now Porto as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently deleted all recorded information about Omar's home city as per the user's instruction. | Memory User requested to permanently delete all recorded memories regarding Omar's home city. | Memory Delete all recorded memories regarding Omar's home city permanently. | Memory Liam's home city is Perth, valid from 2025-01-31.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 3,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 13,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Noah's current home city is Lima as of January 31, 2025. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of January 31, 2025, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's current home city is Lima as of January 31, 2025. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of January 31, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Mina's home city is now confirmed as Cairo since 2025-02-02, replacing the previous value. | Memory Noah's current home city is Lima as of January 31, 2025.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth as of 2025-02-01, replacing the previous value. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Forget Omar's home city. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Liam's home city is Perth as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is Lima, valid from 2025-01-31. | Memory Noah's home city is Lima, valid from 2025-01-31. | Memory User has requested to forget Omar's home city; it should no longer be retained in memory. The agent should also disregard previous records about Noah's home city as it is invalidated by recent changes. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city has been updated to Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city has been updated to Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Omar's home city. | Memory Forget Omar's home city as instructed by the user on 2025-02-20. | Memory Forget Omar's home city; user does not want it kept. | Memory Forget Omar's home city; the user does not want it kept. | Memory User has requested to forget Omar's home city; it should no longer be retained in memory. The agent should also disregard previous records about Noah's home city as it is invalidated by recent changes.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value. | Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value. | Memory Omar has asked for their home city to be erased from memory. | Memory Omar has asked for their home city to be erased from memory. | Memory Omar has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value. | Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes as of February 3, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes, valid as of February 3, 2025. | Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory User Sora's home city is Porto, valid from February 2, 2025. | Memory User Sora's home city is Porto, valid from February 2, 2025. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes as of February 3, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes as of February 3, 2025, replacing the previous value. | Memory Yuna's home city is now Nantes, valid as of February 3, 2025. | Memory Mina's home city is Cairo as of February 2, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory. | Memory Omar has asked for their home city to be erased from memory. | Memory Omar has asked for their home city to be erased from memory. | Memory Omar has requested that their home city be erased from memory. | Memory Omar has requested the erasure of their home city from memory. This reflects a desire for privacy or a change in personal context.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth as of 2025-02-01. | Memory Liam's home city is Perth, valid from 2025-02-01. | Memory Noah's home city is Lima. | Memory Noah's home city is Lima. | Memory Mina's home city is Cairo as of 2025-02-02.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo as of 2025-02-02. | Memory Mina's home city is Cairo as of 2025-02-02. | Memory Yuna's home city is Nantes as of 2025-02-03. This is the most updated and valid information. | Memory Yuna's home city is Nantes as of 2025-02-03. | Memory Noah's home city is Lima.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is Lima. | Memory Noah's home city is Lima. | Memory Yuna's home city is Nantes as of 2025-02-03. | Memory Yuna's home city is Nantes as of 2025-02-03. This is the most updated and valid information. | Memory Mina's home city is Cairo as of 2025-02-02.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto as of 2025-02-02. | Memory Sora's home city is Porto as of 2025-02-02. | Memory Yuna's home city is Nantes as of 2025-02-03. | Memory Yuna's home city is Nantes as of 2025-02-03. This is the most updated and valid information. | Memory Noah's home city is Lima.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-03. | Memory Yuna's home city is Nantes as of 2025-02-03. This is the most updated and valid information. | Memory Mina's home city is Cairo as of 2025-02-02. | Memory Mina's home city is Cairo as of 2025-02-02. | Memory Sora's home city is Porto as of 2025-02-02.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently deleted all previously recorded information about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. This is a confirmed update and holds significance for tracking her established residence.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. This is a confirmed update and holds significance for tracking her established residence. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. This is a confirmed update and holds significance for tracking her established residence. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-02. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. This is a confirmed update and holds significance for tracking her established residence.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. This is a confirmed update and holds significance for tracking her established residence. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima, as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 5,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User has instructed to permanently delete all recorded information about Noah's home city as of 2025-02-18, indicating a strong preference for data privacy. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Delete all recorded information about Omar's home city as per user request. | Memory Delete all recorded memories about Omar's home city. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Sora's home city is Porto. | Memory Yuna's home city is Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31. | Memory Liam's home city is now Perth as of 2025-01-31. | Memory Liam's home city is now Perth as of 2025-01-31. | Memory Liam's home city is now Perth as of 2025-01-31. | Memory Forget Omar's home city as requested by the user.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes as of 2025-02-06, replacing the previous city of Quito. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Forget Mina's home city as of 2025-02-21; the user does not want it kept. | Memory Forget Mina's home city as requested by the user on 2025-02-21.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Mina's home city as per user instruction. | Memory Forget Mina's home city as requested by the user on 2025-02-21. | Memory Forget Mina's home city as of 2025-02-21; the user does not want it kept. | Memory Yuna's home city is Nantes as of 2025-02-06, replacing the previous city of Quito. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Forget Noah's home city; the user does not want it kept. | Memory Forget Noah's home city; the user does not want it kept. | Memory Forget Noah's home city; the user does not want it kept. | Memory Yuna's home city is Nantes as of 2025-02-06, replacing the previous city of Quito. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Forget Omar's home city as requested by the user. | Memory Forget Omar's home city; the user does not want it kept. | Memory User requested to forget Omar's home city, indicating a preference to remove this specific memory. | Memory Liam's home city is now Perth as of 2025-01-31. | Memory Liam's home city is now Perth as of 2025-01-31.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Forget Sora's home city as per user request. | Memory User requested to forget Sora's home city, which indicates a preference to remove this specific memory. | Memory Yuna's home city is Nantes as of 2025-02-06, replacing the previous city of Quito. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Omar's home city has been erased from memory as of 2025-02-17. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Mina's home city is Cairo, valid from 2025-02-04.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina has asked for their home city to be erased from your memory. | Memory Mina has asked for their home city to be erased from your memory. | Memory Mina has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city has been erased from memory as of 2025-02-17. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Sora has asked for their home city to be erased from memory. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 9,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 16,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city was originally Riga and has been updated to Perth, valid from 2025-02-05. | Memory User Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory User Noah's home city is now Lima, valid from 2025-02-05, replacing the previous value. | Memory User Omar's home city is Split, valid from 2025-02-03.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory User Yuna's home city is Nantes, valid from 2025-02-02. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory User Noah's home city is now Lima, valid from 2025-02-05, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory User Yuna's home city is Nantes, valid from 2025-02-02. | Memory Liam's home city was originally Riga and has been updated to Perth, valid from 2025-02-05.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User Noah's home city is now Lima, valid from 2025-02-05, replacing the previous value. | Memory Permanently delete everything recorded about Noah's home city. | Memory Permanently delete everything recorded about Noah's home city. | Memory Permanently delete everything recorded about Noah's home city. | Memory Liam's home city was originally Riga and has been updated to Perth, valid from 2025-02-05.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Delete all recorded memories related to Sora's home city. | Memory User Yuna's home city is Nantes, valid from 2025-02-02. | Memory User Noah's home city is now Lima, valid from 2025-02-05, replacing the previous value. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory User Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-02-03. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-02-03.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-02-02. | Memory Yuna's home city is Nantes, valid from 2025-02-02. | Memory Yuna's home city is now Nantes as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory Forget Mina's home city as per user instruction.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Mina's home city as per user instruction. | Memory Forget Mina's home city; the user does not want it kept. | Memory User requested to forget Mina's home city and does not want it kept in memory. | Memory User has requested to forget Mina's home city and does not want it kept. | Memory Yuna's home city is Nantes, valid from 2025-02-02.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-05, replacing the previous value. | Memory User has requested to forget Noah's home city and does not want it kept. | Memory Forget Noah's home city as per the user's request; it should not be retained in memory. | Memory Yuna's home city is now Nantes as of 2025-02-02, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-02.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User has requested to forget Sora's home city and does not want it kept. | Memory Forget Sora's home city as per the user's request; it should not be retained in memory. | Memory Yuna's home city is Nantes, valid from 2025-02-02. | Memory Yuna's home city is Nantes, valid from 2025-02-02. | Memory Yuna's home city is now Nantes as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-02-03. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-03, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Update: Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Update: Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Noah has requested to erase their home city from memory as of 2025-02-20. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Sora has asked for their home city to be erased from memory. | Memory Sora requested to erase their home city from the memory on 2025-02-16. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-02-03. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is now Split, which is a recent update valid from 2025-02-03.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is now Split, which is a recent update valid from 2025-02-03. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth, valid from 2025-02-03.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory Liam's home city is now Perth, valid from 2025-02-03. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory User requested the permanent deletion of all recorded information about Mina's home city on February 22, 2025. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Liam's home city is now Perth, valid from 2025-02-03. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Delete all records related to Noah's home city. | Memory User requested the permanent deletion of all recorded information about Noah's home city on February 20, 2025. | Memory Liam's home city is now Perth, valid from 2025-02-03. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Sora's home city. | Memory The user requested to permanently delete everything recorded about Sora's home city. | Memory User requested the permanent deletion of all recorded information about Sora's home city on February 16, 2025. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is now Split, which is a recent update valid from 2025-02-03.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 2,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city changed to Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 15,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Sora's home city is Porto, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Liam's home city is Perth, valid from 2025-01-31; Omar's home city is now Split, valid from 2025-02-04. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Sora's home city is Porto, valid from 2025-01-31.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Sora's home city is Porto, valid from 2025-01-31. | Memory Sora's home city is Porto, valid from 2025-01-31.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Forget Omar's home city as per user's instruction. | Memory Forget Omar's home city as requested by the user, recorded on 2025-02-20. | Memory Forget Omar's home city as per user instruction. | Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location. | Memory The user has requested to forget Mina's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location. | Memory Sora's home city has been confirmed to be Porto as of 2025-01-31. | Memory Sora's home city is now Porto as of 2025-01-31, confirming the previous change. | Memory Forget Omar's home city as per user's instruction. | Memory Forget Omar's home city as per user instruction.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city has been confirmed to be Porto as of 2025-01-31. | Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location. | Memory Sora's home city is now Porto as of 2025-01-31, confirming the previous change. | Memory As of January 31, 2025, Sora's home city is Porto, replacing the previous value. | Memory Forget Yuna's home city as requested by the user; it should not be retained in memory.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory The user has requested to forget Mina's home city. | Memory Forget Mina's home city as requested by the user; it should not be retained in memory. | Memory Forget Mina's home city as per user's request. The user explicitly does not want this information retained. | Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location. | Memory Sora's home city has been confirmed to be Porto as of 2025-01-31.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Forget Omar's home city as per user's instruction. | Memory Forget Omar's home city as requested by the user, recorded on 2025-02-20. | Memory Forget Omar's home city as per user instruction. | Memory Forget Omar's home city as per user's request on 2025-02-20. The user explicitly does not want this information retained. | Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Forget Yuna's home city as requested by the user; it should not be retained in memory. | Memory Forget Yuna's home city as requested by the user; it should not be retained in memory. | Memory Sora's home city was updated to Porto as of 2025-01-31, replacing the previous location. | Memory Sora's home city has been confirmed to be Porto as of 2025-01-31. | Memory Sora's home city is now Porto as of 2025-01-31, confirming the previous change.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Omar has requested their home city to be erased from memory. | Memory Omar has requested their home city to be erased from memory. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina has requested the removal of their home city from memory. | Memory Mina has requested their home city be erased from memory, indicating a desire for privacy or change related to their personal information on 2025-02-18. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Omar has requested their home city to be erased from memory. | Memory Omar has requested their home city to be erased from memory. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01. | Memory Yuna's home city is Nantes, valid from 2025-02-01.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 5,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory User Liam's home city is now confirmed to be Perth as of January 31, 2025. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory User Sora's home city is Porto as of January 31, 2025, confirming the recent update. | Memory User Sora's home city is Porto as of January 31, 2025, replacing the previous value. | Memory User Sora's home city is Porto as of January 31, 2025, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory User Noah's home city is Lima, valid from January 31, 2025.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025. | Memory User Noah's home city is Lima, valid from January 31, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Permanently delete everything recorded about Omar's home city. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory User has requested the permanent deletion of all recorded memories regarding Omar's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Yuna's home city. | Memory User Sora's home city is Porto as of January 31, 2025, confirming the recent update. | Memory User Sora's home city is Porto as of January 31, 2025, replacing the previous value. | Memory User Sora's home city is Porto as of January 31, 2025, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 3,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 15,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory As of February 2, 2025, Mina's home city is Cairo, replacing the previous value. | Memory Sora's home city is now Porto, valid from 2025-02-04, replacing the previous city (Accra). | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Sora's home city is now Porto, valid from 2025-02-04, replacing the previous city (Accra).",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto, valid from 2025-02-04, replacing the previous city (Accra). | Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Sora's home city is now Porto, valid from 2025-02-04, replacing the previous city (Accra). | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Forget Yuna's home city as per user request. | Memory Forget Yuna's home city as the user does not want it kept. | Memory Forget Yuna's home city, as the user does not want it kept.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Forget Yuna's home city as per user request. | Memory Forget Yuna's home city as the user does not want it kept.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Yuna's home city as per user request. | Memory Forget Yuna's home city, as the user does not want it kept. | Memory Forget Yuna's home city as the user does not want it kept. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Yuna has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Yuna has asked for their home city to be erased from memory. | Memory Yuna has requested for their home city to be erased from memory as of 2025-02-17. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth, effective January 31, 2025, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Delete all recorded information about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Liam's home city is now Perth, effective January 31, 2025, replacing the previous value. | Memory Delete all recorded information about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value. | Memory Delete all recorded information about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Delete all recorded information about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory Permanently delete everything recorded about Yuna's home city. | Memory The user requested to permanently delete all recorded memories about Yuna's home city on 2025-02-17. | Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. This represents a permanent update in memory. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is Porto, valid from 2025-02-04, replacing any previous values. | Memory Noah's home city is now Lima as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is Porto, valid from 2025-02-04. | Memory Sora's home city is Porto, valid from 2025-02-04, replacing any previous values.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 5,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-01-31, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima, valid from 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima, valid from 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima, valid from 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima, valid from 2025-02-02, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-05. | Memory Omar's home city is now Split as of 2025-02-05. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-01-31, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth, valid from 2025-01-31. | Memory Noah's home city is now Lima, valid from February 2, 2025. | Memory Omar's home city is Split, valid from 2025-02-05. | Memory User's name is Noah, and his home city is now Lima, valid from February 2, 2025. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Noah's home city is now Lima, valid from February 2, 2025.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima, valid from February 2, 2025. | Memory User's name is Noah, and his home city is now Lima, valid from February 2, 2025. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Mina's home city is now Cairo, valid from 2025-02-04.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Noah's home city is now Lima, valid from February 2, 2025.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto, valid from February 5, 2025. | Memory Sora's home city is now Porto, valid from February 5, 2025. | Memory User's name is Sora, and his home city is now Porto, valid from February 5, 2025. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Mina's home city is now Cairo, valid from 2025-02-04. | Memory Sora's home city is now Porto, valid from February 5, 2025.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-01-31. | Memory Mina's home city is Cairo, valid from 2025-02-04. This replaces any previous information about her home city. | Memory Omar's home city was previously Cairo before being updated to Split as of 2025-02-05. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina's home city is Cairo, valid from 2025-02-04.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo, valid from 2025-02-04. This replaces any previous information about her home city. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Yuna's home city was confirmed as Nantes as of 2025-01-31, replacing any previous values. | Memory Yuna's home city is Nantes, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Yuna's home city was confirmed as Nantes as of 2025-01-31, replacing any previous values. | Memory Mina's home city is Cairo, valid from 2025-02-04. This replaces any previous information about her home city. | Memory Liam's home city is now Perth as of 2025-01-31. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Omar's home city was previously Cairo before being updated to Split as of 2025-02-05.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city was previously Cairo before being updated to Split as of 2025-02-05. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-05, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-05, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-05, replacing the previous value. | Memory Yuna's home city was confirmed as Nantes as of 2025-01-31, replacing any previous values. | Memory Yuna's home city is Nantes, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city was confirmed as Nantes as of 2025-01-31, replacing any previous values. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Mina's home city is Cairo, valid from 2025-02-04. This replaces any previous information about her home city. | Memory Mina's home city is Cairo, valid from 2025-02-04. | Memory Mina's home city is Cairo, valid from 2025-02-04.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from January 31, 2025. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Update: Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-05, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Sora's home city is now Porto as of 2025-02-05, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-05, replacing the previous value. | Memory Sora's home city is now Porto, valid from 2025-02-05, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now confirmed as Perth, effective from 2025-01-31, replacing previous values. | Memory Liam's home city is now Perth, valid from 2025-01-31. | Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing previous values. | Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing any previous values. | Memory Omar's home city is Split, valid from 2025-02-08.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing previous values.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing any previous values. | Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing previous values. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-08. | Memory Omar's home city is now confirmed as Split, effective from 2025-02-08, replacing any previous values. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Noah's home city is now confirmed as Lima, effective from 2025-02-02, replacing previous values.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Sora's home city is now Porto as of 2025-02-05, replacing any previous values. | Memory Sora's home city is now Porto as of 2025-02-05, replacing any previous values. | Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from 2025-01-31. | Memory Yuna's home city is now Nantes, valid from 2025-01-31. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-04, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Mina's home city is now Cairo, valid from 2025-02-05. | Memory Mina's home city is now Cairo, valid from 2025-02-05, replacing the previous value. | Memory Yuna's home city is now Nantes, valid from 2025-02-04. Mina's home city is Cairo, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Liam's home city is now Perth, valid from 2025-02-01. | Memory As of 2025-02-17, all recorded memories about Liam's home city have been permanently deleted as per user's directive. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Mina's home city is now Cairo, valid from 2025-02-05.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo, valid from 2025-02-05. | Memory Mina's home city is now Cairo, valid from 2025-02-05, replacing the previous value. | Memory Yuna's home city is now Nantes, valid from 2025-02-04. Mina's home city is Cairo, valid from 2025-02-05. | Memory Delete all records related to Mina's home city. | Memory Permanently delete all records about Mina's home city.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User's name is Noah. User's home city is Lima, valid from 2025-02-04. | Memory User's name is Noah. All recorded information about Noah's home city has been permanently deleted as of 2025-02-21 as per user's directive. | Memory User's name is Noah. | Memory Yuna's home city is now Nantes, valid from 2025-02-04. Mina's home city is Cairo, valid from 2025-02-05. | Memory Yuna's home city has been updated to Nantes, valid from 2025-02-04, replacing Quito as of 2025-01-06.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city has been updated to Nantes, valid from 2025-02-04, replacing Quito as of 2025-01-06. | Memory Yuna's home city is now Nantes, valid from 2025-02-04. Mina's home city is Cairo, valid from 2025-02-05. | Memory Mina's home city is now Cairo, valid from 2025-02-05. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split, valid from 2025-02-03.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes, valid from 2025-02-04. Mina's home city is Cairo, valid from 2025-02-05. | Memory Yuna's home city has been updated to Nantes, valid from 2025-02-04, replacing Quito as of 2025-01-06. | Memory Mina's home city is now Cairo, valid from 2025-02-05. | Memory Mina's home city is now Cairo, valid from 2025-02-05, replacing the previous value. | Memory Permanently delete all records about Mina's home city.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 8,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Mina's home city is Cairo, valid from 2025-02-08. | Memory User requested to forget Liam's home city. | Memory Forget User Liam's home city as of 2025-02-17; the user does not want it kept.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory User requested to forget Liam's home city. | Memory Forget User Liam's home city as of 2025-02-17; the user does not want it kept. | Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Omar's home city is Split, valid from 2025-02-03. | Memory User Mina's home city is Cairo, valid from 2025-02-08.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory User Mina's home city is Cairo, valid from 2025-02-08. | Memory Forget Mina's home city as per the user's request on 2025-02-23. | Memory Forget Mina's home city as per user's request. The user has expressed a desire not to retain this information. | Memory User has instructed to forget Mina's home city, indicating a preference for privacy or to avoid retaining sensitive information. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Forget Noah's home city as requested by the user. | Memory The user has requested to forget Noah's home city. | Memory User Noah requested to forget his home city as of 2025-02-21. | Memory Forget Noah's home city as the user requests no retention of this information. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Forget Sora's home city; the user does not want it kept. | Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Forget Yuna's home city as per user's request. | Memory Forget Yuna's home city as per the user's request on 2025-02-21. | Memory Forget Yuna's home city as of 2025-02-21; the user does not want it kept.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-04, replacing the previous value. | Memory Forget Yuna's home city as per the user's request on 2025-02-21. | Memory Forget Yuna's home city as per user's request. | Memory Forget Yuna's home city as of 2025-02-21; the user does not want it kept. | Memory Forget Mina's home city as per the user's request on 2025-02-23.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Mina's home city has been erased from memory as per request.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Mina's home city has been erased from memory as per request.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory Mina's home city has been erased from memory as per request. | Memory Mina's home city has been erased from memory as per request. | Memory Mina has requested for their home city to be erased from memory, reflecting a desire for privacy or confidentiality. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna's home city is Nantes, valid from February 4, 2025. | Memory Yuna has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Permanently delete everything recorded about Liam's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Liam's home city. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory User requested the permanent deletion of all recorded information regarding Mina's home city. | Memory Delete all recorded memories related to Mina's home city, as per the user's instructions on 2025-02-23. | Memory Delete all recorded memories related to Mina's home city permanently.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Permanently delete everything recorded about Liam's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-03. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value. | Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Permanently delete everything recorded about Mina's home city. | Memory Permanently delete everything recorded about Mina's home city. | Memory Omar's home city is Split, valid from 2025-02-03. | Memory User requested the permanent deletion of all recorded information regarding Mina's home city. | Memory Omar's home city is Split as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 6,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 17,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Noah's home city is Lima as of 2025-01-31. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory As of 2025-01-31, Noah's home city is Lima, which replaced the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is Cairo, valid from 2025-02-02. | Memory Yuna's home city is now Nantes as of 2025-02-01.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is Lima as of 2025-01-31. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory As of 2025-01-31, Noah's home city is Lima, which replaced the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Noah's home city is Lima as of 2025-01-31. | Memory Mina's home city is Cairo, valid from 2025-02-02. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Permanently delete everything recorded about Sora's home city. | Memory Delete all memories recorded about Sora's home city. | Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Noah's home city is Lima as of 2025-01-31. | Memory Yuna's home city has been permanently deleted as of 2025-02-16.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-01. | Memory Yuna's home city has been permanently deleted as of 2025-02-16. | Memory Mina's home city is Cairo, valid from 2025-02-02. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": true,
+          "leaked_latest": true,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Omar's home city is Split, valid from 2025-02-02. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Forget Yuna's home city. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Forget Yuna's home city as per user's request. | Memory Forget Yuna's home city as per user request.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Forget Yuna's home city. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-02. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Forget Yuna's home city. | Memory Forget Yuna's home city as per user's request. | Memory Forget Yuna's home city as per user request. | Memory Noah's home city is now Lima as of 2025-01-31, replacing the previous value. | Memory Mina's home city is Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Forget Yuna's home city as per user request. | Memory Forget Yuna's home city. | Memory Forget Yuna's home city as per user's request. | Memory Forget Yuna's home city as per user request. This memory should no longer be retained. | Memory The user prefers to forget Yuna's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Noah's home city is now Lima, valid from 2025-01-31. | Memory Omar's home city is now Split as of 2025-02-02, reflecting user update and replacing the previous value. This memory is essential to track changes in location accurately.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city remains Cairo, valid from 2025-02-02. This memory serves to reinforce knowledge reliability and continuity in Mina's residency. | Memory Mina's home city remains Cairo, valid from 2025-02-02. | Memory Noah's home city is now Lima, valid from 2025-01-31. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima, valid from 2025-01-31. | Memory Liam's home city is Perth as of 2025-02-03, replacing the previous value. | Memory Mina's home city remains Cairo, valid from 2025-02-02. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-03, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, reflecting user update and replacing the previous value. This memory is essential to track changes in location accurately. | Memory Mina's home city remains Cairo, valid from 2025-02-02. | Memory Liam's home city is Perth as of 2025-02-03, replacing the previous value. | Memory Mina's home city remains Cairo, valid from 2025-02-02. This memory serves to reinforce knowledge reliability and continuity in Mina's residency.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Noah's home city is now Lima, valid from 2025-01-31. | Memory Mina's home city remains Cairo, valid from 2025-02-02. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory. | Memory Yuna has asked for their home city to be erased from your memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-oracle",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of February 3, 2025, replacing the previous information. | Memory Liam's home city is now Perth as of February 3, 2025, replacing the previous information. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Mina's home city is now Cairo as of February 2, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of February 2, 2025, replacing the previous value. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Liam's home city is now Perth as of February 3, 2025, replacing the previous information.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory User's name is Noah, and his home city is Lima. This information is valid from January 31, 2025. | Memory Liam's home city is now Perth as of February 3, 2025, replacing the previous information. | Memory Liam's home city is now Perth as of February 3, 2025, replacing the previous information.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of February 2, 2025, replacing the previous value. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Permanently delete all recorded information regarding Sora's home city as instructed by the user on 2025-02-16. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of February 2, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory User has requested the deletion of all recorded information regarding Yuna's home city as of February 16, 2025. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Mina's home city is now Cairo as of February 2, 2025, replacing the previous value. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date. | Memory Noah's home city is Lima as of January 31, 2025, which replaces the previous value of Lima on the same date.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 3,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-caller",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Omar's home city is now Split as of 2025-02-02, replacing the previous value. | Memory Update: Omar's home city is now Split as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 10,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    }
+  ],
+  "reference": [
+    {
+      "condition": "typed-purge",
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 8,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 8,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 3,
+      "stores": [],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 10,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 10,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 5,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    }
+  ],
+  "summary": {
+    "langmem:api-caller": {
+      "histories_with_purge": 9,
+      "kept_present": 19,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    },
+    "langmem:api-oracle": {
+      "histories_with_purge": 9,
+      "kept_present": 30,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    },
+    "langmem:prose-1": {
+      "histories_with_purge": 9,
+      "kept_present": 30,
+      "kept_total": 36,
+      "leaked": 15,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 8,
+      "worker_errors": 0
+    },
+    "langmem:prose-2": {
+      "histories_with_purge": 9,
+      "kept_present": 32,
+      "kept_total": 36,
+      "leaked": 3,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 2,
+      "worker_errors": 0
+    },
+    "langmem:prose-3": {
+      "histories_with_purge": 9,
+      "kept_present": 27,
+      "kept_total": 36,
+      "leaked": 6,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 6,
+      "worker_errors": 0
+    }
+  }
+}

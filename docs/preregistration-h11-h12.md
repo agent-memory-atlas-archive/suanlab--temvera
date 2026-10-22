@@ -65,3 +65,14 @@ reader of H9 (same prompt, `gpt-4o-mini`, temperature 0). Nothing else differs.
 
 Analysis: case-weighted rates over the stated questions; the ceiling check uses
 `analyze_filtering_laws`' answerability rule.
+
+## Outcomes (recorded 2026-10-23)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H11b-1 | superseded values anywhere in Mem0 <= 10%, LangMem <= 25% | 0/75, 7/75 | holds |
+| H11b-2 | Graphiti >= 90% | 75/75 | holds |
+| H11b-3 | Graphiti `invalid_at` = successor's valid-from for fewer than half | 43/75 (set at all: 61/75) | **falsified** (Graphiti closes intervals more often than predicted) |
+| H12a | retain <= 0.05, consolidate <= 0.385 valid time as returned | 0.159; 0.385 | **falsified** for retain |
+| H12b | read: retain >= 0.70, consolidate <= 0.385 with <= 2% beyond the ceiling | 0.774; 0.379, 0 beyond | holds |
+| H12c | read: consolidate transaction-scoped >= retain, both >= 0.90 | 1.000, 1.000 | holds |

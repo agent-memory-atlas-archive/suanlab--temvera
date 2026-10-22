@@ -88,3 +88,21 @@ subjects; no test beyond the thresholds above.
   asks for everything about the attribute (evidence ledger E-096). The primary
   measure stays as stated above -- any value the subject ever had -- and each
   record also reports whether the latest value alone leaks.
+
+## Outcomes (recorded 2026-10-23, after all runs; `deletion-study-*-v1`)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H10a | >= 80% of purged subjects leak under each prose wording, in each system | Graphiti, Cognee, Hindsight 24/24 under all three; Mem0 24, 2, 24; LangMem 15, 3, 6 | **falsified** for Mem0 (wording 2) and LangMem (all wordings) |
+| H10b | `api-oracle` leaks <= 10% for Mem0, Graphiti, Cognee, LangMem | 0/24 in all five systems | holds |
+| H10c | off-path residue in >= half the histories for Mem0, Cognee, Hindsight; none for LangMem | 9/9, 9/9, 9/9; LangMem 0 | holds |
+| H10d | Mem0's prose leaks exceed its dropped actions | 50/72 leaked, 0 dropped actions logged | holds |
+| H10e | `api-caller` leaks more or loses more kept subjects than `api-oracle` | leaks 0 vs 0; kept 114/180 vs 174/180 | holds (by collateral loss) |
+
+Not predicted, reported: Mem0's extractor emitted 23 DELETE actions under
+"Please forget ..." and 1-3 under the other wordings; LangMem, whose manager
+cannot delete, rewrote memories and lost never-purged subjects under prose (30,
+32, 27 of 36 kept); the realistic caller kept 8 (Mem0), 18 (Graphiti), 19
+(LangMem), 33 (Cognee), 36 (Hindsight) of 36; Graphiti's entity summaries and,
+in up to 3 histories, Cognee's graph or vector store still hold a purged value
+after `api-oracle`; Hindsight's LLM-request log holds it in every history.
