@@ -635,19 +635,30 @@ moved $0.000 \to 0.125$ (2 of 16 cases) between runs, exactly the instability it
 Wilson interval predicts. We therefore draw no conclusion from either system's
 expiry number.
 
-\textbf{A stronger backbone changes nothing.} Re-running the whole 20-cell grid
-for Mem0 and Graphiti with \texttt{gpt-4o} in place of \texttt{gpt-4o-mini},
-otherwise unchanged, moves no category by more than 2 of its cases. Mem0 goes
-from $0.603$ to $0.607$ overall and from $0.364$ to $0.374$ on valid time;
-Graphiti from $0.196$ to $0.194$ overall, and on valid time it answers 0 of 195
-under both. The deficits belong to how the stores retain and retrieve, not to
-how well the extractor reads.
+\textbf{A stronger backbone moves no system across the divide.} Re-running the
+whole 20-cell grid with \texttt{gpt-4o} in place of \texttt{gpt-4o-mini},
+otherwise unchanged, moves no category of Mem0 or Graphiti by more than 2 of its
+cases. Mem0 goes from $0.603$ to $0.607$ overall and from $0.364$ to $0.374$ on
+valid time; Graphiti from $0.196$ to $0.194$ overall, and on valid time it
+answers 0 of 195 under both. The other three move more but stay on their side:
+LangMem's valid-time accuracy falls from 0.323 to 0.262, still under the ceiling
+of \S\ref{sec:bounds} with no answer above it, and its transaction-scoped
+accuracy from 0.890 to 0.789, below the 0.80 we had predicted; Hindsight's
+retrieval layer answers 0 of 195 valid-time questions under both; Cognee's
+reader answers 194, Hindsight's 159 exactly where it answered 67. The exact gap
+between the two readers therefore depends on how the model words its answers,
+which \S\ref{sec:reader} shows directly; the design classes do not.
 
-\textbf{Repeated runs agree.} Three further runs of Mem0 and Graphiti on four
-of the grid's cells, otherwise identical, reproduce the cited runs' overall
-accuracy exactly --- 60 and 20 of 97 cases in all four runs of each --- and move
-no category by more than 1 case. Extraction is not bit-reproducible, but its
-run-to-run variation is far below the effects we report.
+\textbf{Repeated runs agree, except one reader.} Three further runs of every
+configuration on four of the grid's cells (97 cases), otherwise identical,
+reproduce the cited overall accuracy exactly for Mem0 and Graphiti (60 and 20)
+and for the retrieval layers of Cognee and Hindsight (20), move LangMem and
+Cognee's reader by at most 2 cases, and leave every retrieval layer at 0 of 38
+valid-time questions. Hindsight's reader, which reads at temperature 0.9, moves
+by up to 10 cases and answers 8, 12 and 14 valid-time questions where the cited
+run answered 19, though still fewer than Cognee's reader (38) in every run.
+Run-to-run variation is below the effects we report everywhere except in that
+reader's exact score, which we therefore do not read as a stable number.
 
 \textbf{Does Graphiti's own filter repair it?} Enabling its native valid-time
 \texttt{SearchFilter} raises exact from $0.224$ to $0.318$ and cuts stale-use
@@ -1314,9 +1325,9 @@ The grid's histories are synthetic with hand-specified operation profiles, so
 contradiction density is approximated by operation mix and revision count rather
 than sampled from real usage; the benchmark check covers 62 of 69 candidate
 supersessions, 19 of them labelled by the author from AI-proposed labels. Five external systems in seven configurations
-run on \texttt{gpt-4o-mini}; only Mem0 and Graphiti were re-run on a second
-backbone, and only those two were replicated; LLM extraction is not
-bit-reproducible, and LangMem and Hindsight do not run at temperature~0. The
+run on \texttt{gpt-4o-mini} and were re-run on \texttt{gpt-4o}, one provider's
+models only; LLM extraction is not bit-reproducible, LangMem and Hindsight do not
+run at temperature~0, and Hindsight's reader is not stable across runs. The
 first same-protocol replication moved a small-denominator category by 0.125,
 which is why we draw no conclusion from expiry. The deletion
 result rests on a single seeded history, so it establishes a direction, not a

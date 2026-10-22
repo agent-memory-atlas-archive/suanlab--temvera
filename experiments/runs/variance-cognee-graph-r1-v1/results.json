@@ -1,0 +1,327 @@
+{
+  "backbone": {
+    "cognee_version": "1.4.2",
+    "embed_model": "text-embedding-3-small",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "search_type": "GRAPH_COMPLETION",
+    "store": "local (sqlite + embedded vector/graph, no server)",
+    "store_isolated": true,
+    "system": "cognee",
+    "worker_error_messages": [],
+    "worker_errors": 0
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 5
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "cognee"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "cognee"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 0.5,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 0.8333333333333334,
+      "exact_state_accuracy": 0.8333333333333334,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.16666666666666666,
+      "system": "cognee"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 0.0,
+        "purge": 0.6666666666666666,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 0.8717948717948718,
+      "exact_state_accuracy": 0.8717948717948718,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.1282051282051282,
+      "system": "cognee"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "cognee": {
+        "expiry_boundary": 0.0,
+        "purge": 0.5833333333333333,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=3,revisions=2": {
+        "cognee": {
+          "ci95_high": 0.8333333333333334,
+          "ci95_low": 0.8333333333333334,
+          "exact_mean": 0.8333333333333334,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=mixed_lifecycle,entities=6,revisions=3": {
+        "cognee": {
+          "ci95_high": 0.8717948717948718,
+          "ci95_low": 0.8717948717948718,
+          "exact_mean": 0.8717948717948718,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=revision_only,entities=3,revisions=2": {
+        "cognee": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=revision_only,entities=6,revisions=3": {
+        "cognee": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      }
+    },
+    "overall": {
+      "cognee": {
+        "abstention_accuracy": 0.5,
+        "evidence_recall": 0.9262820512820513,
+        "exact_state_accuracy": 0.9262820512820513,
+        "stale_use_rate": 0.0737179487179487
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 0,
+    "ingest_latency": {
+      "mean_s": 0.6764080934833897,
+      "n": 92,
+      "p50_s": 0.5262037143111229,
+      "p95_s": 0.638006953522563,
+      "total_s": 62.229544600471854
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 10.514904438354765,
+      "n": 97,
+      "p50_s": 7.805614637210965,
+      "p95_s": 18.463725224137306,
+      "total_s": 1019.9457305204123
+    },
+    "usage": {}
+  },
+  "workload": {
+    "distinct_values": false,
+    "natural_pools": "standard"
+  }
+}

@@ -50,3 +50,18 @@ Hindsight recall 20 (0/38), Hindsight reflect 45 (19/38).
 
 Analysis: the existing `micro` aggregation and `analyze_filtering_laws.ceiling`,
 over the same cells as each cited run.
+
+## Outcomes (recorded 2026-10-23, after all runs; `scripts/analyze_h8.py`)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H8a | Cognee chunks and Hindsight recall 0/38 valid time in every replicate | 0, 0, 0 and 0, 0, 0 | holds |
+| H8b | Cognee graph > Hindsight reflect on valid time in each replicate | 38 vs 8, 38 vs 12, 38 vs 14 | holds |
+| H8c | overall within 5 of the cited run (LangMem, Cognee x2, Hindsight recall); Hindsight reflect within 10 | max moves 2, 0, 1, 0; Hindsight reflect 10 | holds (Hindsight reflect at the boundary) |
+| H8d | LangMem <= 2% beyond the ceiling in every replicate and on gpt-4o; on gpt-4o valid time <= 0.385 and transaction-scoped >= 0.80 | 0 beyond everywhere; gpt-4o valid time 0.262; transaction-scoped 0.789 | **falsified** on the transaction-scoped threshold only |
+| H8e | Hindsight recall on gpt-4o valid time <= 0.03 | 0.000 | holds |
+| H8f | Cognee graph on gpt-4o >= 0.90; Hindsight reflect below it | 0.995; 0.815 | holds |
+
+Not predicted, reported: on gpt-4o Hindsight's reader answers 159/195 valid-time
+questions exactly (67 on gpt-4o-mini), consistent with E-095's finding that the
+exact gap between the two readers is a matter of answer form.

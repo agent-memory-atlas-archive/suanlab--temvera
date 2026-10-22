@@ -416,9 +416,9 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "largest per-category change, gpt-4o vs mini (cases)", "2",
           lambda: _backbone_max_shift(), 0.5, near="otherwise unchanged, moves no category"),
     Claim("5.2", "Mem0 overall, mini (micro)", "0.603",
-          lambda: micro("external-mem0-grid-v2", cells=cells()), near="Mem0 goes\nfrom"),
+          lambda: micro("external-mem0-grid-v2", cells=cells()), near="Mem0 goes from"),
     Claim("5.2", "Mem0 overall, gpt-4o (micro)", "0.607",
-          lambda: micro("external-mem0-grid-gpt4o-v1", cells=cells()), near="Mem0 goes\nfrom"),
+          lambda: micro("external-mem0-grid-gpt4o-v1", cells=cells()), near="Mem0 goes from"),
     Claim("5.2", "Mem0 valid_time, mini (micro)", "0.364",
           lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
           near="overall and from"),
@@ -431,25 +431,22 @@ CLAIMS: list[Claim] = [
           lambda: micro("external-graphiti-hybrid-gpt4o-v1", cells=cells()), near="Graphiti from"),
     Claim("5.2", "Graphiti valid_time hits, gpt-4o", "0",
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[0],
-          0.5, near="on valid time it answers"),
+          0.5, near="on valid time it\nanswers"),
     Claim("5.2", "Graphiti valid_time hits, mini", "0",
           lambda: micro_counts("external-graphiti-hybrid-v1", "valid_time", cells())[0],
-          0.5, near="on valid time it answers"),
+          0.5, near="on valid time it\nanswers"),
     Claim("5.2", "Graphiti valid_time cases", "195",
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[1],
-          0.5, near="on valid time it answers"),
+          0.5, near="on valid time it\nanswers"),
     # -- replicates: four cells, cited run + three repeats (case counts) -------
     Claim("5.2", "Mem0 overall hits, identical in all four runs", "60",
-          lambda: replicate("mem0", "hits"), 0.5, near="reproduce the cited runs' overall"),
+          lambda: replicate("mem0", "hits"), 0.5, near="exactly for Mem0 and Graphiti ("),
     Claim("5.2", "Graphiti overall hits, identical in all four runs", "20",
-          lambda: replicate("graphiti", "hits"), 0.5, near="reproduce the cited runs' overall"),
+          lambda: replicate("graphiti", "hits"), 0.5, near="exactly for Mem0 and Graphiti (60 and"),
     Claim("5.2", "cases in the four replicate cells", "97",
           lambda: replicate("mem0", "cases") if replicate("mem0", "cases")
           == replicate("graphiti", "cases") else -1.0, 0.5,
-          near="reproduce the cited runs' overall"),
-    Claim("5.2", "largest per-category shift across replicates (cases)", "1",
-          lambda: max(replicate("mem0", "shift"), replicate("graphiti", "shift")), 0.5,
-          near="no category by more than", after="Repeated runs agree"),
+          near="four of the grid's cells ("),
     # -- abstract: figures printed only in the abstract and tables -------------
     Claim("abs", "LangMem transaction_as_of (micro)", "0.890",
           lambda: micro("external-langmem-v1", "transaction_as_of", cells()),
@@ -746,7 +743,7 @@ def _real_claims() -> list:
         Claim("5.real", "pairs the extractors agreed on", "43", lambda: lme_pairs("agreement"),
               near="They\nagreed on"),
         Claim("5.real", "pairs adjudicated", "26",
-              lambda: lme_pairs("candidates") - lme_pairs("agreement"), 0.5, near="The other"),
+              lambda: lme_pairs("candidates") - lme_pairs("agreement"), 0.5, near="agreed on 43 pairs. The other"),
         Claim("5.real", "adjudicated pairs labelled", "19", lambda: lme_pairs("adjudicated"),
               near="author decided,\nlabelling"),
         Claim("5.real", "adjudicated pairs excluded", "7", lambda: lme_pairs("excluded"),
@@ -1697,11 +1694,97 @@ def _h12_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims()
+# -- H8: replicates and gpt-4o for LangMem, Cognee, Hindsight -------------------
+_h8_report = None
+
+
+def h8() -> dict:
+    global _h8_report
+    if _h8_report is None:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import analyze_h8
+
+        _h8_report = {"replicates": analyze_h8.replicates(), "backbone": analyze_h8.backbone()}
+    return _h8_report
+
+
+def h8_rate(name: str, model: str, category: str) -> float:
+    entry = h8()["backbone"][name][model]
+    return entry[category] / entry[f"{category}_n"]
+
+
+def h8_count(name: str, model: str, category: str) -> float:
+    return float(h8()["backbone"][name][model][category])
+
+
+def h8_rep(name: str) -> list[dict]:
+    return h8()["replicates"][name]["replicates"]
+
+
+def _h8_claims() -> list:
+    A = "A stronger backbone moves no system across the divide"
+    R = "Repeated runs agree, except one reader"
+    rv = lambda name: [r["valid_time"] for r in h8_rep(name)]  # noqa: E731
+    return [
+        Claim("5.2", "LangMem valid_time, mini", "0.323",
+              lambda: h8_rate("langmem", "gpt-4o-mini", "valid_time"), near="LangMem's valid-time accuracy falls from", after=A),
+        Claim("5.2", "LangMem valid_time, gpt-4o", "0.262",
+              lambda: h8_rate("langmem", "gpt-4o", "valid_time"), near="falls from 0.323 to", after=A),
+        Claim("5.2", "LangMem gpt-4o answers beyond ceiling", "no",
+              lambda: 0.0 if h8()["backbone"]["langmem"]["ceiling"]["beyond"] == 0 else -1.0, 0.5,
+              near="with", after="still under the ceiling"),
+        Claim("5.2", "LangMem transaction, mini", "0.890",
+              lambda: h8_rate("langmem", "gpt-4o-mini", "transaction_as_of"), near="transaction-scoped\naccuracy from", after=A),
+        Claim("5.2", "LangMem transaction, gpt-4o", "0.789",
+              lambda: h8_rate("langmem", "gpt-4o", "transaction_as_of"), near="accuracy from 0.890 to", after=A),
+        Claim("5.2", "H8d transaction threshold", "0.80",
+              lambda: 0.80 if "transaction-scoped\n  accuracy at least 0.80" in (ROOT / "docs" / "preregistration-h8.md").read_text() else -1.0,
+              near="below the", after=A),
+        Claim("5.2", "Hindsight recall gpt-4o valid time", "0",
+              lambda: h8_count("hindsight-recall", "gpt-4o", "valid_time"), 0.5,
+              near="retrieval layer answers", after=A),
+        Claim("5.2", "Cognee reader gpt-4o valid time", "194",
+              lambda: h8_count("cognee-graph", "gpt-4o", "valid_time"), 0.5, near="Cognee's\nreader answers", after=A),
+        Claim("5.2", "Hindsight reader gpt-4o valid time", "159",
+              lambda: h8_count("hindsight-reflect", "gpt-4o", "valid_time"), 0.5, near="Hindsight's", after="reader answers 194"),
+        Claim("5.2", "Hindsight reader mini valid time", "67",
+              lambda: h8_count("hindsight-reflect", "gpt-4o-mini", "valid_time"), 0.5, near="exactly where it answered", after=A),
+        Claim("5.2", "retrieval layers of Cognee and Hindsight, replicate overall", "20",
+              lambda: float(max(r["exact"] for n in ("cognee-chunks", "hindsight-recall") for r in h8_rep(n)))
+              if len({r["exact"] for n in ("cognee-chunks", "hindsight-recall") for r in h8_rep(n)}) == 1 else -1.0,
+              0.5, near="retrieval layers of Cognee and Hindsight (", after=R),
+        Claim("5.2", "LangMem and Cognee reader, largest move", "2",
+              lambda: float(max(h8()["replicates"][n]["max_overall_move"] for n in ("langmem", "cognee-graph"))),
+              0.5, near="by at most", after=R),
+        Claim("5.2", "retrieval layers valid time in replicates", "0",
+              lambda: float(max(max(rv(n)) for n in ("cognee-chunks", "hindsight-recall"))), 0.5,
+              near="every retrieval layer at", after=R),
+        Claim("5.2", "valid-time questions in replicate cells", "38",
+              lambda: float(h8()["replicates"]["langmem"]["cited"]["valid_time_n"]), 0.5,
+              near="layer at 0 of", after=R),
+        Claim("5.2", "Hindsight reader largest move", "10",
+              lambda: float(h8()["replicates"]["hindsight-reflect"]["max_overall_move"]), 0.5,
+              near="moves\nby up to", after=R),
+        Claim("5.2", "Hindsight reader replicate valid time r1", "8", lambda: float(rv("hindsight-reflect")[0]),
+              0.5, near="cases and answers", after=R),
+        Claim("5.2", "Hindsight reader replicate valid time r2", "12", lambda: float(rv("hindsight-reflect")[1]),
+              0.5, near="answers 8,", after=R),
+        Claim("5.2", "Hindsight reader replicate valid time r3", "14", lambda: float(rv("hindsight-reflect")[2]),
+              0.5, near="12 and", after=R),
+        Claim("5.2", "Hindsight reader cited valid time (4 cells)", "19",
+              lambda: float(h8()["replicates"]["hindsight-reflect"]["cited"]["valid_time"]), 0.5,
+              near="the cited\nrun answered", after=R),
+        Claim("5.2", "Cognee reader valid time in every replicate", "38",
+              lambda: float(min(rv("cognee-graph"))) if len(set(rv("cognee-graph"))) == 1 else -1.0, 0.5,
+              near="Cognee's reader (", after=R),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims()
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
-_WORDS = {"none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+_WORDS = {"no": 0, "none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
           "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
 
 

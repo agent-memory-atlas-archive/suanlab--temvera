@@ -1,0 +1,325 @@
+{
+  "backbone": {
+    "embed_model": "text-embedding-3-small",
+    "langmem_version": "0.0.30",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": true,
+    "replay": "transaction_checkpoint",
+    "store": "langgraph InMemoryStore (no server)",
+    "system": "langmem",
+    "worker_error_messages": [],
+    "worker_errors": 0
+  },
+  "naturalization_fallbacks": [
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 6
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    },
+    {
+      "entities": 3,
+      "names": 0,
+      "names_total": 3,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "values": 0,
+      "values_total": 5
+    },
+    {
+      "entities": 6,
+      "names": 0,
+      "names_total": 6,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "values": 0,
+      "values_total": 16
+    }
+  ],
+  "naturalized": true,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.4,
+        "valid_time": 0.3333333333333333
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 0.36363636363636365,
+      "exact_state_accuracy": 0.36363636363636365,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.3333333333333333,
+      "system": "langmem"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 11,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 0.9411764705882353,
+        "valid_time": 0.2777777777777778
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 0.6857142857142857,
+      "exact_state_accuracy": 0.6,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.38461538461538464,
+      "system": "langmem"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 0,
+      "by_category_exact": {
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 35,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "revision_only",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.5,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 0.25,
+        "transaction_as_of": 1.0,
+        "valid_time": 0.5
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 0.6666666666666666,
+      "exact_state_accuracy": 0.6666666666666666,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.3,
+      "system": "langmem"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 2,
+      "by_category_exact": {
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 12,
+      "entities": 3,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 2,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    },
+    {
+      "abstention_accuracy": 0.6,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 0.6666666666666666,
+        "purge": 0.3333333333333333,
+        "transaction_as_of": 0.8333333333333334,
+        "valid_time": 0.25
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 0.6153846153846154,
+      "exact_state_accuracy": 0.5641025641025641,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.34375,
+      "system": "langmem"
+    },
+    {
+      "abstention_accuracy": 1.0,
+      "abstention_cases": 5,
+      "by_category_exact": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      },
+      "cases": 39,
+      "entities": 6,
+      "evidence_recall": 1.0,
+      "exact_state_accuracy": 1.0,
+      "profile": "mixed_lifecycle",
+      "revisions": 3,
+      "seed": 7,
+      "stale_use_rate": 0.0,
+      "system": "oracle"
+    }
+  ],
+  "summary": {
+    "by_category_exact": {
+      "langmem": {
+        "expiry_boundary": 0.6666666666666666,
+        "purge": 0.29166666666666663,
+        "transaction_as_of": 0.7936274509803922,
+        "valid_time": 0.3402777777777778
+      },
+      "oracle": {
+        "expiry_boundary": 1.0,
+        "purge": 1.0,
+        "transaction_as_of": 1.0,
+        "valid_time": 1.0
+      }
+    },
+    "by_condition": {
+      "profile=mixed_lifecycle,entities=3,revisions=2": {
+        "langmem": {
+          "ci95_high": 0.6666666666666666,
+          "ci95_low": 0.6666666666666666,
+          "exact_mean": 0.6666666666666666,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=mixed_lifecycle,entities=6,revisions=3": {
+        "langmem": {
+          "ci95_high": 0.5641025641025641,
+          "ci95_low": 0.5641025641025641,
+          "exact_mean": 0.5641025641025641,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=revision_only,entities=3,revisions=2": {
+        "langmem": {
+          "ci95_high": 0.36363636363636365,
+          "ci95_low": 0.36363636363636365,
+          "exact_mean": 0.36363636363636365,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      },
+      "profile=revision_only,entities=6,revisions=3": {
+        "langmem": {
+          "ci95_high": 0.6,
+          "ci95_low": 0.6,
+          "exact_mean": 0.6,
+          "n_seeds": 1
+        },
+        "oracle": {
+          "ci95_high": 1.0,
+          "ci95_low": 1.0,
+          "exact_mean": 1.0,
+          "n_seeds": 1
+        }
+      }
+    },
+    "overall": {
+      "langmem": {
+        "abstention_accuracy": 0.775,
+        "evidence_recall": 0.5828504828504828,
+        "exact_state_accuracy": 0.5486013986013987,
+        "stale_use_rate": 0.34042467948717947
+      },
+      "oracle": {
+        "abstention_accuracy": 1.0,
+        "evidence_recall": 1.0,
+        "exact_state_accuracy": 1.0,
+        "stale_use_rate": 0.0
+      }
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 0,
+    "ingest_latency": {
+      "mean_s": 10.23902084917316,
+      "n": 92,
+      "p50_s": 6.0848728362470865,
+      "p95_s": 12.756066426634789,
+      "total_s": 941.9899181239307
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.15149280753409125,
+      "n": 97,
+      "p50_s": 0.14495478384196758,
+      "p95_s": 0.17784168757498264,
+      "total_s": 14.694802330806851
+    },
+    "usage": {}
+  },
+  "workload": {
+    "distinct_values": false,
+    "natural_pools": "standard"
+  }
+}
