@@ -1,0 +1,45 @@
+{
+  "bank_prefix": "hsreflect4o",
+  "benchmark": "temvera-external-hindsight-reflect-v1-gpt4o",
+  "bootstrap_samples": 2000,
+  "embed_model": "text-embedding-3-small",
+  "hindsight_server_version": "hindsight-api 0.9.1 (separate daemon, HINDSIGHT_API_LLM_MODEL=gpt-4o, otherwise default settings: local BAAI/bge-small-en-v1.5 embeddings)",
+  "hindsight_url": "http://localhost:8892",
+  "model": "gpt-4o",
+  "naturalize": true,
+  "profiles": [
+    {
+      "expire_probability": 0.0,
+      "name": "revision_only",
+      "purge_probability": 0.0,
+      "reconfirm_probability": 0.0
+    },
+    {
+      "expire_probability": 0.35,
+      "name": "mixed_lifecycle",
+      "purge_probability": 0.25,
+      "reconfirm_probability": 0.5
+    }
+  ],
+  "read_mode": "reflect",
+  "replay": "transaction_checkpoint",
+  "scales": [
+    {
+      "entities": 3,
+      "revisions": 2
+    },
+    {
+      "entities": 6,
+      "revisions": 3
+    }
+  ],
+  "search_limit": 5,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    42
+  ],
+  "user_id": "temvera-e1-grid-v2-gpt4o"
+}
