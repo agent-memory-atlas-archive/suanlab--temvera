@@ -1,13 +1,16 @@
 """Text-only Graphiti adapter for the external-comparison harness (E1).
 
 Wraps Graphiti's temporal knowledge graph behind the harness ``MemorySystem``
-contract, using the embedded **Kuzu** driver so no Neo4j/Docker server is
-needed. Unlike Mem0, Graphiti stores explicit edge validity (`valid_at`,
+contract. Every sealed run uses a Neo4j 5.26 server (``neo4j_uri``; the run
+records ``backend: neo4j``). Without a URI it falls back to the embedded Kuzu
+driver, whose edge full-text index is broken in graphiti-core 0.29.2, so that
+path is for smoke tests only. Unlike Mem0, Graphiti stores explicit edge validity (`valid_at`,
 `invalid_at`, `expired_at`, E-024/E-032), so this measures whether those fields
 translate into correct bitemporal answers under identical histories.
 
 Graphiti is async and uses OpenAI for extraction/embedding; calls are driven on
-a private event loop. `reset()` allocates a fresh in-memory Kuzu graph. The LLM
+a private event loop. `reset()` wipes this run's Neo4j group (or allocates a
+fresh in-memory Kuzu graph on the fallback path). The LLM
 is pinned to the same backbone as the Mem0 adapter for budget parity. The
 `graphiti-core` and `kuzu` dependencies are imported lazily (E1 runner only).
 """

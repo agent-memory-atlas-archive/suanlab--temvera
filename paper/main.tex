@@ -423,8 +423,9 @@ implementations of one specification, not external validation.
 \paragraph{Systems.} Internal baselines (append-only, full/recent context, BM25,
 last-write-wins) and the oracle; external systems Mem0 \texttt{0.1.118}, LangMem \texttt{0.0.30},
 Graphiti \texttt{0.29.2} on Neo4j~5.26, Cognee \texttt{1.4.2} and Hindsight,
-all with \texttt{gpt-4o-mini} and \embedmodel{} (\texttt{gpt-4o} only where
-\S\ref{sec:results} says so). Mem0, Graphiti and Cognee run at temperature~0;
+all with \texttt{gpt-4o-mini} (\texttt{gpt-4o} only where
+\S\ref{sec:results} says so) and, except Hindsight, \embedmodel{}; Hindsight
+keeps its default local embedder, \texttt{BAAI/bge-small-en-v1.5}. Mem0, Graphiti and Cognee run at temperature~0;
 LangMem and Hindsight keep their libraries' defaults --- LangMem's extractor
 sets no temperature, so the provider default applies, and Hindsight uses 0.1 to
 extract and 0.9 to reflect. The Hindsight runs did not record their version;
