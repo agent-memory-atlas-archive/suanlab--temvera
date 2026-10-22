@@ -40,3 +40,20 @@ the cited main-grid configurations with only names and store roots changed.
   accuracy at most 0.03.
 - **H7g -- Hindsight 1.1.0's reader still trails Cognee's:** its reflect
   valid-time accuracy is below Cognee 1.6.5's graph-completion accuracy.
+
+## Addendum 2 (2026-10-22, after the Mem0 2.2.1 grid, before its correction run)
+
+**Observed, not predicted:** on the main grid Mem0 2.2.1 answers 95/228
+transaction-scoped and 0/195 valid-time questions; its memories now keep the
+superseded value ("changed from Accra to Cairo, valid from ..."), and it answers
+93/93 questions with nothing to filter and 2/135 with something to filter. So
+H7b is falsified and H7a holds only vacuously: Mem0 2.2.1 no longer
+consolidates; it retains without filtering. Reported as such.
+
+Prediction for the retroactive-correction workload of §VI-I on Mem0 2.2.1
+(`external-corrections-mem0-latest.json`), committed before that run:
+
+- **H7h -- a retaining Mem0 no longer overwrites the present:** its exact rate on
+  `present_corrected` is within 0.10 of its rate on `present_uncorrected`
+  (0.1.118 dropped by 0.978), and on the `corrected` interval it answers at most
+  0.10 (it returns the replaced value beside the correction, as Graphiti did).
