@@ -57,3 +57,24 @@ Prediction for the retroactive-correction workload of §VI-I on Mem0 2.2.1
   `present_corrected` is within 0.10 of its rate on `present_uncorrected`
   (0.1.118 dropped by 0.978), and on the `corrected` interval it answers at most
   0.10 (it returns the replaced value beside the correction, as Graphiti did).
+
+## Outcomes (recorded 2026-10-22, after all runs)
+
+Sealed runs `external-*-latest-v1` and `external-corrections-mem0-latest-v1`,
+same 20 matched cells, case-weighted.
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H7a | Mem0 2.2.1 valid time <= 0.385, <= 2% of hits beyond it | 0.000 (0 hits) | holds only vacuously: Mem0 no longer consolidates |
+| H7b | Mem0 2.2.1 transaction-scoped >= 0.85 | 0.417 | **falsified** (design changed; see Addendum 2) |
+| H7c | Graphiti 0.31.2 valid time <= 0.03 | 0.005 | holds |
+| H7d | Cognee 1.6.5 chunks valid time <= 0.03 | 0.000 | holds |
+| H7e | Cognee 1.6.5 graph-completion valid time >= 0.90 | 1.000 | holds |
+| H7f | Hindsight 1.1.0 recall valid time <= 0.03 | 0.000 | holds |
+| H7g | Hindsight 1.1.0 reflect valid time < Cognee 1.6.5 graph | 0.010 < 1.000 | holds |
+| H7h | Mem0 2.2.1 `present_corrected` within 0.10 of `present_uncorrected`; `corrected` <= 0.10 | 0/45 vs 0/35; 0/78 | holds, but trivially: Mem0 2.2.1 answers no present question in this workload, corrected or not |
+
+Not predicted, reported: Hindsight 1.1.0's reader states the right value in all
+195 valid-time answers (as 0.9.1 did) but also restates the later one in 193
+(0.9.1: 128), so its exact rate falls from 0.344 to 0.010. H7g asked only for an
+ordering and does not cover the size of this drop.

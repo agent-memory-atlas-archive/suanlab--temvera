@@ -17,7 +17,7 @@ guidelines as read on 2026-10-02.
 | Requirement (quoted or paraphrased from the call) | Status |
 |---|---|
 | "The title of an EAB paper should start with the tag: '[Experiment, Analysis, and Benchmark]'" — note *start*, and the Oxford "and" | in the PDF |
-| "Research and EAB papers must not exceed 12 pages, excluding references and the AI-generated content acknowledgement" | 9 pages total, references from page 8 |
+| "Research and EAB papers must not exceed 12 pages, excluding references and the AI-generated content acknowledgement" | 13 pages total: body ends on page 11; acknowledgment and references from page 12 (checked 2026-10-22) |
 | IEEE conference format | `IEEEtran.cls` V1.8b, vendored |
 | "Submissions will be reviewed in a single-blind manner" | author block on page 1 |
 | "Experiment, Analysis, and Benchmark papers MUST provide all the artifacts required to reproduce the results. No exceptions" | public repository linked twice in the body |
@@ -64,3 +64,22 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Re-cut the artifact release at the submission commit: tag `icde-eab-v4`
       (supersedes `icde-eab-v3`, which predates the replicates, the correction
       experiment and the 2026-10-21 audit; v1-v3 are kept as published).
+
+## Added 2026-10-22 (raising the paper after the audit)
+
+- [x] The 26 disputed LongMemEval pairs adjudicated (D-017): 19 labelled by the
+      author from AI-proposed labels with quoted evidence, 7 excluded with
+      reasons. §VI-G now scores 62 of 69 pairs; every D-017 prediction held.
+- [x] Current releases re-run (§VI-J, E-094) on Mem0 2.2.1, Graphiti 0.31.2,
+      Cognee 1.6.5 and Hindsight 1.1.0, with predictions committed first
+      (`docs/preregistration-h7.md`). H7b was **falsified**: Mem0 2.2.1 retains
+      superseded values and no longer filters them.
+- [x] Read-path rule (§VI-D, E-092): committed before it was applied to the
+      current releases.
+- [x] Positioning table in §II (claims taken only from the papers' abstracts).
+- [x] Coverage sweep: every number left in the paper without a row was given
+      one; it found that the initial channel ablation was not saturated in
+      every cell (removing the temporal channel gave 0.79). Corrected in the
+      paper, E-015 and NR-003, with the original text kept.
+- [x] Re-cut the release: tag `icde-eab-v5` supersedes `icde-eab-v4` (v1-v4
+      are kept as published).

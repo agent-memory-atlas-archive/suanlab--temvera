@@ -28,7 +28,14 @@ population estimates.
 ## NR-003 — Initial channel ablation has no discriminative power
 
 The fixed 48-case generated-history run produced Evidence Recall@5 = 1.0 for
-all five channels and for every single-channel removal. Entity identifiers and
+all five channels and for every single-channel removal.
+
+> **Correction (2026-10-22).** The sentence above is wrong in one cell: the
+> sealed run `channel-ablation-v0`, recomputed with the current code, gives
+> 0.792 when the temporal channel is removed. Four of the five removals stay at
+> 1.0, so the fixture still cannot identify most channels; the original text is
+> kept so the error remains visible. Found by the paper-claim coverage sweep.
+ Entity identifiers and
 attributes occur verbatim in queries, while several channels return the same
 beliefs. The result cannot support a hybrid-retrieval contribution. The next
 suite must separately include alias/entity mismatch, lexical paraphrase,

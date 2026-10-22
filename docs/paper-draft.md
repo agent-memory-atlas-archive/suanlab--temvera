@@ -258,7 +258,8 @@ mechanism study; GPU-bound defences such as A-MemGuard were out of scope (E-034)
 We preserve results that did not go our way: state-level decay did not beat
 rank-level decay (E-014), fusion calibration gave no held-out gain (E-022),
 signed provenance failed under signer compromise (E-023), and an early channel
-ablation saturated at 1.0 and had to be redesigned (E-015).
+ablation could not separate four of its five channels (recall stayed 1.0;
+removing the temporal channel gave 0.79) and had to be redesigned (E-015).
 
 Two measurements were **retracted rather than quietly fixed**. Graphiti cell
 group ids repeated across runs while the Neo4j reset did not wipe the group, so

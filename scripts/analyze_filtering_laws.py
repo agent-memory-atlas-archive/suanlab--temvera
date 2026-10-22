@@ -33,10 +33,15 @@ RETAINING = {
     "Cognee chunks": ["external-cognee-chunks-grid-v3"],
     "Hindsight recall": ["external-hindsight-recall-v1"],
 }
+# The 43 agreement pairs and the 19 adjudicated ones (D-017) ran separately;
+# the real-data test pools them.
 REAL = {
-    "Graphiti": "lme-bitemporal-graphiti-agreement-v1",
-    "Cognee chunks": "lme-bitemporal-cognee-chunks-agreement-v3",
-    "Hindsight recall": "lme-bitemporal-hindsight-recall-agreement-v2",
+    "Graphiti": ["lme-bitemporal-graphiti-agreement-v1",
+                 "lme-bitemporal-graphiti-adjudicated-v1"],
+    "Cognee chunks": ["lme-bitemporal-cognee-chunks-agreement-v3",
+                      "lme-bitemporal-cognee-chunks-adjudicated-v1"],
+    "Hindsight recall": ["lme-bitemporal-hindsight-recall-agreement-v2",
+                         "lme-bitemporal-hindsight-recall-adjudicated-v1"],
 }
 CONSOLIDATING = {
     "Mem0": ["external-mem0-grid-v2", "external-mem0-grid-gpt4o-v1",
@@ -68,10 +73,10 @@ def split(run: str, category: str) -> tuple[int, int, int, int]:
             sum(r["exact"] for r in conflict), len(conflict))
 
 
-def split_real(run: str) -> tuple[int, int, int, int]:
+def split_real(runs: list[str] | str) -> tuple[int, int, int, int]:
     """Real data: the control (no incidental value) has nothing to filter; current
     and valid-time questions all have a superseded value."""
-    rs = rows(run)
+    rs = [r for run in ([runs] if isinstance(runs, str) else runs) for r in rows(run)]
     free = [r for r in rs if r["category"] == "transaction_as_of" and not r["incidental_value"]]
     conflict = [r for r in rs if r["category"] in ("current", "valid_time")]
     return (sum(r["exact"] for r in free), len(free),
@@ -145,9 +150,9 @@ def main() -> int:
                       f"{show(kf, nf):28s} {show(kc, nc)}")
     print("  real data: the control is asked before the revision exists; current and"
           " valid-time questions all have a superseded value")
-    for system, run in REAL.items():
-        kf, nf, kc, nc = split_real(run)
-        print(f"  {system:16s} {run:45s} {show(kf, nf):28s} {show(kc, nc)}")
+    for system, runs in REAL.items():
+        kf, nf, kc, nc = split_real(runs)
+        print(f"  {system:16s} {' + '.join(runs):90s} {show(kf, nf):28s} {show(kc, nc)}")
     print("\nH2  valid-time ceiling for a consolidating store | exact | exact beyond it")
     total_mismatches = 0
     for system, runs in CONSOLIDATING.items():

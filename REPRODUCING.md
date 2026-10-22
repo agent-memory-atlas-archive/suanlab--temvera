@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 291 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 367 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -82,6 +82,11 @@ The retroactive-correction result of §VI-I is recomputed by
 committed before the runs existed (`docs/preregistration-h6.md`, commit
 `5272ced`); the one check added afterwards is labelled post hoc in the script,
 the paper and the evidence ledger (E-090).
+
+The read-path rule of §VI-D is recomputed by
+`python scripts/analyze_read_path_filter.py`. The rule and the script were
+committed (`3b594bc`) before they were applied to the current releases of
+§VI-J, which are therefore out of sample for it (E-092).
 
 ## External-system experiments (require credentials)
 
@@ -114,14 +119,28 @@ sufficient; Docker is not required. Wall-clock is dominated by per-turn LLM
 extraction: roughly 1-2 h for a 20-cell grid and 35-40 min per instance on the
 distractor-laden LongMemEval split.
 
+**Current releases (§VI-J).** The `*-latest.json` configs re-run the grid on
+Mem0 2.2.1, Graphiti 0.31.2, Cognee 1.6.5 and Hindsight 1.1.0. These need their
+own interpreters, separate from the pinned versions above: one virtualenv with
+`mem0ai==2.2.1 graphiti-core==0.31.2`, one with `cognee==1.6.5` (named by
+`COGNEE_PYTHON`), and a second Hindsight daemon from `hindsight-api==1.1.0`
+under its own `HOME` and profile, on port 8890 so it does not collide with the
+pinned daemon on 8888; the configs name that URL and record the server version
+the daemon reports. Mem0 2.x rejects the `timestamp` and `reference_date`
+arguments in its open-source build, so the adapter ingests without them; the
+predictions for these runs were committed beforehand
+(`docs/preregistration-h7.md`).
+
 The LongMemEval corpus is **not redistributed here**; download it from the
 official release. Its code and data are MIT-licensed (verified against the
 dataset metadata; evidence ledger E-001). Some sealed runs do carry its text,
 which that licence permits: `longmemeval-e7-v2` ships a history database of
 memories extracted from it, and the `lme-bitemporal-*` transcripts record
 retrieved passages verbatim. The real-data labels are in
-`data/lme-bitemporal-labels.json`; the excluded pairs are listed by question ID
-only in `data/lme-bitemporal-exclusions.json` (decision D-016). Our scorer is
+`data/lme-bitemporal-labels.json`: 43 pairs on which both extractors agreed and
+19 the author adjudicated from AI-proposed labels with quoted evidence
+(D-016, D-017); the 7 excluded pairs are listed by question ID, with reasons, in
+`data/lme-bitemporal-exclusions.json`. Our scorer is
 deterministic substring/token presence over retrieved memories and is **not**
 the benchmark's LLM-judged QA metric; the two must not be compared.
 
@@ -133,5 +152,5 @@ LongMemEval content above is the one exception.
 
 Repository-authored material and the fully synthetic fixture are distributable
 under Apache-2.0. Frozen, byte-reproducible snapshots are attached to the
-GitHub releases (`icde-eab-v4` for the ICDE submission); no DOI archive has
+GitHub releases (`icde-eab-v5` for the ICDE submission); no DOI archive has
 been made (D-009).

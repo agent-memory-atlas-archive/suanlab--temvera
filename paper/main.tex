@@ -54,9 +54,8 @@ requires separating valid time from transaction time and honouring deletion
 across every store a query can reach. Agent memory systems now advertise these
 capabilities; we measure whether they deliver them.
 
-We replay deterministic lifecycle histories, rendered as natural language and
-scored against an independently cross-checked oracle,
-into five open-source systems---Mem0, LangMem, Graphiti, Cognee and
+We replay deterministic lifecycle histories, scored against an independently
+cross-checked oracle, into five open-source systems---Mem0, LangMem, Graphiti, Cognee and
 Hindsight---under forward-checkpoint transaction-time replay. Two designs emerge.
 \emph{Consolidating} stores overwrite superseded values, so they answer current
 queries well (0.952 and 0.890) but historical ones poorly (0.364 and 0.323),
@@ -64,16 +63,18 @@ just under a ceiling (0.385) that the history alone fixes, and Mem0 applies a
 correction about the past to the present (1 of 45 current values answered
 afterwards).
 \emph{Retaining} stores keep the history but do not filter it: read at the
-retrieval layer, three independent implementations score 0.000 on
-valid-time queries. An LLM reading the same stores shows the history was there---Cognee's
-reader answers 192 of 195 valid-time cases---but cannot be relied on to use it:
-Hindsight's answers 67. In Mem0 and Graphiti, deletion divides the same way: native
-deletion APIs clear retrieval-reachable stores, while deletion requested in prose
-is silently ignored. Both failure modes hold from 8 to 128 people per history and reappear
-on 43 supersessions in LongMemEval's annotator-edited conversations. Cost is write-dominated in Mem0 and read-dominated in Cognee: where it falls is
-a design choice.
+retrieval layer, three independent implementations score 0.000 on valid-time
+queries, yet one deterministic read-path rule recovers up to 190 of 195 from
+the dates they return. An LLM reader recovers it for Cognee (192 of 195) but
+not for Hindsight (67). Mem0's current release switches to the second design, and
+its accuracy follows. In Mem0 and Graphiti, deletion
+divides the same way: native deletion APIs clear retrieval-reachable stores,
+while deletion requested in prose is silently ignored. Both failure modes hold
+from 8 to 128 people per history and on 62 supersessions in LongMemEval's
+annotator-edited conversations. Cost is write-dominated in Mem0 and
+read-dominated in Cognee: where it falls is a design choice.
 
-We claim no novelty for bitemporal modelling or forgetting evaluation. The
+We claim no novelty for bitemporal modelling or forgetting evaluation: the
 contribution is measurement, and the finding that a system can expose temporal
 fields without answering temporal queries correctly.
 \end{abstract}
@@ -119,15 +120,19 @@ agents actually perform}. We answer it by measurement:
 (i) An identical-history comparison of five deployed memory systems, separating
 consolidating from retaining designs; each side of the taxonomy is confirmed on
 implementations held out from its construction, and both failure modes reappear
-on 43 supersessions in LongMemEval's annotator-edited conversations
+on 62 supersessions in LongMemEval's annotator-edited conversations
 (\S\ref{sec:realdata}). A
 ceiling computable from the history alone caps the consolidating stores
 (\S\ref{sec:bounds}), and a retroactive correction, tested against predictions
 committed before the runs, overwrites Mem0's present (\S\ref{sec:corrections}).
+On the current releases the picture holds, except that Mem0 has switched
+designs and its accuracy has moved with it, and Hindsight's reader now restates
+the superseded value beside the right one (\S\ref{sec:releases}).
 (ii) A separation of \emph{information loss} from \emph{missing filtering},
 obtained by reading two systems' stores both at the retrieval layer and through
 an LLM, which also shows that a reader repairs the gap in one system and not the
-other.
+other, and that one deterministic rule on the read path repairs it from the
+dates the stores already return.
 (iii) A cross-store deletion-completeness measurement under both a prose
 instruction and each system's native API, which the systems describe as a
 feature but do not measure, and which prior deletion benchmarks judge by what a
@@ -439,10 +444,12 @@ canonical config, environment, source hash and per-file checksums.
 \paragraph{Versions.} These systems change quickly, and our claims are about the
 versions named above, measured between July and October 2026. Every sealed run
 records the environment it ran under, and re-running a newer release is one
-command per system. What we conclude concerns design --- whether a store
-overwrites or retains, and where filtering happens --- which a point release is
-unlikely to change; the one implementation defect we report
-(\S\ref{sec:external}) is marked as such.
+command per system, and we did so on the releases current on 22 October 2026
+(\S\ref{sec:releases}). What we conclude concerns design --- whether a store
+overwrites or retains, and where filtering happens. Three systems' current
+retrieval layers behave as the measured ones; Mem0's changed its design, and its
+accuracy changed exactly as the design predicts. The one implementation defect
+we report (\S\ref{sec:external}) is marked as such.
 
 \section{Results}\label{sec:results}
 
@@ -917,10 +924,14 @@ revises it in a later one, each session timestamped. The benchmark ships the
 current value as gold but never the superseded one, so we recovered both. Two
 extractors (\texttt{gpt-4o-mini} and \texttt{gpt-4o}) each proposed the
 attribute and its earlier and later value for all 69 non-abstention instances,
-and a value counted only if it appeared verbatim in its own session. We use the
-43 pairs on which they agreed and exclude the other 26 without adjudication.
-Disagreement plausibly marks the harder revisions, so this subset is not a
-random sample of the split.
+and a value counted only if it appeared verbatim in its own session. They
+agreed on 43 pairs. The other 26 we adjudicated: the AI system proposed a label
+or an exclusion for each, quoting the session text, and the author decided,
+labelling 19 and excluding 7 whose sessions state no superseded value, state
+two, or describe coexisting items rather than a revision. That leaves 62 of the
+69 pairs. The 19 adjudicated pairs ran after the 43, against directional
+predictions committed beforehand, which held; every comparison below points
+the same way on either subset.
 
 Each pair is replayed into a fresh store, session by session in recorded order.
 After the earlier session we ask ``What is my \emph{attribute}?''; after the
@@ -930,14 +941,15 @@ whose sessions share a day. Scoring is the grid's: an answer is exact if it
 states the expected value on token boundaries and does not state the
 superseded one. The first question is asked before the revision exists, so it
 has nothing to filter and serves as a control; the full conversation itself
-passes it in 30 of 43 cases. The 13 it fails are pairs whose earlier session
+passes it in 46 of 62 cases. The 16 it fails are pairs whose earlier session
 already mentions the later value incidentally (``here are five tips'');
 excluding them changes none of the comparisons below.
 
 \begin{table}[t]
 \centering
-\caption{Benchmark conversations: 43 LongMemEval knowledge-update supersessions, a
-fresh store for each. Exact answers out of 43 (41 for valid time). The control
+\caption{Benchmark conversations: 62 LongMemEval knowledge-update supersessions
+(43 on which two extractors agreed, 19 adjudicated), a fresh store for each.
+Exact answers out of 62 (60 for valid time). The control
 is asked before the revision exists. ``Old kept'' counts valid-time answers
 that contain the superseded value at all, exact or not.}
 \label{tab:realdata}
@@ -947,39 +959,39 @@ that contain the superseded value at all, exact or not.}
 \toprule
 Configuration & control & current & \texttt{valid\_time} & old kept \\
 \midrule
-Mem0 (consolidates)                 & 37 & 22 & 2  & 18 \\
-LangMem (consolidates)              & 24 & 18 & 6  & 17 \\
-Graphiti (retains)                  & 33 & 6  & 5  & 31 \\
-Cognee \textsc{chunks} (retains)    & 30 & 0  & 0  & 41 \\
-Hindsight \textsc{recall} (retains) & 42 & 2  & 3  & 38 \\
+Mem0 (consolidates)                 & 47 & 35 & 3  & 21 \\
+LangMem (consolidates)              & 33 & 26 & 8  & 23 \\
+Graphiti (retains)                  & 43 & 11 & 7  & 41 \\
+Cognee \textsc{chunks} (retains)    & 46 & 0  & 0  & 60 \\
+Hindsight \textsc{recall} (retains) & 56 & 6  & 3  & 50 \\
 \midrule
-Cognee \textsc{graph-completion}    & 41 & \textbf{26} & \textbf{29} & 33 \\
-Hindsight \textsc{reflect}          & 42 & 20 & 12 & 22 \\
+Cognee \textsc{graph-completion}    & 56 & 35 & \textbf{40} & 44 \\
+Hindsight \textsc{reflect}          & 55 & 32 & 17 & 31 \\
 \midrule
-Full conversation                   & 30 & 0  & 0  & 41 \\
+Full conversation                   & 46 & 0  & 0  & 60 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{The grid's two failure modes reappear.} At valid time the retaining
-stores, read at the retrieval layer, return the superseded value in 31 to 41 of
-41 cases but answer only 0 to 5 exactly: the history is kept and not filtered,
-as on the grid. The consolidating stores answer 2 and 6, and the old value
-appears in fewer than half of their answers (18 and 17): it is gone. Read by an
-LLM, Cognee's graph answers 29 of 41 valid-time questions (Wilson 95\%
-[0.56, 0.82]) and Hindsight's answers 12 ([0.18, 0.44]) --- the reader ordering
+stores, read at the retrieval layer, return the superseded value in 41 to 60 of
+60 cases but answer only 0 to 7 exactly: the history is kept and not filtered,
+as on the grid. The consolidating stores answer 3 and 8, and the old value
+appears in fewer than half of their answers (21 and 23): it is gone. Read by an
+LLM, Cognee's graph answers 40 of 60 valid-time questions (Wilson 95\%
+[0.54, 0.77]) and Hindsight's answers 17 ([0.19, 0.41]) --- the reader ordering
 of the grid, where they answered 192 and 67 of 195, with disjoint intervals
 here too.
 
 \textbf{Benchmark text is harder on current queries.} On the grid, Mem0 and LangMem
 answered current, transaction-scoped questions at 0.952 and 0.890; here they
-answer 22 and 18 of 43, and Mem0 states both values in 16 of its answers. A
+answer 35 and 26 of 62, and Mem0 states both values in 18 of its answers. A
 store that consolidated every revision would not. This is consistent with,
 though not traced to, the dropped \texttt{UPDATE} actions reported in
-\S\ref{sec:external}. No configuration answers more than 26 of 43.
+\S\ref{sec:external}. No configuration answers more than 35 of 62.
 
-These are 43 cases on one backbone in one run, so we read them as a check of
-direction rather than as rates; every answer is in the released transcripts.
+These are 62 cases on one backbone, so we read them as a check of direction
+rather than as rates; every answer is in the released transcripts.
 
 \subsection{Two bounds the measurements obey}\label{sec:bounds}
 
@@ -1014,9 +1026,9 @@ filter: 0.250 for Graphiti at every scale, and 0.408 on the main grid's
 transaction-scoped questions, which Cognee and Hindsight score exactly and
 Graphiti with one answer more (0.412). We noticed this from the scale result,
 so on synthetic histories it describes rather than predicts. Its out-of-sample
-test is the benchmark conversations, and there it partly fails: of the 84 questions
-with something to filter, Cognee answers 0 and Hindsight 5, but Graphiti 11
-(0.131 [0.075, 0.219]), above every synthetic interval. How often a retaining
+test is the benchmark conversations, and there it partly fails: of the 122
+questions with something to filter, Cognee answers 0 and Hindsight 9, but
+Graphiti 18 (0.148 [0.095, 0.221]), above every synthetic interval. How often a retaining
 store happens to filter is not a fixed property of the store; we suspect,
 without having tested it, that real sessions crowd the old value out of the top
 five with unrelated facts.
@@ -1047,6 +1059,69 @@ replaced value beside the correction. Forward replay asks each question at its
 own checkpoint, so whether a store can still say what it believed \emph{before}
 a correction is not tested here; none of the systems exposes that axis
 (Table~\ref{tab:fragment}, C2).
+
+\subsection{Do current releases change the picture?}\label{sec:releases}
+
+The measured versions were current between July and October 2026. We re-ran
+the main grid, unchanged, on the releases current on 22 October 2026, in a
+separate environment and against predictions committed and published before
+each run (Table~\ref{tab:releases}).
+
+\begin{table}[t]
+\centering
+\caption{The main grid on the measured and the current release of each system
+(LangMem's measured release is current). Case-weighted exact accuracy over the
+same 484 cases.}
+\label{tab:releases}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+& \multicolumn{2}{c}{\scriptsize\texttt{transaction\_as\_of}} & \multicolumn{2}{c}{\scriptsize\texttt{valid\_time}} \\
+System (then $\to$ now) & then & now & then & now \\
+\midrule
+Mem0 (0.1.118 $\to$ 2.2.1)               & 0.952 & 0.417 & 0.364 & 0.000 \\
+Graphiti (0.29.2 $\to$ 0.31.2)           & 0.412 & 0.412 & 0.000 & 0.005 \\
+Cognee \textsc{chunks} (1.4.2 $\to$ 1.6.5) & 0.408 & 0.408 & 0.000 & 0.000 \\
+Hindsight \textsc{recall} (0.9.1 $\to$ 1.1.0) & 0.408 & 0.408 & 0.000 & 0.000 \\
+\midrule
+Cognee \textsc{graph-completion}         & 1.000 & 1.000 & 0.985 & 1.000 \\
+Hindsight \textsc{reflect}               & 0.509 & 0.412 & 0.344 & 0.010 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Graphiti, Cognee and Hindsight retrieve as before.} On the current
+releases the three retrieval layers still answer valid-time questions at 0.000
+to 0.005, and Cognee's reader still repairs them (195 of 195). Hindsight's
+reader moves the other way. It names the right value in all 195 valid-time
+answers, as before, but now also restates the later one in 193 of them (128 on
+0.9.1), so only 2 are exact, against 67; an answer that gives both values does
+not say which one held. We had predicted only that it would stay below Cognee's
+reader, which it does.
+
+\textbf{Mem0 changes design, and its accuracy moves with it.} Mem0 2.2.1 no
+longer overwrites: its memories now read ``home city changed from Accra to
+Cairo, valid from February 5, 2025''. It answers 93 of 93 questions with
+nothing to filter and 2 of 135 with something to filter, so its
+transaction-scoped accuracy falls from 0.952 to 0.417 --- the share of those
+questions with nothing to filter is 0.408 --- and its valid-time accuracy from
+0.364 to 0.000. It has moved from the first design to the second, and its
+accuracy to what \S\ref{sec:bounds} says the second design scores. We had
+predicted that it would still consolidate and answer at least 0.85 of current
+questions; that prediction is falsified. Under a retroactive correction it no
+longer erases the present --- the current value is missing from every later
+answer for 1 of 45 corrected subjects, against 41 on 0.1.118 --- but it answers
+neither the present nor the corrected interval (0 of 45 and 0 of 78), as
+Graphiti did. Its new \texttt{timestamp} and \texttt{reference\_date}
+parameters raise a ``Platform-only'' error in the open-source library, and
+\texttt{expiration\_date} compares against the wall clock, so none of them can
+express a historical valid time.
+
+\textbf{The read-path rule carries over.} Applied unchanged, the rule of
+\S\ref{sec:reader} recovers 184, 183 and 125 of 195 valid-time answers from
+Cognee 1.6.5, Hindsight 1.1.0 and Mem0 2.2.1 --- whose answers carry a date in
+176 of them --- from 0 each.
 
 \subsection{External validity}\label{sec:external}
 
@@ -1098,8 +1173,9 @@ are negative.
 
 We preserve results that did not go our way: state-level decay did not beat
 rank-level decay, fusion calibration gave no held-out gain, signed provenance
-failed under signer compromise, and an early channel ablation saturated at $1.0$
-and had to be redesigned.
+failed under signer compromise, and an early channel ablation could not tell
+its channels apart (every removal but one kept recall at $1.0$; removing the
+temporal channel lowered it to $0.79$) and had to be redesigned.
 
 Three measurements were \textbf{retracted rather than quietly fixed}, and a
 fourth claim was narrowed. Graphiti cell group ids repeated across runs while
@@ -1152,14 +1228,15 @@ Two kinds of sealed output do carry its text, which the MIT licence permits and
 which cannot be removed without breaking the runs' checksums: the
 \runeseven{} run's history database of extracted memories, and the benchmark
 runs' transcripts, which record retrieved passages verbatim. The labels we
-derived are released; the 26 excluded pairs are listed by question ID only.
+derived are released; the 7 excluded pairs are listed by question ID, with
+their reasons.
 
 \section*{Limitations}
 
 The grid's histories are synthetic with hand-specified operation profiles, so
 contradiction density is approximated by operation mix and revision count rather
-than sampled from real usage; the benchmark check covers 43 supersessions chosen
-by extractor agreement, not at random, and is one run. Five external systems in seven configurations
+than sampled from real usage; the benchmark check covers 62 of 69 candidate
+supersessions, 19 of them labelled by the author from AI-proposed labels. Five external systems in seven configurations
 run on \texttt{gpt-4o-mini}; only Mem0 and Graphiti were re-run on a second
 backbone, and only those two were replicated; LLM extraction is not
 bit-reproducible, and LangMem and Hindsight do not run at temperature~0. The
@@ -1200,14 +1277,16 @@ exemption, a pilot for variance, and an a priori power analysis.
 % ICDE 2027 requires disclosure of AI-generated content (text, figures, code)
 % here; this section does not count toward the page limit. Wording confirmed by
 % the author on 2026-10-05; the sentence on design and execution was set by the
-% author on 2026-10-21.
+% author on 2026-10-21, and the clause on label proposals added with D-017.
 This work was carried out with substantial assistance from an AI system,
 Anthropic's Claude, used through the Claude Code agent. It generated much of the
 experiment harness, the analysis and plotting code that produces every table and
 figure, and drafts of the manuscript text; it was used to search the literature
 and verify citations against their primary sources, and to audit the reported
 numbers against the sealed runs. The author and the AI system designed the
-analyses and experiments together, and the AI system ran them. The author directed the research, approved its
+analyses and experiments together, and the AI system ran them; it also
+proposed, with quoted evidence, the labels for the 26 disputed LongMemEval
+pairs, each of which the author decided. The author directed the research, approved its
 design, made the venue decisions, and takes full responsibility for the content.
 Every reported figure is recomputed from sealed runs by scripts released with
 the artifact.
