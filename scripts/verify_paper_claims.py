@@ -405,9 +405,9 @@ CLAIMS: list[Claim] = [
     Claim("5.4", "reader expiry, best of the two (micro)", "0.125",
           lambda: max(micro(r, "expiry_boundary", cells())
                       for r in ("external-cognee-grid-v1", "external-hindsight-reflect-v1")),
-          near="Expiry stays low for both readers"),
+          near="Expiry stays low\nfor both readers"),
     Claim("5.4", "expiry cases per configuration", "16",
-          lambda: _expiry_cases(), 0.5, near="Expiry stays low for both readers"),
+          lambda: _expiry_cases(), 0.5, near="Expiry stays low\nfor both readers"),
     Claim("Fig.1", "expiry cases per configuration", "16",
           lambda: _expiry_cases(), 0.5, near="Expiry rests on"),
     Claim("Fig.1", "Wilson upper bound of 0 of 16", "0.19",
@@ -529,34 +529,6 @@ CLAIMS: list[Claim] = [
           / telemetry("scale-cost-mem0-v2", "query_latency", "mean_s"), 0.5,
           near="the ingest-to-query ratio"),
     # -- 5.6 external validity -------------------------------------------------
-    Claim("5.6", "knowledge-update recall", "0.724", lambda: longmem("longmemeval-e7-v2", "knowledge-update"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "single-session-user recall", "0.622",
-          lambda: longmem("longmemeval-e7-v2", "single-session-user"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "preference recall", "0.314",
-          lambda: longmem("longmemeval-e7-v2", "single-session-preference"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "multi-session recall", "0.287", lambda: longmem("longmemeval-e7-v2", "multi-session"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "temporal-reasoning recall", "0.221",
-          lambda: longmem("longmemeval-e7-v2", "temporal-reasoning"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "single-session-assistant recall", "0.151",
-          lambda: longmem("longmemeval-e7-v2", "single-session-assistant"),
-          near="mean gold-token recall was knowledge-update"),
-    Claim("5.6", "single-session-user, abstention excluded", "0.810",
-          lambda: longmem("longmemeval-e7-v2", "single-session-user", drop_abstention=True),
-          near="excluding them here reorders"),
-    Claim("5.6", "knowledge-update, abstention excluded", "0.794",
-          lambda: longmem("longmemeval-e7-v2", "knowledge-update", drop_abstention=True),
-          near="excluding them here reorders"),
-    Claim("5.6", "temporal-reasoning, oracle split", "0.125",
-          lambda: _matched_temporal("longmemeval-e7-v1"),
-          near="temporal-reasoning in fact rises"),
-    Claim("5.6", "temporal-reasoning, distractor split", "0.167",
-          lambda: _matched_temporal("longmemeval-s-v1"),
-          near="temporal-reasoning in fact rises"),
     # -- 4.1 claims-vs-documentation table -------------------------------------
     Claim("Tab.claims", "Graphiti valid_time beside its claim", "0.000",
           lambda: micro("external-graphiti-hybrid-v1", "valid_time", cells()),
@@ -837,13 +809,13 @@ def _real_claims() -> list:
               near="0.77]) and Hindsight's answers"),
         Claim("5.real", "grid Cognee reader valid_time hits", "192",
               lambda: micro_counts("external-cognee-grid-v1", "valid_time", cells())[0], 0.5,
-              near="the reader ordering"),
+              near="corresponding gap,"),
         Claim("5.real", "grid Hindsight reader valid_time hits", "67",
               lambda: micro_counts("external-hindsight-reflect-v1", "valid_time", cells())[0],
-              0.5, near="the reader ordering"),
+              0.5, near="corresponding gap,"),
         Claim("5.real", "grid reader valid_time cases", "195",
               lambda: micro_counts("external-cognee-grid-v1", "valid_time", cells())[1], 0.5,
-              near="the reader ordering"),
+              near="corresponding gap,"),
         Claim("5.real", "grid Mem0 transaction_as_of (micro)", "0.952",
               lambda: micro("external-mem0-grid-v2", "transaction_as_of", cells()),
               near="On the grid, Mem0 and LangMem"),
@@ -1188,13 +1160,6 @@ def _audit_claims() -> list:
               lambda: telemetry("scale-cost-mem0-v1", "cost_usd_total")
               / telemetry("scale-cost-mem0-v1", "ingest_latency", "n"), 0.00006,
               near="an ingested turn costs about"),
-        Claim("5.ext", "LongMemEval instances per type", "10",
-              lambda: float(min(__import__("collections").Counter(
-                  r["question_type"] for r in res("longmemeval-e7-v2")["per_instance"]).values())),
-              0.5, near="single-session-assistant $0.151$ ("),
-        Claim("5.other", "synonym queries", "10",
-              lambda: float(json.loads((RUNS / "vector-synonym-compare-v1.json").read_text())["queries"]),
-              0.5, near="recall@1 $1.0$"),
         Claim("7", "Cognee chunks v1 worker errors", "40",
               lambda: float(res("external-cognee-chunks-grid-v1")["backbone"]["worker_errors"]), 0.5,
               near="paper reported a"),
@@ -1227,11 +1192,11 @@ def _read_path_claims() -> list:
     A = "One rule on the read path is enough"
     return [
         Claim("5.4", "Cognee chunks valid-time hits with the rule", "184",
-              lambda: read_path("Cognee chunks", "exact"), 0.5, near="lifts valid-time accuracy from 0", after=A),
+              lambda: read_path("Cognee chunks", "exact"), 0.5, near="lifts valid-time accuracy\nfrom 0", after=A),
         Claim("5.4", "valid-time questions", "195",
-              lambda: read_path("Cognee chunks", "questions"), 0.5, near="lifts valid-time accuracy from 0", after=A),
+              lambda: read_path("Cognee chunks", "questions"), 0.5, near="lifts valid-time accuracy\nfrom 0", after=A),
         Claim("5.4", "Cognee chunks valid-time hits without the rule", "0",
-              lambda: read_path("Cognee chunks", "exact_unfiltered"), 0.5, near="lifts valid-time accuracy from", after=A),
+              lambda: read_path("Cognee chunks", "exact_unfiltered"), 0.5, near="lifts valid-time accuracy\nfrom", after=A),
         Claim("5.4", "Hindsight recall valid-time hits with the rule", "190",
               lambda: read_path("Hindsight recall", "exact"), 0.5, near="for Cognee and to", after=A),
         Claim("5.4", "Graphiti answers where the rule applies", "17",
@@ -1302,7 +1267,7 @@ def _releases_claims() -> list:
               near="restates the later one in", after=B),
         Claim("6.J", "Hindsight 0.9.1 reader states both values", "128",
               lambda: reader_split("hindsight reflect", 0, "both"), 0.5,
-              near="restates the later one in 193 of them (", after=B),
+              near="restates the later one in 193 of\nthem (", after=B),
         Claim("6.J", "Hindsight 1.1.0 reader valid-time exact", "2",
               lambda: reader_split("hindsight reflect", 1, "exact"), 0.5,
               near="so only", after=B),
@@ -1310,6 +1275,9 @@ def _releases_claims() -> list:
               lambda: reader_split("hindsight reflect", 0, "exact"), 0.5,
               near="are exact, against", after=B),
     ]
+    out.append(Claim("6.J", "Hindsight 1.1.0 reader judged", "195",
+                     lambda: h9("h9-judge-gpt4o-hindsight-reflect-latest-v1"), 0.5,
+                     near="credits both releases with all", after=B))
     A = "Mem0 changes design, and its accuracy moves with it"
     out += [
         Claim("5.rel", "current-release retrieval valid_time, lowest", "0.000",
@@ -1393,21 +1361,7 @@ def _coverage_claims() -> list:
         Claim("abs", "Mem0 transaction_as_of (micro)", "0.952",
               lambda: micro("external-mem0-grid-v2", "transaction_as_of", cells()),
               near="queries well ("),
-        Claim("5.other", "learned channel recall@1", "1.0", lambda: _side("learned"),
-              near="held-out synonyms at recall@1"),
-        Claim("5.other", "hashing channel recall@1", "0.0", lambda: _side("hashing"),
-              near="dependency-free hashing channel scored"),
-        Claim("5.other", "attacks admitted as inert data", "3", lambda: _side("accepted"), 0.5,
-              near="signed tenant-scoped gating admitted"),
-        Claim("5.other", "attacks in the threat fixture", "4", lambda: _side("attacks"), 0.5,
-              near="signed tenant-scoped gating admitted $3/"),
-        Claim("5.other", "attacks activated", "0", lambda: _side("activated"), 0.5,
-              near="as inert data\nwhile activating"),
         # Every removal but the lowest must sit at 1.0, so the second-lowest is checked.
-        Claim("7", "ablation removals kept at full recall", "1.0",
-              lambda: _side("ablation_second"), near="every removal but one kept recall at"),
-        Claim("7", "ablation without the temporal channel", "0.79",
-              lambda: _side("ablation_min"), 0.005, near="temporal channel lowered it to"),
         Claim("Lim", "candidate supersessions", "69", lambda: lme_pairs("candidates"), 0.5,
               near="covers 62 of"),
         Claim("Lim", "adjudicated supersessions", "19", lambda: lme_pairs("adjudicated"), 0.5,
@@ -1456,11 +1410,207 @@ def _stats_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims()
+# -- H9: a common reader and an asserted-value judge (docs/preregistration-h9.md)
+def h9(run: str, category: str = "valid_time") -> float:
+    return float(res(run)["by_category"][category]["exact"])
+
+
+def h9_rate(run: str, category: str = "valid_time") -> float:
+    entry = res(run)["by_category"][category]
+    return entry["exact"] / entry["n"]
+
+
+_GRID_JUDGED = ("cognee-graph-v1", "hindsight-reflect-v1", "cognee-graph-latest-v1",
+                "hindsight-reflect-latest-v1")
+
+
+def judge_agrees_with_scorer() -> tuple[int, int]:
+    agree = total = 0
+    for run in _GRID_JUDGED:
+        rows = [r for r in tr(f"h9-judge-gpt4o-{run}") if r["source_exact"]]
+        agree += sum(bool(r["exact"]) for r in rows)
+        total += len(rows)
+    return agree, total
+
+
+def judges_agree_percent() -> float:
+    agree = total = 0
+    for run in _GRID_JUDGED:
+        a, b = tr(f"h9-judge-gpt4o-{run}"), tr(f"h9-judge-gpt4omini-{run}")
+        if [r["case_id"] for r in a] != [r["case_id"] for r in b]:
+            return -1.0
+        agree += sum(x["exact"] == y["exact"] for x, y in zip(a, b))
+        total += len(a)
+    return 100 * agree / total
+
+
+def _reader_ceiling(reader: str, source: str, which: int) -> float:
+    return float(laws().reader_ceiling(reader, source)[which])
+
+
+def _purge_scope(run: str, key: str) -> float:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_purge_scope
+
+    return float(analyze_purge_scope.request_scope(run)[key])
+
+
+def _h9_prediction(threshold: str) -> float:
+    text = (ROOT / "docs" / "preregistration-h9.md").read_text(encoding="utf-8")
+    return float(threshold) if f"at least {threshold}" in text else -1.0
+
+
+def _h9_claims() -> list:
+    T = "\\label{tab:reader}"
+    rows = (("Mem0 (consolidates)", "h9-reader-mem0-v1"),
+            ("LangMem (consolidates)", "h9-reader-langmem-v1"),
+            ("Graphiti (retains)", "h9-reader-graphiti-v1"),
+            ("Cognee \\textsc{chunks} (retains)", "h9-reader-cognee-chunks-v1"),
+            ("Hindsight \\textsc{recall} (retains)", "h9-reader-hindsight-recall-v1"),
+            ("Cognee \\textsc{graph-completion}", "h9-judge-gpt4o-cognee-graph-v1"),
+            ("Hindsight \\textsc{reflect}       &", "h9-judge-gpt4o-hindsight-reflect-v1"))
+    out = [Claim("Tab.reader", f"read valid_time: {run}", f"{h9_rate(run):.3f}",
+                 lambda r=run: h9_rate(r), near=anchor, window=60, after=T)
+           for anchor, run in rows]
+    S = "Read, the retaining stores recover most of it"
+    C = "Read, the consolidating stores do not"
+    out += [
+        Claim("5.4", "common reader: Cognee chunks", "142",
+              lambda: h9("h9-reader-cognee-chunks-v1"), 0.5, near="answers 142", after=S),
+        Claim("5.4", "common reader: Hindsight recall", "150",
+              lambda: h9("h9-reader-hindsight-recall-v1"), 0.5, near="answers 142 and", after=S),
+        Claim("5.4", "unread retrieval text", "0",
+              lambda: micro("external-cognee-chunks-grid-v3", "valid_time", cells()), 0.5,
+              near="which the same text unread answers", after=S),
+        Claim("5.4", "preregistered common-reader threshold", "0.80",
+              lambda: _h9_prediction("0.80"), near="we had predicted at least", after=S),
+        Claim("5.4", "common reader: Graphiti", "22",
+              lambda: h9("h9-reader-graphiti-v1"), 0.5, near="mostly carry no dates, it answers", after=S),
+        Claim("5.4", "Cognee reader exact", "192",
+              lambda: micro_counts("external-cognee-grid-v1", "valid_time", cells())[0], 0.5,
+              near="Cognee's answers", after=S),
+        Claim("5.4", "Hindsight reader exact", "67",
+              lambda: micro_counts("external-hindsight-reflect-v1", "valid_time", cells())[0], 0.5,
+              near="recovering only", after=S),
+        Claim("5.4", "Hindsight reader names right value", "195",
+              lambda: reader_split("hindsight reflect", 0, "expected"), 0.5,
+              near="names the right value in all", after=S),
+        Claim("5.4", "judge agrees with scorer", "1{,}202",
+              lambda: float(judge_agrees_with_scorer()[0]), 0.5, near="exact scorer on", after=S),
+        Claim("5.4", "answers the scorer accepts", "1{,}203",
+              lambda: float(judge_agrees_with_scorer()[1]), 0.5, near="1{,}202 of the", after=S),
+        Claim("5.4", "two judges agree, %", "99.6", judges_agree_percent, 0.05,
+              near="with a second judge on", after=S),
+        Claim("5.4", "Cognee reader judged", "195",
+              lambda: h9("h9-judge-gpt4o-cognee-graph-v1"), 0.5, near="credits both\nreaders with", after=S),
+        Claim("5.4", "Hindsight reader judged", "195",
+              lambda: h9("h9-judge-gpt4o-hindsight-reflect-v1"), 0.5,
+              near="credits both\nreaders with 195 of", after=S),
+        Claim("5.4", "common reader: Mem0", "73",
+              lambda: h9("h9-reader-mem0-v1"), 0.5, near="answers\n73", after=C),
+        Claim("5.4", "common reader: LangMem", "71",
+              lambda: h9("h9-reader-langmem-v1"), 0.5, near="73 and", after=C),
+        Claim("5.4", "Mem0 reader answers beyond ceiling", "One",
+              lambda: _reader_ceiling("h9-reader-mem0-v1", "external-mem0-grid-v2", 1), 0.5,
+              near="\\S\\ref{sec:bounds}.", after=C),
+        Claim("5.4", "LangMem reader answers beyond ceiling", "five",
+              lambda: _reader_ceiling("h9-reader-langmem-v1", "external-langmem-v1", 1), 0.5,
+              near="One and", after=C),
+        Claim("5.4", "purge questions", "45",
+              lambda: _purge_scope("external-mem0-grid-v2", "questions"), 0.5,
+              near="every configuration answers 0 or 1 of"),
+        Claim("5.4", "purge, request scope: best of the rest", "1",
+              lambda: max(_purge_scope(r, "request_scope") for r in (
+                  "external-mem0-grid-v2", "external-graphiti-hybrid-v1",
+                  "external-cognee-chunks-grid-v3", "external-hindsight-recall-v1",
+                  "external-cognee-grid-v1", "external-hindsight-reflect-v1")), 0.5,
+              near="every configuration answers 0 or"),
+        Claim("5.4", "purge, request scope: LangMem", "9",
+              lambda: _purge_scope("external-langmem-v1", "request_scope"), 0.5,
+              near="except LangMem ("),
+    ]
+    return out
+
+
+# -- H9 on the benchmark conversations ----------------------------------------
+_LME_READER = {
+    "Mem0": ("lme-bitemporal-mem0-agreement-v1", "lme-bitemporal-mem0-adjudicated-v1"),
+    "LangMem": ("lme-bitemporal-langmem-agreement-v1", "lme-bitemporal-langmem-adjudicated-v1"),
+    "Graphiti": ("lme-bitemporal-graphiti-agreement-v1", "lme-bitemporal-graphiti-adjudicated-v1"),
+    "Cognee chunks": ("lme-bitemporal-cognee-chunks-agreement-v3",
+                      "lme-bitemporal-cognee-chunks-adjudicated-v1"),
+    "Hindsight recall": ("lme-bitemporal-hindsight-recall-agreement-v2",
+                         "lme-bitemporal-hindsight-recall-adjudicated-v1"),
+}
+
+
+def lme_read(system: str) -> float:
+    return sum(h9(f"h9-reader-{run}") for run in _LME_READER[system])
+
+
+def lme_judged(system: str) -> float:
+    runs = {"Cognee": ("lme-bitemporal-cognee-graph-agreement-v3",
+                       "lme-bitemporal-cognee-graph-adjudicated-v1"),
+            "Hindsight": ("lme-bitemporal-hindsight-reflect-agreement-v2",
+                          "lme-bitemporal-hindsight-reflect-adjudicated-v1")}[system]
+    return sum(h9(f"h9-judge-gpt4o-{run}") for run in runs)
+
+
+def lme_abstention(what: str) -> float:
+    rows = [r for r in tr("h9-reader-lme-bitemporal-cognee-chunks-agreement-v3")
+            if r["category"] == "valid_time"]
+    source = lambda r: r["source_answer"].casefold()  # noqa: E731
+    dated = [r for r in rows
+             if any(e.casefold() in source(r) for e in r["expected_values"])
+             and any(s.casefold() in source(r) for s in r["stale_values"])
+             and len(set(re.findall(r"\[(\d{4}/\d\d/\d\d)", r["source_answer"]))) >= 2]
+    return float({"pairs": len(rows), "dated": len(dated),
+                  "unknown": sum(r["value"].strip().upper().startswith("UNKNOWN")
+                                 for r in dated)}[what])
+
+
+def _read_range() -> tuple[float, float]:
+    rates = [h9_rate(r) for r in ("h9-reader-cognee-chunks-v1", "h9-reader-hindsight-recall-v1",
+                                  "h9-judge-gpt4o-cognee-graph-v1",
+                                  "h9-judge-gpt4o-hindsight-reflect-v1")]
+    return min(rates), max(rates)
+
+
+def _h9_real_claims() -> list:
+    A = "A plain reader does not recover it here"
+    return [
+        Claim("intro", "retaining stores read: lowest", "0.73", lambda: _read_range()[0],
+              0.005, near="assert, they answer"),
+        Claim("intro", "retaining stores read: highest", "1.00", lambda: _read_range()[1],
+              0.005, near="they answer 0.73 to"),
+        Claim("5.real", "judged Cognee reader, LME", "29", lambda: lme_judged("Cognee"), 0.5,
+              near="does not close it ("),
+        Claim("5.real", "judged Hindsight reader, LME", "15", lambda: lme_judged("Hindsight"), 0.5,
+              near="does not close it (29 against"),
+        Claim("5.real", "common reader, Cognee chunks, LME", "3", lambda: lme_read("Cognee chunks"),
+              0.5, near="transcripts, answers", after=A),
+        Claim("5.real", "common reader, LME valid-time questions", "60",
+              lambda: float(sum(len([r for r in tr(f"h9-reader-{run}") if r["category"] == "valid_time"])
+                                for run in _LME_READER["Cognee chunks"])), 0.5,
+              near="of 60 valid-time questions from Cognee", after=A),
+        Claim("5.real", "common reader, best other store, LME", "13",
+              lambda: max(lme_read(s) for s in ("Mem0", "LangMem", "Graphiti", "Hindsight recall")),
+              0.5, near="at most", after=A),
+        Claim("5.real", "agreement pairs, LME", "41", lambda: lme_abstention("pairs"), 0.5,
+              near="For all", after=A),
+        Claim("5.real", "agreement pairs with both values and dates", "41",
+              lambda: lme_abstention("dated") if lme_abstention("dated") == lme_abstention("pairs")
+              else -1.0, 0.5, near="For all", after=A),
+        Claim("5.real", "reader abstained", "35", lambda: lme_abstention("unknown"), 0.5,
+              near="answered \\textsc{unknown} for", after=A),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims()
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
-_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+_WORDS = {"One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
           "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
 
 

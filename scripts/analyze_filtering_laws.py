@@ -111,6 +111,28 @@ def ceiling(run: str) -> tuple[int, int, int, int, int]:
     return answerable_n, len(sealed), inside, beyond, mismatches
 
 
+def reader_ceiling(reader_run: str, source_run: str) -> tuple[int, int]:
+    """(correct valid-time verdicts, those beyond the ceiling) for a sealed
+    rescore of ``source_run`` (scripts/llm_rescore.py), whose rows keep the
+    source's cell and case ids."""
+    config = json.loads((RUNS / source_run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    lines = (RUNS / reader_run / "transcript.jsonl").read_text(encoding="utf-8").splitlines()
+    sealed = [r for r in map(json.loads, lines) if r["category"] == "valid_time" and r["exact"]]
+    beyond = 0
+    for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in sealed}):
+        profile, entities, revisions, seed = cell
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        answerable = consolidation_answerable(events, build_nl_cases(events))
+        beyond += sum(not answerable[r["case_id"]] for r in sealed
+                      if (r["profile"], r["entities"], r["revisions"], r["seed"]) == cell)
+    return len(sealed), beyond
+
+
 def first_ceiling_beyond(run: str) -> int:
     """Correct valid-time answers outside the first, falsified bound, which kept
     only values still valid at the question's transaction time. Kept so the
