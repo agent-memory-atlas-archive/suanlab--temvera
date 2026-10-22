@@ -46,3 +46,20 @@ Transaction-scoped and other categories are reported without prediction. The
 analysis is the per-category exact rate each sealed rescore run records; the
 ceiling check uses `analyze_filtering_laws.ceiling` logic on the reader's
 verdicts.
+
+## Addendum (2026-10-23, before any LongMemEval transcript is re-read)
+
+The read-path rule of §VI-D matches the grid's own sentence template, so it
+cannot be applied to benchmark text, and on the grid Cognee's dates are the ones
+our rendering wrote. The common reader has no template. It is therefore also run,
+unchanged, on the retrieval-layer LongMemEval runs the paper cites (agreement and
+adjudicated runs of Mem0, LangMem, Graphiti, Cognee chunks, Hindsight recall;
+62 pairs, 60 valid-time questions). Cognee's chunks there carry LongMemEval's own
+session timestamps; Hindsight's returned facts carry ingestion wall-clock times,
+not session dates; Graphiti's carry none.
+
+- **H9f -- benchmark dates are enough for a plain reader:** under the common
+  reader, Cognee chunks answers at least 20 of 60 valid-time questions, and more
+  than Mem0 and more than LangMem under the same reader.
+- **H9g -- without session dates it cannot:** Graphiti and Hindsight recall,
+  under the common reader, each answer at most 15 of 60.
