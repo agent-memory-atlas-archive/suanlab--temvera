@@ -178,40 +178,43 @@ stale-fact rate as its headline metric, and MemTX \citep{memtx} and MemTxn
 We therefore claim none of these.
 
 \paragraph{Forgetting evaluation is prior art.}
-ForgetEval \citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases with deterministic substring scoring
-across supersession, decay, amnesia, purge and drift; MemoryAgentBench \citep{memoryagentbench} evaluates
-selective forgetting among four competencies. Springdrift \citep{springdrift} already combines
-append-only memory, auditability and git-backed recovery, which retires any
-``first git-native auditable memory'' framing. Deletion is measured too:
-Bemula \citep{bemula} evaluates six mainstream memory systems on forget requests
-made in dialogue and finds that none passes more than 1.5\% of them end to end;
-MemCut \citep{memcut} recovers deleted secrets from objects that survive deletion
-across five memory designs, and MemLeak \citep{memleak} from retained images and
-correlated text. These judge deletion by what a reader can recover; we compare a
-prose request with each system's native deletion API and scan the stores for
-the payload itself.
+ForgetEval \citep{forgetevalpaper,forgeteval} generates seeded lifecycle cases
+across supersession, decay, amnesia, purge and drift, calls each system's native
+delete, and passes a case when no forbidden string reaches the top ten
+retrieved; MemoryAgentBench \citep{memoryagentbench} evaluates selective
+forgetting among four competencies. Springdrift \citep{springdrift} already
+combines append-only memory, auditability and git-backed recovery. Bemula
+\citep{bemula} sends forget requests in dialogue to six systems, scores leaks and
+over-deletion from answers, and finds that none passes more than 1.5\% end to
+end; MemCut \citep{memcut} recovers deleted secrets from objects that survive
+its own deletion harness, and MemLeak \citep{memleak} from retained images and
+correlated text. Read in full, none of them compares a prose request with the
+same systems' delete calls, and none reads the systems' stores: ForgetEval and
+Bemula judge deletion from what retrieval or an answer reveals.
 
 \paragraph{Measuring deployed memory.}
-Zhou et al.\ \citep{agentnative} evaluate twelve memory systems from a
-data-management perspective, including update correctness, and Wolff and
-Bennati \citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and
+Zhou et al.\ \citep{agentnative} evaluate twelve memory systems on eleven
+datasets from a data-management perspective, including update robustness on
+LongMemEval's knowledge-update slice, cost and component ablations, and Wolff
+and Bennati \citep{wolffcost} compare the accuracy and cost of Mem0, Graphiti and
 Cognee. STALE \citep{stale} and StateMemBench \citep{statemembench} find that
 memory systems often answer with a superseded state, Supersede \citep{supersede}
 isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth
 First \citep{groundtruthfirst} asks as-of-date questions over facts with
-validity intervals. These score the current state or valid time; none we found
-asks what a deployed system \emph{knew} at an earlier time. We ask it only as far
-as the systems allow: by replaying the history forward and querying at each
-checkpoint, since none exposes a transaction-time predicate that could be asked
-after the fact (Table~\ref{tab:related}).
+validity intervals on its own backends, at replay checkpoints where valid and
+transaction time coincide. These score the current state or valid time; none we
+found asks what a deployed system \emph{knew} at an earlier time, or replays one
+seeded history into every system so that a difference is the system's
+(Table~\ref{tab:related}). They go further than we do elsewhere: Zhou et al.\ in
+systems, data and cost, Bemula in forms of forgetting, attacks and backbones,
+ForgetEval in failure categories.
 
 \begin{table}[t]
 \centering
-\caption{What closely related measurement studies evaluate. \checkmark: the
-work's abstract states it; ---: its abstract does not. ``Knew'' is a question
-about what the system had recorded by an earlier time (transaction time);
-$\circ$: asked by replaying the history forward and querying at each
-checkpoint, because no system measured exposes a predicate for it.}
+\caption{What closely related studies evaluate, read from each work's full text
+and, where released, its code (October 2026). \checkmark: evaluated; ---: not.
+``Knew then'' asks what the system had recorded by an earlier time
+(transaction time) as distinct from valid time.}
 \label{tab:related}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -224,9 +227,10 @@ Zhou et al.\ \citep{agentnative}   & \checkmark & \checkmark & --- & --- & --- \
 STALE \citep{stale}                & \checkmark & \checkmark & --- & --- & --- \\
 StateMemBench \citep{statemembench} & \checkmark & \checkmark & --- & --- & --- \\
 Ground Truth First \citep{groundtruthfirst} & --- & \checkmark & \checkmark & --- & --- \\
-Bemula \citep{bemula}              & \checkmark & --- & --- & --- & \checkmark \\
-MemCut \citep{memcut}              & --- & --- & --- & --- & \checkmark \\
-This paper                         & \checkmark & \checkmark & \checkmark & $\circ$ & \checkmark \\
+ForgetEval \citep{forgetevalpaper} & \checkmark & \checkmark & --- & --- & --- \\
+Bemula \citep{bemula}              & \checkmark & \checkmark & --- & --- & --- \\
+MemCut \citep{memcut}              & \checkmark & --- & --- & --- & \checkmark \\
+This paper                         & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -243,7 +247,8 @@ answer correctness \emph{and} where deleted content physically survives across a
 system's derived stores; the works above each measure one side, on other
 systems or by other means. Our literature review is single-reviewer with a
 deterministic 10\% rescreen; searches, exclusions and rescreens are logged and
-frozen with the artifact, the last search on 19 October 2026.
+frozen with the artifact, the last search on 19 October 2026, and the seven
+closest works were re-read in full, with their released code, on 23 October.
 
 \section{Which fragment of bitemporal semantics does each system implement?}
 \label{sec:fragment}
