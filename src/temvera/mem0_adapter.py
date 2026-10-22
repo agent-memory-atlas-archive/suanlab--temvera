@@ -156,6 +156,10 @@ class Mem0System:
         self._memory = Memory.from_config(self._config)
         self.last_added: list[dict[str, Any]] = []
         self.retries = 0
+        # Mem0 2.x scopes search and listing through `filters` and renames
+        # `limit` to `top_k`; 0.1.x takes `user_id` and `limit` directly. Both
+        # are called on their default paths otherwise.
+        self._v2 = self.version.split(".")[0].isdigit() and int(self.version.split(".")[0]) >= 2
 
     def _count_retry(self, error: Exception) -> None:
         self.retries += 1
@@ -183,7 +187,8 @@ class Mem0System:
         Feeding a natural-language "delete" sentence tests whether extraction
         infers deletion intent; this exercises the documented deletion API.
         """
-        result = self._memory.get_all(user_id=self._user_id)
+        result = (self._memory.get_all(filters={"user_id": self._user_id}, top_k=1000)
+                  if self._v2 else self._memory.get_all(user_id=self._user_id))
         rows = result.get("results", result) if isinstance(result, dict) else result
         removed = 0
         for row in rows:
@@ -200,6 +205,9 @@ class Mem0System:
     def answer(self, case: NLQueryCase) -> str:
         result = _with_retries(
             lambda: self._memory.search(
+                case.query_text, filters={"user_id": self._user_id},
+                top_k=self._search_limit,
+            ) if self._v2 else self._memory.search(
                 case.query_text, user_id=self._user_id, limit=self._search_limit
             ),
             on_retry=self._count_retry,
