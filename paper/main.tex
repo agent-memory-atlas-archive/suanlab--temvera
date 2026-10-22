@@ -291,14 +291,21 @@ C6 deletion clears serving& \textsc{yes} & \textsc{yes} & n/m & \textsc{yes} \\
 
 Three entries in Table~\ref{tab:fragment} carry most of the explanatory weight.
 
-\textbf{C2 \textsc{mismatch} is an expressiveness limit, not a bug.} Graphiti
-stores \texttt{created\_at} and \texttt{expired\_at}, which look like a
-transaction-time axis. They record \emph{wall-clock ingestion}: in our runs they
-carry 2026 timestamps for a history whose modelled transaction times lie in
-2025. No predicate over them can express ``as of what was known on
-2025-02-18''. This is why we enforce the transaction-time axis structurally, by
-forward-checkpoint replay, rather than by asking any system to filter on it ---
-and why C5 is \textsc{absent} rather than \textsc{off}.
+\textbf{C2 \textsc{mismatch} is a second timeline, not a bug.} Two recording
+times must be told apart. The \emph{physical} one is when the store wrote a
+fact; the \emph{logical} one is when the agent learned it --- the date of the
+conversation turn that stated it. In live use they coincide. They part whenever
+a history is imported, backfilled, replayed or ingested late, and an agent's
+``what did I know on 18 February'' asks about the logical one. Graphiti's
+\texttt{created\_at} and \texttt{expired\_at} are a correct physical
+transaction time: in our runs they carry 2026 timestamps for turns dated 2025.
+Graphiti has no field for the logical time, so no predicate over its store can
+express ``as of what was known on 2025-02-18'' for any history not ingested
+live. This is why we ask transaction-time questions in two ways: at each
+checkpoint of a forward replay, which every store can answer by construction,
+and of the final store after the whole history (\S\ref{sec:corrections}), which
+needs the predicate none of them has --- and why C5 is \textsc{absent} rather
+than \textsc{off}.
 
 \textbf{C1 \textsc{prose} is the distinction a capability checklist misses.}
 LangMem does retain validity information --- its stored memories contain strings
@@ -443,20 +450,37 @@ construction, appears only as a scale anchor and as the reference column of the
 deletion scan, and its other machinery plays no part in the measurements.
 
 \paragraph{Systems.} Internal baselines (append-only, full/recent context, BM25,
-last-write-wins) and the oracle; external systems Mem0 \texttt{0.1.118}, LangMem \texttt{0.0.30},
-Graphiti \texttt{0.29.2} on Neo4j~5.26, Cognee \texttt{1.4.2} and Hindsight,
-all with \texttt{gpt-4o-mini} (\texttt{gpt-4o} only where
-\S\ref{sec:results} says so) and, except Hindsight, \embedmodel{}; Hindsight
-keeps its default local embedder, \texttt{BAAI/bge-small-en-v1.5}. Mem0, Graphiti and Cognee run at temperature~0;
-LangMem and Hindsight keep their libraries' defaults --- LangMem's extractor
-sets no temperature, so the provider default applies, and Hindsight uses 0.1 to
-extract and 0.9 to reflect. The Hindsight runs did not record their version;
-the interpreter that served all of them had \texttt{hindsight-api 0.9.1}
-installed throughout.
-LangMem and Cognee require \texttt{openai} major versions incompatible with the
-pinned Mem0 and Graphiti, so they run in isolated interpreters behind a stdio
-protocol. Runs are sealed with
-canonical config, environment, source hash and per-file checksums.
+last-write-wins) and the oracle, and five external systems run at their
+libraries' defaults, as a user would deploy them (Table~\ref{tab:settings}).
+All use \texttt{gpt-4o-mini} (\texttt{gpt-4o} only where \S\ref{sec:results}
+says so). The Hindsight runs did not record their version; the interpreter that
+served them had \texttt{hindsight-api 0.9.1} installed throughout. LangMem and
+Cognee require \texttt{openai} major versions incompatible with the pinned Mem0
+and Graphiti, so they run in isolated interpreters behind a stdio protocol. Runs
+are sealed with canonical config, environment, source hash and per-file
+checksums.
+
+\begin{table}[t]
+\centering
+\caption{Settings of the measured systems. Temperatures are for extraction and,
+where an LLM writes the answer, reading; ``default'' leaves the provider's own.
+Embeddings are \embedmodel{} except Hindsight's local
+\texttt{BAAI/bge-small-en-v1.5}.}
+\label{tab:settings}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+System & Store & Temp. & What is scored \\
+\midrule
+Mem0 0.1.118      & Qdrant + SQLite history     & 0 & top-5 memories \\
+LangMem 0.0.30    & LangGraph in-memory         & default & top-5 memories \\
+Graphiti 0.29.2   & Neo4j 5.26                  & 0 & top-5 facts (hybrid RRF) \\
+Cognee 1.4.2      & SQLite, LanceDB, graph DB   & 0 / 0 & top-5 chunks; or its reader \\
+Hindsight 0.9.1   & embedded PostgreSQL         & 0.1 / 0.9 & recall (budget ``mid''); or its reader \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \paragraph{Versions.} These systems change quickly, and our claims are about the
 versions named above, measured between July and October 2026. Every sealed run
@@ -800,6 +824,18 @@ the caller.} A deployment on a consolidating store cannot be made correct
 without changing the store; a deployment on a retaining store can be, on the
 read path.
 
+\textbf{The retention policy alone reproduces the split.} The deployed systems
+differ in extractor, retriever and reader as well as in what they keep. To
+isolate the policy we built two stores from the same rendered turns --- one
+keeping every turn, one keeping only the statement of each person's latest
+value --- and searched and read both identically (BM25, top five, the common
+reader); nothing else differs. Consolidating, the store answers 75 of 195
+valid-time questions as returned and 74 read, against a ceiling of 75 and with
+none beyond it; retaining, it answers 31 as returned and 151 read. Read, both
+answer all 228 transaction-scoped questions. The retaining store's 31 is not 0,
+as for the deployed retrievers, because BM25 sometimes leaves the older statement
+out of the top five; we had predicted at most 0.05.
+
 \textbf{One rule on the read path is enough here.} The retaining stores return
 the dates along with the values: Cognee's chunks are the stored turns, and
 Hindsight restates each fact with its validity. A read path that keeps only the
@@ -815,8 +851,8 @@ general-purpose filter; on benchmark text (\S\ref{sec:realdata}) we use the
 common reader instead.
 
 The reader configurations differ from the rest in whether an LLM synthesises the
-answer, so their exact columns are an upper bound on what a reader can recover
-rather than a like-for-like win over the retrieval-layer rows. Expiry stays low
+answer, so their exact columns show what one reader achieves, not a bound on what
+a better one could, and not a like-for-like win over the retrieval-layer rows. Expiry stays low
 for both readers ($0.125$ at best over 16 cases), so we draw no conclusion there.
 The \texttt{purge} column is scored as our generator specifies it, which removes
 only the latest value although the request asks for everything about the
@@ -824,7 +860,7 @@ attribute; under the request's own scope every configuration answers 0 or 1 of
 45 except LangMem (9), and Cognee's reader earns its $0.622$ mostly by answering
 a value it was asked to delete.
 
-\subsection{Where cost and latency live}
+\subsection{Where cost and latency live}\label{sec:cost}
 
 Mem0, which extracts on write, inverts the usual read/write cost profile, and
 the inversion is large enough to matter for design. Instrumenting the provider's
@@ -945,6 +981,14 @@ temporal axis: transaction-scoped accuracy falls from 0.956 [0.942, 0.966] at
 superseded value rises from 0.463 to 0.498, while recall holds near 0.6. Its
 historical deficit is a property of consolidation, as the main grid showed, and
 does not wait for scale to appear.
+
+\textbf{This is not a systems-scalability result.} The sweep measures accuracy
+as histories grow to 128 people (up to 11{,}107 ingested turns and 10{,}037
+questions per run). Query latency did not grow with it --- Graphiti's p95 was
+1.61, 2.51 and 1.27\,s at 8, 32 and 128 entities, Mem0's 0.68, 1.00 and
+0.21\,s (one of its three runs at 128) --- but those runs were days apart and provider response time dominates
+them (\S\ref{sec:cost}), so we read no trend into it. Throughput under
+concurrent load, index and store size, and memory were not measured.
 
 \subsection{Does it hold beyond our generator?}\label{sec:realdata}
 

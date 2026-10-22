@@ -110,6 +110,7 @@ experiments/runs/*
 !experiments/runs/external-cognee-grid-latest-v1/
 !experiments/runs/external-hindsight-recall-latest-v1/
 !experiments/runs/external-hindsight-reflect-latest-v1/
+!experiments/runs/controlled-policy-v1/
 !experiments/runs/h9-judge-gpt4o-cognee-graph-latest-v1/
 !experiments/runs/h9-judge-gpt4o-cognee-graph-v1/
 !experiments/runs/h9-judge-gpt4o-hindsight-reflect-latest-v1/

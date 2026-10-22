@@ -1606,11 +1606,102 @@ def _h9_real_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims()
+def _latency(run: str, which: str) -> float:
+    return float(res(run)["telemetry"][f"{which}_latency"]["p95_s"])
+
+
+def _scale_latency_claims() -> list:
+    A = "This is not a systems-scalability result"
+    g = {8: "scale-sweep-graphiti-e8-v2", 32: "scale-sweep-graphiti-e32-v2",
+         128: "scale-sweep-graphiti-e128-v2"}
+    m = {8: "scale-sweep-mem0-e8-v2", 32: "scale-sweep-mem0-e32-v2",
+         128: "scale-sweep-mem0-e128-s7-v3"}
+    return [
+        Claim("5.scale", "Graphiti e128 ingests", "11{,}107",
+              lambda: float(res(g[128])["telemetry"]["ingest_latency"]["n"]), 0.5,
+              near="up to", after=A),
+        Claim("5.scale", "Graphiti e128 queries", "10{,}037",
+              lambda: float(res(g[128])["telemetry"]["query_latency"]["n"]), 0.5,
+              near="turns and", after=A),
+        Claim("5.scale", "Graphiti query p95 at 8", "1.61", lambda: _latency(g[8], "query"), 0.006,
+              near="Graphiti's p95 was", after=A),
+        Claim("5.scale", "Graphiti query p95 at 32", "2.51", lambda: _latency(g[32], "query"), 0.006,
+              near="Graphiti's p95 was\n1.61,", after=A),
+        Claim("5.scale", "Graphiti query p95 at 128", "1.27", lambda: _latency(g[128], "query"), 0.006,
+              near="2.51 and", after=A),
+        Claim("5.scale", "Mem0 query p95 at 8", "0.68", lambda: _latency(m[8], "query"), 0.006,
+              near="Mem0's", after=A),
+        Claim("5.scale", "Mem0 query p95 at 32", "1.00", lambda: _latency(m[32], "query"), 0.006,
+              near="Mem0's 0.68,", after=A),
+        Claim("5.scale", "Mem0 query p95 at 128 (seed 7)", "0.21", lambda: _latency(m[128], "query"),
+              0.006, near="1.00 and", after=A),
+    ]
+
+
+# -- H12: only the retention policy changes (scripts/controlled_policy.py) ------
+def policy(name: str, category: str, column: str) -> float:
+    return float(res("controlled-policy-v1")["summary"][f"{name}:{category}"][column])
+
+
+def policy_beyond_ceiling(name: str) -> float:
+    from temvera.external_experiment import _events_for
+    from temvera.nl_workload import build_nl_cases
+    from temvera.reanalysis import consolidation_answerable
+
+    config = json.loads((RUNS / "external-mem0-grid-v2" / "config.json").read_text())
+    profiles = {p["name"]: p for p in config["profiles"]}
+    rows = [r for r in tr("controlled-policy-v1")
+            if r["policy"] == name and r["category"] == "valid_time"]
+    beyond = 0
+    for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in rows}):
+        events = _events_for(cell[3], cell[1], cell[2], profiles[cell[0]], True,
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        answerable = consolidation_answerable(events, build_nl_cases(events))
+        beyond += sum(r["exact_read"] and not answerable[r["case_id"]] for r in rows
+                      if (r["profile"], r["entities"], r["revisions"], r["seed"]) == cell)
+    return float(beyond)
+
+
+def _h12_claims() -> list:
+    A = "The retention policy alone reproduces the split"
+    return [
+        Claim("5.4", "consolidate valid_time returned", "75",
+              lambda: policy("consolidate", "valid_time", "exact_returned"), 0.5,
+              near="Consolidating, the store answers", after=A),
+        Claim("5.4", "valid_time questions", "195",
+              lambda: policy("consolidate", "valid_time", "n"), 0.5, near="75 of", after=A),
+        Claim("5.4", "consolidate valid_time read", "74",
+              lambda: policy("consolidate", "valid_time", "exact_read"), 0.5,
+              near="as returned and", after=A),
+        Claim("5.4", "consolidation ceiling (count)", "75",
+              lambda: float(laws().ceiling("external-mem0-grid-v2")[0]), 0.5,
+              near="against a ceiling of", after=A),
+        Claim("5.4", "consolidate read beyond ceiling", "none",
+              lambda: 0.0 if policy_beyond_ceiling("consolidate") == 0 else -1.0, 0.5,
+              near="against a ceiling of 75 and with", after=A),
+        Claim("5.4", "retain valid_time returned", "31",
+              lambda: policy("retain", "valid_time", "exact_returned"), 0.5,
+              near="retaining, it answers", after=A),
+        Claim("5.4", "retain valid_time read", "151",
+              lambda: policy("retain", "valid_time", "exact_read"), 0.5,
+              near="as returned and", after="retaining, it answers"),
+        Claim("5.4", "transaction-scoped read, both", "228",
+              lambda: min(policy(p, "transaction_as_of", "exact_read") for p in ("retain", "consolidate"))
+              if policy("retain", "transaction_as_of", "exact_read") == policy("retain", "transaction_as_of", "n")
+              else -1.0, 0.5, near="answer all", after=A),
+        Claim("5.4", "H12a threshold", "0.05",
+              lambda: 0.05 if "retain answers at most 0.05" in (ROOT / "docs" / "preregistration-h11-h12.md").read_text() else -1.0,
+              near="we had predicted at most", after=A),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims()
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
-_WORDS = {"One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+_WORDS = {"none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
           "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
 
 

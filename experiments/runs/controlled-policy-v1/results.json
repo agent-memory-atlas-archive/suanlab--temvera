@@ -1,0 +1,44 @@
+{
+  "summary": {
+    "consolidate:expiry_boundary": {
+      "exact_read": 0,
+      "exact_returned": 0,
+      "n": 16
+    },
+    "consolidate:purge": {
+      "exact_read": 16,
+      "exact_returned": 16,
+      "n": 45
+    },
+    "consolidate:transaction_as_of": {
+      "exact_read": 228,
+      "exact_returned": 218,
+      "n": 228
+    },
+    "consolidate:valid_time": {
+      "exact_read": 74,
+      "exact_returned": 75,
+      "n": 195
+    },
+    "retain:expiry_boundary": {
+      "exact_read": 13,
+      "exact_returned": 0,
+      "n": 16
+    },
+    "retain:purge": {
+      "exact_read": 19,
+      "exact_returned": 1,
+      "n": 45
+    },
+    "retain:transaction_as_of": {
+      "exact_read": 228,
+      "exact_returned": 138,
+      "n": 228
+    },
+    "retain:valid_time": {
+      "exact_read": 151,
+      "exact_returned": 31,
+      "n": 195
+    }
+  }
+}

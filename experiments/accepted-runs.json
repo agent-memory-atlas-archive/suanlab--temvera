@@ -1,6 +1,7 @@
 {
   "accepted_runs": [
     "channel-ablation-v0",
+    "controlled-policy-v1",
     "decay-sweep-v0",
     "efficiency-local-v0",
     "external-cognee-chunks-grid-latest-v1",
