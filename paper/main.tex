@@ -145,7 +145,24 @@ from them are public at \url{https://github.com/suanlab/temvera}.
 
 \section{Related Work}
 
-\paragraph{Temporal modelling is prior art.}
+\paragraph{Both questions are database questions first.}
+Valid time and transaction time are the two axes of temporal databases
+\citep{snodgrass1985,jensen1999temporal}; TSQL2 \citep{snodgrass1995tsql2} and
+then SQL:2011's application-time and system-versioned tables
+\citep{kulkarni2012sql2011} standardised them, and TPC-BiH
+\citep{kaufmann2013tpcbih} benchmarks time-travel queries on both axes over
+relational engines. We take the semantics and the benchmarking stance from this
+work: our oracle implements the same two axes, and our questions are the
+agent-memory analogue of time-travel queries. Deletion has a database history
+too. GDPR's right to erasure has been turned into database requirements and
+benchmarked \citep{shastri2020gdpr}, argued for as a property to build in rather
+than retrofit \citep{schwarzkopf2019gdpr}, and traced down to storage, where a
+delete is a tombstone with no bound on when the data is gone
+\citep{sarkar2020lethe}. Agent memory adds copies no database delete path knows
+about --- extracted facts, LLM-written summaries, request logs --- and our
+residue scan asks the same question of them.
+
+\paragraph{Temporal modelling for agent memory is prior art.}
 A graph-native bitemporal memory store \citep{graphnativebitemporal} keeps valid- and transaction-time
 intervals with point-in-time retrieval, and TOKI \citep{toki} defines bitemporal operators
 over a dual-row schema. MemStrata \citep{memstrata} pairs a bi-temporal ledger
@@ -177,14 +194,18 @@ memory systems often answer with a superseded state, Supersede \citep{supersede}
 isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth
 First \citep{groundtruthfirst} asks as-of-date questions over facts with
 validity intervals. These score the current state or valid time; none we found
-asks what a deployed system \emph{knew} at an earlier time, which
-forward-checkpoint replay makes measurable (Table~\ref{tab:related}).
+asks what a deployed system \emph{knew} at an earlier time. We ask it only as far
+as the systems allow: by replaying the history forward and querying at each
+checkpoint, since none exposes a transaction-time predicate that could be asked
+after the fact (Table~\ref{tab:related}).
 
 \begin{table}[t]
 \centering
 \caption{What closely related measurement studies evaluate. \checkmark: the
 work's abstract states it; ---: its abstract does not. ``Knew'' is a question
-about what the system had recorded by an earlier time (transaction time).}
+about what the system had recorded by an earlier time (transaction time);
+$\circ$: asked by replaying the history forward and querying at each
+checkpoint, because no system measured exposes a predicate for it.}
 \label{tab:related}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -199,7 +220,7 @@ StateMemBench \citep{statemembench} & \checkmark & \checkmark & --- & --- & --- 
 Ground Truth First \citep{groundtruthfirst} & --- & \checkmark & \checkmark & --- & --- \\
 Bemula \citep{bemula}              & \checkmark & --- & --- & --- & \checkmark \\
 MemCut \citep{memcut}              & --- & --- & --- & --- & \checkmark \\
-This paper                         & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+This paper                         & \checkmark & \checkmark & \checkmark & $\circ$ & \checkmark \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -218,26 +239,6 @@ systems or by other means. Our literature review is single-reviewer with a
 deterministic 10\% rescreen; searches, exclusions and rescreens are logged and
 frozen with the artifact, the last search on 19 October 2026.
 
-\section{Reference implementation}
-
-Ground truth has to come from somewhere, and one component of the comparison is
-ours, so we state exactly what it does and how far its role extends. It keeps a
-typed append-only event log (\texttt{ingest}, \texttt{reconfirm},
-\texttt{supersede}, \texttt{expire}, \texttt{purge}) and folds it into beliefs
-carrying both a valid-time interval and a transaction time; a second,
-independent SQLite implementation of the same specification is used as a
-differential check on that fold. Retrieval projections are rebuilt from
-materialised beliefs rather than mutated in place, which is what lets the
-deletion scan ask whether a purged payload survives anywhere a query can reach.
-
-It is not a system under test. It supplies the expected answers, so its own
-accuracy is $1.0$ by construction and never reported as a result
-(\S\ref{sec:setup}), and it appears in the comparison only as the reference
-column of the deletion scan. Its other machinery --- an encrypted-payload
-profile, provenance-gated ingestion --- is exercised by the artifact's test
-suite but plays no part in the measurements below, and we make no claim for it
-here.
-
 \section{Which fragment of bitemporal semantics does each system implement?}
 \label{sec:fragment}
 
@@ -246,7 +247,7 @@ attribute $a$, return the value valid at event time $V$ according to what the
 store had recorded by transaction time $T$. Answering it requires six
 capabilities, and the systems differ less in whether they \emph{have} temporal
 metadata than in what can be \emph{predicated} on it. We therefore classify
-support into five levels, which turn out to explain every measurement in
+support into five levels, which account for what we measure in
 \S\ref{sec:results}:
 
 \begin{description}[\IEEEsetlabelwidth{\textsc{mismatch}}]
@@ -315,9 +316,10 @@ it and fails to filter it.
 
 The reader should note where the causal chain terminates. C2 and C1 are
 data-model properties. C3's unreliability in Graphiti is not: it is a property of
-the LLM extraction step that populates the store, and it does not improve with a
-stronger extractor (\S\ref{sec:results}). For LLM-backed temporal stores the
-extraction layer, not the schema, is the binding constraint --- which is a
+the LLM extraction step that populates the store; a stronger extractor did not
+change the accuracy it leads to (\S\ref{sec:results}), though we did not
+re-inspect the stored fields under it. For LLM-backed temporal stores the
+extraction layer, not the schema, decides what the temporal fields hold --- a
 statement about the pipeline that fills a temporal database, and the reason a
 schema-level capability audit would mis-rank every system in
 Table~\ref{tab:fragment}. That table covers the three systems whose stores we
@@ -416,14 +418,23 @@ abstention is computed only over cells that contain abstention cases. Two
 comparisons are cell-averaged instead, because they aggregate cells whose
 denominators differ --- the internal baselines of Table~\ref{tab:baselines} and
 the filtered-Graphiti runs --- and both are marked where they are used.
-Intervals are per estimate and are not adjusted for multiple comparisons; the
-comparisons we draw are descriptive.
+Cases share the histories they are asked of, so we also resample whole cells
+(4,000 cluster-bootstrap draws); the comparisons the conclusions rest on are
+paired on identical cases and tested with exact McNemar tests, Holm-adjusted over
+a family of six declared in the artifact, and every adjusted $p$ is below
+$10^{-18}$. The one claim of \emph{no} difference --- Mem0 against Graphiti at
+$k{=}1$ --- passes an equivalence test with margin 0.10 (difference $+0.026$,
+90\% cluster interval $[0.000, 0.057]$).
 
-\paragraph{The oracle defines ground truth.} Expected values are computed by the
-oracle, so an oracle "system" scores $1.0$ by construction; it is not an
-empirical result. We report it only as a scale anchor, and its agreement with the
-independent SQLite implementation is a differential-testing check on our own two
-implementations of one specification, not external validation.
+\paragraph{The oracle defines ground truth.} Expected values come from our
+reference implementation, a typed append-only event log (\texttt{ingest},
+\texttt{reconfirm}, \texttt{supersede}, \texttt{expire}, \texttt{purge}) folded
+into beliefs that carry a valid-time interval and a transaction time. A second
+SQLite implementation of the same specification checks that fold; the two agree,
+which is a differential test of our own code, not external validation. The
+reference implementation is not a system under test: it scores $1.0$ by
+construction, appears only as a scale anchor and as the reference column of the
+deletion scan, and its other machinery plays no part in the measurements.
 
 \paragraph{Systems.} Internal baselines (append-only, full/recent context, BM25,
 last-write-wins) and the oracle; external systems Mem0 \texttt{0.1.118}, LangMem \texttt{0.0.30},
@@ -681,8 +692,7 @@ We inspected the installed distributions rather than their documentation:
 \centering
 \caption{Finest unit each deletion API can name, read from the distribution.
 None accepts a condition over content, so ``forget what you know about this
-subject's home city'' is not an expressible request in any of them. Hindsight is
-omitted: it was not installed for this inspection.}
+subject's home city'' is not an expressible request in any of them.}
 \label{tab:deletion-api}
 \small
 \begin{tabular}{@{}lp{4.3cm}@{}}
@@ -691,8 +701,9 @@ System & Finest nameable unit \\
 \midrule
 Mem0      & one memory id (\texttt{delete}), or a whole user/agent/run scope \\
 Graphiti  & one episode, i.e.\ one ingested turn \\
-Cognee    & one data item, one dataset, or everything the user owns \\
-LangMem   & one memory key \\
+Cognee    & one data item (\texttt{forget}; \texttt{delete} is soft by default), one dataset, or everything the user owns \\
+LangMem   & one memory key; its memory manager's own deletions ship disabled (\texttt{enable\_deletes=False}) \\
+Hindsight & one document (one retained input), or the whole bank \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -910,7 +921,7 @@ queried value in most cases, though recall falls at 128 entities
 Mem0 does degrade at the largest scale, but only mildly and not on the
 temporal axis: transaction-scoped accuracy falls from 0.956 [0.942, 0.966] at
 32 entities to 0.903 [0.894, 0.911] at 128, and the share of answers carrying a
-superseded value rises from 0.432 to 0.498, while recall holds near 0.6. Its
+superseded value rises from 0.463 to 0.498, while recall holds near 0.6. Its
 historical deficit is a property of consolidation, as the main grid showed, and
 does not wait for scale to appear.
 
@@ -977,7 +988,7 @@ Full conversation                   & 46 & 0  & 0  & 60 \\
 stores, read at the retrieval layer, return the superseded value in 41 to 60 of
 60 cases but answer only 0 to 7 exactly: the history is kept and not filtered,
 as on the grid. The consolidating stores answer 3 and 8, and the old value
-appears in fewer than half of their answers (21 and 23): it is gone. Read by an
+appears in fewer than half of their answers (21 and 23): mostly, it is gone. Read by an
 LLM, Cognee's graph answers 40 of 60 valid-time questions (Wilson 95\%
 [0.54, 0.77]) and Hindsight's answers 17 ([0.19, 0.41]) --- the reader ordering
 of the grid, where they answered 192 and 67 of 195, with disjoint intervals
@@ -1000,15 +1011,17 @@ keeps, and the history alone fixes how far it can go.
 
 \textbf{Consolidation has a ceiling.} A consolidating store replaces a value
 when a newer one supersedes it, keeps it when it merely expires, and drops it
-when it is purged. Whatever it does internally, it can hold at most the latest
-value per subject that was neither superseded nor purged, so no reader can
+when it is purged. A store that does this for every revision holds at most the
+latest value per subject that was neither superseded nor purged, so it cannot
 answer a valid-time question whose answer is any other value, and the share it
 could answer is computable from the history before the system runs. On the main
 grid that ceiling is 0.385 (75 of 195): Mem0 reaches 0.364 on
 \texttt{gpt-4o-mini} and 0.374 on \texttt{gpt-4o}, LangMem 0.323, and none
 answers a single question above it. In the scale sweep the ceiling is 0.250 at
 8, 32 and 128 entities alike, and Mem0's 0.206, 0.211 and 0.195 sit under it,
-with 13 of its 915 correct answers above it. Mem0's flat valid-time accuracy
+with 13 of its 915 correct answers above it. Each of the 13 states a superseded
+value Mem0 still held when asked --- an update it did not apply --- so they mark
+where Mem0 failed to consolidate, not answers the bound forbids. Mem0's flat valid-time accuracy
 across scale (\S\ref{sec:scale}) is this ceiling, which the four-revision
 workload fixes. We did not get the bound right first: counting only values still
 valid at query time, it was exceeded by 9 Mem0 and 7 LangMem answers, every one
@@ -1152,7 +1165,9 @@ conversations of the longer split, counted from the library's error log during
 those runs, which the sealed artifacts do not keep --- which we traced to an unvalidated
 positional-id lookup swallowed by a broad exception handler while
 \texttt{add()} reports success. Dropped updates leave superseded values in
-place, so Mem0's scores here are conservative.
+place, which lowers Mem0's current-state scores and can raise its valid-time
+ones (the 13 answers above the ceiling in \S\ref{sec:bounds} are of this kind),
+so the defect does not bias Mem0's aggregate in one known direction.
 
 \subsection{Measurements outside the thesis}
 
@@ -1252,9 +1267,8 @@ copies.
 This work evaluates five open-source memory systems on synthetic histories and
 on a public benchmark, and reports defects we found in them. We
 report an implementation defect in one system that causes silent loss of memory
-updates; because it biases that system's measured scores downward, our reported
-numbers are conservative rather than unfairly harsh, and we state this in the
-text. No user data was collected. The public benchmark is used locally under its
+updates; it moves that system's scores in both directions, and we report it
+beside them rather than correct for it. No user data was collected. The public benchmark is used locally under its
 own terms; the split we use is MIT-licensed, which we verified against the
 dataset's published metadata rather than assuming. No human subjects participated: a protocol for a
 human audit study is released with the artifact but was not run, and we make no

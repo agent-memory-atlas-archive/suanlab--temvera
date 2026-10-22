@@ -660,7 +660,12 @@ def v1_fallback_pct(entities: int) -> float:
 
 
 def _scale_claims() -> list:
-    out = []
+    out = [
+        Claim("5.scale", "Mem0 stale share at 32 entities (prose)", "0.463",
+              lambda: scale_rate("mem0", 32, "stale"), near="superseded value rises from"),
+        Claim("5.scale", "Mem0 stale share at 128 entities (prose)", "0.498",
+              lambda: scale_rate("mem0", 128, "stale"), near="superseded value rises from 0.463 to"),
+    ]
     table = {
         "mem0": [("transaction_as_of", ("0.944", "0.956", "0.903")),
                  ("valid_time", ("0.206", "0.211", "0.195")),
@@ -1417,7 +1422,50 @@ def _coverage_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims()
+# -- Cluster-aware statistics (scripts/analyze_statistics.py) -----------------
+_stats_report = None
+
+
+def stats() -> dict:
+    global _stats_report
+    if _stats_report is None:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import analyze_statistics
+
+        _stats_report = analyze_statistics.analyse()
+    return _stats_report
+
+
+def _stats_claims() -> list:
+    eq = lambda key: stats()["equivalence"][key]  # noqa: E731
+    return [
+        Claim("5.stats", "comparisons in the declared family", "six",
+              lambda: float(len(stats()["family"])), 0.5, near="a family of"),
+        Claim("5.stats", "every Holm p below 1e-18", "18",
+              lambda: 18.0 if max(e["p_holm"] for e in stats()["family"]) < 1e-18 else -1.0,
+              near="adjusted $p$ is below\n$10^{-"),
+        Claim("5.stats", "equivalence margin", "0.10",
+              lambda: eq("margin") if eq("equivalent") else -1.0,
+              near="equivalence test with margin"),
+        Claim("5.stats", "k=1 paired difference", "0.026", lambda: eq("difference"),
+              near="(difference $+"),
+        Claim("5.stats", "k=1 90% interval low", "0.000", lambda: eq("low90"),
+              near="90\\% cluster interval $["),
+        Claim("5.stats", "k=1 90% interval high", "0.057", lambda: eq("high90"),
+              near="90\\% cluster interval $[0.000, "),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims()
+
+
+# Small counts the prose spells out; the printed word is still what is searched.
+_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
+
+
+def _number(printed: str) -> float:
+    return float(_WORDS.get(printed, printed.replace("{,}", "")))
 
 
 def main() -> int:
@@ -1431,7 +1479,7 @@ def main() -> int:
     absent: list[str] = []
     for claim in CLAIMS:
         actual = claim.compute()
-        if abs(actual - float(claim.printed.replace("{,}", ""))) > claim.tol:
+        if abs(actual - _number(claim.printed)) > claim.tol:
             drift.append(f"  {claim.where:<7} {claim.label:<44} paper {claim.printed}, runs {actual:.4f}")
         window = tex
         if claim.near is not None:

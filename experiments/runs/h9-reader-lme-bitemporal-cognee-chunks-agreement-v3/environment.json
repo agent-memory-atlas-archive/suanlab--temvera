@@ -1,0 +1,8 @@
+{
+  "command": "python scripts/llm_rescore.py reader openai:gpt-4o-mini lme-bitemporal-cognee-chunks-agreement-v3 h9-reader-lme-bitemporal-cognee-chunks-agreement-v3",
+  "created_at": "2026-10-22T16:09:23.320549+00:00",
+  "git_revision": "00acac6405ed7c93739853de4c49164f1e8d19a0",
+  "platform": "Linux-6.8.0-101-generic-x86_64-with-glibc2.35",
+  "python": "3.11.15 (main, Jun 23 2026, 15:19:43) [Clang 22.1.3 ]",
+  "source_sha256": "019e5d9358f618d2886bc7f4e8ccdb54fb636dba7026f9c7d09481364c8e06cc"
+}

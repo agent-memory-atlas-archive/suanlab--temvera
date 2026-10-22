@@ -78,3 +78,31 @@ about a subject when the request and stored facts share little vocabulary.
 This result rules out presenting the lexical adapter as a general lifecycle
 solution; semantic entity resolution or explicit subject identity is required.
 See `experiments/runs/forgeteval-temvera-lexical-seed42/` and E-026.
+
+## NR-007 — The reader comparison was an artifact of answer form
+
+The paper reported that an LLM reader recovers valid time for Cognee (192 of
+195) but not for Hindsight (67), and read the gap as a property of the readers.
+An asserted-value judge, preregistered as H9, credits both with 195 of 195:
+Hindsight's answers state the right value and then the later one, which the
+exact scorer counts as wrong. The claim is withdrawn; the scorer's rule (no
+superseded value anywhere in the answer) stays, and the judge is reported beside
+it (E-095).
+
+## NR-008 — Our purge category asked for less than our request did
+
+The generator's typed purge removes the latest belief only, but the request the
+systems receive asks them to delete everything about the attribute. 29 of the
+45 purge-category questions on the main grid expected a value the request had
+asked to delete. Found on 2026-10-23 while building the H10 deletion study; the
+category is now reported under both readings (E-096).
+
+## NR-009 — Preregistered predictions that failed in H8-H10
+
+Recorded as they were checked, in `docs/preregistration-h9.md` and
+`docs/evidence-ledger.md` E-095: the common reader's 0.80 threshold for the
+retaining stores (0.728, 0.769); LangMem staying under the consolidation ceiling
+when read by a common reader; a plain reader answering LongMemEval valid-time
+questions from Cognee's dated chunks (3 of 60); Hindsight's real-data reader
+gaining under the judge.
+

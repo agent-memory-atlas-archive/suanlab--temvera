@@ -1,0 +1,17 @@
+{
+  "by_category": {
+    "current": {
+      "exact": 32,
+      "n": 43
+    },
+    "transaction_as_of": {
+      "exact": 40,
+      "n": 43
+    },
+    "valid_time": {
+      "exact": 1,
+      "n": 41
+    }
+  },
+  "cases": 127
+}
