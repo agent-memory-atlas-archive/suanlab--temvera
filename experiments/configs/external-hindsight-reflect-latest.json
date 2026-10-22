@@ -3,6 +3,8 @@
   "benchmark": "temvera-external-hindsight-reflect-v1-latest",
   "bootstrap_samples": 2000,
   "embed_model": "text-embedding-3-small",
+  "hindsight_server_version": "hindsight-api 1.1.0 (separate daemon, default settings: gpt-4o-mini, local BAAI/bge-small-en-v1.5 embeddings)",
+  "hindsight_url": "http://localhost:8890",
   "model": "gpt-4o-mini",
   "naturalize": true,
   "profiles": [
