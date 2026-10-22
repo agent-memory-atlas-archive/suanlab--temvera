@@ -1,0 +1,294 @@
+{
+  "backbone": {
+    "embed_model": "text-embedding-3-small",
+    "langmem_version": "0.0.30",
+    "llm_model": "gpt-4o-mini",
+    "naturalized": false,
+    "replay": "transaction_checkpoint",
+    "store": "langgraph InMemoryStore (no server)",
+    "system": "langmem",
+    "worker_error_messages": [],
+    "worker_errors": 0
+  },
+  "instances": 19,
+  "label_method_prefix": "adjudicated:",
+  "labels_sha256": "060d9ebc3928755704719545eda8815e483ce183fd6b281d5eee95900114190e",
+  "labels_used": {
+    "031748ae": {
+      "attribute": "engineers led as Senior Software Engineer",
+      "choice": "E",
+      "earlier_value": "4 engineers",
+      "later_value": "five engineers",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "both"
+    },
+    "07741c44": {
+      "attribute": "location of old sneakers",
+      "choice": "E",
+      "earlier_value": "under my bed",
+      "later_value": "shoe rack",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
+    "07741c45": {
+      "attribute": "location of old sneakers",
+      "choice": "E",
+      "earlier_value": "under my bed",
+      "later_value": "shoe rack",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "0ddfec37": {
+      "attribute": "autographed baseballs added in first three months",
+      "choice": "E",
+      "earlier_value": "15 autographed baseballs",
+      "later_value": "20 autographed baseballs",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
+    "0f05491a": {
+      "attribute": "stars needed to reach gold level",
+      "choice": "E",
+      "earlier_value": "125 stars",
+      "later_value": "120 stars",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "26bdc477": {
+      "attribute": "trips with Canon EOS 80D",
+      "choice": "E",
+      "earlier_value": "three trips",
+      "later_value": "five trips",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "42ec0761": {
+      "attribute": "spare screwdriver",
+      "choice": "E",
+      "earlier_value": "misplaced",
+      "later_value": "have a spare",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "6071bd76": {
+      "attribute": "coffee-to-water ratio",
+      "choice": "E",
+      "earlier_value": "6 ounces",
+      "later_value": "5 ounces",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "7401057b": {
+      "attribute": "free night's stays at any Hilton property",
+      "choice": "E",
+      "earlier_value": "single free night's stay",
+      "later_value": "two free night's stays",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "89941a93": {
+      "attribute": "number of bikes owned",
+      "choice": "E",
+      "earlier_value": "three bikes",
+      "later_value": "four bikes",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "89941a94": {
+      "attribute": "number of bikes",
+      "choice": "E",
+      "earlier_value": "three bikes",
+      "later_value": "four bikes",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
+    "b6019101": {
+      "attribute": "MCU films watched in the last 3 months",
+      "choice": "E",
+      "earlier_value": "4 MCU films",
+      "later_value": "5 MCU films",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "ba61f0b9": {
+      "attribute": "number of women on Rachel's team",
+      "choice": "E",
+      "earlier_value": "5 women",
+      "later_value": "6 women",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "c4ea545c": {
+      "attribute": "gym frequency",
+      "choice": "E",
+      "earlier_value": "Tuesdays, Thursdays, and Saturdays",
+      "later_value": "four times a week",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "both"
+    },
+    "ce6d2d27": {
+      "attribute": "cocktail-making class day",
+      "choice": "E",
+      "earlier_value": "Thursday",
+      "later_value": "Friday",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "d7c942c3": {
+      "attribute": "mom's grocery list method",
+      "choice": "E",
+      "earlier_value": "paper list",
+      "later_value": "grocery list app",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "e493bb7c": {
+      "attribute": "location of 'Ethereal Dreams' painting",
+      "choice": "E",
+      "earlier_value": "above my living room sofa",
+      "later_value": "my bedroom",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    },
+    "e66b632c": {
+      "attribute": "charity 5K personal best time",
+      "choice": "E",
+      "earlier_value": "27 minutes and 45 seconds",
+      "later_value": "26 minutes and 30 seconds",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "earlier"
+    },
+    "ed4ddc30": {
+      "attribute": "dozen eggs stocked",
+      "choice": "E",
+      "earlier_value": "30 dozen",
+      "later_value": "20 dozen",
+      "method": "adjudicated:author",
+      "proposed_by": "AI (Claude), with evidence quotes; approved by the author on 2026-10-22",
+      "question_asks_for": "later"
+    }
+  },
+  "naturalized": false,
+  "replay": "transaction_checkpoint",
+  "rows": [
+    {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "category": "transaction_as_of",
+      "exact": 9,
+      "exact_without_incidental_values": 8,
+      "full_context_exact": 16,
+      "full_context_expected": 19,
+      "present_expected": 10,
+      "present_stale": 2,
+      "system": "langmem"
+    },
+    {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "category": "current",
+      "exact": 8,
+      "exact_without_incidental_values": 7,
+      "full_context_exact": 0,
+      "full_context_expected": 19,
+      "present_expected": 12,
+      "present_stale": 6,
+      "system": "langmem"
+    },
+    {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "category": "valid_time",
+      "exact": 2,
+      "exact_without_incidental_values": 2,
+      "full_context_exact": 0,
+      "full_context_expected": 19,
+      "present_expected": 6,
+      "present_stale": 12,
+      "system": "langmem"
+    }
+  ],
+  "summary": {
+    "current": {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "exact": 8,
+      "exact_without_incidental_values": 7,
+      "full_context_exact": 0,
+      "full_context_expected": 19,
+      "present_expected": 12,
+      "present_stale": 6
+    },
+    "transaction_as_of": {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "exact": 9,
+      "exact_without_incidental_values": 8,
+      "full_context_exact": 16,
+      "full_context_expected": 19,
+      "present_expected": 10,
+      "present_stale": 2
+    },
+    "valid_time": {
+      "cases": 19,
+      "cases_without_incidental_values": 16,
+      "exact": 2,
+      "exact_without_incidental_values": 2,
+      "full_context_exact": 0,
+      "full_context_expected": 19,
+      "present_expected": 6,
+      "present_stale": 12
+    }
+  },
+  "telemetry": {
+    "cost_usd_total": 0,
+    "ingest_latency": {
+      "mean_s": 7.238978071920574,
+      "n": 450,
+      "p50_s": 6.182232974097133,
+      "p95_s": 14.246501231566072,
+      "total_s": 3257.540132364258
+    },
+    "prices_usd_per_million": {
+      "gpt-4o": [
+        2.5,
+        10.0
+      ],
+      "gpt-4o-mini": [
+        0.15,
+        0.6
+      ],
+      "text-embedding-3-small": [
+        0.02,
+        0.0
+      ]
+    },
+    "query_latency": {
+      "mean_s": 0.16025257809904583,
+      "n": 57,
+      "p50_s": 0.15702933259308338,
+      "p95_s": 0.19674964807927608,
+      "total_s": 9.134396951645613
+    },
+    "usage": {}
+  },
+  "workload": "lme_bitemporal"
+}

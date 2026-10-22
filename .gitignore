@@ -96,6 +96,21 @@ experiments/runs/*
 # Retroactive corrections, preregistered in docs/preregistration-h6.md.
 !experiments/runs/external-corrections-mem0-v1/
 !experiments/runs/external-corrections-graphiti-v1/
+# Adjudicated LongMemEval pairs (D-017) and current releases (H7).
+!experiments/runs/lme-bitemporal-mem0-adjudicated-v1/
+!experiments/runs/lme-bitemporal-langmem-adjudicated-v1/
+!experiments/runs/lme-bitemporal-graphiti-adjudicated-v1/
+!experiments/runs/lme-bitemporal-cognee-chunks-adjudicated-v1/
+!experiments/runs/lme-bitemporal-cognee-graph-adjudicated-v1/
+!experiments/runs/lme-bitemporal-hindsight-recall-adjudicated-v1/
+!experiments/runs/lme-bitemporal-hindsight-reflect-adjudicated-v1/
+!experiments/runs/external-mem0-grid-latest-v1/
+!experiments/runs/external-graphiti-hybrid-latest-v1/
+!experiments/runs/external-cognee-chunks-grid-latest-v1/
+!experiments/runs/external-cognee-grid-latest-v1/
+!experiments/runs/external-hindsight-recall-latest-v1/
+!experiments/runs/external-hindsight-reflect-latest-v1/
+!experiments/runs/external-corrections-mem0-latest-v1/
 
 .env
 .env.*
