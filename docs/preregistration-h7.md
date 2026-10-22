@@ -26,3 +26,17 @@ therefore run both systems on their default paths, as before.
 
 Analysis: the existing `micro` aggregation and `analyze_filtering_laws.ceiling`
 applied to the new runs, over the same 20 matched cells.
+
+## Addendum (2026-10-22, committed before the Cognee and Hindsight runs)
+
+Cognee 1.4.2 → 1.6.5 and Hindsight 0.9.1 → 1.1.0 are tested the same way, on
+the cited main-grid configurations with only names and store roots changed.
+
+- **H7d -- Cognee 1.6.5 (chunks) still does not filter:** valid-time accuracy
+  at most 0.03.
+- **H7e -- Cognee 1.6.5's reader still repairs it:** graph-completion
+  valid-time accuracy at least 0.90.
+- **H7f -- Hindsight 1.1.0 (recall) still does not filter:** valid-time
+  accuracy at most 0.03.
+- **H7g -- Hindsight 1.1.0's reader still trails Cognee's:** its reflect
+  valid-time accuracy is below Cognee 1.6.5's graph-completion accuracy.
