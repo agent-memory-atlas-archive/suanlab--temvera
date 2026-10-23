@@ -496,9 +496,14 @@ def _run(args) -> int:
             for condition in CONDITIONS:
                 partial = Path(tmp) / f"{condition}.json"
                 log = open(Path(tmp) / f"{condition}.log", "w")  # noqa: SIM115
+                # Mem0 0.1.118 builds a telemetry vector store under MEM0_DIR
+                # (default ~/.mem0) and rmtree's it on every construction and
+                # reset, so parallel processes delete each other's: give each its own.
+                private = Path(tmp) / f"{condition}-mem0-dir"
+                private.mkdir()
                 procs.append((condition, partial, log, subprocess.Popen(
                     [sys.executable, __file__, "worker", "mem0", str(args.seed), condition, str(partial)],
-                    stdout=log, stderr=subprocess.STDOUT)))
+                    stdout=log, stderr=subprocess.STDOUT, env={**os.environ, "MEM0_DIR": str(private)})))
             for condition, partial, log, proc in procs:
                 code = proc.wait()
                 log.close()

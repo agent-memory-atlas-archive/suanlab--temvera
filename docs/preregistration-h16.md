@@ -91,3 +91,15 @@ own-reader answers and reported beside the exact score; no prediction uses it.
   least 1.2x its p95 at 300; Mem0's is at most 1.5x.
 
 Analysis: `scripts/analyze_h16.py`, committed with this file.
+
+## Addendum (2026-10-24 02:20 KST, during the runs, before any result was read)
+
+Mem0 0.1.118 builds a telemetry vector store at a fixed path under `MEM0_DIR`
+(default `~/.mem0/migrations_qdrant`) and deletes that directory on every
+`Memory` construction and reset. With fifteen Mem0 processes starting at once,
+one seed-1 store failed at construction (`FileNotFoundError: mem0migrations`)
+and its driver stopped; the other seed-1 stores were then stopped by hand.
+Seeds 2 and 3 had passed construction and continue unchanged: the store is
+touched only there, and their questions had not yet been asked. The harness now
+gives each Mem0 process its own `MEM0_DIR`, and seed 1 of Mem0 is re-run from
+scratch with it. No output of the failed seed-1 attempt existed or was kept.
