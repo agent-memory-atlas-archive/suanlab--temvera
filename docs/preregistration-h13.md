@@ -59,3 +59,16 @@ is the original one and not the correction.
 
 - **H13h:** Cognee chunks at least 30 of 45 (its chunks are the dated turns);
   Mem0 and LangMem at most 5; Graphiti and Hindsight recall at most 15 each.
+
+## Outcomes (recorded 2026-10-23)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H13a | judge right >= 95% on each valid-time template (unresolved >= 90%) | 39-40 of 40 on every template (279/280) | holds |
+| H13b | judge right >= 90% on each before-the-correction template | 40/40 except "history stated" 3/40 (it takes the later correction as the answer) | **falsified** |
+| H13c | at most half of 60 real-data golds identifiable (both models HELD) | 0 (gpt-4o: 5 HELD, 7 CHANGED, 48 UNKNOWN; gpt-4o-mini: 56 CHANGED; the models agree on 7) | holds |
+| H13d | persistence contract: Cognee chunks >= 20/60 on LongMemEval; grid >= 0.70 for Cognee chunks and Hindsight recall | 7/60; 0.733, 0.851 | **falsified** on LongMemEval |
+| H13e | on identifiable pairs, retaining keep the old value in > half, consolidating in < half | no identifiable pairs | not testable |
+| H13f | verified caller: <= 1 leak per system; kept >= 34/36 (Mem0, Graphiti, LangMem, Hindsight), >= 30 (Cognee) | 0 leaks everywhere; kept 36, 36, 33, 36, 36 | **falsified** for LangMem (33; it keeps 30 under the oracle caller) |
+| H13g | LangMem with deletes enabled leaks fewer than 15, 3, 6 | 0, 0, 0 -- but keeps only 6, 8, 2 of 36 never-purged people | holds |
+| H13h | common reader on the final store, before-the-correction questions: Cognee chunks >= 30; Mem0, LangMem <= 5; Graphiti, Hindsight recall <= 15 | 8; 0, 0; 2, 8 | **falsified** for Cognee chunks |

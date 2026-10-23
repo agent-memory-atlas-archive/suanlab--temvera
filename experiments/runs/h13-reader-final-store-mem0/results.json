@@ -1,0 +1,13 @@
+{
+  "by_category": {
+    "transaction_as_of": {
+      "exact": 70,
+      "n": 273
+    },
+    "valid_time": {
+      "exact": 82,
+      "n": 240
+    }
+  },
+  "cases": 513
+}

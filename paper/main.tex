@@ -51,35 +51,29 @@ suanlee@semyung.ac.kr}}
 \begin{abstract}
 Long-running agents accumulate facts that change, expire, and must sometimes be
 deleted. Answering \emph{what was true then}, and \emph{what the agent knew then},
-requires separating valid time from transaction time and honouring deletion
-in every store. Agent memory systems advertise both; we measure whether they
-deliver them.
+needs valid time and transaction time, and deletion must reach every store.
+Agent memory systems advertise both; we ask where in their pipelines it holds.
 
 We replay deterministic lifecycle histories, scored by an oracle that a second
 implementation checks, into five open-source systems---Mem0, LangMem, Graphiti,
-Cognee and Hindsight---and commit the predictions of every follow-up experiment
-before running it. Two designs emerge. \emph{Consolidating} stores overwrite
-superseded values: they answer current queries well (0.952 and 0.890) and
-historical ones under a ceiling the history fixes (0.364 and 0.323 against
-0.385); their served memories keep 0 and 7 of 75 superseded values; and Mem0
-applies a correction about the past to the present (1 of 45 current values
-answered afterwards). \emph{Retaining} stores keep the history but do not filter
-it: at the retrieval layer three implementations answer no valid-time question,
-a common reader recovers 0.73 to 0.77 of them from the two that return dates,
-and changing only the
-retention policy under a fixed retriever and reader reproduces the split. Once a
-correction is stored, only an LLM reader over dated source text can say what was
-known before it (41 and 25 of 45). Deletion divides too: three
-systems ignore prose requests, Mem0 honours one wording of three and LangMem
-part of each; native APIs
-clear every answer when given the right records but leave copies in stores no
-query reads, and deleting what a search returns erases up to 28 of 36 people
-never named. The findings survive a second backbone,
-replicate runs, current releases (where Mem0 has switched designs) and 62
-supersessions in LongMemEval's conversations.
+Cognee and Hindsight---and measure separately what a store retains, what its
+retrieval selects for the asked time, what an answer asserts, and what deletion
+removes. The predictions of every follow-up experiment were committed before it
+ran; fourteen failed, and we report them. The layers disagree. Stores that
+overwrite superseded values keep almost none of them and answer historical
+questions only up to a ceiling the history fixes (Mem0: 0.364 against 0.385),
+and Mem0 applies a correction about the past to the present. Stores that keep
+the history answer no valid-time question at their retrieval layer, yet one
+common reader answers 0.73 to 0.77 of them from the same text where it carries
+dates, and changing only the retention policy under a fixed retriever and
+reader reproduces the split. Once a correction is stored, only the systems' own
+readers say what was known before it. Three systems ignore prose deletion
+requests; native APIs clear every answer but leave copies in stores no query
+reads, and a caller that deletes what a search returns, unchecked, erases up to
+28 of 36 people it was never asked about.
 
 We claim no novelty for bitemporal modelling or forgetting evaluation: the
-contribution is measurement.
+contribution is a measurement contract and what it shows.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -106,7 +100,10 @@ and a bi-temporal ledger with deterministic supersession.
 
 Given that, the open question is not \emph{whether to model time} but
 \textbf{whether the modelling produces correct answers under the operations
-agents actually perform}. We answer it by measurement:
+agents actually perform}, and at which layer: what a store retains, what its
+retrieval selects for the asked time, what an answer asserts and what a
+deletion removes can each succeed while another fails. We measure them
+separately:
 
 \begin{enumerate}
   \item a deterministic lifecycle generator whose ground truth is computed by an
@@ -124,36 +121,38 @@ agents actually perform}. We answer it by measurement:
 \end{enumerate}
 
 \paragraph{Contributions.}
-(i) An identical-history comparison of five deployed memory systems, separating
-consolidating from retaining designs; each side of the taxonomy is confirmed on
-implementations held out from its construction, and both failure modes reappear
-on 62 supersessions in LongMemEval's annotator-edited conversations
-(\S\ref{sec:realdata}). A
-ceiling computable from the history alone caps the consolidating stores
-(\S\ref{sec:bounds}), and a retroactive correction, tested against predictions
-committed before the runs, overwrites Mem0's present (\S\ref{sec:corrections}).
-On the current releases the picture holds, except that Mem0 has switched
-designs and its accuracy has moved with it, and Hindsight's reader now restates
-the superseded value beside the right one (\S\ref{sec:releases}).
-(ii) A separation of \emph{information loss} from \emph{missing filtering}:
-the retaining stores answer no valid-time question at the retrieval layer, but
-the two that return dates answer 0.73 to 1.00 when read --- by one common reader,
-or by their own readers credited for the value they assert --- while Graphiti's
-undated facts yield 0.11 and the consolidating stores stay under their ceiling
-(\S\ref{sec:reader}). A gap we had reported between two readers was one of
-answer form. On benchmark text a plain reader recovers almost none of it.
-(iii) A deletion measurement across all five systems that compares prose
-requests in three wordings with each native API, called with the right records
-and as a caller without them would, and reads every store for what survives
-(\S\ref{sec:deletion}): three systems ignore prose and two follow it only in
-part, the APIs
-clear every answer but leave copies off the query path in three systems, and a
-search-driven caller erases data it was never asked about.
-(iv) Measured write/read cost and latency, and a reproducible sealed harness
-whose reported numbers recompute offline from per-case transcripts --- all but
-two counts taken from run logs (\S\ref{sec:external}) --- including preserved
-negative results and four retracted measurements. Code, data, sealed runs and
-the scripts are public at \url{https://github.com/suanlab/temvera}.
+(i) \emph{An evaluation contract} for agent memory (\S\ref{sec:setup}): one seeded
+history replayed into every system and scored against an oracle; questions on
+both time axes, asked at forward-replay checkpoints and of the final store;
+three readings of every answer --- as returned, by one common reader, and by the
+value it asserts, with the judge checked on answers of known verdict; and a
+deletion protocol of prose requests, an oracle, an unchecked and a checked API
+caller, and a store inventory. It reversed three of our own readings: a reader
+gap that was answer wording, a purge category that asked less than its request,
+and ceiling exceptions that were unapplied updates.
+(ii) \emph{Evidence for where temporal answers fail}. Overwriting stores answer
+historical questions only up to a ceiling the history fixes, and their served
+memories keep 0 and 7 of 75 superseded values (\S\ref{sec:bounds}). Retaining
+stores keep history but their retrieval layers do not filter it: the two that
+return dates answer 0.73 to 1.00 when read, Graphiti's undated facts 0.11, and
+changing only the retention policy under a fixed retriever and reader
+reproduces the split (\S\ref{sec:reader}). Once a correction is stored, only the
+systems' own readers recover what was known before it (\S\ref{sec:corrections}).
+Mem0's current release changed design (\S\ref{sec:releases}), so the
+classification belongs to a version's observed behaviour, not to a product. The
+split holds on a second backbone, in replicates, and in direction on 62
+supersessions from LongMemEval, whose valid-time gold we show rests on a
+persistence assumption (\S\ref{sec:realdata}).
+(iii) \emph{Operational findings on corrections and deletion}: a consolidating
+store applies a correction about the past to the present
+(\S\ref{sec:corrections}); prose deletion is ignored by three systems, honoured
+by Mem0 for one wording of three, and by LangMem only with deletes enabled, at
+the cost of most unrelated memories; native APIs clear every answer but leave
+copies off the query path in three systems; and a search-driven caller destroys
+unrelated data unless it checks what it deletes (\S\ref{sec:deletion}).
+Every number recomputes offline from sealed per-case transcripts but two
+run-log counts; code, data, sealed runs and scripts are public at
+\url{https://github.com/suanlab/temvera}.
 
 \section{Related Work}
 
@@ -426,7 +425,7 @@ $k$}; we set $k{=}5$ throughout and report a sweep over $k$ in
 Figure~\ref{fig:budget}. Rates are case-weighted with Wilson 95\% intervals, and
 abstention is computed only over cells that contain abstention cases. Two
 comparisons are cell-averaged instead, because they aggregate cells whose
-denominators differ --- the internal baselines of Table~\ref{tab:baselines} and
+denominators differ --- the internal baselines of \S\ref{sec:results} and
 the filtered-Graphiti runs --- and both are marked where they are used.
 Cases share the histories they are asked of, so inference is made over
 histories, not cases: the 484 questions come from 20 histories generated from 5
@@ -485,54 +484,24 @@ Hindsight 0.9.1   & embedded PostgreSQL         & 0.1 / 0.9 & recall (budget ``m
 \end{tabular}
 \end{table}
 
-\paragraph{Versions.} These systems change quickly, and our claims are about the
-versions named above, measured between July and October 2026. Every sealed run
-records the environment it ran under, and re-running a newer release is one
-command per system, and we did so on the releases current on 22 October 2026
-(\S\ref{sec:releases}). What we conclude concerns design --- whether a store
-overwrites or retains, and where filtering happens. Three systems' current
-retrieval layers behave as the measured ones; Mem0's changed its design, and its
-accuracy changed exactly as the design predicts. The one implementation defect
-we report (\S\ref{sec:external}) is marked as such.
+\paragraph{Versions.} Our claims are about the versions named above, measured
+between July and October 2026; every sealed run records its environment, and
+\S\ref{sec:releases} re-runs the releases current on 22 October 2026. What we
+conclude concerns observed behaviour --- whether a version overwrites or
+retains, and where filtering happens --- not a product name.
 
 \section{Results}\label{sec:results}
 
 \subsection{The oracle is exact; non-temporal baselines are not}
 
-Across 27 conditions (3 profiles $\times$ 3 scales $\times$ 3 revision counts)
-with 10 seeds each --- 270 oracle cells --- the oracle held exact/recall/stale at
-$1/1/0$ throughout, confirming the natural-language rendering and the scorer
-round-trip the intended semantics without loss (Table~\ref{tab:baselines}). Append-only and full context retrieve the
-evidence ($0.915$ recall) but cannot choose among versions ($0.272$ exact).
-Under the high-churn profile append-only falls to $0.255$ exact with $0.662$
-stale. Two of these strawmen round to the same three digits as external systems
-in Table~\ref{tab:external} --- last-write-wins and Mem0 at $0.603$, BM25@1 and
-LangMem at $0.576$ --- which is coincidence: they are different measurements
-over different workloads and diverge in the fourth decimal.
-
-\begin{table}[t]
-\centering
-\caption{Internal baselines over 27 conditions (3 profiles $\times$ 3 scales
-$\times$ 3 revision counts) $\times$ 10 seeds = 270 cells per system,
-cell-averaged. These are deliberate strawmen that establish the harness
-discriminates; they are not competitive systems. Two pairs coincide on all 270
-cells and are shown merged: returning the whole history is the same retrieval
-whether it is called append-only or full context, and on these histories BM25's
-top hit is always the most recent turn.}
-\label{tab:baselines}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lccc@{}}
-\toprule
-Configuration & exact & evidence recall & stale-use \\
-\midrule
-Oracle (scale anchor)            & 1.000 & 1.000 & 0.000 \\
-\midrule
-Last-write-wins                  & 0.603 & 0.603 & 0.397 \\
-BM25@1 $=$ recent context        & 0.576 & 0.576 & 0.424 \\
-Append-only $=$ full context     & 0.272 & 0.915 & 0.624 \\
-\bottomrule
-\end{tabular}
-\end{table}
+Across 270 cells (3 profiles $\times$ 3 scales $\times$ 3 revision counts, 10 seeds
+each) the oracle held exact, recall and stale-use at $1/1/0$, so the rendering
+and the scorer round-trip the intended semantics. Baselines that ignore time do
+not: returning the whole history recalls the evidence ($0.915$) but answers
+$0.272$ exactly, $0.255$ under high churn with $0.662$ stale-use;
+last-write-wins answers $0.603$ and the most recent turn $0.576$
+(cell-averaged; the full table is in the artifact). They are strawmen that show
+the harness discriminates, not competitors.
 
 \subsection{Two designs: consolidate, or retain without filtering}
 
@@ -700,22 +669,22 @@ through its own library (the inventory is in the artifact), and count the never-
 \centering
 \caption{Deletion in five systems over ten histories: purged people (of 24)
 whose value still appears in the answer, by condition; never-purged people (of
-36) still answered after the realistic caller's deletions; histories (of 9 with
-a purge) in which a store no query reads still holds a purged value after the
-oracle's deletions.}
+36) still answered after the realistic and the verified caller's deletions;
+histories (of 9 with a purge) in which a store no query reads still holds a
+purged value after the oracle's deletions.}
 \label{tab:deletion}
 \footnotesize
 \setlength{\tabcolsep}{2.6pt}
-\begin{tabular}{@{}lccccccc@{}}
+\begin{tabular}{@{}lcccccccc@{}}
 \toprule
- & \multicolumn{3}{c}{prose wording} & \multicolumn{2}{c}{API caller} & kept & off-path \\
-System & 1 & 2 & 3 & oracle & realistic & (realistic) & residue \\
+ & \multicolumn{3}{c}{prose wording} & \multicolumn{2}{c}{API caller} & \multicolumn{2}{c}{kept} & off-path \\
+System & 1 & 2 & 3 & oracle & realistic & realistic & verified & residue \\
 \midrule
-Mem0      & 24 & 2  & 24 & 0 & 0 & 8  & 9 \\
-LangMem   & 15 & 3  & 6  & 0 & 0 & 19 & 0 \\
-Graphiti  & 24 & 24 & 24 & 0 & 0 & 18 & 0 \\
-Cognee    & 24 & 24 & 24 & 0 & 0 & 33 & 9 \\
-Hindsight & 24 & 24 & 24 & 0 & 0 & 36 & 9 \\
+Mem0      & 24 & 2  & 24 & 0 & 0 & 8  & 36 & 9 \\
+LangMem   & 15 & 3  & 6  & 0 & 0 & 19 & 33 & 0 \\
+Graphiti  & 24 & 24 & 24 & 0 & 0 & 18 & 36 & 0 \\
+Cognee    & 24 & 24 & 24 & 0 & 0 & 33 & 36 & 9 \\
+Hindsight & 24 & 24 & 24 & 0 & 0 & 36 & 36 & 9 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -727,7 +696,9 @@ actions and 2 people leak; told the other two, 24 of 24 leak, and it logged no
 dropped action in any of these runs, so the failure is not the defect of
 \S\ref{sec:external}. LangMem leaks 15, 3 and 6: its memory manager ships with
 deletion disabled, so it rewrites memories instead, and loses never-purged
-people on the way (it answers 30 of 36 under the first wording). We had
+people on the way (it answers 30 of 36 under the first wording). With deletion
+enabled it leaks none under any wording, but keeps only 6, 8 and 2 of the 36
+people it was never asked about: its manager deletes far more than it is told. We had
 predicted that every system would leak at least 80\% under every wording; that
 holds for three systems and fails for Mem0 and LangMem.
 
@@ -741,12 +712,15 @@ return, though our probe did not surface them. Cognee's \texttt{forget} leaves i
 in its graph or vector store in up to 3 histories. Only LangMem, whose single
 store is the one it serves from, keeps nothing.
 
-\textbf{Without the handles, deletion costs other people's data.} The realistic
-caller also removes every purged value, but a search for one person returns
-other people's memories, and deleting a returned memory or episode deletes what
-else it holds. Of the 36 never-purged people, Mem0 still answers 8, Graphiti 18,
-LangMem 19, Cognee 33 and Hindsight 36. A deletion request that reaches the API
-through a search is therefore not safe in three of five systems.
+\textbf{Without the handles, an unchecked caller deletes other people's data;
+a checked one does not.} The realistic caller also removes every purged value,
+but a search for one person returns other people's memories, and it deletes them
+too. Of the 36 never-purged people, Mem0 still answers 8, Graphiti 18, LangMem
+19, Cognee 33 and Hindsight 36. A caller that deletes only the returned units
+naming the person removes every purged value as well and keeps all 36 in Mem0,
+Graphiti, Cognee and Hindsight, and 33 in LangMem, which keeps only 30 even
+under the oracle caller that deletes nothing unrelated. The over-deletion is the caller's, not the API's granularity: in
+these histories one unit holds one person's statement.
 
 \textbf{Deletion and past-time questions need one semantics.} After a purge,
 what should ``What was $X$'s home city in January?'' return? Erasure can be a
@@ -851,8 +825,10 @@ Cognee's answers 192 exactly. Hindsight's, which we earlier reported as
 recovering only 67, names the right value in all 195 and then the later one,
 which the exact scorer counts as wrong. An asserted-value judge
 --- which agrees with the exact scorer on 1{,}202 of the 1{,}203 answers that scorer
-accepts, and with a second judge on 99.6\% of all of them --- credits both
-readers with 195 of 195. The gap between the two readers was one of answer form,
+accepts, and with a second judge on 99.6\% of all of them, and is right on 279
+of 280 answers whose verdict we fixed by construction (seven templates over 40
+questions, including every answer that states the history, which the exact
+scorer fails) --- credits both readers with 195 of 195. The gap between the two readers was one of answer form,
 not of recovery. Transaction-scoped questions, by contrast, every reader answers
 by construction, because forward-checkpoint replay leaves only what was known in
 the store.
@@ -1051,7 +1027,11 @@ later one, ``\ldots now?'' and, for a calendar day between the two sessions,
 whose sessions share a day. Its gold answer is the earlier value, which assumes
 that value held until the later session; LongMemEval does not say when a change
 took effect, so a revision made before it was mentioned would make that gold
-wrong. Scoring is the grid's: an answer is exact if it
+wrong. A model asked to read each pair for when the change took effect
+(\texttt{gpt-4o}) finds that the conversations say so for only 12 of the 60 (5
+consistent with the gold, 7 not), and a second model agrees with it on 7 of 60,
+so the real-data valid-time results rest on the persistence assumption the gold
+makes and we read them as such. Scoring is the grid's: an answer is exact if it
 states the expected value on token boundaries and does not state the
 superseded one. The first question is asked before the revision exists, so it
 has nothing to filter and serves as a control; the full conversation itself
@@ -1103,11 +1083,11 @@ words.
 \S\ref{sec:reader}, run unchanged on the retrieval-layer transcripts, answers 3
 of 60 valid-time questions from Cognee's chunks and at most 13 from any other
 store. For all 41 agreement pairs both values and at least two session dates
-were among Cognee's top five, yet the reader answered \textsc{unknown} for 35:
-it does not assume that a value stated in one session still held weeks later,
-until the next one revised it. We noticed this after the run. On benchmark
-text the missing step is therefore not only a filter but the persistence
-assumption that the gold itself makes.
+were among Cognee's top five, yet the reader answered \textsc{unknown} for 35.
+Telling it the persistence contract the gold assumes changes little --- 7 of 60,
+still \textsc{unknown} for 31 of those 41 --- and the conversations rarely say
+when a change took effect, so we cannot say whether the reader is wrong to
+abstain; on the grid the same contract does no harm (0.733 and 0.851).
 
 \textbf{Benchmark text is harder on current queries.} On the grid, Mem0 and LangMem
 answered current, transaction-scoped questions at 0.952 and 0.890; here they
@@ -1197,10 +1177,16 @@ about what was known of a corrected interval \emph{before} its correction:
 whose answer is the original value. Counting an answer correct only if it gives
 that value and not the correction, which was unknown at $T$, Mem0 and LangMem
 answer 0, the retrieval layers of Cognee, Hindsight and Graphiti 0, 4 and 9,
-and the readers of Hindsight and Cognee 25 and 41. The readers answer because the
-stored text keeps the date each turn was recorded, and they use it: no system
-has a transaction-time predicate (Table~\ref{tab:fragment}, C2), but a reader
-over dated source text can stand in for one. The grid's scorer, which we had
+and the readers of Hindsight and Cognee 25 and 41. The systems' own readers
+answer because the stored text keeps the date each turn was recorded, and they
+reason over it; no system has a transaction-time predicate (Table~\ref{tab:fragment},
+C2). A plain reader over the top five does not do the same: the common reader of
+\S\ref{sec:reader} gives the original value, not the correction, for 8 of 45 from
+Cognee's chunks and from Hindsight's recall, 2 from Graphiti and none from Mem0
+or LangMem. The asserted-value judge cannot referee these questions: shown
+answers that state what was known then and also the later correction, it
+credits them 3 times in 40, taking the correction as the answer, so the counts
+above use the strict scorer and can only undercount. The grid's scorer, which we had
 preregistered, does not count the correction as wrong here, because it was
 unknown at $T$; under it the retrieval layers score 21 to 27 and the readers 34
 and 42, against the 5 and 15 we had predicted as the most any retrieval layer or
@@ -1287,18 +1273,20 @@ so the defect does not bias Mem0's aggregate in one known direction.
 Results of the harness that concern only our reference implementation ---
 retrieval-channel ablations, confidence decay, fusion calibration, signed
 provenance --- are preserved with their negative outcomes in the artifact and not
-developed here. Within the thesis, \textbf{ten preregistered predictions
+developed here. Within the thesis, \textbf{fourteen preregistered predictions
 failed}, each reported where it was tested: that Mem0's current release would
 still consolidate (\S\ref{sec:releases}); that LangMem on \texttt{gpt-4o} would
 keep 0.80 of current answers (\S\ref{sec:results}); that a common reader would
 recover 0.80 of valid time from the retaining stores, that LangMem read the same
 way would stay under its ceiling, and that a retaining store under a fixed BM25
 would answer almost none as returned (\S\ref{sec:reader}); that a plain reader,
-or a judge, would recover more on benchmark text (\S\ref{sec:realdata}); that
-Graphiti would close fewer than half of its intervals correctly
-(\S\ref{sec:fragment}); that every system would ignore prose deletion
-(\S\ref{sec:deletion}); and that no store could say what it knew before a
-correction (\S\ref{sec:corrections}).
+a judge, or a reader told the persistence contract would recover more on
+benchmark text (\S\ref{sec:realdata}); that Graphiti would close fewer than half
+of its intervals correctly (\S\ref{sec:fragment}); that every system would
+ignore prose deletion, and that LangMem would keep 34 of 36 under a checked
+caller (\S\ref{sec:deletion}); and that no store could say what it knew before
+a correction, that a plain reader over Cognee's dated chunks could, and that the
+judge could referee such answers (\S\ref{sec:corrections}).
 
 \textbf{Two of our own claims did not survive this revision.} We had reported
 that Hindsight's reader recovers valid time far less often than Cognee's; it
@@ -1366,8 +1354,11 @@ which is why we draw no conclusion from expiry. The deletion study covers ten
 small histories, one backbone and our own readings of each store; it bounds
 what survives in what we read, not everywhere. Scale was measured for accuracy,
 not for throughput, storage or memory, and token cost only for Mem0. No person
-judged the answers; the asserted-value judge is checked against the exact scorer
-and a second judge only. The literature review is single-reviewer. Purge claims cover declared
+judged the answers; the asserted-value judge is checked against the exact
+scorer, a second judge and answers built to a known verdict, and it is not valid
+for answers about what was known before a correction. The real-data valid-time
+gold assumes values persist between sessions, which the conversations rarely
+state. The literature review is single-reviewer. Purge claims cover declared
 stores and tested failure points, not backups, OS caches or provider-side
 copies.
 

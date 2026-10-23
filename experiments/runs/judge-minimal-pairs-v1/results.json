@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "known_then:abstain": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "known_then:corrected_dated": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "known_then:corrected_value": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "known_then:history_stated": {
+      "exact_right": 0,
+      "judge_right": 3,
+      "n": 40,
+      "should_credit": true
+    },
+    "known_then:value_only": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": true
+    },
+    "valid_time:abstain": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "valid_time:history_stated": {
+      "exact_right": 0,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": true
+    },
+    "valid_time:negated_wrong": {
+      "exact_right": 0,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": true
+    },
+    "valid_time:unresolved": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "valid_time:value_only": {
+      "exact_right": 40,
+      "judge_right": 39,
+      "n": 40,
+      "should_credit": true
+    },
+    "valid_time:wrong_dated": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    },
+    "valid_time:wrong_value": {
+      "exact_right": 40,
+      "judge_right": 40,
+      "n": 40,
+      "should_credit": false
+    }
+  }
+}

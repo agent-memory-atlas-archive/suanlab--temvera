@@ -342,21 +342,24 @@ def _grid_claims() -> list[Claim]:
 
 CLAIMS: list[Claim] = [
     # -- Table 1, internal baselines: cell-averaged over 270 cells --------------
-    Claim("Tab.1", "oracle exact (macro)", "1.000", lambda: internal("oracle", "exact_state_accuracy")),
-    Claim("Tab.1", "last-write-wins exact", "0.603", lambda: internal("last_write_wins", "exact_state_accuracy")),
-    Claim("Tab.1", "last-write-wins recall", "0.603", lambda: internal("last_write_wins", "evidence_recall")),
-    Claim("Tab.1", "last-write-wins stale", "0.397", lambda: internal("last_write_wins", "stale_use_rate")),
-    Claim("Tab.1", "BM25@1 exact", "0.576", lambda: internal("bm25_at_1", "exact_state_accuracy")),
-    Claim("Tab.1", "BM25@1 stale", "0.424", lambda: internal("bm25_at_1", "stale_use_rate")),
-    Claim("Tab.1", "append-only exact", "0.272", lambda: internal("append_only", "exact_state_accuracy")),
-    Claim("Tab.1", "append-only recall", "0.915", lambda: internal("append_only", "evidence_recall")),
-    Claim("Tab.1", "append-only stale", "0.624", lambda: internal("append_only", "stale_use_rate")),
+    Claim("5.1", "oracle exact (macro), every cell", "1",
+          lambda: internal("oracle", "exact_state_accuracy"), near="recall and stale-use at $", after="The oracle is exact; non-temporal baselines are not"),
+    Claim("5.1", "internal-baseline cells", "270",
+          lambda: float(sum(r["system"] == "oracle" for r in res("lifecycle-grid-robust-v1"))), 0.5, near="Across", after="The oracle is exact; non-temporal baselines are not"),
+    Claim("5.1", "append-only recall", "0.915", lambda: internal("append_only", "evidence_recall"),
+          near="recalls the evidence ($", after="The oracle is exact; non-temporal baselines are not"),
+    Claim("5.1", "append-only exact", "0.272", lambda: internal("append_only", "exact_state_accuracy"),
+          near="but answers\n$", after="The oracle is exact; non-temporal baselines are not"),
     Claim("5.1", "append-only exact, high churn", "0.255",
           lambda: internal("append_only", "exact_state_accuracy", "high_churn"),
-          near="Under the high-churn profile"),
+          near="exactly, $", after="The oracle is exact; non-temporal baselines are not"),
     Claim("5.1", "append-only stale, high churn", "0.662",
           lambda: internal("append_only", "stale_use_rate", "high_churn"),
-          near="Under the high-churn profile"),
+          near="under high churn with $", after="The oracle is exact; non-temporal baselines are not"),
+    Claim("5.1", "last-write-wins exact", "0.603", lambda: internal("last_write_wins", "exact_state_accuracy"),
+          near="last-write-wins answers $", after="The oracle is exact; non-temporal baselines are not"),
+    Claim("5.1", "BM25@1 (most recent turn) exact", "0.576", lambda: internal("bm25_at_1", "exact_state_accuracy"),
+          near="the most recent turn $", after="The oracle is exact; non-temporal baselines are not"),
     # -- 5.2 prose: the subsection the audit found had drifted ------------------
     Claim("5.2", "Mem0 transaction_as_of (micro)", "0.952",
           lambda: micro("external-mem0-grid-v2", "transaction_as_of", cells()),
@@ -505,15 +508,6 @@ CLAIMS: list[Claim] = [
           == replicate("graphiti", "cases") else -1.0, 0.5,
           near="four of the grid's cells ("),
     # -- abstract: figures printed only in the abstract and tables -------------
-    Claim("abs", "LangMem transaction_as_of (micro)", "0.890",
-          lambda: micro("external-langmem-v1", "transaction_as_of", cells()),
-          near="queries well (0.952 and"),
-    Claim("abs", "Mem0 valid_time (micro)", "0.364",
-          lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
-          near="historical ones under a ceiling the history fixes (",),
-    Claim("abs", "LangMem valid_time (micro)", "0.323",
-          lambda: micro("external-langmem-v1", "valid_time", cells()),
-          near="history fixes (0.364 and",),
     # -- 5.x scale, prose and the withdrawn first sweep ------------------------
     Claim("5.scale", "questions per system at 8 entities", "623",
           lambda: scale_rate("mem0", 8, "questions"), 0.5, near="three seeds per scale:"),
@@ -867,19 +861,8 @@ def _real_claims() -> list:
         Claim("5.real", "best current exact over configurations (count)", "35",
               lambda: max(lme(s, "current") for s in _LME),
               near="No configuration answers more than"),
-        Claim("abs", "main-grid valid-time ceiling for consolidating stores", "0.385",
-              lambda: ceiling_rate(["external-mem0-grid-v2"], "ceiling"),
-              near="0.323 against\n"),
-        Claim("abs", "Mem0 current values answered after a correction", "1",
-              lambda: corr("mem0", "present_corrected", "hits"), 0.5,
-              near="correction about the past to the present ("),
-        Claim("abs", "corrected subjects asked for their current value", "45",
-              lambda: corr("mem0", "present_corrected", "n"), 0.5,
-              near="correction about the past to the present ("),
-        Claim("abs", "real-data supersessions", "62", lambda: lme_pairs("used"),
-              near="releases (where Mem0 has switched designs) and"),
         Claim("intro", "real-data supersessions", "62", lambda: lme_pairs("used"),
-              near="both failure modes reappear"),
+              near="in direction on"),
         Claim("5.real", "pairs, closing caveat", "62", lambda: lme_pairs("used"),
               near="These are", after="No configuration answers more than"),
         Claim("Lim", "pairs in the real-data check", "62", lambda: lme_pairs("used"),
@@ -1379,9 +1362,6 @@ def _side(what: str) -> float:
 
 def _coverage_claims() -> list:
     return [
-        Claim("abs", "Mem0 transaction_as_of (micro)", "0.952",
-              lambda: micro("external-mem0-grid-v2", "transaction_as_of", cells()),
-              near="queries well ("),
         # Every removal but the lowest must sit at 1.0, so the second-lowest is checked.
         Claim("Lim", "candidate supersessions", "69", lambda: lme_pairs("candidates"), 0.5,
               near="covers 62 of"),
@@ -1541,10 +1521,10 @@ def _h9_claims() -> list:
         Claim("5.4", "two judges agree, %", "99.6", judges_agree_percent, 0.05,
               near="with a second judge on", after=S),
         Claim("5.4", "Cognee reader judged", "195",
-              lambda: h9("h9-judge-gpt4o-cognee-graph-v1"), 0.5, near="credits both\nreaders with", after=S),
+              lambda: h9("h9-judge-gpt4o-cognee-graph-v1"), 0.5, near="credits both readers with", after=S),
         Claim("5.4", "Hindsight reader judged", "195",
               lambda: h9("h9-judge-gpt4o-hindsight-reflect-v1"), 0.5,
-              near="credits both\nreaders with 195 of", after=S),
+              near="credits both readers with 195 of", after=S),
         Claim("5.4", "common reader: Mem0", "73",
               lambda: h9("h9-reader-mem0-v1"), 0.5, near="answers\n73", after=C),
         Claim("5.4", "common reader: LangMem", "71",
@@ -1619,9 +1599,9 @@ def _h9_real_claims() -> list:
     A = "A plain reader does not recover it here"
     return [
         Claim("intro", "retaining stores read: lowest", "0.73", lambda: _read_range()[0],
-              0.005, near="that return dates answer"),
+              0.005, near="return dates answer"),
         Claim("intro", "Graphiti common reader", "0.11", lambda: h9_rate("h9-reader-graphiti-v1"), 0.005,
-              near="undated facts yield"),
+              near="undated facts"),
         Claim("intro", "retaining stores read: highest", "1.00", lambda: _read_range()[1],
               0.005, near="return dates answer 0.73 to"),
         Claim("5.real", "judged Cognee reader, LME", "29", lambda: lme_judged("Cognee"), 0.5,
@@ -1897,7 +1877,6 @@ def _deletion_claims() -> list:
     S = "We ran all five systems through one deletion protocol"
     P = "Prose is ignored by three systems"
     H = "With the right handles, every API clears"
-    W = "Without the handles, deletion costs"
     out += [
         Claim("5.3", "seeded histories", "Ten", lambda: float(len(deletion_records("mem0", "prose-1"))), 0.5,
               near="committed before the runs.", after=S),
@@ -1945,54 +1924,53 @@ def _deletion_claims() -> list:
                          f"{deletion(system, 'api-caller', 'kept_present'):.0f}",
                          lambda s=system: deletion(s, "api-caller", "kept_present"), 0.5,
                          near=word, after="Of the 36 never-purged people"))
-    out.append(Claim("5.3", "unsafe systems", "three",
-                     lambda: float(sum(deletion(s, "api-caller", "kept_present") < 30 for s in _DEL_SYSTEMS)),
-                     0.5, near="not safe in", after=W))
     out.append(Claim("5.3", "purge questions expecting a deleted value", "29",
                      lambda: _purge_scope("external-mem0-grid-v2", "expect_deleted"), 0.5,
                      near="holds earlier values in the projections a query reads, and"))
     return out
 
 
-def _abstract_claims() -> list:
-    A = "\\begin{abstract}"
+def _contribution_census_claims() -> list:
+    A = "Evidence for where temporal answers fail"
     return [
-        Claim("abs", "superseded values kept, Mem0", "0", lambda: census("mem0", "kept"), 0.5,
-              near="their served memories keep", after=A),
-        Claim("abs", "superseded values kept, LangMem", "7", lambda: census("langmem", "kept"), 0.5,
+        Claim("intro", "served memories keep, Mem0", "0", lambda: census("mem0", "kept"), 0.5,
+              near="memories keep", after=A),
+        Claim("intro", "served memories keep, LangMem", "7", lambda: census("langmem", "kept"), 0.5,
               near="memories keep 0 and", after=A),
-        Claim("abs", "superseded values in the census", "75", lambda: census("mem0", "superseded"), 0.5,
+        Claim("intro", "superseded values", "75", lambda: census("mem0", "superseded"), 0.5,
               near="0 and 7 of", after=A),
-        Claim("abs", "common reader, lowest retaining", "0.73",
+    ]
+
+
+def _abstract_claims_v2() -> list:
+    A = "\\begin{abstract}"
+    retrieval = ("external-graphiti-hybrid-v1", "external-cognee-chunks-grid-v3",
+                 "external-hindsight-recall-v1")
+    return [
+        Claim("abs", "failed preregistered predictions", "fourteen", falsified_predictions, 0.5,
+              near="ran;", after=A),
+        Claim("abs", "Mem0 valid_time (micro)", "0.364",
+              lambda: micro("external-mem0-grid-v2", "valid_time", cells()), near="(Mem0:", after=A),
+        Claim("abs", "consolidation ceiling", "0.385",
+              lambda: ceiling_rate(["external-mem0-grid-v2"], "ceiling"), near="0.364 against", after=A),
+        Claim("abs", "retaining retrieval layers answer no valid-time question", "no",
+              lambda: max(micro(r, "valid_time", cells()) for r in retrieval), 0.0005,
+              near="the history answer", after=A),
+        Claim("abs", "common reader, lowest", "0.73",
               lambda: min(h9_rate(r) for r in ("h9-reader-cognee-chunks-v1", "h9-reader-hindsight-recall-v1")),
-              0.005, near="a common reader recovers", after=A),
-        Claim("abs", "common reader, highest retaining", "0.77",
+              0.005, near="common reader answers", after=A),
+        Claim("abs", "common reader, highest", "0.77",
               lambda: max(h9_rate(r) for r in ("h9-reader-cognee-chunks-v1", "h9-reader-hindsight-recall-v1")),
-              0.005, near="recovers 0.73 to", after=A),
-        Claim("abs", "retrieval-layer valid time, retaining stores", "no",
-              lambda: max(micro(r, "valid_time", cells()) for r in (
-                  "external-graphiti-hybrid-v1", "external-cognee-chunks-grid-v3",
-                  "external-hindsight-recall-v1")), 0.0005, near="three implementations answer", after=A),
-        Claim("abs", "Cognee reader, pre-correction (strict)", "41",
-              lambda: _pre_correction("cognee-graph", "strict"), 0.5, near="known before it (", after=A),
-        Claim("abs", "Hindsight reader, pre-correction (strict)", "25",
-              lambda: _pre_correction("hindsight-reflect", "strict"), 0.5, near="known before it (41 and", after=A),
-        Claim("abs", "pre-correction questions", "45",
-              lambda: _pre_correction("cognee-graph", "questions"), 0.5, near="(41 and 25 of", after=A),
-        Claim("abs", "systems ignoring prose", "three",
+              0.005, near="answers 0.73 to", after=A),
+        Claim("abs", "systems ignoring prose", "Three",
               lambda: float(sum(all(deletion(s, c, "leaked") == deletion(s, c, "purged")
                                     for c in ("prose-1", "prose-2", "prose-3")) for s in _DEL_SYSTEMS)),
-              0.5, near="Deletion divides too:", after=A),
-        Claim("abs", "Mem0 wordings honoured", "one",
-              lambda: float(sum(deletion("mem0", c, "leaked") <= 2 for c in ("prose-1", "prose-2", "prose-3"))),
-              0.5, near="Mem0 honours", after=A),
-        Claim("abs", "wordings", "three", lambda: 3.0 if len(deletion_records("mem0", "prose-3")) else -1.0,
-              0.5, near="one wording of", after=A),
+              0.5, near="before it.", after=A),
         Claim("abs", "most never-named people erased", "28",
               lambda: max(deletion(s, "api-caller", "kept_total") - deletion(s, "api-caller", "kept_present")
                           for s in _DEL_SYSTEMS), 0.5, near="erases up to", after=A),
         Claim("abs", "never-named people", "36", lambda: deletion("mem0", "api-caller", "kept_total"), 0.5,
-              near="up to 28 of", after=A),
+              near="up to\n28 of", after=A),
     ]
 
 
@@ -2064,12 +2042,124 @@ def _claims_table_claims() -> list:
     return out
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims() + _final_store_claims() + _claims_table_claims() + [Claim("7", "falsified preregistered predictions", "ten", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+# -- H13 (docs/preregistration-h13.md) ----------------------------------------
+def minimal_pairs(kind: str | None = None, template: str | None = None, key: str = "judge_right") -> float:
+    summary = res("judge-minimal-pairs-v1")["summary"]
+    return float(sum(v[key] if key != "n" else v["n"] for k, v in summary.items()
+                     if (kind is None or k.startswith(kind + ":"))
+                     and (template is None or k.endswith(":" + template))))
+
+
+def timing(model: str, answer: str) -> float:
+    return float(res("lme-timing-labels-v1")["summary"]["by_model"][model][answer])
+
+
+def persist_lme(system: str) -> float:
+    return sum(h9(f"h13-persist-{run}") for run in _LME_READER[system])
+
+
+def persist_unknown_agreement() -> float:
+    rows = [r for r in tr("h13-persist-lme-bitemporal-cognee-chunks-agreement-v3") if r["category"] == "valid_time"]
+    return float(sum(r["value"].strip().upper().startswith("UNKNOWN") for r in rows))
+
+
+def verified(system: str, key: str) -> float:
+    return float(res(f"deletion-verified-{system}-v1")["summary"][f"{system}:api-verified"][key])
+
+
+def langmem_deletes(condition: str, key: str) -> float:
+    return float(res("deletion-langmem-deletes-v1")["summary"][f"langmem:{condition}"][key])
+
+
+def final_store_read(name: str) -> float:
+    return _pre_correction_read(name)
+
+
+def _pre_correction_read(name: str) -> float:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_corrections
+
+    return float(analyze_corrections.pre_correction(
+        f"final-store-corrections-{name}-v1", f"h13-reader-final-store-{name}")["judged"])
+
+
+def _h13_claims() -> list:
+    J = "Read, the retaining stores recover most of it"
+    G = "LongMemEval does not say when a change"
+    P = "A plain reader does not recover it here"
+    D = "Prose is ignored by three systems"
+    W = "Without the handles, an unchecked caller"
+    F = "Asked of the final store, only the readers know what it knew"
+    return [
+        Claim("5.4", "judge right on constructed valid-time answers", "279",
+              lambda: minimal_pairs("valid_time"), 0.5, near="and is right on", after=J),
+        Claim("5.4", "constructed valid-time answers", "280",
+              lambda: minimal_pairs("valid_time", key="n"), 0.5, near="right on 279\nof", after=J),
+        Claim("5.4", "valid-time templates", "seven",
+              lambda: float(sum(1 for k in res("judge-minimal-pairs-v1")["summary"] if k.startswith("valid_time:"))),
+              0.5, near="construction (", after=J),
+        Claim("5.4", "questions per template", "40",
+              lambda: minimal_pairs("valid_time", "value_only", "n"), 0.5, near="templates over", after=J),
+        Claim("5.real", "pairs with timing stated (gpt-4o)", "12",
+              lambda: timing("gpt-4o", "HELD") + timing("gpt-4o", "CHANGED"), 0.5, near="say so for only", after=G),
+        Claim("5.real", "valid-time pairs classified", "60",
+              lambda: float(res("lme-timing-labels-v1")["summary"]["pairs"]), 0.5, near="only 12 of the", after=G),
+        Claim("5.real", "timing consistent with gold", "5", lambda: timing("gpt-4o", "HELD"), 0.5,
+              near="the 60 (", after=G),
+        Claim("5.real", "timing inconsistent with gold", "7", lambda: timing("gpt-4o", "CHANGED"), 0.5,
+              near="consistent with the gold,", after=G),
+        Claim("5.real", "classifier agreement", "7",
+              lambda: float(res("lme-timing-labels-v1")["summary"]["agree"]), 0.5,
+              near="agrees with it on", after=G),
+        Claim("5.real", "persistence contract, Cognee chunks LME", "7", lambda: persist_lme("Cognee chunks"), 0.5,
+              near="changes little ---", after=P),
+        Claim("5.real", "persistence contract, still unknown", "31", persist_unknown_agreement, 0.5,
+              near="still \\textsc{unknown} for", after=P),
+        Claim("5.real", "persistence contract, grid Cognee chunks", "0.733",
+              lambda: h9_rate("h13-persist-external-cognee-chunks-grid-v3"), near="does no harm (", after=P),
+        Claim("5.real", "persistence contract, grid Hindsight recall", "0.851",
+              lambda: h9_rate("h13-persist-external-hindsight-recall-v1"), near="(0.733 and", after=P),
+        Claim("5.3", "LangMem deletes enabled, leaks", "none",
+              lambda: sum(langmem_deletes(c, "leaked") for c in ("prose-1", "prose-2", "prose-3")), 0.5,
+              near="deletion\nenabled it leaks", after=D),
+        Claim("5.3", "LangMem deletes enabled, kept prose-1", "6", lambda: langmem_deletes("prose-1", "kept_present"),
+              0.5, near="keeps only", after=D),
+        Claim("5.3", "LangMem deletes enabled, kept prose-2", "8", lambda: langmem_deletes("prose-2", "kept_present"),
+              0.5, near="keeps only 6,", after=D),
+        Claim("5.3", "LangMem deletes enabled, kept prose-3", "2", lambda: langmem_deletes("prose-3", "kept_present"),
+              0.5, near="8 and", after=D),
+        Claim("5.3", "verified caller keeps all", "36",
+              lambda: min(verified(s, "kept_present") for s in ("mem0", "graphiti", "cognee", "hindsight")), 0.5,
+              near="keeps all", after=W),
+        Claim("5.3", "verified caller LangMem kept", "33", lambda: verified("langmem", "kept_present"), 0.5,
+              near="Graphiti, Cognee and Hindsight, and", after=W),
+        Claim("5.3", "verified caller leaks", "0",
+              lambda: sum(verified(s, "leaked") for s in _DEL_SYSTEMS), 0.5,
+              near="removes every purged value as well", after=W),
+        Claim("5.3", "LangMem kept under oracle", "30", lambda: deletion("langmem", "api-oracle", "kept_present"),
+              0.5, near="keeps only 30", after=W),
+        Claim("5.corr", "common reader final store, Cognee chunks", "8", lambda: final_store_read("cognee-chunks"),
+              0.5, near="the correction, for", after=F),
+        Claim("5.corr", "common reader final store, Hindsight recall", "8", lambda: final_store_read("hindsight-recall"),
+              0.5, near="the correction, for", after=F),
+        Claim("5.corr", "common reader final store, Graphiti", "2", lambda: final_store_read("graphiti"),
+              0.5, near="Hindsight's recall,", after=F),
+        Claim("5.corr", "common reader final store, Mem0 and LangMem", "none",
+              lambda: final_store_read("mem0") + final_store_read("langmem"), 0.5, near="Graphiti and", after=F),
+        Claim("5.corr", "judge credits history-stated known-then answers", "3",
+              lambda: minimal_pairs("known_then", "history_stated"), 0.5, near="credits them", after=F),
+        Claim("5.corr", "known-then constructed answers per template", "40",
+              lambda: minimal_pairs("known_then", "history_stated", "n"), 0.5, near="3 times in", after=F),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + [Claim("7", "falsified preregistered predictions", "fourteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
-_WORDS = {"nothing": 0, "Ten": 10, "no": 0, "none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
+_WORDS = {"Three": 3, "nothing": 0, "Ten": 10, "no": 0, "none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+          "thirteen": 13, "fourteen": 14, "fifteen": 15}
 
 
 def _number(printed: str) -> float:

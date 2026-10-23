@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 507 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 551 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -107,6 +107,10 @@ These need an API key and are sealed into new runs:
 | Whole-store census (H11b) | `python scripts/store_census.py <new-run>` |
 | Retention policy swap, fixed retriever and reader (H12) | `python scripts/controlled_policy.py <new-run>` |
 | Deletion across five systems (H10) | `temvera deletion-study experiments/configs/deletion-study-<system>.json <new-run>`; Hindsight needs its own daemon and `HINDSIGHT_PSQL`, `HINDSIGHT_PG_INSTANCE` naming its psql and pg0 instance file |
+| Judge on answers of known verdict (H13-E3) | `python scripts/judge_minimal_pairs.py openai:gpt-4o <new-run>` |
+| Is the real-data valid-time gold identifiable? (H13-E2) | `python scripts/classify_lme_timing.py <new-run>` |
+| Reader told the persistence contract (H13-E2) | `python scripts/llm_rescore.py reader_persist openai:gpt-4o-mini <source-run> <new-run>` |
+| Verified deletion caller; LangMem with deletes enabled (H13-E4) | `temvera deletion-study experiments/configs/deletion-verified-<system>.json <new-run>`, `.../deletion-langmem-deletes.json` |
 | Final-store correction runs (H11a) | `temvera external-<system> experiments/configs/final-store-corrections-<config>.json <new-run>` |
 
 ## External-system experiments (require credentials)

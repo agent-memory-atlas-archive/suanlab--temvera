@@ -1,0 +1,2504 @@
+{
+  "records": [
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Mina's home city is Seoul, valid from 2025-01-03. | Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is Seoul, valid from 2025-01-03. | Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Mina's home city is Seoul, valid from 2025-01-03. | Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03. | Memory Mina's home city is Seoul, valid from 2025-01-03.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Mina's home city is Seoul, valid from 2025-01-03. | Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Mina's home city is Seoul, valid from 2025-01-03. | Memory As of 2025-01-31, Sora's home city is Porto, confirmed as per the update on 2025-02-03.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User prefers not to retain Yuna's home city in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Noah has requested to erase their home city from memory. | Memory Yuna has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna has requested to erase their home city from memory. | Memory Noah has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah has requested to erase their home city from memory. | Memory Yuna has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Yuna has requested to erase their home city from memory. | Memory Noah has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Noah has requested to erase their home city from memory. | Memory Yuna has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Yuna has requested to erase their home city from memory. | Memory Noah has requested to erase their home city from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory On 2025-02-22, the user requested to permanently delete all recorded memories related to Omar's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory The user has requested to forget Omar's home city and does not want it retained in memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Omar has asked for their home city to be erased from memory as of February 22, 2025. This indicates a preference for privacy and control over personal information.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory User's name is Liam. Liam's home city is Perth, valid from 2025-02-01. Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02. | Memory Sora's home city is Porto, valid from 2025-02-02.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory As of 2025-02-02, Sora's home city is Porto, reflecting a replacement of a previous value. | Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value. | Memory As of 2025-02-02, Sora's home city is Porto, reflecting a replacement of a previous value. | Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory Yuna's home city is now Nantes as of 2025-02-03, replacing the previous value. Noah's home city is Lima, valid from January 31, 2025. Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Mina's home city is now Cairo as of 2025-02-02, replacing the previous value. | Memory Noah's home city is Lima, valid as of January 31, 2025. This reflects an update from a previous value, now correct. | Memory Liam's home city is now Perth as of 2025-02-01, replacing the previous value. | Memory Sora's home city is now Porto as of 2025-02-02, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory The user requested to permanently delete all recorded information about Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory User has explicitly requested to forget Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory as of 2025-02-21.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User has requested the permanent deletion of all recorded information about Mina's home city as of February 22, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory The user no longer wishes to retain memory about Noah's home city as of 2025-02-20.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User Mina has requested for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all memories recorded about Omar's home city as of February 20, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory The user has requested not to retain information regarding Omar's home city, indicating a preference for privacy regarding this detail. | Memory The user is actively managing their memories, indicating a desire for control over personal information retention.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Omar has requested to erase their home city from memory as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Omar has requested to erase their home city from memory as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Omar has requested to erase their home city from memory as of February 20, 2025.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Omar has requested to erase their home city from memory as of February 20, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Omar has requested to erase their home city from memory as of February 20, 2025. | Memory Liam's home city is Perth, valid from 2025-01-31.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Memory Liam's home city is Perth, valid from 2025-01-31. | Memory Omar has requested to erase their home city from memory as of February 20, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Sora's home city is now Porto as of 2025-02-04, replacing the previous value.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Yuna has requested the erasure of their home city from memory on 2025-02-17.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is Split, valid from February 5, 2025. | Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from February 5, 2025. | Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Mina's home city was updated to Cairo as of February 4, 2025, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Sora's home city is Porto, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Sora's home city is Porto, valid from 2025-02-05. | Memory Noah's home city is now Lima as of 2025-02-02, replacing the previous value. | Memory Omar's home city is Split, valid from February 5, 2025. Memory updated from Cebu.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": false,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Memory Omar's home city is Split, valid from 2025-02-05.",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": false,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Delete all memories related to Mina's home city.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory User prefers not to keep Yuna's home city memory",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Mina has asked for their home city to be erased from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-1",
+      "kept": [
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Permanently delete everything you recorded about {subject}'s {attribute}.",
+      "purged": [
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory User has requested to permanently delete all records related to Yuna's home city as of February 16, 2025.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-2",
+      "kept": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "Please forget {subject}'s {attribute}; I do not want it kept.",
+      "purged": [
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "prose-3",
+      "kept": [
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": false,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": false,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": false,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "current": "Split",
+          "present": false,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": "{subject} has asked for their {attribute} to be erased from your memory.",
+      "purged": [
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Memory Yuna has requested the removal of their home city from memory.",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "langmem_store"
+        }
+      ],
+      "system": "langmem",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    }
+  ],
+  "reference": [
+    {
+      "condition": "typed-purge",
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 8,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 8,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 3,
+      "stores": [],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 10,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 10,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 5,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    }
+  ],
+  "summary": {
+    "langmem:prose-1": {
+      "histories_with_purge": 9,
+      "kept_present": 6,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    },
+    "langmem:prose-2": {
+      "histories_with_purge": 9,
+      "kept_present": 8,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    },
+    "langmem:prose-3": {
+      "histories_with_purge": 9,
+      "kept_present": 2,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 0,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    }
+  }
+}

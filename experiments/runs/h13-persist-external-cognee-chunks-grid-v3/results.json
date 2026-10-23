@@ -1,0 +1,21 @@
+{
+  "by_category": {
+    "expiry_boundary": {
+      "exact": 15,
+      "n": 16
+    },
+    "purge": {
+      "exact": 16,
+      "n": 45
+    },
+    "transaction_as_of": {
+      "exact": 226,
+      "n": 228
+    },
+    "valid_time": {
+      "exact": 143,
+      "n": 195
+    }
+  },
+  "cases": 484
+}

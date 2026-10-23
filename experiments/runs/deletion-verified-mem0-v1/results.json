@@ -1,0 +1,1209 @@
+{
+  "records": [
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-02-05 | Omar's home city is Split as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-05 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-05 | Omar's home city is Split as of 2025-02-02 | Sora's home city is Porto as of 2025-01-31 | Liam's home city is Perth as of 2025-02-05 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-05 | Liam's home city is Perth as of 2025-02-05 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-05 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-05 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 9,
+        "DELETE": 2,
+        "UPDATE": 12
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-05 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-05 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-05 | Sora's home city is Porto as of 2025-01-31 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-05 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 12,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 2,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-03 | Yuna's home city is Nantes as of 2025-02-01 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-02-03 | Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Sora's home city is Porto as of 2025-02-03 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 19
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-03 | Yuna's home city is Nantes as of 2025-02-01 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 16,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 3,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-02-01 | Noah's home city is Lima as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-02 | Sora's home city is Porto as of 2025-02-02 | Yuna's home city is Nantes as of 2025-02-03",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Yuna's home city is Nantes as of 2025-02-03 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-02-01 | Sora's home city is Porto as of 2025-02-02",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-02 | Yuna's home city is Nantes as of 2025-02-03 | Liam's home city is Perth as of 2025-02-01 | Sora's home city is Porto as of 2025-02-02",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-02-02 | Yuna's home city is Nantes as of 2025-02-03 | Noah's home city is Lima as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-02 | Liam's home city is Perth as of 2025-02-01",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-03 | Mina's home city is Cairo as of 2025-02-02 | Sora's home city is Porto as of 2025-02-02 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-02-01",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 8,
+        "DELETE": 1,
+        "UPDATE": 16
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-02-01 | Sora's home city is Porto as of 2025-02-02 | Yuna's home city is Nantes as of 2025-02-03",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 1,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Yuna's home city is Nantes as of 2025-02-01 | Valid from 2025-01-06 | Valid from 2025-02-04 | Valid from 2025-02-01",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-01-06 | Valid from 2025-01-05 | Valid from 2025-02-01",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 10,
+        "UPDATE": 15
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-01-06 | Valid from 2025-01-05 | Valid from 2025-02-01",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-01-06 | Valid from 2025-01-05 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Yuna's home city is Nantes as of 2025-02-01 | Valid from 2025-02-04 | Valid from 2025-02-01 | Valid from 2025-01-06",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-02-04 | Valid from 2025-02-01 | Valid from 2025-01-06",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 24,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 4,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-02-03 | Omar's home city is Split as of 2025-02-03 | Yuna's home city is Nantes as of 2025-02-02 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Liam's home city is Perth as of 2025-02-03 | Yuna's home city is Nantes as of 2025-02-02 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-02 | Omar's home city is Split as of 2025-02-03 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 15
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-02 | Omar's home city is Split as of 2025-02-03 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-02 | Omar's home city is Split as of 2025-02-03 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-02-02 | Omar's home city is Split as of 2025-02-03 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 18,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 3,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Noah's home city is Lima as of 2025-01-31 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-01-31 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 18
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-01-31 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Valid from 2025-02-04",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 18,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 3,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Noah's home city is Lima as of 2025-02-01 | Omar's home city is Split as of 2025-02-01 | Mina's home city is Cairo as of 2025-02-02 | Sora's home city is Porto as of 2025-02-04",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-02-01 | Omar's home city is Split as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-04",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-02-01 | Mina's home city is Cairo as of 2025-02-02 | Liam's home city is Perth as of 2025-01-31 | Omar's home city is Split as of 2025-02-01 | Sora's home city is Porto as of 2025-02-04",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-01 | Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-04",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-02-04 | Noah's home city is Lima as of 2025-02-01 | Mina's home city is Cairo as of 2025-02-02 | Omar's home city is Split as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 20
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Sora's home city is Porto as of 2025-02-04 | Noah's home city is Lima as of 2025-02-01 | Omar's home city is Split as of 2025-02-01 | Liam's home city is Perth as of 2025-01-31",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 1,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-01-31 | Noah's home city is Lima as of 2025-02-02 | Omar's home city is Split as of 2025-02-05 | Mina's home city is Cairo as of 2025-02-04 | Sora's home city is Porto as of 2025-02-05",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-04 | Yuna's home city is Nantes as of 2025-01-31 | Noah's home city is Lima as of 2025-02-02 | Omar's home city is Split as of 2025-02-05 | Liam's home city is Perth as of 2025-01-31",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-04 | Yuna's home city is Nantes as of 2025-01-31 | Liam's home city is Perth as of 2025-01-31 | Omar's home city is Split as of 2025-02-05",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-05 | Mina's home city is Cairo as of 2025-02-04 | Noah's home city is Lima as of 2025-02-02 | Liam's home city is Perth as of 2025-01-31 | Sora's home city is Porto as of 2025-02-05",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "Sora's home city is Porto as of 2025-02-05 | Yuna's home city is Nantes as of 2025-01-31 | Noah's home city is Lima as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-04 | Omar's home city is Split as of 2025-02-05",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "Yuna's home city is Nantes as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-04 | Sora's home city is Porto as of 2025-02-05 | Noah's home city is Lima as of 2025-02-02 | Omar's home city is Split as of 2025-02-05",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 18
+      },
+      "purge_wording": null,
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "mem0",
+      "units_deleted": 0,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 7,
+        "UPDATE": 18
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-03 | Valid from 2025-02-05",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 30,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 5,
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "Liam's home city is Perth as of 2025-02-03 | Noah's home city is Lima as of 2025-01-31 | Omar's home city is Split as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-02 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-01-31 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-02 | Liam's home city is Perth as of 2025-02-03 | Omar's home city is Split as of 2025-02-02 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "Omar's home city is Split as of 2025-02-02 | Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-01-31 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "mem0_dropped_actions": 0,
+      "mem0_dropped_messages": [],
+      "mem0_events": {
+        "ADD": 8,
+        "DELETE": 1,
+        "UPDATE": 15
+      },
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "Noah's home city is Lima as of 2025-01-31 | Mina's home city is Cairo as of 2025-02-02 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "Mina's home city is Cairo as of 2025-02-02 | Noah's home city is Lima as of 2025-01-31 | Omar's home city is Split as of 2025-02-02 | Liam's home city is Perth as of 2025-02-03 | Valid from 2025-02-02",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_exposed_memories"
+        },
+        {
+          "occurrences": 12,
+          "reachable": false,
+          "store": "mem0_history_sqlite"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "mem0_vector_store"
+        }
+      ],
+      "system": "mem0",
+      "units_deleted": 2,
+      "worker_errors": 0
+    }
+  ],
+  "reference": [
+    {
+      "condition": "typed-purge",
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 8,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 8,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 3,
+      "stores": [],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 10,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 10,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 5,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    }
+  ],
+  "summary": {
+    "mem0:api-verified": {
+      "histories_with_purge": 9,
+      "kept_present": 36,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 9,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    }
+  }
+}

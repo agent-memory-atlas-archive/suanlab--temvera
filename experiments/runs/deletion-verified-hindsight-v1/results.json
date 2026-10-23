@@ -1,0 +1,1651 @@
+{
+  "records": [
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "3db8a91e-9f74-4e2c-a963-f566b0db99ce Liam's home city is Perth, valid from February 5, 2025. observation Liam Perth 2026-10-23T02:30:01.535463+00:00   1.0998553988407282 0.9998686310425118 0.7179652620574688 0.30000001192092896 | 524768c1-7595-4598-9cae-a69dc6c49ba0 Liam's home city is Perth, valid from February 5, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:30:01.535463+00:00 b1a09134-f2ab-43d9-808e-d98c8a875efa  del-hindsight-7-api-verified-h13_b1a09134-f2ab-43d9-808e-d98c8a875efa_0  1.0998190922033053 0.9998356250056307 0.7610959268269509 0.5 | 8b68fec7-4a35-4499-8ec0-b458da816cde Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:29:33.131178+00:00 45d09364-8e32-4529-9701-ae814c7e2909  del-hindsight-7-api-verified-h13_45d09364-8e32-4529-9701-ae814c7e2909_0  1.09981797747809 0.9998347753544802 0.7721841335296631 0.5 | de7267b3-70af-4dcf-975b-9da0644166a9 Liam's home city is now Perth, replacing the previous value. | When: on February 5, 2025 | Involving: Liam world Liam Perth  2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:30:03.438223+00:00 b7df376d-d5f6-47e0-8995-0b30139f3221  del-hindsight-7-api-verified-h13_b7df376d-d5f6-47e0-8995-0b30139f3221_0  0.9197245323960701 0.9997005786913806 0.7386762940094659 0.5 | c0e4930a-ccf1-4295-b73e-1bdad363f308 Omar's home city is Cebu, valid from January 5, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:29:43.785243+00:00 b1c40721-8b80-4e08-b6e2-2bcf08f2e999  del-hindsight-7-api-verified-h13_b1c40721-8b80-4e08-b6e2-2bcf08f2e999_0  0.013370264556869427 0.012154788257931703 0.5143448114395142 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "429feb50-301a-45a3-9241-27d51d71fcd0 Mina's home city is Seoul, valid from January 3, 2025. | Involving: Mina world Mina Seoul  2026-10-23T02:29:39.660490+00:00 c8dca773-cdc5-40cc-86d1-629b0bbb6468  del-hindsight-7-api-verified-h13_c8dca773-cdc5-40cc-86d1-629b0bbb6468_0  1.099852486019862 0.9998661137975836 0.7946529984474182 0.5 | 946f263c-cf23-466b-a64b-3c30c0270949 Mina's home city is Cairo, valid from February 5, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:29:57.549735+00:00 6dad373b-6ca0-418a-b3a4-69670d7d63b2  del-hindsight-7-api-verified-h13_6dad373b-6ca0-418a-b3a4-69670d7d63b2_0  1.0998374511069464 0.9998523425682154 0.7855902314186096 0.5 | c7a5c956-411b-4187-a84f-8eae1a86a310 Mina's home city is Cairo; replaced the previous value of Seoul on February 5, 2025. observation Cairo Mina Seoul 2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:29:59.601441+00:00   0.9298940161796589 0.9997707609741008 0.6864348463079254 0.30000001192092896 | f2fc2d50-8651-467b-88d5-ac518b99541f Mina's home city is now Cairo, replacing the previous value. | When: 2025-02-05 | Involving: Mina world Cairo Mina  2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:29:59.601441+00:00 1d69d43f-198f-42ae-bb21-90f7ff3a3415  del-hindsight-7-api-verified-h13_1d69d43f-198f-42ae-bb21-90f7ff3a3415_0  0.9197396015506377 0.999716958207215 0.7373998604655195 0.5 | 8b68fec7-4a35-4499-8ec0-b458da816cde Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:29:33.131178+00:00 45d09364-8e32-4529-9701-ae814c7e2909  del-hindsight-7-api-verified-h13_45d09364-8e32-4529-9701-ae814c7e2909_0  0.017980258023208517 0.0163456932816177 0.5393889546394348 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "c0e4930a-ccf1-4295-b73e-1bdad363f308 Omar's home city is Cebu, valid from January 5, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:29:43.785243+00:00 b1c40721-8b80-4e08-b6e2-2bcf08f2e999  del-hindsight-7-api-verified-h13_b1c40721-8b80-4e08-b6e2-2bcf08f2e999_0  1.0997967176656869 0.9998154012268082 0.7660559504678236 0.5 | 3f9255b5-e711-4d9e-a0c8-0e83984b793b Omar's home city is Split, valid from February 2, 2025. | Involving: Omar world Split Omar  2026-10-23T02:29:53.730528+00:00 8c84b168-06f8-4914-9677-73990180cf8b  del-hindsight-7-api-verified-h13_8c84b168-06f8-4914-9677-73990180cf8b_0  1.099094583728813 0.9991770402264731 0.7519009785563658 0.5 | a8e84d3a-ecad-4930-995a-c77b5e2732f0 Omar's home city is Split, valid from February 2, 2025. observation Split Cebu Omar 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:29:55.558449+00:00   0.9287054445955192 0.9984928743585599 0.718942766095054 0.30000001192092896 | 53ab0b5e-dd6d-4687-b08e-a93250825043 Omar's home city is now Split as of February 2, 2025, replacing the previous value. | When: February 2, 2025 | Involving: Omar world Split Omar  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:29:55.558449+00:00 4ea19783-5da2-4dc3-8fa9-739b9db541be  del-hindsight-7-api-verified-h13_4ea19783-5da2-4dc3-8fa9-739b9db541be_0  0.9183979900303637 0.9982586848156129 0.7194843935505533 0.5 | 3db8a91e-9f74-4e2c-a963-f566b0db99ce Liam's home city is Perth, valid from February 5, 2025. observation Liam Perth 2026-10-23T02:30:01.535463+00:00   0.017445664509335046 0.015859696611093533 0.5024197251325819 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "a38a0978-75c4-4241-bfed-a1c538d31ce7 Sora's home city is Porto, valid from January 31, 2025. | Involving: Sora world Sora Porto  2026-10-23T02:29:49.770476+00:00 3544890f-1133-45fc-b3ee-1b24ada0c9bc  del-hindsight-7-api-verified-h13_3544890f-1133-45fc-b3ee-1b24ada0c9bc_0  1.0998245000150022 0.999840628915987 0.7641382217407227 0.5 | 42eb9570-c04a-40e1-90e2-82726476b701 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:29:41.602262+00:00 93af0d83-6cb5-44eb-8d8c-81dde1f9c80e  del-hindsight-7-api-verified-h13_93af0d83-6cb5-44eb-8d8c-81dde1f9c80e_0  1.0997511446045698 0.9997739892501232 0.7694852352142334 0.5 | 02272a8b-8117-44dd-b46e-82edae218e85 Sora's home city is now Porto, replacing the previous value. | When: on January 31, 2025 | Involving: Sora world Sora Porto  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:29:51.762718+00:00 c1213a5d-1fe0-48b7-92cd-79326fc03705  del-hindsight-7-api-verified-h13_c1213a5d-1fe0-48b7-92cd-79326fc03705_0  0.9197506668660612 0.9997289857239796 0.7291508316993713 0.5 | 946f263c-cf23-466b-a64b-3c30c0270949 Mina's home city is Cairo, valid from February 5, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:29:57.549735+00:00 6dad373b-6ca0-418a-b3a4-69670d7d63b2  del-hindsight-7-api-verified-h13_6dad373b-6ca0-418a-b3a4-69670d7d63b2_0  0.028741618151637706 0.026128747158777648 0.6431663036346436 0.20000000298023224 | c0e4930a-ccf1-4295-b73e-1bdad363f308 Omar's home city is Cebu, valid from January 5, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:29:43.785243+00:00 b1c40721-8b80-4e08-b6e2-2bcf08f2e999  del-hindsight-7-api-verified-h13_b1c40721-8b80-4e08-b6e2-2bcf08f2e999_0  0.024787377453278397 0.02253398421015048 0.5983784198760986 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "3db8a91e-9f74-4e2c-a963-f566b0db99ce Liam's home city is Perth, valid from February 5, 2025. observation Liam Perth 2026-10-23T02:30:01.535463+00:00   0.03153525143025222 0.028668413132218868 0.5111846923828162 0.20000000298023224 | 524768c1-7595-4598-9cae-a69dc6c49ba0 Liam's home city is Perth, valid from February 5, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:30:01.535463+00:00 b1a09134-f2ab-43d9-808e-d98c8a875efa  del-hindsight-7-api-verified-h13_b1a09134-f2ab-43d9-808e-d98c8a875efa_0  0.01624007968996276 0.014763710220663544 0.5480762777419421 0.20000000298023224 | 8b68fec7-4a35-4499-8ec0-b458da816cde Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:29:33.131178+00:00 45d09364-8e32-4529-9701-ae814c7e2909  del-hindsight-7-api-verified-h13_45d09364-8e32-4529-9701-ae814c7e2909_0  0.015407650018079826 0.014006958194956757 0.5028159322032897 0.20000000298023224 | 42eb9570-c04a-40e1-90e2-82726476b701 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:29:41.602262+00:00 93af0d83-6cb5-44eb-8d8c-81dde1f9c80e  del-hindsight-7-api-verified-h13_93af0d83-6cb5-44eb-8d8c-81dde1f9c80e_0  0.012601992104326184 0.011456358870459728 0.5808210719121152 0.20000000298023224 | de7267b3-70af-4dcf-975b-9da0644166a9 Liam's home city is now Perth, replacing the previous value. | When: on February 5, 2025 | Involving: Liam world Liam Perth  2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:30:03.438223+00:00 b7df376d-d5f6-47e0-8995-0b30139f3221  del-hindsight-7-api-verified-h13_b7df376d-d5f6-47e0-8995-0b30139f3221_0  0.0067126366659735264 0.007296344202145138 0.5479623732521979 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "c0e4930a-ccf1-4295-b73e-1bdad363f308 Omar's home city is Cebu, valid from January 5, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:29:43.785243+00:00 b1c40721-8b80-4e08-b6e2-2bcf08f2e999  del-hindsight-7-api-verified-h13_b1c40721-8b80-4e08-b6e2-2bcf08f2e999_0  0.130713212352314 0.1188302185252077 0.6253037825407863 0.20000000298023224 | 429feb50-301a-45a3-9241-27d51d71fcd0 Mina's home city is Seoul, valid from January 3, 2025. | Involving: Mina world Mina Seoul  2026-10-23T02:29:39.660490+00:00 c8dca773-cdc5-40cc-86d1-629b0bbb6468  del-hindsight-7-api-verified-h13_c8dca773-cdc5-40cc-86d1-629b0bbb6468_0  0.0500734872470765 0.045521362885289546 0.6643164553830907 0.20000000298023224 | 42eb9570-c04a-40e1-90e2-82726476b701 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:29:41.602262+00:00 93af0d83-6cb5-44eb-8d8c-81dde1f9c80e  del-hindsight-7-api-verified-h13_93af0d83-6cb5-44eb-8d8c-81dde1f9c80e_0  0.034387834852807324 0.03126167514408141 0.6212282551067039 0.20000000298023224 | a38a0978-75c4-4241-bfed-a1c538d31ce7 Sora's home city is Porto, valid from January 31, 2025. | Involving: Sora world Sora Porto  2026-10-23T02:29:49.770476+00:00 3544890f-1133-45fc-b3ee-1b24ada0c9bc  del-hindsight-7-api-verified-h13_3544890f-1133-45fc-b3ee-1b24ada0c9bc_0  0.023011470066921228 0.02091952200600299 0.6138342388769541 0.20000000298023224 | 946f263c-cf23-466b-a64b-3c30c0270949 Mina's home city is Cairo, valid from February 5, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:29:57.549735+00:00 6dad373b-6ca0-418a-b3a4-69670d7d63b2  del-hindsight-7-api-verified-h13_6dad373b-6ca0-418a-b3a4-69670d7d63b2_0  0.0170613932233256 0.015510359570358843 0.6225364579282091 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 99,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 8,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "079dab17-89e4-4764-ae07-0f303f0fddac Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:30:23.302814+00:00 89e99c61-b0a9-46b8-a913-ec8d0cf244fa  del-hindsight-13-api-verified-h13_89e99c61-b0a9-46b8-a913-ec8d0cf244fa_0  1.0998179577612508 0.9998347753544802 0.7721841335296631 0.5 | 7c570067-9f40-48d8-a3a1-534ac8151b3c Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Perth Liam  2026-10-23T02:30:33.559487+00:00 b10e7d49-9e40-4eb0-b18e-da1b0ca16d25  del-hindsight-13-api-verified-h13_b10e7d49-9e40-4eb0-b18e-da1b0ca16d25_0  1.0998158246613938 0.9998327770481502 0.7619383335113525 0.5 | 53a1742c-6657-4a38-a74a-1a07914011e6 Liam's home city is Perth, valid from January 31, 2025. observation Perth Liam 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:30:35.278705+00:00   0.9261615088872319 0.9997674324982125 0.7170270681381226 0.30000001192092896 | 43d46aba-c2a0-4af9-b622-6ca6169de6b7 Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Perth Liam  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:30:35.278705+00:00 002ef5f7-04bd-420b-bc97-c7f0e54f795c  del-hindsight-13-api-verified-h13_002ef5f7-04bd-420b-bc97-c7f0e54f795c_0  0.9197249407419317 0.999701022545578 0.7378649711608887 0.5 | 639f0ae4-f244-48e2-a892-f7735a598d14 Yuna's home city is Quito; it has been updated to Nantes, valid from February 1, 2025. observation Quito Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.01659636806463629 0.014983750361050353 0.5581944155154951 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "fe4647b5-cc50-4c42-9022-b6a7acff060b Sora's home city is Porto, valid from February 3, 2025. | Involving: Sora world Porto Sora  2026-10-23T02:30:37.422150+00:00 bf9c576f-5ef8-4a4f-9cae-380372c2fbc9  del-hindsight-13-api-verified-h13_bf9c576f-5ef8-4a4f-9cae-380372c2fbc9_0  1.09982623851462 0.9998422388420505 0.7669972867069234 0.5 | 724b1826-2ae1-45be-b819-4b39fafe05d6 Sora's home city is Accra, valid from January 2, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:30:25.147243+00:00 7a4fbb7b-cecb-425b-bec2-7e25d9114488  del-hindsight-13-api-verified-h13_7a4fbb7b-cecb-425b-bec2-7e25d9114488_0  1.0997542235759283 0.9997768414567964 0.7689606547355652 0.5 | d01d52fc-f9be-4e53-a45d-e43832e0c341 Sora's home city is Porto, valid from February 3, 2025. observation Porto Sora 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:30:39.423302+00:00   0.9261754582042802 0.9997824904257517 0.7212541699409485 0.30000001192092896 | b76a5baf-e61c-4507-8a3d-15acf8c72b2f Sora's home city is now Porto, replacing the previous value. | When: on February 3, 2025 | Involving: Sora world Porto Sora  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:30:39.423302+00:00 542b2058-92c5-405a-aacb-453bb59ccfd3  del-hindsight-13-api-verified-h13_542b2058-92c5-405a-aacb-453bb59ccfd3_0  0.9197512689912997 0.9997296402079345 0.7348057250620644 0.5 | 639f0ae4-f244-48e2-a892-f7735a598d14 Yuna's home city is Quito; it has been updated to Nantes, valid from February 1, 2025. observation Quito Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.04564934979285184 0.04121374449824403 0.5782824331010116 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "af822878-1003-47a4-ba2b-39e19229adc7 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:30:27.036358+00:00 11b2b7bb-3417-4657-9880-8913445415dc  del-hindsight-13-api-verified-h13_11b2b7bb-3417-4657-9880-8913445415dc_0  1.0998914391016386 0.9999015761107972 0.7989195585250911 0.5 | 6a4159ea-d41d-41a3-8369-531014b7336d Yuna's home city is Nantes, valid from February 1, 2025. observation Yuna Nantes 2026-10-23T02:30:41.419723+00:00   1.0998738622356778 0.9998855142208404 0.7235127357855721 0.30000001192092896 | d47acd24-fd79-4c2e-b4c2-a23d67ffad85 Yuna's home city is Nantes, valid from February 1, 2025. | Involving: Yuna world Yuna Nantes  2026-10-23T02:30:41.419723+00:00 ea22d2d0-9f6d-421f-bc59-e7ca994b983d  del-hindsight-13-api-verified-h13_ea22d2d0-9f6d-421f-bc59-e7ca994b983d_0  1.0998404982655214 0.9998551833332707 0.7915188545893954 0.5 | 2e889eb0-ea9c-484a-bb62-06b09c847a71 Yuna's home city is now Nantes, replacing the previous value. | When: on February 1, 2025 | Involving: Yuna world Yuna Nantes  2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:30:43.630921+00:00 fd59fd1a-aaf9-4cde-9c1d-d31b50a3aaf8  del-hindsight-13-api-verified-h13_fd59fd1a-aaf9-4cde-9c1d-d31b50a3aaf8_0  0.9197590356818734 0.9997380822629061 0.7616661048928576 0.5 | 724b1826-2ae1-45be-b819-4b39fafe05d6 Sora's home city is Accra, valid from January 2, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:30:25.147243+00:00 7a4fbb7b-cecb-425b-bec2-7e25d9114488  del-hindsight-13-api-verified-h13_7a4fbb7b-cecb-425b-bec2-7e25d9114488_0  0.03526715840989983 0.0320610620370736 0.6204411757255313 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "c1f6a87b-0545-4b10-911a-51dfcb86be60 Permanently delete everything recorded about Mina's home city. | When: on February 21, 2025 | Involving: Mina world Mina  2025-02-21T00:00:00+00:00 2025-02-21T00:00:00+00:00 2026-10-23T02:30:59.683560+00:00 c1ffcf4e-52b8-4d3e-a3fe-3312d1fc2259  del-hindsight-13-api-verified-h13_c1ffcf4e-52b8-4d3e-a3fe-3312d1fc2259_0  0.9160437723690605 0.9956997525750658 0.6587645411491394 0.5 | 639f0ae4-f244-48e2-a892-f7735a598d14 Yuna's home city is Quito; it has been updated to Nantes, valid from February 1, 2025. observation Quito Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.07174636592170215 0.06477499394439482 0.5296273389347597 0.20000000298023224 | 6a4159ea-d41d-41a3-8369-531014b7336d Yuna's home city is Nantes, valid from February 1, 2025. observation Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.03618321567252817 0.03289383796141974 0.5384445511367659 0.20000000298023224 | af822878-1003-47a4-ba2b-39e19229adc7 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:30:27.036358+00:00 11b2b7bb-3417-4657-9880-8913445415dc  del-hindsight-13-api-verified-h13_11b2b7bb-3417-4657-9880-8913445415dc_0  0.033086237851952506 0.030078405599883767 0.6154822936366633 0.20000000298023224 | d47acd24-fd79-4c2e-b4c2-a23d67ffad85 Yuna's home city is Nantes, valid from February 1, 2025. | Involving: Yuna world Yuna Nantes  2026-10-23T02:30:41.419723+00:00 ea22d2d0-9f6d-421f-bc59-e7ca994b983d  del-hindsight-13-api-verified-h13_ea22d2d0-9f6d-421f-bc59-e7ca994b983d_0  0.023173658212326788 0.021066965554096654 0.5916560888290405 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "005a4b3f-fe84-4f82-8f5d-d3139a4d2a80 Permanently delete everything recorded about Noah's home city. | When: on February 21, 2025 | Involving: Noah world Noah  2025-02-21T00:00:00+00:00 2025-02-21T00:00:00+00:00 2026-10-23T02:31:01.751048+00:00 8c5be3a9-c75c-4c9a-905c-6870a6f08b22  del-hindsight-13-api-verified-h13_8c5be3a9-c75c-4c9a-905c-6870a6f08b22_0  0.9148868901767976 0.9944422719313019 0.6939906295532375 0.5 | 079dab17-89e4-4764-ae07-0f303f0fddac Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:30:23.302814+00:00 89e99c61-b0a9-46b8-a913-ec8d0cf244fa  del-hindsight-13-api-verified-h13_89e99c61-b0a9-46b8-a913-ec8d0cf244fa_0  0.015407635260073433 0.014006945023992598 0.5028159322032897 0.20000000298023224 | 7c570067-9f40-48d8-a3a1-534ac8151b3c Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Perth Liam  2026-10-23T02:30:33.559487+00:00 b10e7d49-9e40-4eb0-b18e-da1b0ca16d25  del-hindsight-13-api-verified-h13_b10e7d49-9e40-4eb0-b18e-da1b0ca16d25_0  0.014691717127804635 0.013356109388279616 0.5602708196801446 0.20000000298023224 | 724b1826-2ae1-45be-b819-4b39fafe05d6 Sora's home city is Accra, valid from January 2, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:30:25.147243+00:00 7a4fbb7b-cecb-425b-bec2-7e25d9114488  del-hindsight-13-api-verified-h13_7a4fbb7b-cecb-425b-bec2-7e25d9114488_0  0.012706161182643162 0.011551058696197318 0.579136286922473 0.20000000298023224 | 53a1742c-6657-4a38-a74a-1a07914011e6 Liam's home city is Perth, valid from January 31, 2025. observation Perth Liam 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:30:35.278705+00:00   0.007919744040380372 0.008549159179382586 0.5289136486598053 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "c25f823e-9d67-4dea-84f6-f29e8c02a20c Permanently delete everything recorded about Omar's home city. | When: on February 22, 2025 | Involving: Omar world Omar  2025-02-22T00:00:00+00:00 2025-02-22T00:00:00+00:00 2026-10-23T02:31:04.052930+00:00 77bf0a6c-d6f1-40bf-a05e-249d64c02a1f  del-hindsight-13-api-verified-h13_77bf0a6c-d6f1-40bf-a05e-249d64c02a1f_0  0.9161602203030502 0.995826326416359 0.6806217634863263 0.5 | 639f0ae4-f244-48e2-a892-f7735a598d14 Yuna's home city is Quito; it has been updated to Nantes, valid from February 1, 2025. observation Quito Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.03444350541320564 0.031096737028430684 0.5302125251546541 0.20000000298023224 | af822878-1003-47a4-ba2b-39e19229adc7 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:30:27.036358+00:00 11b2b7bb-3417-4657-9880-8913445415dc  del-hindsight-13-api-verified-h13_11b2b7bb-3417-4657-9880-8913445415dc_0  0.02919608219758055 0.02654189980052294 0.5955379782777488 0.20000000298023224 | 6a4159ea-d41d-41a3-8369-531014b7336d Yuna's home city is Nantes, valid from February 1, 2025. observation Yuna Nantes 2026-10-23T02:30:41.419723+00:00   0.016620818280709364 0.015109837472068463 0.5304711655484389 0.20000000298023224 | 724b1826-2ae1-45be-b819-4b39fafe05d6 Sora's home city is Accra, valid from January 2, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:30:25.147243+00:00 7a4fbb7b-cecb-425b-bec2-7e25d9114488  del-hindsight-13-api-verified-h13_7a4fbb7b-cecb-425b-bec2-7e25d9114488_0  0.014090936033993843 0.012809945315685994 0.5682487399800508 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 213,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 9,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "b93ea541-e9bf-4ff3-8ed5-d32ac899fca0 Liam's home city is Perth, valid from February 1, 2025. observation Liam Perth 2026-10-23T02:31:30.648443+00:00   1.099855634044596 0.9998689012152459 0.7236889004707336 0.30000001192092896 | 06d85e98-6c40-46b1-9158-1211f1bf524f Liam's home city is Perth, valid from February 1, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:31:30.648443+00:00 c15fcbf3-cdbe-4ce4-8a0d-675a2e16a718  del-hindsight-17-api-verified-h13_c15fcbf3-cdbe-4ce4-8a0d-675a2e16a718_0  1.0998200737127695 0.9998365736362349 0.7640050508979007 0.5 | 619e8a9b-d020-4642-8e81-57050ed690cb Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:31:13.866241+00:00 d68286b2-f8c6-4ac5-be34-b9a01ed5e7e7  del-hindsight-17-api-verified-h13_d68286b2-f8c6-4ac5-be34-b9a01ed5e7e7_0  1.0998179891886803 0.9998347753544802 0.7721841335296631 0.5 | 0e3eaed8-95bf-4fed-b73b-ab7adfb8b037 Liam's home city is Riga; replaced by Perth, valid from February 1, 2025. observation Liam Riga Perth 2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:31:32.469697+00:00   0.9298553706781058 0.9997292114621953 0.7144184538375422 0.30000001192092896 | f5c93e15-4095-41e7-a70b-59ea10c9e21b Liam's home city is now Perth, replacing the previous value. | When: on February 1, 2025 | Involving: Liam world Liam Perth  2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:31:32.469697+00:00 45ec9ffc-df95-4fec-8242-961426adf4e8  del-hindsight-17-api-verified-h13_45ec9ffc-df95-4fec-8242-961426adf4e8_0  0.9197218068482762 0.9996976161394308 0.7402558922767639 0.5",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "4fc56040-c94f-415c-8e98-f4270e96ad18 Mina's home city is Seoul, valid from January 5, 2025. | Involving: Mina world Mina Seoul  2026-10-23T02:31:22.661053+00:00 371d740f-a774-4a50-a473-fb608706d29f  del-hindsight-17-api-verified-h13_371d740f-a774-4a50-a473-fb608706d29f_0  1.0998486554707585 0.9998626076354165 0.7946616533600313 0.5 | 8f70c520-1353-4bfd-b57d-3fd7e41eb0de Mina's home city is Cairo, valid from February 2, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:31:38.646716+00:00 c7cf4c4d-0ae3-4d66-a6f4-3c68eddf2304  del-hindsight-17-api-verified-h13_c7cf4c4d-0ae3-4d66-a6f4-3c68eddf2304_0  1.0998392042835572 0.9998539234948243 0.7855923899655124 0.5 | 911c3b3a-7d02-40f4-9e27-8e07c7af27c8 Mina's home city is Cairo, valid from February 2, 2025. observation Cairo Mina 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:41.321829+00:00   0.9261567535459838 0.9997622992301327 0.7297783115440107 0.30000001192092896 | 3e618875-749d-4dee-aeb2-d467d5e8ae80 Mina's home city is now Cairo, replacing the previous value. | When: on February 2, 2025 | Involving: Mina world Cairo Mina  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:41.321829+00:00 b70f8f3e-c546-48ad-b115-3528ad1d5e3b  del-hindsight-17-api-verified-h13_b70f8f3e-c546-48ad-b115-3528ad1d5e3b_0  0.9197423265525002 0.9997199201657612 0.7475666999816895 0.5 | 363d413e-1bef-4c72-b14f-f5bc0557181c Yuna's home city is Quito, valid from January 6, 2025. observation Quito Yuna 2026-10-23T02:31:20.552756+00:00   0.05152670252514161 0.046842466479011156 0.5683380704127602 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "4b95168b-7521-4b4e-8398-d6a657e97586 Noah's home city is Lima, valid from January 31, 2025. | Involving: Noah world Noah Lima  2026-10-23T02:31:26.579998+00:00 bdb950a8-d085-4413-aebe-a381f26d8bd2  del-hindsight-17-api-verified-h13_bdb950a8-d085-4413-aebe-a381f26d8bd2_0  1.0998407598661708 0.9998554121022084 0.8003139019293105 0.5 | 1b0f2ce8-2999-474c-a38c-b0deb2d42ea1 Noah's home city is Oslo, valid from January 6, 2025. | Involving: Noah world Noah Oslo  2026-10-23T02:31:24.819275+00:00 ae1feb93-5c82-4478-9b89-b8434f7fd869  del-hindsight-17-api-verified-h13_ae1feb93-5c82-4478-9b89-b8434f7fd869_0  1.0998218516978722 0.9998382330049387 0.8285297649222487 0.5 | be69c3af-5ed3-4984-8a1e-98b9d58524a8 Noah's home city is now Lima, valid from January 31, 2025. observation Noah Lima 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:31:28.556556+00:00   0.9260639357563876 0.999662104823105 0.6910879427843072 0.30000001192092896 | cd051cb7-ef0d-48ca-b745-98759f300aab Noah's home city is now Lima, replacing the previous value. | When: on January 31, 2025 | Involving: Noah world Noah Lima  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:31:28.556556+00:00 96500e45-2af2-4a01-a249-6bf73ec345f3  del-hindsight-17-api-verified-h13_96500e45-2af2-4a01-a249-6bf73ec345f3_0  0.9196995098240015 0.99967338024348 0.7641206243110089 0.5 | b93ea541-e9bf-4ff3-8ed5-d32ac899fca0 Liam's home city is Perth, valid from February 1, 2025. observation Liam Perth 2026-10-23T02:31:30.648443+00:00   0.03166915585506249 0.028790146074884712 0.5121591992473135 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "d58316b4-976d-42f9-8e07-ed7f77f5edc4 Sora's home city is Porto, valid from February 2, 2025. | Involving: Sora world Porto Sora  2026-10-23T02:31:43.390241+00:00 c621a45e-c6a3-4464-98cd-cf78d4609d23  del-hindsight-17-api-verified-h13_c621a45e-c6a3-4464-98cd-cf78d4609d23_0  1.0998246935140346 0.9998407194607372 0.7648952603340149 0.5 | da22544d-42ea-4256-a95e-eca2d2d93b04 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:31:18.322397+00:00 2bb4e079-26bf-414a-8dd0-bd2df3c7ac72  del-hindsight-17-api-verified-h13_2bb4e079-26bf-414a-8dd0-bd2df3c7ac72_0  1.0997511313455997 0.9997739892501232 0.7694852352142334 0.5 | 5b38ddbd-a159-4a74-b6e1-bfca6d39536e Sora's home city is Porto, valid from February 2, 2025. observation Porto Sora 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:45.262477+00:00   0.9261760130490834 0.999783089366389 0.7164314558248857 0.30000001192092896 | 6f8348ba-07c8-4b99-8336-2f6d471d315b Sora's home city is no longer Accra. observation Porto Sora Accra 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:45.262477+00:00   0.9257095540492576 0.9992795589214865 0.7514522075653076 0.30000001192092896 | bf215359-7a14-4529-92ed-5a318139dd55 Sora's home city is now Porto, replacing the previous value. | When: on February 2, 2025 | Involving: Sora world Porto Sora  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:45.262477+00:00 b402aac1-f83a-44fd-91a9-c3fb4070dec9  del-hindsight-17-api-verified-h13_b402aac1-f83a-44fd-91a9-c3fb4070dec9_0  0.9197520420637039 0.999730480504026 0.7326417187643567 0.5",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "363d413e-1bef-4c72-b14f-f5bc0557181c Yuna's home city is Quito, valid from January 6, 2025. observation Quito Yuna 2026-10-23T02:31:20.552756+00:00   1.099916338129994 0.9999241688888952 0.7485140262262853 0.30000001192092896 | 8427fdc5-7dd8-4099-9262-0d8bb74fdf65 Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:31:20.552756+00:00 4b3fdb21-4d02-44bc-8936-91b3ec54c271  del-hindsight-17-api-verified-h13_4b3fdb21-4d02-44bc-8936-91b3ec54c271_0  1.09989218820382 0.9999022144056122 0.8006445050623732 0.5 | e9f6c28a-44ef-435f-b47e-c76a536cb79c Yuna's home city is Nantes, valid from February 3, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:31:34.422857+00:00 bc692c10-c3f3-4e46-94a3-016371a38477  del-hindsight-17-api-verified-h13_bc692c10-c3f3-4e46-94a3-016371a38477_0  1.0998405014251744 0.999855146459099 0.7908803099918564 0.5 | 291b9cbe-3655-484a-a32a-1a021489cf9b Yuna's home city is Nantes, valid from February 3, 2025. observation Nantes Yuna 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:31:36.463560+00:00   0.9261931016923908 0.9998015361155579 0.7250270299637646 0.30000001192092896 | fbea6a75-32c3-4ed2-8b4b-58b793ddd57f Yuna's home city is now Nantes, replacing the previous value. | When: on February 3, 2025 | Involving: Yuna world Nantes Yuna  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:31:36.463560+00:00 014cc36f-0627-4b84-a960-b0d7b53aeca8  del-hindsight-17-api-verified-h13_014cc36f-0627-4b84-a960-b0d7b53aeca8_0  0.9197554662091968 0.999734202401301 0.762571962186332 0.5",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "363d413e-1bef-4c72-b14f-f5bc0557181c Yuna's home city is Quito, valid from January 6, 2025. observation Quito Yuna 2026-10-23T02:31:20.552756+00:00   0.06970344502050253 0.06336678186695878 0.5481841188943566 0.20000000298023224 | 8427fdc5-7dd8-4099-9262-0d8bb74fdf65 Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:31:20.552756+00:00 4b3fdb21-4d02-44bc-8936-91b3ec54c271  del-hindsight-17-api-verified-h13_4b3fdb21-4d02-44bc-8936-91b3ec54c271_0  0.030647393146998617 0.02786127250619481 0.5950625474806941 0.20000000298023224 | 911c3b3a-7d02-40f4-9e27-8e07c7af27c8 Mina's home city is Cairo, valid from February 2, 2025. observation Cairo Mina 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:31:41.321829+00:00   0.02099192167259923 0.022660237369434302 0.6518083991776 0.20000000298023224 | b93ea541-e9bf-4ff3-8ed5-d32ac899fca0 Liam's home city is Perth, valid from February 1, 2025. observation Liam Perth 2026-10-23T02:31:30.648443+00:00   0.017548566212765505 0.01595324452371656 0.5064794277977452 0.20000000298023224 | 8f70c520-1353-4bfd-b57d-3fd7e41eb0de Mina's home city is Cairo, valid from February 2, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:31:38.646716+00:00 c7cf4c4d-0ae3-4d66-a6f4-3c68eddf2304  del-hindsight-17-api-verified-h13_c7cf4c4d-0ae3-4d66-a6f4-3c68eddf2304_0  0.016980082082445867 0.015436439975674428 0.6544726686022554 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        }
+      ],
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 45,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 4,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "8e0a2fef-2114-486f-910a-a531f3c393f5 Liam's home city is Perth, valid from January 31, 2025. observation Liam Perth 2026-10-23T02:32:17.222083+00:00   1.0998515392670907 0.9998652414300394 0.7170270681381226 0.30000001192092896 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  1.0998179396846337 0.9998347753544802 0.7721841335296631 0.5 | ddbbfc12-ced4-4eed-8b8a-c42ef2b8a0e7 Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:32:17.222083+00:00 1693c997-aa83-4a69-94d0-260e3deceace  del-hindsight-23-api-verified-h13_1693c997-aa83-4a69-94d0-260e3deceace_0  1.0998158284543604 0.9998327770481502 0.7619383335113525 0.5 | 221a1412-bc67-44ed-8960-399961690ee2 Liam's home city is Riga; it changed to Perth, valid from January 31, 2025. observation Liam Riga Perth 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:32:19.193981+00:00   0.9298792206175194 0.9997548536016885 0.703680950183813 0.30000001192092896 | f24b2b5d-5830-4ca6-8a2d-10f07ea829cb Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Liam Perth  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:32:19.193981+00:00 741bba8e-fb0f-418a-8f3f-df61e5e06474  del-hindsight-23-api-verified-h13_741bba8e-fb0f-418a-8f3f-df61e5e06474_0  0.9197249407419317 0.999701022545578 0.7378649711608887 0.5",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "ef3ff6ac-4ca3-409c-82fd-c58e3cc4264d Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:32:07.359588+00:00 98b3e662-8a1d-492b-a810-d945446dd7df  del-hindsight-23-api-verified-h13_98b3e662-8a1d-492b-a810-d945446dd7df_0  1.0998921226026885 0.9999022144056122 0.8006445050623732 0.5 | da57c349-581e-435a-9e96-6d93176987a1 Yuna's home city is Nantes, valid from February 1, 2025. observation Nantes Yuna 2026-10-23T02:32:29.784361+00:00   1.099873894605367 0.9998855142208404 0.7235127357855721 0.30000001192092896 | 90562f54-e606-4de4-a8d3-7405de1a3c11 Yuna's home city is Nantes, valid from February 1, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:32:29.784361+00:00 596e8da8-7f37-4ef8-90f8-5436ca3f765a  del-hindsight-23-api-verified-h13_596e8da8-7f37-4ef8-90f8-5436ca3f765a_0  1.0998405306342287 0.9998551833332707 0.7915188545893954 0.5 | ce83887b-7c84-4d9e-89bc-6d203c8540ef Yuna's home city is now Nantes, replacing the previous value. | When: on February 1, 2025 | Involving: Yuna world Nantes Yuna  2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:32:31.756197+00:00 a1ca46ef-b3b2-4110-8ce7-f41eb45855ae  del-hindsight-23-api-verified-h13_a1ca46ef-b3b2-4110-8ce7-f41eb45855ae_0  0.9197590356818734 0.9997380822629061 0.7616661048928576 0.5 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  0.012813735577588655 0.011648854100719492 0.570368860385947 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "da57c349-581e-435a-9e96-6d93176987a1 Yuna's home city is Nantes, valid from February 1, 2025. observation Nantes Yuna 2026-10-23T02:32:29.784361+00:00   0.0361832167685284 0.03289383796141974 0.5384445511367659 0.20000000298023224 | ef3ff6ac-4ca3-409c-82fd-c58e3cc4264d Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:32:07.359588+00:00 98b3e662-8a1d-492b-a810-d945446dd7df  del-hindsight-23-api-verified-h13_98b3e662-8a1d-492b-a810-d945446dd7df_0  0.03376734515755082 0.030697594708361264 0.6176364421844482 0.20000000298023224 | 90562f54-e606-4de4-a8d3-7405de1a3c11 Yuna's home city is Nantes, valid from February 1, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:32:29.784361+00:00 596e8da8-7f37-4ef8-90f8-5436ca3f765a  del-hindsight-23-api-verified-h13_596e8da8-7f37-4ef8-90f8-5436ca3f765a_0  0.023173658914263703 0.021066965554096654 0.5916560888290405 0.20000000298023224 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  0.017980257407586044 0.0163456932816177 0.5393889546394348 0.20000000298023224 | 8e0a2fef-2114-486f-910a-a531f3c393f5 Liam's home city is Perth, valid from January 31, 2025. observation Liam Perth 2026-10-23T02:32:17.222083+00:00   0.00800676085794874 0.007278875038041054 0.4992634057998657 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "8e0a2fef-2114-486f-910a-a531f3c393f5 Liam's home city is Perth, valid from January 31, 2025. observation Liam Perth 2026-10-23T02:32:17.222083+00:00   0.028440842379026658 0.025855316804201653 0.5289136486598053 0.20000000298023224 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  0.01540763500123445 0.014006945023992598 0.5028159322032897 0.20000000298023224 | ddbbfc12-ced4-4eed-8b8a-c42ef2b8a0e7 Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:32:17.222083+00:00 1693c997-aa83-4a69-94d0-260e3deceace  del-hindsight-23-api-verified-h13_1693c997-aa83-4a69-94d0-260e3deceace_0  0.014691717173133582 0.013356109388279616 0.5602708196801446 0.20000000298023224 | 221a1412-bc67-44ed-8960-399961690ee2 Liam's home city is Riga; it changed to Perth, valid from January 31, 2025. observation Liam Riga Perth 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:32:19.193981+00:00   0.007195217091847346 0.007735900588804578 0.48988944292068837 0.20000000298023224 | f24b2b5d-5830-4ca6-8a2d-10f07ea829cb Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Liam Perth  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:32:19.193981+00:00 741bba8e-fb0f-418a-8f3f-df61e5e06474  del-hindsight-23-api-verified-h13_741bba8e-fb0f-418a-8f3f-df61e5e06474_0  0.006281952311673193 0.006828209034427384 0.5664121250159825 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "eb256894-8457-46cb-be93-0c070600b36f Permanently delete everything recorded about Omar's home city. | When: on February 17, 2025 | Involving: Omar world Omar  2025-02-17T00:00:00+00:00 2025-02-17T00:00:00+00:00 2026-10-23T02:32:40.663551+00:00 1ac5ec7f-8f15-4429-ac75-5b636f756276  del-hindsight-23-api-verified-h13_1ac5ec7f-8f15-4429-ac75-5b636f756276_0  0.9164356257973699 0.9961256802145326 0.6798931181271554 0.5 | ef3ff6ac-4ca3-409c-82fd-c58e3cc4264d Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:32:07.359588+00:00 98b3e662-8a1d-492b-a810-d945446dd7df  del-hindsight-23-api-verified-h13_98b3e662-8a1d-492b-a810-d945446dd7df_0  0.030647391295572708 0.02786127250619481 0.5950625474806941 0.20000000298023224 | da57c349-581e-435a-9e96-6d93176987a1 Yuna's home city is Nantes, valid from February 1, 2025. observation Nantes Yuna 2026-10-23T02:32:29.784361+00:00   0.016620818779416124 0.015109837472068463 0.5304711655484389 0.20000000298023224 | 8e0a2fef-2114-486f-910a-a531f3c393f5 Liam's home city is Perth, valid from January 31, 2025. observation Liam Perth 2026-10-23T02:32:17.222083+00:00   0.016237125313312933 0.014761026248046026 0.4867561298688785 0.20000000298023224 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  0.012140196948312872 0.011036545971833157 0.5462204706269945 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "ef3ff6ac-4ca3-409c-82fd-c58e3cc4264d Yuna's home city is Quito, valid from January 6, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:32:07.359588+00:00 98b3e662-8a1d-492b-a810-d945446dd7df  del-hindsight-23-api-verified-h13_98b3e662-8a1d-492b-a810-d945446dd7df_0  0.0366165382246168 0.0332877713552977 0.6315826177597046 0.20000000298023224 | da57c349-581e-435a-9e96-6d93176987a1 Yuna's home city is Nantes, valid from February 1, 2025. observation Nantes Yuna 2026-10-23T02:32:29.784361+00:00   0.03557202186929864 0.0323382065851037 0.5871087662642469 0.20000000298023224 | 90562f54-e606-4de4-a8d3-7405de1a3c11 Yuna's home city is Nantes, valid from February 1, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:32:29.784361+00:00 596e8da8-7f37-4ef8-90f8-5436ca3f765a  del-hindsight-23-api-verified-h13_596e8da8-7f37-4ef8-90f8-5436ca3f765a_0  0.024529153668518197 0.022299233976770732 0.6295510530471802 0.20000000298023224 | 8e0a2fef-2114-486f-910a-a531f3c393f5 Liam's home city is Perth, valid from January 31, 2025. observation Liam Perth 2026-10-23T02:32:17.222083+00:00   0.018063111029840997 0.01642101369737906 0.5007892847061157 0.20000000298023224 | dd0f77fc-297a-4c62-a171-ca18e8c59014 Liam's home city is Riga, valid from January 1, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:32:03.516443+00:00 77da4184-494d-4697-9741-098d911fd471  del-hindsight-23-api-verified-h13_77da4184-494d-4697-9741-098d911fd471_0  0.017225011183355954 0.01565910581309804 0.563804030418396 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 256,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 15,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "cc03bca0-0612-4cb5-9dd2-a95ddcfd29f4 Liam's home city is Riga, valid from January 6, 2025. observation Liam Riga 2026-10-23T02:33:07.552155+00:00   1.0998545026927768 0.999867946939729 0.7132029745937284 0.30000001192092896 | 2142cfbe-e952-43a6-a107-509ccc0316a4 Liam's home city is Perth, valid from February 3, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:33:26.731851+00:00 31659543-56e1-4856-95be-a30b419d87cc  del-hindsight-42-api-verified-h13_31659543-56e1-4856-95be-a30b419d87cc_0  1.0998221262090606 0.9998384032052252 0.7619003142625405 0.5 | 639bd79c-4cd8-4abd-8703-c641dcb1e284 Liam's home city is Riga, valid from January 6, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:33:07.552155+00:00 d304cd8e-95b9-495b-ad43-88e0a2b112ba  del-hindsight-42-api-verified-h13_d304cd8e-95b9-495b-ad43-88e0a2b112ba_0  1.0998164641611374 0.999833366448908 0.7708045840263367 0.5 | 901a5147-2030-4ead-9eaa-1340f48760a3 Liam's home city is now Perth, replacing the previous value, valid from February 3, 2025. observation Liam Perth 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:29.519532+00:00   0.926143723782008 0.9997482339363895 0.6500295400619507 0.30000001192092896 | 0453d76d-f094-4eba-ba4d-ab29dfe24cc3 Liam's home city is now Perth, replacing the previous value. | When: on February 3, 2025 | Involving: Liam world Liam Perth  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:29.519532+00:00 40ccf831-beab-4ab0-94fc-6c5fa5092376  del-hindsight-42-api-verified-h13_40ccf831-beab-4ab0-94fc-6c5fa5092376_0  0.9197203040158605 0.9996959826259354 0.7414920551029464 0.5",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "ffe4c6f6-37d9-4534-b191-22139702a917 Omar's home city is Cebu, valid from January 3, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:33:00.025826+00:00 e200ba65-758b-424d-9375-9a17cf22995f  del-hindsight-42-api-verified-h13_e200ba65-758b-424d-9375-9a17cf22995f_0  1.0998013056893967 0.999819641602773 0.767293714502275 0.5 | 8dc9cbb4-d4ce-41c4-a445-63c141b321cf Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Split Omar  2026-10-23T02:33:18.135378+00:00 51d53748-ab3d-40ff-b8bf-3b57166f1108  del-hindsight-42-api-verified-h13_51d53748-ab3d-40ff-b8bf-3b57166f1108_0  1.0991044403690613 0.9991860231781894 0.7540424993697556 0.5 | 8f418560-afd4-45bd-b888-25b687046362 Omar's home city is Split, replacing the previous value, valid from February 3, 2025. observation Split Omar 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:20.839572+00:00   0.9246147798926179 0.9980977784898378 0.6603024793031799 0.30000001192092896 | 27c3d9b6-abd3-4158-b8ec-b7d576fde5dd Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Split Omar  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:20.839572+00:00 14b349e2-f827-4ba8-b48e-6c7dcf1e766d  del-hindsight-42-api-verified-h13_14b349e2-f827-4ba8-b48e-6c7dcf1e766d_0  0.9178855197628686 0.9977016519161616 0.7104699823400452 0.5 | 3902fa8b-18c5-4b94-9539-35b1ddf48da1 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:33:01.903531+00:00 37eaab59-70da-45ca-a472-8aaad0b236ba  del-hindsight-42-api-verified-h13_37eaab59-70da-45ca-a472-8aaad0b236ba_0  0.029196082130683282 0.02654189980052294 0.5955379782777488 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "3902fa8b-18c5-4b94-9539-35b1ddf48da1 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:33:01.903531+00:00 37eaab59-70da-45ca-a472-8aaad0b236ba  del-hindsight-42-api-verified-h13_37eaab59-70da-45ca-a472-8aaad0b236ba_0  1.0998914365727144 0.9999015761107972 0.7989195585250911 0.5 | a20a9eba-ff9e-4a34-8239-2b1a4c9a8834 Yuna's home city is Nantes, valid from February 2, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:33:13.937052+00:00 acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6  del-hindsight-42-api-verified-h13_acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6_0  1.0998382203730446 0.9998531283662987 0.7893881923325073 0.5 | 9fb7ab07-de5b-4c33-9340-06cecd9f0b91 Yuna's home city is Nantes, valid from February 2, 2025. observation Nantes Quito Yuna 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:33:15.934969+00:00   0.9299196392596422 0.9997983094965427 0.7225954101922979 0.30000001192092896 | a9609edd-7798-452c-9714-8ea2568b0244 Yuna's home city is now Nantes, replacing the previous value. | When: on February 2, 2025 | Involving: Yuna world Nantes Yuna  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:33:15.934969+00:00 572b30fd-ddfe-4f70-8898-133084f573b7  del-hindsight-42-api-verified-h13_572b30fd-ddfe-4f70-8898-133084f573b7_0  0.9197522485977158 0.9997307049975172 0.7609673226744527 0.5 | ffe4c6f6-37d9-4534-b191-22139702a917 Omar's home city is Cebu, valid from January 3, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:33:00.025826+00:00 e200ba65-758b-424d-9375-9a17cf22995f  del-hindsight-42-api-verified-h13_e200ba65-758b-424d-9375-9a17cf22995f_0  0.132781999052545 0.12071094214790588 0.6259186267852828 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "d90f13db-1e2b-446f-9ae8-41ae87ceffb8 Permanently delete everything recorded about Mina's home city. | When: on February 22, 2025 | Involving: Mina world Mina  2025-02-22T00:00:00+00:00 2025-02-22T00:00:00+00:00 2026-10-23T02:33:39.448985+00:00 a7ca5347-8339-45e3-810e-c9132ca1771b  del-hindsight-42-api-verified-h13_a7ca5347-8339-45e3-810e-c9132ca1771b_0  0.9159832497520072 0.995633967121747 0.657206257748232 0.5 | 3902fa8b-18c5-4b94-9539-35b1ddf48da1 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:33:01.903531+00:00 37eaab59-70da-45ca-a472-8aaad0b236ba  del-hindsight-42-api-verified-h13_37eaab59-70da-45ca-a472-8aaad0b236ba_0  0.03308623775924815 0.030078405599883767 0.6154822936366633 0.20000000298023224 | cc03bca0-0612-4cb5-9dd2-a95ddcfd29f4 Liam's home city is Riga, valid from January 6, 2025. observation Liam Riga 2026-10-23T02:33:07.552155+00:00   0.025660804385726408 0.023328009150308325 0.5030824095929389 0.20000000298023224 | a20a9eba-ff9e-4a34-8239-2b1a4c9a8834 Yuna's home city is Nantes, valid from February 2, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:33:13.937052+00:00 acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6  del-hindsight-42-api-verified-h13_acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6_0  0.023080687882358845 0.020982447401151315 0.5884564413480274 0.20000000298023224 | 639bd79c-4cd8-4abd-8703-c641dcb1e284 Liam's home city is Riga, valid from January 6, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:33:07.552155+00:00 d304cd8e-95b9-495b-ad43-88e0a2b112ba  del-hindsight-42-api-verified-h13_d304cd8e-95b9-495b-ad43-88e0a2b112ba_0  0.018090113341387593 0.016445561223043408 0.5391748547554016 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "cc03bca0-0612-4cb5-9dd2-a95ddcfd29f4 Liam's home city is Riga, valid from January 6, 2025. observation Liam Riga 2026-10-23T02:33:07.552155+00:00   0.024137022329369196 0.021942752518425684 0.45530657070635905 0.20000000298023224 | 2142cfbe-e952-43a6-a107-509ccc0316a4 Liam's home city is Perth, valid from February 3, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:33:26.731851+00:00 31659543-56e1-4856-95be-a30b419d87cc  del-hindsight-42-api-verified-h13_31659543-56e1-4856-95be-a30b419d87cc_0  0.017051224713257204 0.01550111515580807 0.5472360472732856 0.20000000298023224 | 639bd79c-4cd8-4abd-8703-c641dcb1e284 Liam's home city is Riga, valid from January 6, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:33:07.552155+00:00 d304cd8e-95b9-495b-ad43-88e0a2b112ba  del-hindsight-42-api-verified-h13_d304cd8e-95b9-495b-ad43-88e0a2b112ba_0  0.01575690461967524 0.014324461974138138 0.5024240912451807 0.20000000298023224 | 901a5147-2030-4ead-9eaa-1340f48760a3 Liam's home city is now Perth, replacing the previous value, valid from February 3, 2025. observation Liam Perth 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:29.519532+00:00   0.011202344707411004 0.012092641832572533 0.4655418673480678 0.20000000298023224 | 0453d76d-f094-4eba-ba4d-ab29dfe24cc3 Liam's home city is now Perth, replacing the previous value. | When: on February 3, 2025 | Involving: Liam world Liam Perth  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:33:29.519532+00:00 40ccf831-beab-4ab0-94fc-6c5fa5092376  del-hindsight-42-api-verified-h13_40ccf831-beab-4ab0-94fc-6c5fa5092376_0  0.00663420774440819 0.007211095374356729 0.5471948874469004 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "3902fa8b-18c5-4b94-9539-35b1ddf48da1 Yuna's home city is Quito, valid from January 2, 2025. | Involving: Yuna world Quito Yuna  2026-10-23T02:33:01.903531+00:00 37eaab59-70da-45ca-a472-8aaad0b236ba  del-hindsight-42-api-verified-h13_37eaab59-70da-45ca-a472-8aaad0b236ba_0  0.035821913063049576 0.032565384173126294 0.6308343630531821 0.20000000298023224 | ffe4c6f6-37d9-4534-b191-22139702a917 Omar's home city is Cebu, valid from January 3, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:33:00.025826+00:00 e200ba65-758b-424d-9375-9a17cf22995f  del-hindsight-42-api-verified-h13_e200ba65-758b-424d-9375-9a17cf22995f_0  0.025669426721919825 0.023335848933627366 0.605514907508201 0.20000000298023224 | cc03bca0-0612-4cb5-9dd2-a95ddcfd29f4 Liam's home city is Riga, valid from January 6, 2025. observation Liam Riga 2026-10-23T02:33:07.552155+00:00   0.025329181952166678 0.023026534421786427 0.5142573271470467 0.20000000298023224 | a20a9eba-ff9e-4a34-8239-2b1a4c9a8834 Yuna's home city is Nantes, valid from February 2, 2025. | Involving: Yuna world Nantes Yuna  2026-10-23T02:33:13.937052+00:00 acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6  del-hindsight-42-api-verified-h13_acabe89e-0c5d-4e60-9a9d-eb4bba58b4e6_0  0.023940498793649644 0.021764094090948115 0.6273401823830431 0.20000000298023224 | 639bd79c-4cd8-4abd-8703-c641dcb1e284 Liam's home city is Riga, valid from January 6, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:33:07.552155+00:00 d304cd8e-95b9-495b-ad43-88e0a2b112ba  del-hindsight-42-api-verified-h13_d304cd8e-95b9-495b-ad43-88e0a2b112ba_0  0.01762483724098634 0.016022583049636923 0.564577579498291 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        }
+      ],
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 166,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 11,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "0abbd3c8-8a31-43ff-86eb-22a0563cdee8 Liam's home city is Perth, valid from January 31, 2025. observation Riga Perth Liam 2026-10-23T02:34:02.842452+00:00   1.111934642853339 0.9998652414300394 0.7170270681381226 0.30000001192092896 | d53e21e4-5521-4429-9acd-5226a4ecccc9 Liam's home city is Riga, valid from January 2, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:33:51.584605+00:00 46d68c34-5eab-48b7-a13c-28cf04fb37f4  del-hindsight-1-api-verified-h13_46d68c34-5eab-48b7-a13c-28cf04fb37f4_0  1.0998158773017046 0.9998328868728278 0.7707655429840088 0.5 | d4c77d9a-bced-42c5-bc95-70ecae203ee2 Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Perth Liam  2026-10-23T02:34:02.842452+00:00 457e40be-bb38-461e-8cff-da460b9a6510  del-hindsight-1-api-verified-h13_457e40be-bb38-461e-8cff-da460b9a6510_0  1.09981582787945 0.9998327770481502 0.7619383335113525 0.5 | 7af51c2f-3dc7-466e-8ee1-2dbd7664afd5 Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Perth Liam  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:34:04.798119+00:00 df96fe94-0b38-44a2-9035-b03df24f0f67  del-hindsight-1-api-verified-h13_df96fe94-0b38-44a2-9035-b03df24f0f67_0  0.9197249407419317 0.999701022545578 0.7378649711608887 0.5 | 95ce6dd0-4636-441a-a7b7-9185f486fb79 Noah's home city is Oslo, valid from January 6, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:34:00.257013+00:00 98a44147-b568-4c53-8b58-2f39bcab3816  del-hindsight-1-api-verified-h13_98a44147-b568-4c53-8b58-2f39bcab3816_0  0.038558671591110275 0.03505334556352446 0.5770635604858398 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "291343e8-3d60-4e1d-b3b8-8cb01983f0da Noah's home city is Lima, valid from January 31, 2025. | Involving: Noah world Noah Lima  2026-10-23T02:34:11.137320+00:00 3ffdc656-df32-4f25-8e9d-b65b201d8ffa  del-hindsight-1-api-verified-h13_3ffdc656-df32-4f25-8e9d-b65b201d8ffa_0  1.0998407693492298 0.9998554121022084 0.8003139019293105 0.5 | 95ce6dd0-4636-441a-a7b7-9185f486fb79 Noah's home city is Oslo, valid from January 6, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:34:00.257013+00:00 98a44147-b568-4c53-8b58-2f39bcab3816  del-hindsight-1-api-verified-h13_98a44147-b568-4c53-8b58-2f39bcab3816_0  1.099821803354102 0.9998382330049387 0.8285297649222487 0.5 | 30baaf81-3142-4c94-8ce0-63a33a24ed85 Noah's home city is Lima; it replaced Oslo on January 31, 2025. observation Oslo Noah Lima 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:34:12.967647+00:00   0.9298986141799054 0.9997757044903783 0.7348484676895699 0.30000001192092896 | 332a45e8-d1b1-4521-a7bb-aa90acc9b080 Noah's home city is now Lima, replacing the previous value. | When: on January 31, 2025 | Involving: Noah world Noah Lima  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:34:12.967647+00:00 e7bc4c35-2033-44bb-b367-6feb3e62836f  del-hindsight-1-api-verified-h13_e7bc4c35-2033-44bb-b367-6feb3e62836f_0  0.9196995098240015 0.99967338024348 0.7641206243110089 0.5 | 0abbd3c8-8a31-43ff-86eb-22a0563cdee8 Liam's home city is Perth, valid from January 31, 2025. observation Riga Perth Liam 2026-10-23T02:34:02.842452+00:00   0.028753296956618605 0.025855316804201653 0.5289136486598053 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "4e6a3e44-cf3d-4090-9013-d89ef1d52938 Sora's home city was Accra, valid from January 4, 2025; it is now Porto, valid from January 31, 2025. observation Porto Accra Sora 2026-10-23T02:34:14.829206+00:00   1.1073606722731784 0.999761854155738 0.719469623597288 0.30000001192092896 | 3e334e13-aeb4-407c-98ce-9b040319299b Sora's home city is Porto, valid from January 31, 2025. observation Porto Sora 2026-10-23T02:34:14.829206+00:00   1.099859542036368 0.9998724649039096 0.7079132199287415 0.30000001192092896 | 2b3d9e94-90b5-4630-8096-f0c85538a2df Sora's home city is Porto, valid from January 31, 2025. | Involving: Sora world Porto Sora  2026-10-23T02:34:14.829206+00:00 e30120ec-73a2-436a-a96a-5646009951aa  del-hindsight-1-api-verified-h13_e30120ec-73a2-436a-a96a-5646009951aa_0  1.0998245224550454 0.999840628915987 0.7641382217407227 0.5 | b70f7555-4ec8-411a-85e1-6436089c03ab Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:33:58.326100+00:00 77b5b261-c885-4f7b-b62a-8802cd2d4e30  del-hindsight-1-api-verified-h13_77b5b261-c885-4f7b-b62a-8802cd2d4e30_0  1.0997511141955256 0.9997739892501232 0.7694852352142334 0.5 | 17436362-204e-4555-a723-3adf37aad0ea Sora's home city is now Porto, replacing the previous value. | When: on January 31, 2025 | Involving: Sora world Porto Sora  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:34:16.946402+00:00 847380f9-91f5-4318-b454-1372d8bafc34  del-hindsight-1-api-verified-h13_847380f9-91f5-4318-b454-1372d8bafc34_0  0.9197506668660612 0.9997289857239796 0.7291508316993713 0.5",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "3e334e13-aeb4-407c-98ce-9b040319299b Sora's home city is Porto, valid from January 31, 2025. observation Porto Sora 2026-10-23T02:34:14.829206+00:00   0.032154046858740556 0.0292309558250581 0.5484057664871216 0.20000000298023224 | d53e21e4-5521-4429-9acd-5226a4ecccc9 Liam's home city is Riga, valid from January 2, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:33:51.584605+00:00 46d68c34-5eab-48b7-a13c-28cf04fb37f4  del-hindsight-1-api-verified-h13_46d68c34-5eab-48b7-a13c-28cf04fb37f4_0  0.01810964481589749 0.0164633180043865 0.5370792746543884 0.20000000298023224 | 2b3d9e94-90b5-4630-8096-f0c85538a2df Sora's home city is Porto, valid from January 31, 2025. | Involving: Sora world Porto Sora  2026-10-23T02:34:14.829206+00:00 e30120ec-73a2-436a-a96a-5646009951aa  del-hindsight-1-api-verified-h13_e30120ec-73a2-436a-a96a-5646009951aa_0  0.01739968092443763 0.015817893987241153 0.586452841758728 0.20000000298023224 | b70f7555-4ec8-411a-85e1-6436089c03ab Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:33:58.326100+00:00 77b5b261-c885-4f7b-b62a-8802cd2d4e30  del-hindsight-1-api-verified-h13_77b5b261-c885-4f7b-b62a-8802cd2d4e30_0  0.016400601134767163 0.014909640923116831 0.6007305979728699 0.20000000298023224 | 4e6a3e44-cf3d-4090-9013-d89ef1d52938 Sora's home city was Accra, valid from January 4, 2025; it is now Porto, valid from January 31, 2025. observation Porto Accra Sora 2026-10-23T02:34:14.829206+00:00   0.015464563199399758 0.013961919157522908 0.5632740519479492 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "0abbd3c8-8a31-43ff-86eb-22a0563cdee8 Liam's home city is Perth, valid from January 31, 2025. observation Riga Perth Liam 2026-10-23T02:34:02.842452+00:00   0.016415508368583073 0.014761026248046026 0.4867561298688785 0.20000000298023224 | b70f7555-4ec8-411a-85e1-6436089c03ab Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:33:58.326100+00:00 77b5b261-c885-4f7b-b62a-8802cd2d4e30  del-hindsight-1-api-verified-h13_77b5b261-c885-4f7b-b62a-8802cd2d4e30_0  0.013965897801799848 0.012696273841838716 0.5699351939501065 0.20000000298023224 | d53e21e4-5521-4429-9acd-5226a4ecccc9 Liam's home city is Riga, valid from January 2, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:33:51.584605+00:00 46d68c34-5eab-48b7-a13c-28cf04fb37f4  del-hindsight-1-api-verified-h13_46d68c34-5eab-48b7-a13c-28cf04fb37f4_0  0.012259214952753924 0.011144744031827258 0.5461279642100324 0.20000000298023224 | 291343e8-3d60-4e1d-b3b8-8cb01983f0da Noah's home city is Lima, valid from January 31, 2025. | Involving: Noah world Noah Lima  2026-10-23T02:34:11.137320+00:00 3ffdc656-df32-4f25-8e9d-b65b201d8ffa  del-hindsight-1-api-verified-h13_3ffdc656-df32-4f25-8e9d-b65b201d8ffa_0  0.010761093061933936 0.009782813550501415 0.5547190373801048 0.20000000298023224 | 3e334e13-aeb4-407c-98ce-9b040319299b Sora's home city is Porto, valid from January 31, 2025. observation Porto Sora 2026-10-23T02:34:14.829206+00:00   0.010492953963825479 0.009539050489235904 0.5128925901257347 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Omar",
+          "values": [
+            "Cebu",
+            "Split"
+          ]
+        },
+        {
+          "answer": "0bdd8cfa-0391-4090-9778-9d473c75e230 User permanently deleted everything recorded about Yuna's home city. | When: on February 19, 2025 | Involving: user, Yuna world Yuna user  2025-02-19T00:00:00+00:00 2025-02-19T00:00:00+00:00 2026-10-23T02:34:30.193158+00:00 bb35bc10-5d85-4e29-a14b-e1b7b3295d21  del-hindsight-1-api-verified-h13_bb35bc10-5d85-4e29-a14b-e1b7b3295d21_0  0.9175286746455894 0.9973137767886842 0.6975467024771406 0.5 | 3e334e13-aeb4-407c-98ce-9b040319299b Sora's home city is Porto, valid from January 31, 2025. observation Porto Sora 2026-10-23T02:34:14.829206+00:00   0.03952515562030995 0.03593196533793362 0.5930660124460476 0.20000000298023224 | b70f7555-4ec8-411a-85e1-6436089c03ab Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:33:58.326100+00:00 77b5b261-c885-4f7b-b62a-8802cd2d4e30  del-hindsight-1-api-verified-h13_77b5b261-c885-4f7b-b62a-8802cd2d4e30_0  0.03438783394769638 0.03126167514408141 0.6212282551067039 0.20000000298023224 | 4e6a3e44-cf3d-4090-9013-d89ef1d52938 Sora's home city was Accra, valid from January 4, 2025; it is now Porto, valid from January 31, 2025. observation Porto Accra Sora 2026-10-23T02:34:14.829206+00:00   0.028882132896813805 0.026075745311019836 0.6094717383384748 0.20000000298023224 | 2b3d9e94-90b5-4630-8096-f0c85538a2df Sora's home city is Porto, valid from January 31, 2025. | Involving: Sora world Porto Sora  2026-10-23T02:34:14.829206+00:00 e30120ec-73a2-436a-a96a-5646009951aa  del-hindsight-1-api-verified-h13_e30120ec-73a2-436a-a96a-5646009951aa_0  0.023011470567040157 0.02091952200600299 0.6138342388769541 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 163,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 11,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "ad664e74-fd90-4c3c-be41-613587f9a078 Liam's home city is Riga, valid from January 5, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:34:51.112860+00:00 f01856a7-6075-4e83-80ea-a0846a3e3481  del-hindsight-2-api-verified-h13_f01856a7-6075-4e83-80ea-a0846a3e3481_0  1.0998160329157527 0.9998329582440844 0.7709959012863591 0.5 | 8c46cbf9-189a-4454-a925-3158ba4f4360 Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Perth Liam  2026-10-23T02:34:59.585107+00:00 0d0d9971-2894-45ab-94df-4e4d0f992e68  del-hindsight-2-api-verified-h13_0d0d9971-2894-45ab-94df-4e4d0f992e68_0  1.0998158873219182 0.9998327770481502 0.7619383335113525 0.5 | ce2c20fe-46a7-4ddc-9099-f95907383524 Liam's home city is Perth, valid from January 31, 2025. observation Perth Liam 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:01.247155+00:00   0.9261615088872319 0.9997674324982125 0.7170270681381226 0.30000001192092896 | bc024354-392f-486f-9606-cc60f5e7e5f5 Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Perth Liam  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:01.247155+00:00 3b8e80ce-44fe-4cec-98a2-1646a00001a6  del-hindsight-2-api-verified-h13_3b8e80ce-44fe-4cec-98a2-1646a00001a6_0  0.9197249407419317 0.999701022545578 0.7378649711608887 0.5 | a1a106bb-dee1-49a6-83f4-e2509f0a9fe4 Noah's home city is Oslo, valid from January 3, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:34:47.015549+00:00 5ef7a172-9a80-4d58-be37-026360a27338  del-hindsight-2-api-verified-h13_5ef7a172-9a80-4d58-be37-026360a27338_0  0.03924431283533426 0.03567665604881793 0.5783687829971313 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "751b3727-181d-407f-913f-b3e1ddfb734d Mina's home city is Cairo, valid from February 2, 2025. observation Mina Cairo 2026-10-23T02:35:07.554856+00:00   1.0998558258412205 0.9998690436482609 0.7297783115440107 0.30000001192092896 | a4347b98-1750-4c48-a1c2-3e5a15b0d023 Mina's home city is Seoul, valid from January 1, 2025. | Involving: Mina world Seoul Mina  2026-10-23T02:34:42.609901+00:00 e0cf80b6-1a6c-457d-9547-c402ac6c442d  del-hindsight-2-api-verified-h13_e0cf80b6-1a6c-457d-9547-c402ac6c442d_0  1.0998508636876243 0.9998646763976509 0.7962150573730469 0.5 | f89327a4-c3ae-4e89-bb41-1ead87c14137 Mina's home city is Cairo, valid from February 2, 2025. | Involving: Mina world Mina Cairo  2026-10-23T02:35:07.554856+00:00 07ce27bd-ac78-47af-885d-cd8401da0b34  del-hindsight-2-api-verified-h13_07ce27bd-ac78-47af-885d-cd8401da0b34_0  1.0998391936742877 0.9998539234948243 0.7855923899655124 0.5 | d0e1e6ab-ce2d-4d1e-96e1-9e22e2bac657 Mina's home city is now Cairo, replacing the previous value. Valid from February 2, 2025. observation Seoul Mina Cairo 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:35:09.822035+00:00   0.9298908173999716 0.9997673218225991 0.7462923677985462 0.30000001192092896 | c30262d4-e58b-4965-ae3f-6c6384a05053 Mina's home city is now Cairo, replacing the previous value. | When: on February 2, 2025 | Involving: Mina world Mina Cairo  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:35:09.822035+00:00 d0108ec0-4466-4703-ae72-01b6fe0963ea  del-hindsight-2-api-verified-h13_d0108ec0-4466-4703-ae72-01b6fe0963ea_0  0.9197423265525002 0.9997199201657612 0.7475666999816895 0.5",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "8b4ddbab-6cdc-4469-93fb-0644e89d276c Noah's home city is Lima, valid from February 1, 2025. | Involving: Noah world Noah Lima  2026-10-23T02:34:55.221330+00:00 f10c47f3-474c-4bfe-8858-9ae5b6d82548  del-hindsight-2-api-verified-h13_f10c47f3-474c-4bfe-8858-9ae5b6d82548_0  1.099843305889937 0.999857737675924 0.7996781945036779 0.5 | a1a106bb-dee1-49a6-83f4-e2509f0a9fe4 Noah's home city is Oslo, valid from January 3, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:34:47.015549+00:00 5ef7a172-9a80-4d58-be37-026360a27338  del-hindsight-2-api-verified-h13_5ef7a172-9a80-4d58-be37-026360a27338_0  1.0998255282049336 0.9998416234433453 0.8267514006347314 0.5 | f2892f22-59e6-4be1-8dde-bc6c0c2b1a6c Noah's home city is Lima, valid from February 1, 2025. observation Noah Lima 2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:34:57.510919+00:00   0.9260838907646387 0.9996836457392123 0.7291482686996512 0.30000001192092896 | 202f9d94-7c9c-43eb-be06-e4f925c7f57c Noah's home city is now Lima, replacing the previous value. | When: on February 1, 2025 | Involving: Noah world Noah Lima  2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:34:57.510919+00:00 b8b996b1-c12c-4a9f-a1c2-fd0075e423dc  del-hindsight-2-api-verified-h13_b8b996b1-c12c-4a9f-a1c2-fd0075e423dc_0  0.9196937603837341 0.999667130851885 0.7591809486854655 0.5 | ad664e74-fd90-4c3c-be41-613587f9a078 Liam's home city is Riga, valid from January 5, 2025. | Involving: Liam world Riga Liam  2026-10-23T02:34:51.112860+00:00 f01856a7-6075-4e83-80ea-a0846a3e3481  del-hindsight-2-api-verified-h13_f01856a7-6075-4e83-80ea-a0846a3e3481_0  0.01516640801259825 0.013787646551226369 0.501549840158205 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "d2f0084e-e587-49cc-8f5c-d1dab55e578c Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:34:44.895486+00:00 62c7e09f-eb79-4c2a-b43e-76534660a073  del-hindsight-2-api-verified-h13_62c7e09f-eb79-4c2a-b43e-76534660a073_0  1.0997973646563135 0.9998160367752866 0.7668298433467515 0.5 | 739d7ae0-ac3e-40cb-b98c-882a45e17515 Omar's home city is Split, valid from February 1, 2025. observation Omar Split 2026-10-23T02:35:12.154951+00:00   1.099314206545379 0.9993766449545887 0.7167795558905085 0.30000001192092896 | fe52d635-bfb7-4da1-9efc-422701a2b161 Omar's home city is Split, valid from February 1, 2025. | Involving: Omar world Omar Split  2026-10-23T02:35:12.154951+00:00 3a45ba2f-ae94-4b1c-a13d-375d2e70e0c5  del-hindsight-2-api-verified-h13_3a45ba2f-ae94-4b1c-a13d-375d2e70e0c5_0  1.0991129477831436 0.9991936824263388 0.7544361060185573 0.5 | 61a022ba-3adf-483d-94e5-83f31d397954 Omar's home city is Split, replacing the previous value, valid from February 1, 2025. observation Cebu Omar Split 2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:35:15.377120+00:00   0.9283719176723532 0.9981342846053437 0.655975439544833 0.30000001192092896 | fe2a4d17-6037-4d2c-bed6-d3ade1e69c80 Omar's home city is now Split as of February 1, 2025, replacing the previous value. | When: 2025-02-01 | Involving: Omar world Omar Split  2025-02-01T00:00:00+00:00 2025-02-01T00:00:00+00:00 2026-10-23T02:35:15.377120+00:00 13f6570d-1fb2-4934-a24a-28082524b15c  del-hindsight-2-api-verified-h13_13f6570d-1fb2-4934-a24a-28082524b15c_0  0.9183195526577786 0.9981734268019334 0.7215178872964261 0.5",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "b0e19f10-1364-493f-90d1-83269dd357aa Sora's home city is Porto, valid from February 4, 2025. | Involving: Sora world Sora Porto  2026-10-23T02:35:17.391568+00:00 3f0c1fbc-ec6a-4934-9f42-8ae93a8d593c  del-hindsight-2-api-verified-h13_3f0c1fbc-ec6a-4934-9f42-8ae93a8d593c_0  1.0998232211663952 0.9998393598551174 0.7647695997220053 0.5 | 26a7fc96-2563-49c6-87d7-8a737d68f810 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:34:49.153981+00:00 43ff3391-bcd6-448d-b2c1-7ad111f7dbbd  del-hindsight-2-api-verified-h13_43ff3391-bcd6-448d-b2c1-7ad111f7dbbd_0  1.0997511344646562 0.9997739892501232 0.7694852352142334 0.5 | cd704bc7-2a08-4b5f-842a-0a5910c0e0a6 Sora's home city is Porto, valid from February 4, 2025. observation Sora Porto 2025-02-04T00:00:00+00:00 2025-02-04T00:00:00+00:00 2026-10-23T02:35:19.293538+00:00   0.9261798805475023 0.9997872642310615 0.7078447341918945 0.30000001192092896 | 9d1dab84-ab65-4cf2-af99-95b223a3813c Sora's home city is now Porto, replacing the previous value. | When: on February 4, 2025 | Involving: Sora world Sora Porto  2025-02-04T00:00:00+00:00 2025-02-04T00:00:00+00:00 2026-10-23T02:35:19.293538+00:00 6cd88329-27c1-4873-a7a2-3d5f5d360959  del-hindsight-2-api-verified-h13_6cd88329-27c1-4873-a7a2-3d5f5d360959_0  0.9197536618159182 0.9997322411042591 0.7306009370446777 0.5 | 751b3727-181d-407f-913f-b3e1ddfb734d Mina's home city is Cairo, valid from February 2, 2025. observation Mina Cairo 2026-10-23T02:35:07.554856+00:00   0.04431720639121091 0.040288374466862245 0.5881532009885672 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "d2f0084e-e587-49cc-8f5c-d1dab55e578c Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Cebu Omar  2026-10-23T02:34:44.895486+00:00 62c7e09f-eb79-4c2a-b43e-76534660a073  del-hindsight-2-api-verified-h13_62c7e09f-eb79-4c2a-b43e-76534660a073_0  0.13106473322997533 0.11914978843376772 0.6254048496967375 0.20000000298023224 | a4347b98-1750-4c48-a1c2-3e5a15b0d023 Mina's home city is Seoul, valid from January 1, 2025. | Involving: Mina world Seoul Mina  2026-10-23T02:34:42.609901+00:00 e0cf80b6-1a6c-457d-9547-c402ac6c442d  del-hindsight-2-api-verified-h13_e0cf80b6-1a6c-457d-9547-c402ac6c442d_0  0.04893645337775854 0.044487697031831495 0.6638661422649719 0.20000000298023224 | 26a7fc96-2563-49c6-87d7-8a737d68f810 Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Sora Accra  2026-10-23T02:34:49.153981+00:00 43ff3391-bcd6-448d-b2c1-7ad111f7dbbd  del-hindsight-2-api-verified-h13_43ff3391-bcd6-448d-b2c1-7ad111f7dbbd_0  0.0343878345697254 0.03126167514408141 0.6212282551067039 0.20000000298023224 | 751b3727-181d-407f-913f-b3e1ddfb734d Mina's home city is Cairo, valid from February 2, 2025. observation Mina Cairo 2026-10-23T02:35:07.554856+00:00   0.025790208396456092 0.023445647024382895 0.5825133844476986 0.20000000298023224 | b0e19f10-1364-493f-90d1-83269dd357aa Sora's home city is Porto, valid from February 4, 2025. | Involving: Sora world Sora Porto  2026-10-23T02:35:17.391568+00:00 3f0c1fbc-ec6a-4934-9f42-8ae93a8d593c  del-hindsight-2-api-verified-h13_3f0c1fbc-ec6a-4934-9f42-8ae93a8d593c_0  0.024385559527648717 0.02216869208514102 0.613901926744214 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 53,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 4,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "7bab2984-4641-4d26-8235-0c37a1bfe523 Liam's home city is Riga, valid from January 5, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:35:39.757377+00:00 09d811c7-928d-4994-a7f4-d333c1e8aa15  del-hindsight-3-api-verified-h13_09d811c7-928d-4994-a7f4-d333c1e8aa15_0  1.099816074832716 0.9998329582440844 0.7709959012863591 0.5 | 97c621af-d33b-4c33-9aff-fb57fa37d27a Liam's home city is Perth, valid from January 31, 2025. | Involving: Liam world Perth Liam  2026-10-23T02:35:41.892705+00:00 c6782aaa-2a73-4f36-ad81-cc39adf5395f  del-hindsight-3-api-verified-h13_c6782aaa-2a73-4f36-ad81-cc39adf5395f_0  1.0998158890571177 0.9998327770481502 0.7619383335113525 0.5 | 5f59362a-7d97-43a2-8ff8-e8b73c30ac07 Liam's home city is Riga; previously valid until January 30, 2025. observation Perth Liam Riga 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:43.791839+00:00   0.9298691255257664 0.999743999915797 0.7218893336123638 0.30000001192092896 | 1191a2a3-d9f5-4441-bfe9-58e8defce95d Liam's home city is Perth, valid from January 31, 2025. observation Perth Liam 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:43.791839+00:00   0.9261615088872319 0.9997674324982125 0.7170270681381226 0.30000001192092896 | bce4aea6-d023-4d6b-a566-ea0e17f5b6f0 Liam's home city is now Perth, replacing the previous value. | When: on January 31, 2025 | Involving: Liam world Perth Liam  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:43.791839+00:00 07e8a7f9-52a9-4879-b55c-6cf44fa6ed2e  del-hindsight-3-api-verified-h13_07e8a7f9-52a9-4879-b55c-6cf44fa6ed2e_0  0.9197249407419317 0.999701022545578 0.7378649711608887 0.5",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "9727b03f-1636-4b0c-ae87-01bda665f67d Mina's home city is Seoul, valid from January 2, 2025. | Involving: Mina world Seoul Mina  2026-10-23T02:35:30.312147+00:00 56c2950f-1b9a-485a-a278-a9f8a8988a71  del-hindsight-3-api-verified-h13_56c2950f-1b9a-485a-a278-a9f8a8988a71_0  1.0998496367186112 0.9998635277653365 0.7941419122857429 0.5 | b74ea1e3-e4d1-4118-946a-deba026a365d Mina's home city is Cairo, valid from February 4, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:35:58.232130+00:00 ae81fbfb-e1d6-4643-9119-9e5d4f726814  del-hindsight-3-api-verified-h13_ae81fbfb-e1d6-4643-9119-9e5d4f726814_0  1.0998364782517436 0.9998514045736244 0.7863652110099792 0.5 | 253a7326-4e2f-4839-b875-b5f1fb11f216 Mina's home city is Cairo, replacing the previous value of Seoul, valid from February 4, 2025. observation Cairo Seoul Mina 2025-02-04T00:00:00+00:00 2025-02-04T00:00:00+00:00 2026-10-23T02:36:01.016694+00:00   0.9299123698197562 0.9997904937956993 0.6528527736663818 0.30000001192092896 | e29592ea-e11d-4888-bb1f-0274cc25f6e4 Mina's home city is now Cairo, replacing the previous value. | When: on February 4, 2025 | Involving: Mina world Cairo Mina  2025-02-04T00:00:00+00:00 2025-02-04T00:00:00+00:00 2026-10-23T02:36:01.016694+00:00 cd42dcd4-f857-4e7a-bbc8-91ee1ad9ce64  del-hindsight-3-api-verified-h13_cd42dcd4-f857-4e7a-bbc8-91ee1ad9ce64_0  0.9197436096642566 0.9997213148524529 0.7458302227157501 0.5 | 44b17e49-fcda-4931-8e42-0199d43320a7 Yuna's home city is Quito, valid from January 5, 2025. | Involving: Yuna world Yuna Quito  2026-10-23T02:35:33.946822+00:00 98538efb-2d5a-4a85-aa33-cfebe4c0cfe8  del-hindsight-3-api-verified-h13_98538efb-2d5a-4a85-aa33-cfebe4c0cfe8_0  0.032251768637940235 0.02931979555628611 0.6148029199360072 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "3604cec0-6d7b-4215-b258-74fb7dfdd7c2 Noah's home city is Lima, valid from February 2, 2025. | Involving: Noah world Noah Lima  2026-10-23T02:35:50.282573+00:00 a9edb79e-a274-42de-9f35-c19621baa8fa  del-hindsight-3-api-verified-h13_a9edb79e-a274-42de-9f35-c19621baa8fa_0  1.099842254647234 0.9998567059778811 0.7963829752549213 0.5 | 13663743-fc91-497f-a55a-11cb4620aa01 Noah's home city is Oslo, valid from January 5, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:35:32.188282+00:00 da2ece20-377a-4594-9ad5-e756c4413091  del-hindsight-3-api-verified-h13_da2ece20-377a-4594-9ad5-e756c4413091_0  1.0998207196636485 0.9998372330220653 0.8273962283786743 0.5 | fa5727c1-1903-4d9c-acc0-c3ec69daf96b Noah's home city is Lima, replacing the previous value of Oslo, valid from February 2, 2025. observation Oslo Noah Lima 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:35:52.000675+00:00   0.9298535434204934 0.9997272468955869 0.6630384915539917 0.30000001192092896 | 5a5c45c3-e034-423e-9aea-6ead87f215e7 Noah's home city is now Lima, replacing the previous value. | When: on February 2, 2025 | Involving: Noah world Noah Lima  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:35:52.000675+00:00 39faf482-ef84-4b02-a2bb-baaac7b4b99e  del-hindsight-3-api-verified-h13_39faf482-ef84-4b02-a2bb-baaac7b4b99e_0  0.919687878062253 0.9996607370241881 0.7584900116020461 0.5 | 7bab2984-4641-4d26-8235-0c37a1bfe523 Liam's home city is Riga, valid from January 5, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:35:39.757377+00:00 09d811c7-928d-4994-a7f4-d333c1e8aa15  del-hindsight-3-api-verified-h13_09d811c7-928d-4994-a7f4-d333c1e8aa15_0  0.015166415736869457 0.01378765303504371 0.501549840158205 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "ea19c926-cf55-4936-bb78-1b9e28bd9b94 Omar's home city is Cebu, replacing the previous value of Split, valid from January 4, 2025. observation Omar Split Cebu 2026-10-23T02:36:03.393557+00:00   1.1074951841687908 0.9998831820677878 0.6699163323491214 0.30000001192092896 | 3a518c5f-bf73-4ed1-8e35-282f4d7d4ff7 Omar's home city is Cebu, valid from January 4, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:35:37.877113+00:00 212dee40-20b1-4bd9-8d2b-97b6200f3963  del-hindsight-3-api-verified-h13_212dee40-20b1-4bd9-8d2b-97b6200f3963_0  1.0997962799563181 0.9998149871287929 0.7673376749959108 0.5 | f91d94a1-391a-49fa-ad18-d2d66ba7de33 Omar's home city is Split, valid from February 5, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:03.393557+00:00 65f2862f-0d37-4665-ba51-8524f2767a1d  del-hindsight-3-api-verified-h13_65f2862f-0d37-4665-ba51-8524f2767a1d_0  1.0991034096494101 0.9991849579206304 0.7512918934611134 0.5 | dc7c5aef-1fef-44c7-9381-384dcaa5909e Omar's home city is now Split, replacing the previous value. | When: on February 5, 2025 | Involving: Omar world Omar Split  2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:36:05.222504+00:00 c8c1db98-d886-4193-8c82-21144e8fcbc7  del-hindsight-3-api-verified-h13_c8c1db98-d886-4193-8c82-21144e8fcbc7_0  0.9178939328425705 0.9977107965680114 0.706524396720458 0.5 | 44b17e49-fcda-4931-8e42-0199d43320a7 Yuna's home city is Quito, valid from January 5, 2025. | Involving: Yuna world Yuna Quito  2026-10-23T02:35:33.946822+00:00 98538efb-2d5a-4a85-aa33-cfebe4c0cfe8  del-hindsight-3-api-verified-h13_98538efb-2d5a-4a85-aa33-cfebe4c0cfe8_0  0.0292226782003878 0.026566076666495637 0.59419574124205 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        },
+        {
+          "answer": "75609ce2-054f-4608-93eb-22efb5ac3c15 Sora's home city is Porto, valid from February 5, 2025. | Involving: Sora world Sora Porto  2026-10-23T02:35:53.948127+00:00 26357472-089d-4ccc-b142-802eb5dedd27  del-hindsight-3-api-verified-h13_26357472-089d-4ccc-b142-802eb5dedd27_0  1.0998244915672326 0.999840546378234 0.7647669315338135 0.5 | afc3a3b7-5473-4e46-a423-878f245a5ada Sora's home city is Accra, valid from January 4, 2025. | Involving: Sora world Accra Sora  2026-10-23T02:35:35.782715+00:00 88a55bd8-068e-4b13-9af8-2f1e31725ff7  del-hindsight-3-api-verified-h13_88a55bd8-068e-4b13-9af8-2f1e31725ff7_0  1.0997511635553465 0.9997739892501232 0.7694852352142334 0.5 | 73a4acb8-32c3-46f3-87f8-72fbf932a53e Sora's home city is Accra; previously valid until February 5, 2025. observation Accra Sora Porto 2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:35:56.081324+00:00   0.9299324851879875 0.9998121207302251 0.7154682874679565 0.30000001192092896 | 119a38b8-e629-4635-b82d-31941ba3a56c Sora's home city is Porto, valid from February 5, 2025. observation Sora Porto 2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:35:56.081324+00:00   0.9261766141265039 0.9997837382139427 0.7070130916539759 0.30000001192092896 | 147235ba-ad9f-4a52-ab2f-406fd7e910d3 Sora's home city is now Porto, replacing the previous value. | When: on February 5, 2025 | Involving: Sora world Sora Porto  2025-02-05T00:00:00+00:00 2025-02-05T00:00:00+00:00 2026-10-23T02:35:56.081324+00:00 4bc0c10a-788d-49fa-a63b-6a79b41637f2  del-hindsight-3-api-verified-h13_4bc0c10a-788d-49fa-a63b-6a79b41637f2_0  0.9197515143145634 0.9997299068636559 0.7298940855201547 0.5",
+          "attribute": "home city",
+          "current": "Porto",
+          "present": true,
+          "subject": "Sora"
+        },
+        {
+          "answer": "44b17e49-fcda-4931-8e42-0199d43320a7 Yuna's home city is Quito, valid from January 5, 2025. | Involving: Yuna world Yuna Quito  2026-10-23T02:35:33.946822+00:00 98538efb-2d5a-4a85-aa33-cfebe4c0cfe8  del-hindsight-3-api-verified-h13_98538efb-2d5a-4a85-aa33-cfebe4c0cfe8_0  1.0998902139701587 0.9999004137575778 0.7983937263488826 0.5 | c6aee114-0604-4260-9b96-5b917285629c Yuna's home city is Nantes, valid from January 31, 2025. | Involving: Yuna world Yuna Nantes  2026-10-23T02:35:46.261977+00:00 66245e5a-656b-4c77-85dc-417b910e2774  del-hindsight-3-api-verified-h13_66245e5a-656b-4c77-85dc-417b910e2774_0  1.0998394024874085 0.9998541504987434 0.7867033823374966 0.5 | 55f15960-d834-46b4-9049-28585a6c4c68 Yuna's home city is Nantes, replacing the previous value of Quito, valid from January 31, 2025. observation Yuna Nantes Quito 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:48.497595+00:00   0.9299278927941117 0.999807183241608 0.6588709144101912 0.30000001192092896 | f87fb91c-4b1c-41a6-b480-05403c060fa9 Yuna's home city is now Nantes, replacing the previous value. | When: on January 31, 2025 | Involving: Yuna world Yuna Nantes  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:35:48.497595+00:00 18f611ab-2fef-4b71-9fcf-e395e07e2c9e  del-hindsight-3-api-verified-h13_18f611ab-2fef-4b71-9fcf-e395e07e2c9e_0  0.9197568021905209 0.9997356545549141 0.7553491896807182 0.5 | ea19c926-cf55-4936-bb78-1b9e28bd9b94 Omar's home city is Cebu, replacing the previous value of Split, valid from January 4, 2025. observation Omar Split Cebu 2026-10-23T02:36:03.393557+00:00   0.2954272466565881 0.2667214652083304 0.566926921446163 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Nantes",
+          "present": true,
+          "subject": "Yuna"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [],
+      "seed": 3,
+      "stores": [],
+      "system": "hindsight",
+      "units_deleted": 0,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  1.0997973255395515 0.9998160365998777 0.7668298433467515 0.5 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  1.0991044065533189 0.9991860231781894 0.7540424993697556 0.5 | d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.9298007227462383 0.999670457019777 0.7349397820162527 0.30000001192092896 | aa6666f1-9946-423b-87ad-278711969c39 Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Omar Split  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00 392c2c58-0be1-412d-8957-e13f83db6d73  del-hindsight-4-api-verified-h13_392c2c58-0be1-412d-8957-e13f83db6d73_0  0.9178855197628686 0.9977016519161616 0.7104699823400452 0.5 | 88b450b1-f406-4853-b637-6e25f3c10fc1 User instructed to permanently delete everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user, Sora world user Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:36:47.504187+00:00 419bc17d-3cd0-4de0-bdab-4c43b0befe67  del-hindsight-4-api-verified-h13_419bc17d-3cd0-4de0-bdab-4c43b0befe67_0  0.0006579693161475196 0.0007151840392907822 0.48702917877100704 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  0.013627722386874017 0.012388841932905334 0.51715722782357 0.20000000298023224 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  0.010016566267789049 0.00910597104108286 0.5340743383213493 0.20000000298023224 | d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.0054469359289024055 0.00585624510305893 0.5124418888223736 0.20000000298023224 | aa6666f1-9946-423b-87ad-278711969c39 Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Omar Split  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00 392c2c58-0be1-412d-8957-e13f83db6d73  del-hindsight-4-api-verified-h13_392c2c58-0be1-412d-8957-e13f83db6d73_0  0.00196740245030435 0.002138480924243859 0.5307612698816505 0.20000000298023224 | 88b450b1-f406-4853-b637-6e25f3c10fc1 User instructed to permanently delete everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user, Sora world user Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:36:47.504187+00:00 419bc17d-3cd0-4de0-bdab-4c43b0befe67  del-hindsight-4-api-verified-h13_419bc17d-3cd0-4de0-bdab-4c43b0befe67_0  0.0009002025312867703 0.0009784810122682288 0.4751746654510498 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Liam",
+          "values": [
+            "Riga",
+            "Perth"
+          ]
+        },
+        {
+          "answer": "2b52e33d-de86-49ff-81d3-e4e6f858eb38 Permanently delete everything recorded about Mina's home city. | When: on February 23, 2025 | Involving: Mina world Mina  2025-02-23T00:00:00+00:00 2025-02-23T00:00:00+00:00 2026-10-23T02:36:55.777422+00:00 c2f76cdb-2582-44ee-aa51-e99b6a095a7b  del-hindsight-4-api-verified-h13_c2f76cdb-2582-44ee-aa51-e99b6a095a7b_0  0.9160520941867153 0.9957087980290384 0.6599690127409729 0.5 | d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.007631978023184886 0.008205481854077205 0.6064897956398071 0.20000000298023224 | ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  0.007296158102287353 0.006632872847543087 0.6164372334740909 0.20000000298023224 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  0.0029401648488103275 0.0026728776465203574 0.5587108468241014 0.20000000298023224 | 88b450b1-f406-4853-b637-6e25f3c10fc1 User instructed to permanently delete everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user, Sora world user Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:36:47.504187+00:00 419bc17d-3cd0-4de0-bdab-4c43b0befe67  del-hindsight-4-api-verified-h13_419bc17d-3cd0-4de0-bdab-4c43b0befe67_0  0.0015574846509707424 0.0016929180988812418 0.5234918594360352 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Mina",
+          "values": [
+            "Seoul",
+            "Cairo"
+          ]
+        },
+        {
+          "answer": "ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  0.006265049737166067 0.00569550136677757 0.564058609492613 0.20000000298023224 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  0.004556122242442651 0.004141930118848152 0.5439977698323453 0.20000000298023224 | d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.002472908164986543 0.002658734473940305 0.557343771220187 0.20000000298023224 | aa6666f1-9946-423b-87ad-278711969c39 Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Omar Split  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00 392c2c58-0be1-412d-8957-e13f83db6d73  del-hindsight-4-api-verified-h13_392c2c58-0be1-412d-8957-e13f83db6d73_0  0.0014506896138856773 0.001576836536832258 0.5352671742439308 0.20000000298023224 | 88b450b1-f406-4853-b637-6e25f3c10fc1 User instructed to permanently delete everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user, Sora world user Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:36:47.504187+00:00 419bc17d-3cd0-4de0-bdab-4c43b0befe67  del-hindsight-4-api-verified-h13_419bc17d-3cd0-4de0-bdab-4c43b0befe67_0  0.0005947954966315837 0.000646516844164765 0.4956561324391453 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Noah",
+          "values": [
+            "Oslo",
+            "Lima"
+          ]
+        },
+        {
+          "answer": "88b450b1-f406-4853-b637-6e25f3c10fc1 User instructed to permanently delete everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user, Sora world user Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:36:47.504187+00:00 419bc17d-3cd0-4de0-bdab-4c43b0befe67  del-hindsight-4-api-verified-h13_419bc17d-3cd0-4de0-bdab-4c43b0befe67_0  0.9135516951505319 0.9929909729897087 0.6313178539276123 0.5 | ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  0.024812082434080108 0.02255644511412976 0.6017696024042142 0.20000000298023224 | d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.010911328598441074 0.011731258730881301 0.5903880176063784 0.20000000298023224 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  0.00842226391725812 0.007656605114484968 0.5835800518739265 0.20000000298023224 | aa6666f1-9946-423b-87ad-278711969c39 Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Omar Split  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00 392c2c58-0be1-412d-8957-e13f83db6d73  del-hindsight-4-api-verified-h13_392c2c58-0be1-412d-8957-e13f83db6d73_0  0.002287863033672482 0.0024868076452961765 0.5644016525505998 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "d7cb6dc5-4212-4910-b56c-60d3dc79d2ab Omar's home city is Cebu, valid from January 2, 2025; updated to Split, valid from February 3, 2025. observation Omar Cebu Split 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00   0.14363364878437607 0.15442697753514548 0.6211990673421982 0.20000000298023224 | ac06b901-c8f5-4c65-b270-9f1b5a66f7c7 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:36:15.886515+00:00 cd318ade-5f4b-4139-8593-c0aff91324f2  del-hindsight-4-api-verified-h13_cd318ade-5f4b-4139-8593-c0aff91324f2_0  0.13106475634602813 0.11914981345654285 0.6254048496967375 0.20000000298023224 | 5f1fd869-1519-474e-91c4-8a1350f89c8f Omar's home city is Split, valid from February 3, 2025. | Involving: Omar world Omar Split  2026-10-23T02:36:30.969738+00:00 7a452c32-6588-49b6-ab11-5d510b1803b3  del-hindsight-4-api-verified-h13_7a452c32-6588-49b6-ab11-5d510b1803b3_0  0.01029549353358861 0.009359541508288974 0.5831511715830769 0.20000000298023224 | aa6666f1-9946-423b-87ad-278711969c39 Omar's home city is now Split, replacing the previous value. | When: on February 3, 2025 | Involving: Omar world Omar Split  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:36:33.067328+00:00 392c2c58-0be1-412d-8957-e13f83db6d73  del-hindsight-4-api-verified-h13_392c2c58-0be1-412d-8957-e13f83db6d73_0  0.00222033419926261 0.002413406738328924 0.562565803527836 0.20000000298023224 | 2b52e33d-de86-49ff-81d3-e4e6f858eb38 Permanently delete everything recorded about Mina's home city. | When: on February 23, 2025 | Involving: Mina world Mina  2025-02-23T00:00:00+00:00 2025-02-23T00:00:00+00:00 2026-10-23T02:36:55.777422+00:00 c2f76cdb-2582-44ee-aa51-e99b6a095a7b  del-hindsight-4-api-verified-h13_c2f76cdb-2582-44ee-aa51-e99b6a095a7b_0  0.0015686432817113803 0.001705047045338457 0.5448804172944861 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 275,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 18,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    },
+    {
+      "condition": "api-verified",
+      "kept": [
+        {
+          "answer": "6898f382-242e-4640-9cab-0277a7c296ac Liam's home city is Perth, valid from February 3, 2025. observation Liam Perth 2026-10-23T02:37:39.983610+00:00   1.0998578088996984 0.9998708223928857 0.7224436021579389 0.30000001192092896 | 187be135-01c0-4ece-8988-7a409afea63d Liam's home city is Perth, valid from February 3, 2025. | Involving: Liam world Liam Perth  2026-10-23T02:37:39.983610+00:00 5e64a210-c8c9-46a8-9871-cd816d2caf86  del-hindsight-5-api-verified-h13_5e64a210-c8c9-46a8-9871-cd816d2caf86_0  1.0998221477963759 0.9998384032052252 0.7619003142625405 0.5 | 450ccf56-47df-449c-bfd8-f2d14891b64e Liam's home city is Riga, valid from January 3, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:37:14.055236+00:00 1831d511-0356-4229-a697-cd6c9aa0b4f8  del-hindsight-5-api-verified-h13_1831d511-0356-4229-a697-cd6c9aa0b4f8_0  1.0998197336403062 0.9998363579811297 0.770722508430481 0.5 | 29dd6349-43cc-4298-bce9-19e2633fefda Liam's home city is now Perth, replacing Riga, valid from February 3, 2025. observation Liam Riga Perth 2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:37:41.657657+00:00   0.9298361276450174 0.9997085224143045 0.6834763695881599 0.30000001192092896 | 0881b252-c30a-47c3-868a-e6918855bed5 Liam's home city is now Perth, replacing the previous value. | When: on February 3, 2025 | Involving: Liam world Liam Perth  2025-02-03T00:00:00+00:00 2025-02-03T00:00:00+00:00 2026-10-23T02:37:41.657657+00:00 c666162f-2a94-43ed-951f-1e1c4dac1712  del-hindsight-5-api-verified-h13_c666162f-2a94-43ed-951f-1e1c4dac1712_0  0.9197203040158605 0.9996959826259354 0.7414920551029464 0.5",
+          "attribute": "home city",
+          "current": "Perth",
+          "present": true,
+          "subject": "Liam"
+        },
+        {
+          "answer": "b60dc8f6-7978-45f1-a077-1f01a77c49bc Mina's home city is Cairo, valid from February 2, 2025. observation Seoul Cairo Mina 2026-10-23T02:37:28.388442+00:00   1.1119389241339306 0.9998690436482609 0.7297783115440107 0.30000001192092896 | 6c28ce05-9ae1-46a3-a6ff-5caf02763f87 Mina's home city is Seoul, valid from January 5, 2025. | Involving: Mina world Seoul Mina  2026-10-23T02:37:17.972571+00:00 b577b8f4-bc63-4a0d-bcde-1ff567b4ee8d  del-hindsight-5-api-verified-h13_b577b8f4-bc63-4a0d-bcde-1ff567b4ee8d_0  1.0998486277882422 0.9998626076354165 0.7946616533600313 0.5 | fc45f500-f89f-4693-bff2-636603840189 Mina's home city is Cairo, valid from February 2, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:37:28.388442+00:00 af5aa9d0-5427-4b2e-85c1-efd1a7a78b39  del-hindsight-5-api-verified-h13_af5aa9d0-5427-4b2e-85c1-efd1a7a78b39_0  1.0998391412830517 0.9998539234948243 0.7855923899655124 0.5 | 7ae1be91-1b79-462c-b90c-6078251a8698 Mina's home city is now Cairo, replacing the previous value. | When: on February 2, 2025 | Involving: Mina world Cairo Mina  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:37:33.753988+00:00 e0b98b47-36f2-42fb-9e19-8c725f3f74ab  del-hindsight-5-api-verified-h13_e0b98b47-36f2-42fb-9e19-8c725f3f74ab_0  0.9197423265525002 0.9997199201657612 0.7475666999816895 0.5 | 450ccf56-47df-449c-bfd8-f2d14891b64e Liam's home city is Riga, valid from January 3, 2025. | Involving: Liam world Liam Riga  2026-10-23T02:37:14.055236+00:00 1831d511-0356-4229-a697-cd6c9aa0b4f8  del-hindsight-5-api-verified-h13_1831d511-0356-4229-a697-cd6c9aa0b4f8_0  0.018485150957782585 0.01680468674474037 0.5379219055175781 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Cairo",
+          "present": true,
+          "subject": "Mina"
+        },
+        {
+          "answer": "4d354663-d598-4fa9-9a65-66e30dac93e2 Noah's home city is Lima, valid from January 31, 2025. | Involving: Noah world Lima Noah  2026-10-23T02:37:35.885252+00:00 914596ad-6d25-4519-a336-6c5c5909c3c6  del-hindsight-5-api-verified-h13_914596ad-6d25-4519-a336-6c5c5909c3c6_0  1.0998408210030552 0.9998554121022084 0.8003139019293105 0.5 | 6ce0c0f2-e68c-431e-a9a6-e98a3293e50f Noah's home city is Oslo, valid from January 2, 2025. | Involving: Noah world Oslo Noah  2026-10-23T02:37:07.145222+00:00 ef1cca3b-8cb7-4e09-82f4-a82adc2e7c66  del-hindsight-5-api-verified-h13_ef1cca3b-8cb7-4e09-82f4-a82adc2e7c66_0  1.099822161882037 0.9998386149344067 0.8260360956192075 0.5 | 9a46e0e2-d088-4824-a98d-c79f7a0cd75a Noah's home city is Lima, valid from January 31, 2025. observation Lima Oslo Noah 2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:37:38.002950+00:00   0.9298135283423926 0.9996842248905119 0.7326742410659842 0.30000001192092896 | 87122c48-4258-4a2b-85d7-63d569c0f746 Noah's home city is now Lima, replacing the previous value. | When: on January 31, 2025 | Involving: Noah world Lima Noah  2025-01-31T00:00:00+00:00 2025-01-31T00:00:00+00:00 2026-10-23T02:37:38.002950+00:00 fcf7ed5e-6ad4-4540-a0cf-d9dfe8eedb03  del-hindsight-5-api-verified-h13_fcf7ed5e-6ad4-4540-a0cf-d9dfe8eedb03_0  0.9196995098240015 0.99967338024348 0.7641206243110089 0.5 | 6898f382-242e-4640-9cab-0277a7c296ac Liam's home city is Perth, valid from February 3, 2025. observation Liam Perth 2026-10-23T02:37:39.983610+00:00   0.0329942478126478 0.02999477363836253 0.5084603287393151 0.20000000298023224",
+          "attribute": "home city",
+          "current": "Lima",
+          "present": true,
+          "subject": "Noah"
+        },
+        {
+          "answer": "80a22710-f830-4b7b-9e94-590866f9baa9 Omar's home city is Cebu, valid from January 2, 2025. observation Omar Split Cebu 2026-10-23T02:37:43.581939+00:00   1.107456697541899 0.9998484752469258 0.7325796980529576 0.30000001192092896 | 878a104c-7616-4e22-b3f3-cd06c68591b8 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:37:09.380930+00:00 a510d2b5-a53d-4732-9bbd-aecaaf8b8d84  del-hindsight-5-api-verified-h13_a510d2b5-a53d-4732-9bbd-aecaaf8b8d84_0  1.0997973353087833 0.9998160367752866 0.7668298433467515 0.5 | 284020dc-a56e-46d9-917a-28b80fb01f92 Omar's home city is Split, valid from February 2, 2025. | Involving: Omar world Omar Split  2026-10-23T02:37:43.581939+00:00 0f3a84a7-8763-4fc6-99e9-1d9d493a0995  del-hindsight-5-api-verified-h13_0f3a84a7-8763-4fc6-99e9-1d9d493a0995_0  1.0990946560229855 0.9991770402264731 0.7519009785563658 0.5 | 61d7bbb3-c1b6-4a0a-9313-ac58822686f0 Omar's home city is now Split, replacing Cebu, valid from February 2, 2025. observation Omar Split 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:37:45.626967+00:00   0.9255750410474892 0.9991343556096179 0.6615346665562417 0.30000001192092896 | 5dcfdfea-ebee-4c0c-b5b7-ef722f0d57ef Omar's home city is now Split, replacing the previous value. | When: on February 2, 2025 | Involving: Omar world Omar Split  2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:37:45.626967+00:00 36237aa0-57ae-468b-a7df-6f25e1e48baa  del-hindsight-5-api-verified-h13_36237aa0-57ae-468b-a7df-6f25e1e48baa_0  0.9179115464071342 0.9977299417468851 0.7080652750788903 0.5",
+          "attribute": "home city",
+          "current": "Split",
+          "present": true,
+          "subject": "Omar"
+        }
+      ],
+      "purge_wording": null,
+      "purged": [
+        {
+          "answer": "db464cb2-fde9-4356-83d5-038b29580673 User permanently deleted everything recorded about Sora's home city. | When: on February 16, 2025 | Involving: user world Sora  2025-02-16T00:00:00+00:00 2025-02-16T00:00:00+00:00 2026-10-23T02:37:47.759976+00:00 0de0d40c-61a1-494e-bcbf-cd62da210440  del-hindsight-5-api-verified-h13_0de0d40c-61a1-494e-bcbf-cd62da210440_0  0.9163341115549762 0.9960153386467134 0.6444851544192537 0.4000000059604645 | b60dc8f6-7978-45f1-a077-1f01a77c49bc Mina's home city is Cairo, valid from February 2, 2025. observation Seoul Cairo Mina 2026-10-23T02:37:28.388442+00:00   0.044804078527485205 0.040288374466862245 0.5881532009885672 0.20000000298023224 | 80a22710-f830-4b7b-9e94-590866f9baa9 Omar's home city is Cebu, valid from January 2, 2025. observation Omar Split Cebu 2026-10-23T02:37:43.581939+00:00   0.03994499902151155 0.036063664279761896 0.564000640153924 0.20000000298023224 | fc45f500-f89f-4693-bff2-636603840189 Mina's home city is Cairo, valid from February 2, 2025. | Involving: Mina world Cairo Mina  2026-10-23T02:37:28.388442+00:00 af5aa9d0-5427-4b2e-85c1-efd1a7a78b39  del-hindsight-5-api-verified-h13_af5aa9d0-5427-4b2e-85c1-efd1a7a78b39_0  0.029153486349284573 0.02650317397635503 0.6458214136468533 0.20000000298023224 | 4d354663-d598-4fa9-9a65-66e30dac93e2 Noah's home city is Lima, valid from January 31, 2025. | Involving: Noah world Lima Noah  2026-10-23T02:37:35.885252+00:00 914596ad-6d25-4519-a336-6c5c5909c3c6  del-hindsight-5-api-verified-h13_914596ad-6d25-4519-a336-6c5c5909c3c6_0  0.025771000338813656 0.023428185151505194 0.5994744479499595 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Sora",
+          "values": [
+            "Accra",
+            "Porto"
+          ]
+        },
+        {
+          "answer": "80a22710-f830-4b7b-9e94-590866f9baa9 Omar's home city is Cebu, valid from January 2, 2025. observation Omar Split Cebu 2026-10-23T02:37:43.581939+00:00   0.22887510350970866 0.20663600282713646 0.6041842227201727 0.20000000298023224 | 878a104c-7616-4e22-b3f3-cd06c68591b8 Omar's home city is Cebu, valid from January 2, 2025. | Involving: Omar world Omar Cebu  2026-10-23T02:37:09.380930+00:00 a510d2b5-a53d-4732-9bbd-aecaaf8b8d84  del-hindsight-5-api-verified-h13_a510d2b5-a53d-4732-9bbd-aecaaf8b8d84_0  0.13106472975681038 0.11914978843376772 0.6254048496967375 0.20000000298023224 | 6c28ce05-9ae1-46a3-a6ff-5caf02763f87 Mina's home city is Seoul, valid from January 5, 2025. | Involving: Mina world Seoul Mina  2026-10-23T02:37:17.972571+00:00 b577b8f4-bc63-4a0d-bcde-1ff567b4ee8d  del-hindsight-5-api-verified-h13_b577b8f4-bc63-4a0d-bcde-1ff567b4ee8d_0  0.046678449891596065 0.042434964492909705 0.6644665002822924 0.20000000298023224 | 61d7bbb3-c1b6-4a0a-9313-ac58822686f0 Omar's home city is now Split, replacing Cebu, valid from February 2, 2025. observation Omar Split 2025-02-02T00:00:00+00:00 2025-02-02T00:00:00+00:00 2026-10-23T02:37:45.626967+00:00   0.033761519828454926 0.03644468882828693 0.5603163576314673 0.20000000298023224 | b60dc8f6-7978-45f1-a077-1f01a77c49bc Mina's home city is Cairo, valid from February 2, 2025. observation Seoul Cairo Mina 2026-10-23T02:37:28.388442+00:00   0.026073541555268878 0.023445647024382895 0.5825133844476986 0.20000000298023224",
+          "attribute": "home city",
+          "leaked": false,
+          "leaked_latest": false,
+          "subject": "Yuna",
+          "values": [
+            "Quito",
+            "Nantes"
+          ]
+        }
+      ],
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_async_operations"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_audit_log"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_chunks"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_directives"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_documents"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_entities"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_invalidated_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_knowledge_pages"
+        },
+        {
+          "occurrences": 144,
+          "reachable": false,
+          "store": "hindsight_llm_requests"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_links"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_memory_units"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_mental_model_history"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "hindsight_mental_models"
+        },
+        {
+          "occurrences": 0,
+          "reachable": false,
+          "store": "hindsight_observation_history"
+        }
+      ],
+      "system": "hindsight",
+      "units_deleted": 7,
+      "worker_error_messages": [],
+      "worker_errors": 0
+    }
+  ],
+  "reference": [
+    {
+      "condition": "typed-purge",
+      "seed": 7,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 13,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 17,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 23,
+      "stores": [
+        {
+          "occurrences": 8,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 8,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 42,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 1,
+      "stores": [
+        {
+          "occurrences": 6,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 6,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 3,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 2,
+      "stores": [
+        {
+          "occurrences": 2,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 1,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 3,
+      "stores": [],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 4,
+      "stores": [
+        {
+          "occurrences": 10,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 10,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 5,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    },
+    {
+      "condition": "typed-purge",
+      "seed": 5,
+      "stores": [
+        {
+          "occurrences": 4,
+          "reachable": false,
+          "store": "raw_ledger_jsonl"
+        },
+        {
+          "occurrences": 4,
+          "reachable": true,
+          "store": "markdown_projection"
+        },
+        {
+          "occurrences": 2,
+          "reachable": true,
+          "store": "lexical-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "vector-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "graph-index.json"
+        },
+        {
+          "occurrences": 0,
+          "reachable": true,
+          "store": "projection-manifest.json"
+        }
+      ],
+      "system": "temvera"
+    }
+  ],
+  "summary": {
+    "hindsight:api-verified": {
+      "histories_with_purge": 9,
+      "kept_present": 36,
+      "kept_total": 36,
+      "leaked": 0,
+      "offpath_residue_histories": 9,
+      "purged": 24,
+      "reachable_residue_histories": 0,
+      "worker_errors": 0
+    }
+  }
+}

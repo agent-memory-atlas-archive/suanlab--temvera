@@ -102,3 +102,20 @@ South Korea — suanlee@semyung.ac.kr.
 - [ ] Still open: a non-OpenAI backbone (needs a key in `.env`); human judging
       of a sample of answers; systems-scalability (throughput, storage).
 
+
+## Added 2026-10-23 (IDEA_ICDE.md re-review)
+
+- [x] P0: purge scored under the request's own scope everywhere; readings
+      separated in the tables; contradictions and scopes fixed; inference over
+      histories with the seed-level floor stated; equivalence only within 0.10.
+- [x] H13: judge checked on answers of known verdict (valid for valid time, not
+      for transaction-time answers that mention later knowledge); the real-data
+      valid-time gold shown to rest on a persistence assumption; a verified
+      deletion caller (over-deletion is the caller's); LangMem with deletes
+      enabled (honours prose, erases most unrelated memories); the common
+      reader on the final store.
+- [x] Contributions reframed as evaluation contract / mechanism evidence /
+      operational findings; abstract rewritten with fewer numbers.
+- [ ] Author: approve the new abstract; decide on the title (IDEA_ICDE.md §5.3).
+- [ ] Not done here: independent human judging (E1); systems scale and cost
+      (E5); new temporal expressions (E6); a non-OpenAI backbone.
