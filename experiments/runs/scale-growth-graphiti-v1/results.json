@@ -1,0 +1,305 @@
+{
+  "checkpoints": [
+    {
+      "client_peak_rss_kb": 144904,
+      "exact": {
+        "retrieval": {
+          "current": {
+            "hits": 38,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 0.13179353,
+      "ingest_latency": {
+        "mean_s": 7.150542248524726,
+        "n": 100,
+        "p50_s": 7.041180210188031,
+        "p95_s": 9.016824528574944,
+        "p99_s": 10.193008175119758,
+        "total_s": 715.0542248524725
+      },
+      "ingest_throughput_turns_per_s": 0.13984948507881234,
+      "ingest_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 398,
+          "completion_tokens": 16934,
+          "prompt_tokens": 810015
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 603,
+          "completion_tokens": 0,
+          "prompt_tokens": 6544
+        }
+      },
+      "query_cost_usd": 2.702e-05,
+      "query_latency": {
+        "retrieval": {
+          "mean_s": 0.22239429028704763,
+          "n": 40,
+          "p50_s": 0.2180645763874054,
+          "p95_s": 0.2613004893064499,
+          "p99_s": 0.3363749645650387,
+          "total_s": 8.895771611481905
+        }
+      },
+      "query_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 40,
+          "completion_tokens": 0,
+          "prompt_tokens": 1351
+        }
+      },
+      "segment_turns": 100,
+      "server_rss_kb": {
+        "neo4j": 2434048
+      },
+      "store": {
+        "edge_characters": 3988,
+        "edges": 97,
+        "entities": 180,
+        "entity_summary_characters": 8181,
+        "episode_characters": 8606,
+        "episodes": 100
+      },
+      "turns": 100
+    },
+    {
+      "client_peak_rss_kb": 145800,
+      "exact": {
+        "retrieval": {
+          "current": {
+            "hits": 39,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 0.26064782999999997,
+      "ingest_latency": {
+        "mean_s": 7.0636372609436515,
+        "n": 200,
+        "p50_s": 7.029844254255295,
+        "p95_s": 8.289484798908234,
+        "p99_s": 9.734674023464322,
+        "total_s": 1412.7274521887302
+      },
+      "ingest_throughput_turns_per_s": 0.1415700814358093,
+      "ingest_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 788,
+          "completion_tokens": 32258,
+          "prompt_tokens": 1606865
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 1219,
+          "completion_tokens": 0,
+          "prompt_tokens": 13164
+        }
+      },
+      "query_cost_usd": 2.68e-05,
+      "query_latency": {
+        "retrieval": {
+          "mean_s": 0.235212791711092,
+          "n": 40,
+          "p50_s": 0.23369251936674118,
+          "p95_s": 0.2693558279424906,
+          "p99_s": 0.3092683497816324,
+          "total_s": 9.40851166844368
+        }
+      },
+      "query_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 40,
+          "completion_tokens": 0,
+          "prompt_tokens": 1340
+        }
+      },
+      "segment_turns": 200,
+      "server_rss_kb": {
+        "neo4j": 2436548
+      },
+      "store": {
+        "edge_characters": 11736,
+        "edges": 286,
+        "entities": 453,
+        "entity_summary_characters": 24091,
+        "episode_characters": 25780,
+        "episodes": 300
+      },
+      "turns": 300
+    },
+    {
+      "client_peak_rss_kb": 145800,
+      "exact": {
+        "retrieval": {
+          "current": {
+            "hits": 23,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 1,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 0.83181531,
+      "ingest_latency": {
+        "mean_s": 6.554398612600885,
+        "n": 700,
+        "p50_s": 6.694080522283912,
+        "p95_s": 8.218459716066718,
+        "p99_s": 9.567106323316693,
+        "total_s": 4588.079028820619
+      },
+      "ingest_throughput_turns_per_s": 0.15256925371125707,
+      "ingest_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 2545,
+          "completion_tokens": 104738,
+          "prompt_tokens": 5119805
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 4256,
+          "completion_tokens": 0,
+          "prompt_tokens": 50088
+        }
+      },
+      "query_cost_usd": 5.358e-05,
+      "query_latency": {
+        "retrieval": {
+          "mean_s": 0.2780176468892023,
+          "n": 80,
+          "p50_s": 0.2732328549027443,
+          "p95_s": 0.341804439201951,
+          "p99_s": 0.377474132925272,
+          "total_s": 22.241411751136184
+        }
+      },
+      "query_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 80,
+          "completion_tokens": 0,
+          "prompt_tokens": 2679
+        }
+      },
+      "segment_turns": 700,
+      "server_rss_kb": {
+        "neo4j": 2443196
+      },
+      "store": {
+        "edge_characters": 32053,
+        "edges": 779,
+        "entities": 950,
+        "entity_summary_characters": 65280,
+        "episode_characters": 93173,
+        "episodes": 1000
+      },
+      "turns": 1000
+    },
+    {
+      "client_peak_rss_kb": 145800,
+      "exact": {
+        "retrieval": {
+          "current": {
+            "hits": 0,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 0,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 2.2010041,
+      "ingest_latency": {
+        "mean_s": 5.892869660524651,
+        "n": 2000,
+        "p50_s": 6.1495202872902155,
+        "p95_s": 7.647276097908616,
+        "p99_s": 8.783134998753667,
+        "total_s": 11785.739321049303
+      },
+      "ingest_throughput_turns_per_s": 0.1696965667198651,
+      "ingest_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 6567,
+          "completion_tokens": 283538,
+          "prompt_tokens": 13520330
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 11566,
+          "completion_tokens": 0,
+          "prompt_tokens": 141590
+        }
+      },
+      "query_cost_usd": 5.398e-05,
+      "query_latency": {
+        "retrieval": {
+          "mean_s": 0.34167658030055464,
+          "n": 80,
+          "p50_s": 0.3369981963187456,
+          "p95_s": 0.38481871969997883,
+          "p99_s": 0.4555932246148586,
+          "total_s": 27.33412642404437
+        }
+      },
+      "query_usage": {
+        "inprocess|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "inprocess|text-embedding-3-small": {
+          "calls": 80,
+          "completion_tokens": 0,
+          "prompt_tokens": 2699
+        }
+      },
+      "segment_turns": 2000,
+      "server_rss_kb": {
+        "neo4j": 2458720
+      },
+      "store": {
+        "edge_characters": 71828,
+        "edges": 1747,
+        "entities": 1870,
+        "entity_summary_characters": 145846,
+        "episode_characters": 300589,
+        "episodes": 3000
+      },
+      "turns": 3000
+    }
+  ],
+  "concurrency": {},
+  "prices_usd_per_million": {
+    "gpt-4o": [
+      2.5,
+      10.0
+    ],
+    "gpt-4o-mini": [
+      0.15,
+      0.6
+    ],
+    "text-embedding-3-small": [
+      0.02,
+      0.0
+    ]
+  },
+  "system": "graphiti",
+  "worker_errors": 0
+}

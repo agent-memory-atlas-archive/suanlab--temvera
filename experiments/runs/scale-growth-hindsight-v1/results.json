@@ -1,0 +1,514 @@
+{
+  "checkpoints": [
+    {
+      "client_peak_rss_kb": 79744,
+      "exact": {
+        "reader": {
+          "current": {
+            "hits": 40,
+            "n": 40
+          }
+        },
+        "retrieval": {
+          "current": {
+            "hits": 39,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 0.14375205,
+      "ingest_latency": {
+        "mean_s": 2.25680345794186,
+        "n": 100,
+        "p50_s": 2.169042633846402,
+        "p95_s": 2.974127784371376,
+        "p99_s": 3.113845396786928,
+        "total_s": 225.680345794186
+      },
+      "ingest_throughput_turns_per_s": 0.4431041714862178,
+      "ingest_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 87,
+          "completion_tokens": 10432,
+          "prompt_tokens": 587998
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 100,
+          "completion_tokens": 14229,
+          "prompt_tokens": 271705
+        }
+      },
+      "query_cost_usd": 0.2729208000000001,
+      "query_latency": {
+        "reader": {
+          "mean_s": 8.1609005022794,
+          "n": 40,
+          "p50_s": 7.535929184406996,
+          "p95_s": 10.780930122360587,
+          "p99_s": 13.22764346562326,
+          "total_s": 326.43602009117603
+        },
+        "retrieval": {
+          "mean_s": 1.6225456763990223,
+          "n": 40,
+          "p50_s": 1.6347240451723337,
+          "p95_s": 1.7419977448880672,
+          "p99_s": 1.7907199375331402,
+          "total_s": 64.9018270559609
+        }
+      },
+      "query_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 2,
+          "completion_tokens": 222,
+          "prompt_tokens": 14065
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 135,
+          "completion_tokens": 7959,
+          "prompt_tokens": 1772683
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        }
+      },
+      "segment_turns": 100,
+      "server_rss_kb": {
+        "hindsight_daemon": 2435064,
+        "postgres": 1108060
+      },
+      "store": {
+        "chunks_characters": 40795,
+        "chunks_rows": 100,
+        "documents_characters": 46684,
+        "documents_rows": 100,
+        "entities_characters": 40922,
+        "entities_rows": 157,
+        "llm_requests_characters": 7005926,
+        "llm_requests_rows": 365,
+        "memory_links_characters": 755838,
+        "memory_links_rows": 2966,
+        "memory_units_characters": 1100220,
+        "memory_units_rows": 196
+      },
+      "turns": 100
+    },
+    {
+      "client_peak_rss_kb": 81536,
+      "exact": {
+        "reader": {
+          "current": {
+            "hits": 40,
+            "n": 40
+          }
+        },
+        "retrieval": {
+          "current": {
+            "hits": 40,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 0.2916054,
+      "ingest_latency": {
+        "mean_s": 2.212129950709641,
+        "n": 200,
+        "p50_s": 2.13783160969615,
+        "p95_s": 2.747085329145193,
+        "p99_s": 3.5457437485456467,
+        "total_s": 442.4259901419282
+      },
+      "ingest_throughput_turns_per_s": 0.45205267298912666,
+      "ingest_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 150,
+          "completion_tokens": 20350,
+          "prompt_tokens": 1207650
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 200,
+          "completion_tokens": 27896,
+          "prompt_tokens": 543402
+        }
+      },
+      "query_cost_usd": 0.51447225,
+      "query_latency": {
+        "reader": {
+          "mean_s": 10.939063257072121,
+          "n": 40,
+          "p50_s": 10.256201568990946,
+          "p95_s": 16.3256161455065,
+          "p99_s": 19.580849766731262,
+          "total_s": 437.56253028288484
+        },
+        "retrieval": {
+          "mean_s": 1.865369340730831,
+          "n": 40,
+          "p50_s": 1.8559956829994917,
+          "p95_s": 2.015629008412361,
+          "p99_s": 2.060000838711858,
+          "total_s": 74.61477362923324
+        }
+      },
+      "query_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 2,
+          "completion_tokens": 312,
+          "prompt_tokens": 17726
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 147,
+          "completion_tokens": 8391,
+          "prompt_tokens": 3377277
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        }
+      },
+      "segment_turns": 200,
+      "server_rss_kb": {
+        "hindsight_daemon": 2500632,
+        "postgres": 1171988
+      },
+      "store": {
+        "chunks_characters": 122358,
+        "chunks_rows": 300,
+        "documents_characters": 140036,
+        "documents_rows": 300,
+        "entities_characters": 93231,
+        "entities_rows": 358,
+        "llm_requests_characters": 20241839,
+        "llm_requests_rows": 852,
+        "memory_links_characters": 2783858,
+        "memory_links_rows": 10911,
+        "memory_units_characters": 3338252,
+        "memory_units_rows": 595
+      },
+      "turns": 300
+    },
+    {
+      "client_peak_rss_kb": 81536,
+      "exact": {
+        "reader": {
+          "current": {
+            "hits": 29,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 23,
+            "n": 40
+          }
+        },
+        "retrieval": {
+          "current": {
+            "hits": 24,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 1,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 1.1448639,
+      "ingest_latency": {
+        "mean_s": 2.40802007739033,
+        "n": 700,
+        "p50_s": 2.3357449416071177,
+        "p95_s": 3.0113406982272863,
+        "p99_s": 4.006973870098591,
+        "total_s": 1685.6140541732311
+      },
+      "ingest_throughput_turns_per_s": 0.4152786627203344,
+      "ingest_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 5,
+          "completion_tokens": 338,
+          "prompt_tokens": 1999
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 543,
+          "completion_tokens": 80346,
+          "prompt_tokens": 5006465
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 700,
+          "completion_tokens": 99470,
+          "prompt_tokens": 1903346
+        }
+      },
+      "query_cost_usd": 1.3803024,
+      "query_latency": {
+        "reader": {
+          "mean_s": 16.159441728517415,
+          "n": 80,
+          "p50_s": 15.10964335873723,
+          "p95_s": 31.48931511864066,
+          "p99_s": 37.8509767036885,
+          "total_s": 1292.755338281393
+        },
+        "retrieval": {
+          "mean_s": 1.9710117125185207,
+          "n": 80,
+          "p50_s": 1.9648683238774538,
+          "p95_s": 2.1120931766927242,
+          "p99_s": 2.1733759734779596,
+          "total_s": 157.68093700148165
+        }
+      },
+      "query_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 2,
+          "completion_tokens": 253,
+          "prompt_tokens": 25038
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 331,
+          "completion_tokens": 29947,
+          "prompt_tokens": 9056178
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        }
+      },
+      "segment_turns": 700,
+      "server_rss_kb": {
+        "hindsight_daemon": 2867980,
+        "postgres": 1580112
+      },
+      "store": {
+        "chunks_characters": 415063,
+        "chunks_rows": 1000,
+        "documents_characters": 473953,
+        "documents_rows": 1000,
+        "entities_characters": 174452,
+        "entities_rows": 673,
+        "llm_requests_characters": 55623080,
+        "llm_requests_rows": 2249,
+        "memory_links_characters": 9852157,
+        "memory_links_rows": 38870,
+        "memory_units_characters": 9463655,
+        "memory_units_rows": 1673
+      },
+      "turns": 1000
+    },
+    {
+      "client_peak_rss_kb": 81536,
+      "exact": {
+        "reader": {
+          "current": {
+            "hits": 5,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 34,
+            "n": 40
+          }
+        },
+        "retrieval": {
+          "current": {
+            "hits": 0,
+            "n": 40
+          },
+          "valid_time": {
+            "hits": 1,
+            "n": 40
+          }
+        }
+      },
+      "ingest_cost_usd": 3.5153183999999995,
+      "ingest_latency": {
+        "mean_s": 2.4126133081903682,
+        "n": 2000,
+        "p50_s": 2.315774714574218,
+        "p95_s": 3.0801391303539276,
+        "p99_s": 4.465286983177066,
+        "total_s": 4825.226616380736
+      },
+      "ingest_throughput_turns_per_s": 0.4144880471018503,
+      "ingest_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 6,
+          "completion_tokens": 328,
+          "prompt_tokens": 2404
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 1097,
+          "completion_tokens": 215139,
+          "prompt_tokens": 15980642
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 2000,
+          "completion_tokens": 287376,
+          "prompt_tokens": 5441038
+        }
+      },
+      "query_cost_usd": 1.6000309499999998,
+      "query_latency": {
+        "reader": {
+          "mean_s": 19.696236467640848,
+          "n": 80,
+          "p50_s": 16.557815490290523,
+          "p95_s": 36.90690992027521,
+          "p99_s": 46.42346926033497,
+          "total_s": 1575.6989174112678
+        },
+        "retrieval": {
+          "mean_s": 2.1381185217062013,
+          "n": 80,
+          "p50_s": 2.134308949112892,
+          "p95_s": 2.3283599372953176,
+          "p99_s": 2.367222422733903,
+          "total_s": 171.0494817364961
+        }
+      },
+      "query_usage": {
+        "consolidation_dedup|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        },
+        "consolidation|gpt-4o-mini": {
+          "calls": 2,
+          "completion_tokens": 413,
+          "prompt_tokens": 31652
+        },
+        "reflect|gpt-4o-mini": {
+          "calls": 345,
+          "completion_tokens": 41780,
+          "prompt_tokens": 10466449
+        },
+        "retain|gpt-4o-mini": {
+          "calls": 0,
+          "completion_tokens": 0,
+          "prompt_tokens": 0
+        }
+      },
+      "segment_turns": 2000,
+      "server_rss_kb": {
+        "hindsight_daemon": 2824292,
+        "postgres": 1524144
+      },
+      "store": {
+        "chunks_characters": 1266237,
+        "chunks_rows": 3000,
+        "documents_characters": 1442885,
+        "documents_rows": 3000,
+        "entities_characters": 302237,
+        "entities_rows": 1174,
+        "llm_requests_characters": 151961486,
+        "llm_requests_rows": 5685,
+        "memory_links_characters": 29936836,
+        "memory_links_rows": 118870,
+        "memory_units_characters": 23023782,
+        "memory_units_rows": 4026
+      },
+      "turns": 3000
+    }
+  ],
+  "concurrency": {
+    "1": {
+      "latency": {
+        "mean_s": 2.1138929976460834,
+        "n": 240,
+        "p50_s": 2.1193010918796062,
+        "p95_s": 2.2914075292646885,
+        "p99_s": 2.337865214794874,
+        "total_s": 507.33431943506
+      },
+      "queries": 240,
+      "throughput_qps": 0.4730488663856013
+    },
+    "16": {
+      "latency": {
+        "mean_s": 18.52793115583093,
+        "n": 240,
+        "p50_s": 18.973737686872482,
+        "p95_s": 19.867550833150744,
+        "p99_s": 20.29709012247622,
+        "total_s": 4446.703477399424
+      },
+      "queries": 240,
+      "throughput_qps": 0.8410230240316009
+    },
+    "4": {
+      "latency": {
+        "mean_s": 5.4298313752903296,
+        "n": 240,
+        "p50_s": 5.453066011890769,
+        "p95_s": 5.981390407308936,
+        "p99_s": 6.366613078862429,
+        "total_s": 1303.159530069679
+      },
+      "queries": 240,
+      "throughput_qps": 0.7333886393424989
+    }
+  },
+  "prices_usd_per_million": {
+    "gpt-4o": [
+      2.5,
+      10.0
+    ],
+    "gpt-4o-mini": [
+      0.15,
+      0.6
+    ],
+    "text-embedding-3-small": [
+      0.02,
+      0.0
+    ]
+  },
+  "system": "hindsight",
+  "worker_errors": 0
+}

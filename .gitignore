@@ -111,6 +111,10 @@ experiments/runs/*
 !experiments/runs/external-hindsight-recall-latest-v1/
 !experiments/runs/external-hindsight-reflect-latest-v1/
 !experiments/runs/controlled-policy-v1/
+!experiments/runs/scale-growth-mem0-v1/
+!experiments/runs/scale-growth-graphiti-v1/
+!experiments/runs/scale-growth-hindsight-v1/
+!experiments/runs/h14-judge-gpt4o-scale-growth-hindsight-v1/
 !experiments/runs/deletion-langmem-deletes-v1/
 !experiments/runs/deletion-verified-cognee-v1/
 !experiments/runs/deletion-verified-graphiti-v1/

@@ -50,3 +50,21 @@ Runs are sealed as `scale-growth-<system>-v1`: a first launch under
 `scale-cost-*` was refused because `scale-cost-mem0-v1` already names the
 earlier Mem0 cost run (E-071); the other two were stopped after a minute,
 before writing anything, and all three restarted under the new name.
+
+## Outcomes (recorded 2026-10-24; `scripts/analyze_scale_cost.py`)
+
+| | Prediction | Observed | Verdict |
+|---|---|---|---|
+| H14a | Mem0 $/turn at 1,000-3,000 within 1.5x of 0-100 | $0.00059 -> $0.00056 | holds |
+| H14b | Graphiti tokens/turn at 1,000-3,000 >= 1.3x of 0-100 | 8,335 -> 6,973 (falls) | **falsified** |
+| H14c | retrieval p95 < 2 s at 3,000 for all three; Hindsight reader p95 >= 5 s | Mem0 0.25, Graphiti 0.38, Hindsight recall 2.33; reader 36.9 | **falsified** (Hindsight recall) |
+| H14d | at 1,000 and 3,000: Mem0 valid <= 0.40, Graphiti and Hindsight recall <= 0.10, reader > recall | Mem0 0/40, 0/40; Graphiti 1/40, 0/40; recall 1/40, 1/40; reader 23/40, 34/40 | holds |
+| H14e | at 3,000: write $/turn >= 10x read $/question for Mem0, Graphiti; Hindsight reader $/question > retain $/turn | yes; $0.0199 > $0.00176 | holds |
+
+Not predicted, reported: once people have revisions the retaining retrieval
+layers answer no current question exactly at 3,000 turns (Graphiti and Hindsight
+recall 0/40, from 38 and 39 of 40 at 100), while Mem0 keeps 38. Hindsight's
+reader slows (p95 10.8 -> 36.9 s) and costs more per question ($0.0068 ->
+$0.0199) as the store grows; its exact counts fall with answer length, and the
+asserted-value judge, applied after the runs (`h14-judge-gpt4o-scale-growth-hindsight-v1`),
+credits 38/40 current and 40/40 earlier values at 3,000 turns.

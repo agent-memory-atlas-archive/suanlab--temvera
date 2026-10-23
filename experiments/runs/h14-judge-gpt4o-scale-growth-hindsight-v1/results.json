@@ -1,0 +1,13 @@
+{
+  "by_category": {
+    "current": {
+      "exact": 267,
+      "n": 320
+    },
+    "valid_time": {
+      "exact": 156,
+      "n": 160
+    }
+  },
+  "cases": 480
+}

@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 551 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 571 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -111,6 +111,7 @@ These need an API key and are sealed into new runs:
 | Is the real-data valid-time gold identifiable? (H13-E2) | `python scripts/classify_lme_timing.py <new-run>` |
 | Reader told the persistence contract (H13-E2) | `python scripts/llm_rescore.py reader_persist openai:gpt-4o-mini <source-run> <new-run>` |
 | Verified deletion caller; LangMem with deletes enabled (H13-E4) | `temvera deletion-study experiments/configs/deletion-verified-<system>.json <new-run>`, `.../deletion-langmem-deletes.json` |
+| One store growing to 3,000 turns: cost, latency, size, memory, load (H14) | `python scripts/scale_cost.py {mem0,graphiti,hindsight} <new-run>`; offline analysis `python scripts/analyze_scale_cost.py` |
 | Final-store correction runs (H11a) | `temvera external-<system> experiments/configs/final-store-corrections-<config>.json <new-run>` |
 
 ## External-system experiments (require credentials)
@@ -177,5 +178,5 @@ LongMemEval content above is the one exception.
 
 Repository-authored material and the fully synthetic fixture are distributable
 under Apache-2.0. Frozen, byte-reproducible snapshots are attached to the
-GitHub releases (`icde-eab-v7` for the ICDE submission); no DOI archive has
+GitHub releases (`icde-eab-v8` for the ICDE submission); no DOI archive has
 been made (D-009).

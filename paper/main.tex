@@ -59,7 +59,7 @@ implementation checks, into five open-source systems---Mem0, LangMem, Graphiti,
 Cognee and Hindsight---and measure separately what a store retains, what its
 retrieval selects for the asked time, what an answer asserts, and what deletion
 removes. The predictions of every follow-up experiment were committed before it
-ran; fourteen failed, and we report them. The layers disagree. Stores that
+ran; sixteen failed, and we report them. The layers disagree. Stores that
 overwrite superseded values keep almost none of them and answer historical
 questions only up to a ceiling the history fixes (Mem0: 0.364 against 0.385),
 and Mem0 applies a correction about the past to the present. Stores that keep
@@ -879,63 +879,62 @@ answers 0 or 1 of 45 except LangMem (9). As our generator first specified it,
 removing only the latest value, Cognee's reader had scored $0.622$, mostly by
 answering a value it was asked to delete.
 
-\subsection{Where cost and latency live}\label{sec:cost}
+\subsection{Cost, latency and size as a store grows}\label{sec:cost}
 
-Mem0, which extracts on write, inverts the usual read/write cost profile, and
-the inversion is large enough to matter for design. Instrumenting the provider's
-API calls directly --- accumulating each response's usage block rather than
-estimating --- over 1035 ingests and 949 queries on multi-attribute histories:
+One seeded history of 3{,}000 turns (200 people, three attributes, three
+revisions each) is ingested in order into one store per system, measured after
+100, 300, 1{,}000 and 3{,}000 turns, against predictions committed before the
+runs (Table~\ref{tab:growth}). Probe questions ask 40 current values and, once
+people have been revised, 40 earlier ones.
 
 \begin{table}[t]
 \centering
-\caption{Measured write/read asymmetry for Mem0, 9 cells, 3 attributes per
-entity, \texttt{gpt-4o-mini}. Ingest is an extraction plus consolidation round trip;
-a query is a vector lookup.}
-\label{tab:cost}
-\small
-\begin{tabular}{lrr}
+\caption{One store growing to 3{,}000 turns, \texttt{gpt-4o-mini}. Dollars per
+ingested turn and query p95 at 100 $\to$ 3{,}000 turns; exact answers of 40 at
+3{,}000 turns. Hindsight's two read paths share one store and its write cost.}
+\label{tab:growth}
+\footnotesize
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-& ingest & query \\
+ & \$ / turn & query p95 (s) & \multicolumn{2}{c}{exact at 3{,}000} \\
+System & 100 $\to$ 3{,}000 & 100 $\to$ 3{,}000 & current & valid \\
 \midrule
-samples              & 1035 & 949 \\
-mean latency         & 4.733\,s & 0.300\,s \\
-p50 / p95            & 4.41 / 7.04\,s & 0.28 / 0.42\,s \\
-\midrule
-chat calls           & \multicolumn{2}{c}{2036 ($\approx$2 per ingest)} \\
-tokens in / out      & \multicolumn{2}{c}{2.39\,M / 288\,K} \\
-cost (chat)          & \multicolumn{2}{c}{\$0.5310} \\
-cost (embeddings)    & \multicolumn{2}{c}{\$0.0009 (0.2\%)} \\
+Mem0                & .00059 $\to$ .00056 & 0.19 $\to$ 0.25 & 38 & 0 \\
+Graphiti            & .00132 $\to$ .00110 & 0.26 $\to$ 0.38 & 0  & 0 \\
+Hindsight \textsc{recall}  & .00146 $\to$ .00176 & 1.74 $\to$ 2.33 & 0  & 1 \\
+Hindsight \textsc{reflect} & (shared)           & 10.78 $\to$ 36.91 & 5 & 34 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Ingest is roughly $16\times$ slower than query, and embeddings account for
-0.2\% of spend: essentially all cost is the extraction and consolidation the
-write path performs. At these rates an ingested turn costs about
-\$0.0005. The practical consequence is that consolidating designs pay their
-price on every write, in exchange for the current-state accuracy
-\S\ref{sec:results} measures. Graphiti also extracts on write, so we expect
-the same profile there, but its cost was not instrumented in these runs.
+\textbf{Writes cost the same at any size.} Mem0's cost per ingested turn stays
+flat and Graphiti's falls --- we had predicted it would rise --- while
+Hindsight's rises by 20\%. Ingest p95 stays near 7--9\,s for the two
+extract-on-write systems and 3\,s for Hindsight.
 
-Cost reproduces; latency does not. Re-running the identical workload weeks
-later made the same 2036 chat calls over essentially the same tokens, for
-\$0.528, yet mean ingest latency was 6.825\,s and the ingest-to-query ratio
-25$\times$, because the provider's response time had moved. We therefore read
-the asymmetry and not its magnitude: writes cost more than an order of
-magnitude more time than reads on both days. The first measurement also ran
-with a thread leak in Mem0's telemetry; the re-measurement without it was
-slower, not faster, so the leak is not what the published number reflects.
+\textbf{Reading is where the designs part.} The retrieval layers of Mem0 and
+Graphiti answer within 0.4\,s at every size, Hindsight's within 2.3\,s, above the
+2\,s we predicted. Hindsight's reader slows from 10.8 to 36.9\,s at p95 and its
+cost per question rises from \$0.0068 to \$0.0199 as the store grows. Under
+concurrent load Hindsight's retrieval saturates: 0.47 questions per second for
+one client, 0.84 for sixteen, at a p95 of 19.9\,s. At 1{,}000 writes and ten
+reads per write, Mem0 costs \$0.57, Graphiti \$1.11 and Hindsight with its
+reader \$201, almost all of it reading. At 3{,}000 turns Neo4j holds about
+2.5\,GB resident, Hindsight's daemon 2.8\,GB and its PostgreSQL 1.5\,GB.
 
-The write/read split is a design choice, not a constant. Cognee inverts it:
-over the same 20-cell grid (477 ingests, 484 queries), \texttt{add} only stages
-text and averages $0.65$\,s, while its query path averages $6.91$\,s because the
-graph build runs at the first query of each checkpoint ($4.56$\,s under
-\textsc{chunks}, so roughly $2.4$\,s of the remainder is the reader LLM). Mem0
-pays at write and Cognee at read; the two workloads differ, so this locates each
-system's cost and does not compare their totals. Token
-cost is reported for Mem0 only. Cognee and LangMem run in separate interpreters
-and Hindsight as a service, outside our instrumentation, and Graphiti's
-asynchronous client was not covered by it in these runs.
+\textbf{The split sharpens with size.} Once people have revisions, the
+retaining retrieval layers fail even current questions exactly --- Graphiti and
+Hindsight answer 38 and 39 of 40 at 100 turns and none at 3{,}000 --- while Mem0
+keeps 38 current answers and no earlier ones. Hindsight's reader keeps
+answering; its exact counts fall with answer length, and the asserted-value
+judge, applied after the runs, credits 38 of 40 current and 40 of 40 earlier
+values at 3{,}000 turns.
+
+These are one history, one backbone, and provider latency that moved between
+runs days apart (Cognee's read path, measured separately, averages 6.91\,s
+against 0.65\,s to stage a turn); throughput was not measured for the
+in-process systems, and 3{,}000 turns is the largest store we ran.
 
 \subsection{Does scale change the picture?}\label{sec:scale}
 
@@ -993,13 +992,8 @@ superseded value rises from 0.463 to 0.498, while recall holds near 0.6. Its
 historical deficit is a property of consolidation, as the main grid showed, and
 does not wait for scale to appear.
 
-\textbf{This is not a systems-scalability result.} The sweep measures accuracy
-as histories grow to 128 people (up to 11{,}107 ingested turns and 10{,}037
-questions per run). Query latency did not grow with it --- Graphiti's p95 was
-1.61, 2.51 and 1.27\,s at 8, 32 and 128 entities, Mem0's 0.68, 1.00 and
-0.21\,s (one of its three runs at 128) --- but those runs were days apart and provider response time dominates
-them (\S\ref{sec:cost}), so we read no trend into it. Throughput under
-concurrent load, index and store size, and memory were not measured.
+\textbf{This sweep measures accuracy, not systems scale;} \S\ref{sec:cost}
+measures cost, latency and size as one store grows.
 
 \subsection{Does it hold beyond our generator?}\label{sec:realdata}
 
@@ -1273,7 +1267,7 @@ so the defect does not bias Mem0's aggregate in one known direction.
 Results of the harness that concern only our reference implementation ---
 retrieval-channel ablations, confidence decay, fusion calibration, signed
 provenance --- are preserved with their negative outcomes in the artifact and not
-developed here. Within the thesis, \textbf{fourteen preregistered predictions
+developed here. Within the thesis, \textbf{sixteen preregistered predictions
 failed}, each reported where it was tested: that Mem0's current release would
 still consolidate (\S\ref{sec:releases}); that LangMem on \texttt{gpt-4o} would
 keep 0.80 of current answers (\S\ref{sec:results}); that a common reader would
@@ -1286,7 +1280,9 @@ of its intervals correctly (\S\ref{sec:fragment}); that every system would
 ignore prose deletion, and that LangMem would keep 34 of 36 under a checked
 caller (\S\ref{sec:deletion}); and that no store could say what it knew before
 a correction, that a plain reader over Cognee's dated chunks could, and that the
-judge could referee such answers (\S\ref{sec:corrections}).
+judge could referee such answers (\S\ref{sec:corrections}); and that Graphiti's
+write cost would grow with its store and every retrieval layer stay under 2\,s
+(\S\ref{sec:cost}).
 
 \textbf{Two of our own claims did not survive this revision.} We had reported
 that Hindsight's reader recovers valid time far less often than Cognee's; it
@@ -1352,8 +1348,9 @@ run at temperature~0, and Hindsight's reader is not stable across runs. The
 first same-protocol replication moved a small-denominator category by 0.125,
 which is why we draw no conclusion from expiry. The deletion study covers ten
 small histories, one backbone and our own readings of each store; it bounds
-what survives in what we read, not everywhere. Scale was measured for accuracy,
-not for throughput, storage or memory, and token cost only for Mem0. No person
+what survives in what we read, not everywhere. Cost, latency, size and memory were measured
+for three systems on one history up to 3{,}000 turns, and load only for the one
+served over HTTP. No person
 judged the answers; the asserted-value judge is checked against the exact
 scorer, a second judge and answers built to a known verdict, and it is not valid
 for answers about what was known before a correction. The real-data valid-time

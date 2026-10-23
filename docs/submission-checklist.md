@@ -120,3 +120,11 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Re-cut the release: tag `icde-eab-v7` supersedes `icde-eab-v6`.
 - [ ] Not done here: independent human judging (E1); systems scale and cost
       (E5); new temporal expressions (E6); a non-OpenAI backbone.
+
+## Added 2026-10-24
+
+- [x] E5 / H14: one store per system grown to 3,000 turns -- cost, latency,
+      size, memory, and load for the HTTP-served system; two predictions
+      failed (sixteen in all). Section VI-E rewritten around it.
+- [x] Re-cut the release: tag `icde-eab-v8` supersedes `icde-eab-v7`.
+

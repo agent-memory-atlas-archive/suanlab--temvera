@@ -425,36 +425,12 @@ CLAIMS: list[Claim] = [
           near="improves ("),
     # -- 5.3 deletion ----------------------------------------------------------
     # -- 5.5 cost and latency --------------------------------------------------
-    Claim("Tab.4", "Mem0 ingest samples", "1035", lambda: telemetry("scale-cost-mem0-v1", "ingest_latency", "n"), 0.5),
-    Claim("Tab.4", "Mem0 query samples", "949", lambda: telemetry("scale-cost-mem0-v1", "query_latency", "n"), 0.5),
-    Claim("Tab.4", "Mem0 ingest mean", "4.733",
-          lambda: telemetry("scale-cost-mem0-v1", "ingest_latency", "mean_s")),
-    Claim("Tab.4", "Mem0 query mean", "0.300",
-          lambda: telemetry("scale-cost-mem0-v1", "query_latency", "mean_s")),
-    Claim("Tab.4", "Mem0 ingest p50", "4.41",
-          lambda: telemetry("scale-cost-mem0-v1", "ingest_latency", "p50_s"), 0.006),
-    Claim("Tab.4", "Mem0 ingest p95", "7.04",
-          lambda: telemetry("scale-cost-mem0-v1", "ingest_latency", "p95_s"), 0.006),
-    Claim("Tab.4", "chat calls", "2036",
-          lambda: telemetry("scale-cost-mem0-v1", "usage", "gpt-4o-mini", "calls"), 0.5),
-    Claim("Tab.4", "chat cost USD", "0.5310",
-          lambda: telemetry("scale-cost-mem0-v1", "usage", "gpt-4o-mini", "cost_usd"), 0.00006),
-    Claim("Tab.4", "embedding cost USD", "0.0009",
-          lambda: telemetry("scale-cost-mem0-v1", "usage", "text-embedding-3-small", "cost_usd"),
-          0.00006),
     Claim("5.5", "Cognee ingest mean", "0.65",
           lambda: telemetry("external-cognee-grid-v1", "ingest_latency", "mean_s"), 0.006,
-          near="text and averages"),
+          near="averages 6.91\\,s"),
     Claim("5.5", "Cognee query mean", "6.91",
           lambda: telemetry("external-cognee-grid-v1", "query_latency", "mean_s"), 0.006,
-          near="while its query path averages"),
-    Claim("5.5", "Cognee chunks query mean", "4.56",
-          lambda: telemetry("external-cognee-chunks-grid-v3", "query_latency", "mean_s"), 0.006,
-          near="graph build runs at the first query of each checkpoint"),
-    Claim("5.5", "Cognee reader share of query time, s", "2.4",
-          lambda: telemetry("external-cognee-grid-v1", "query_latency", "mean_s")
-          - telemetry("external-cognee-chunks-grid-v3", "query_latency", "mean_s"), 0.06,
-          near="textsc{chunks}, so roughly"),
+          near="measured separately, averages"),
     Claim("5.4", "reader expiry, best of the two (micro)", "0.125",
           lambda: max(micro(r, "expiry_boundary", cells())
                       for r in ("external-cognee-grid-v1", "external-hindsight-reflect-v1")),
@@ -545,19 +521,6 @@ CLAIMS: list[Claim] = [
           lambda: v1_fallback_pct(32), 0.5, near="silently fell back to synthetic tokens"),
     Claim("6", "first sweep: synthetic values at 128 entities, %", "66",
           lambda: v1_fallback_pct(128), 0.5, near="silently fell back to synthetic tokens"),
-    Claim("5.5", "re-measured Mem0 ingest mean", "6.825",
-          lambda: telemetry("scale-cost-mem0-v2", "ingest_latency", "mean_s"),
-          near="mean ingest latency was"),
-    Claim("5.5", "re-measured chat calls", "2036",
-          lambda: telemetry("scale-cost-mem0-v2", "usage", "gpt-4o-mini", "calls"), 0.5,
-          near="later made the same"),
-    Claim("5.5", "re-measured chat cost USD", "0.528",
-          lambda: telemetry("scale-cost-mem0-v2", "usage", "gpt-4o-mini", "cost_usd"), 0.0006,
-          near="over essentially the same tokens"),
-    Claim("5.5", "re-measured ingest/query ratio", "25",
-          lambda: telemetry("scale-cost-mem0-v2", "ingest_latency", "mean_s")
-          / telemetry("scale-cost-mem0-v2", "query_latency", "mean_s"), 0.5,
-          near="the ingest-to-query ratio"),
     # -- 5.6 external validity -------------------------------------------------
     # -- 4.1 claims-vs-documentation table -------------------------------------
     Claim("Tab.claims", "Graphiti valid_time beside its claim", "0.000",
@@ -1149,21 +1112,6 @@ def _cost_sweep(entities: int) -> float:
 
 def _audit_claims() -> list:
     return [
-        Claim("5.5", "Cognee ingests on the grid", "477",
-              lambda: telemetry("external-cognee-grid-v1", "ingest_latency", "n"), 0.5,
-              near="over the same 20-cell grid ("),
-        Claim("5.5", "Cognee queries on the grid", "484",
-              lambda: telemetry("external-cognee-grid-v1", "query_latency", "n"), 0.5,
-              near="over the same 20-cell grid ("),
-        Claim("5.5", "embedding share of spend, %", "0.2",
-              lambda: 100 * telemetry("scale-cost-mem0-v1", "usage", "text-embedding-3-small",
-                                      "cost_usd") / telemetry("scale-cost-mem0-v1",
-                                                               "cost_usd_total"), 0.06,
-              near="embeddings account for"),
-        Claim("5.5", "cost per ingested turn, USD", "0.0005",
-              lambda: telemetry("scale-cost-mem0-v1", "cost_usd_total")
-              / telemetry("scale-cost-mem0-v1", "ingest_latency", "n"), 0.00006,
-              near="an ingested turn costs about"),
         Claim("7", "Cognee chunks v1 worker errors", "40",
               lambda: float(res("external-cognee-chunks-grid-v1")["backbone"]["worker_errors"]), 0.5,
               near="run with"),
@@ -1631,34 +1579,6 @@ def _latency(run: str, which: str) -> float:
     return float(res(run)["telemetry"][f"{which}_latency"]["p95_s"])
 
 
-def _scale_latency_claims() -> list:
-    A = "This is not a systems-scalability result"
-    g = {8: "scale-sweep-graphiti-e8-v2", 32: "scale-sweep-graphiti-e32-v2",
-         128: "scale-sweep-graphiti-e128-v2"}
-    m = {8: "scale-sweep-mem0-e8-v2", 32: "scale-sweep-mem0-e32-v2",
-         128: "scale-sweep-mem0-e128-s7-v3"}
-    return [
-        Claim("5.scale", "Graphiti e128 ingests", "11{,}107",
-              lambda: float(res(g[128])["telemetry"]["ingest_latency"]["n"]), 0.5,
-              near="up to", after=A),
-        Claim("5.scale", "Graphiti e128 queries", "10{,}037",
-              lambda: float(res(g[128])["telemetry"]["query_latency"]["n"]), 0.5,
-              near="turns and", after=A),
-        Claim("5.scale", "Graphiti query p95 at 8", "1.61", lambda: _latency(g[8], "query"), 0.006,
-              near="Graphiti's p95 was", after=A),
-        Claim("5.scale", "Graphiti query p95 at 32", "2.51", lambda: _latency(g[32], "query"), 0.006,
-              near="Graphiti's p95 was\n1.61,", after=A),
-        Claim("5.scale", "Graphiti query p95 at 128", "1.27", lambda: _latency(g[128], "query"), 0.006,
-              near="2.51 and", after=A),
-        Claim("5.scale", "Mem0 query p95 at 8", "0.68", lambda: _latency(m[8], "query"), 0.006,
-              near="Mem0's", after=A),
-        Claim("5.scale", "Mem0 query p95 at 32", "1.00", lambda: _latency(m[32], "query"), 0.006,
-              near="Mem0's 0.68,", after=A),
-        Claim("5.scale", "Mem0 query p95 at 128 (seed 7)", "0.21", lambda: _latency(m[128], "query"),
-              0.006, near="1.00 and", after=A),
-    ]
-
-
 # -- H12: only the retention policy changes (scripts/controlled_policy.py) ------
 def policy(name: str, category: str, column: str) -> float:
     return float(res("controlled-policy-v1")["summary"][f"{name}:{category}"][column])
@@ -1947,7 +1867,7 @@ def _abstract_claims_v2() -> list:
     retrieval = ("external-graphiti-hybrid-v1", "external-cognee-chunks-grid-v3",
                  "external-hindsight-recall-v1")
     return [
-        Claim("abs", "failed preregistered predictions", "fourteen", falsified_predictions, 0.5,
+        Claim("abs", "failed preregistered predictions", "sixteen", falsified_predictions, 0.5,
               near="ran;", after=A),
         Claim("abs", "Mem0 valid_time (micro)", "0.364",
               lambda: micro("external-mem0-grid-v2", "valid_time", cells()), near="(Mem0:", after=A),
@@ -2153,13 +2073,151 @@ def _h13_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + [Claim("7", "falsified preregistered predictions", "fourteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+# -- H14: one store growing to 3,000 turns (scripts/scale_cost.py) ------------
+def _growth():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_scale_cost
+
+    return analyze_scale_cost
+
+
+def growth_cp(system: str, turns: int) -> dict:
+    return next(c for c in res(f"scale-growth-{system}-v1")["checkpoints"] if c["turns"] == turns)
+
+
+def growth_exact(system: str, path: str, turns: int, category: str) -> float:
+    return float(_growth().rate(growth_cp(system, turns), path, category)[0])
+
+
+def growth_judged(path: str, turns: int, category: str) -> float:
+    src, jud = tr("scale-growth-hindsight-v1"), tr("h14-judge-gpt4o-scale-growth-hindsight-v1")
+    if [r["case_id"] for r in src] != [r["case_id"] for r in jud]:
+        return -1.0
+    return float(sum(bool(j["exact"]) for s, j in zip(src, jud)
+                     if s["path"] == path and s["checkpoint"] == turns and s["category"] == category))
+
+
+def _growth_claims() -> list:
+    T = "\\label{tab:growth}"
+    gp = lambda s, n: _growth().per_turn(growth_cp(s, n))["usd"]  # noqa: E731
+    q95 = lambda s, n, p="retrieval": growth_cp(s, n)["query_latency"][p]["p95_s"]  # noqa: E731
+    rows = (("mem0", "Mem0                &"), ("graphiti", "Graphiti            &"),
+            ("hindsight", "Hindsight \\textsc{recall}  &"))
+    out = []
+    for system, anchor in rows:
+        out += [
+            Claim("Tab.growth", f"{system} $/turn at 100", f"{gp(system, 100):.5f}".lstrip("0"),
+                  lambda s=system: gp(s, 100), 0.000005, near=anchor, window=30, after=T),
+            Claim("Tab.growth", f"{system} $/turn at 3000", f"{gp(system, 3000):.5f}".lstrip("0"),
+                  lambda s=system: gp(s, 3000), 0.000005, near=anchor, window=45, after=T),
+            Claim("Tab.growth", f"{system} query p95 at 100", f"{q95(system, 100):.2f}",
+                  lambda s=system: q95(s, 100), 0.005, near=anchor, window=60, after=T),
+            Claim("Tab.growth", f"{system} query p95 at 3000", f"{q95(system, 3000):.2f}",
+                  lambda s=system: q95(s, 3000), 0.005, near=anchor, window=75, after=T),
+            Claim("Tab.growth", f"{system} current exact at 3000",
+                  f"{growth_exact(system, 'retrieval', 3000, 'current'):.0f}",
+                  lambda s=system: growth_exact(s, "retrieval", 3000, "current"), 0.5,
+                  near=anchor, window=85, after=T),
+            Claim("Tab.growth", f"{system} valid exact at 3000",
+                  f"{growth_exact(system, 'retrieval', 3000, 'valid_time'):.0f}",
+                  lambda s=system: growth_exact(s, "retrieval", 3000, "valid_time"), 0.5,
+                  near=anchor, window=95, after=T),
+        ]
+    R = "Hindsight \\textsc{reflect} & (shared)"
+    out += [
+        Claim("Tab.growth", "reader p95 at 100", "10.78", lambda: q95("hindsight", 100, "reader"), 0.005,
+              near=R, window=40, after=T),
+        Claim("Tab.growth", "reader p95 at 3000", "36.91", lambda: q95("hindsight", 3000, "reader"), 0.005,
+              near=R, window=50, after=T),
+        Claim("Tab.growth", "reader current exact at 3000", "5",
+              lambda: growth_exact("hindsight", "reader", 3000, "current"), 0.5, near=R, window=60, after=T),
+        Claim("Tab.growth", "reader valid exact at 3000", "34",
+              lambda: growth_exact("hindsight", "reader", 3000, "valid_time"), 0.5, near=R, window=70, after=T),
+    ]
+    A = "One seeded history of 3{,}000 turns"
+    W = "Reading is where the designs part"
+    S = "The split sharpens with size"
+    conc = lambda k, f: res("scale-growth-hindsight-v1")["concurrency"][k][f]  # noqa: E731
+    dep = lambda s, f: _growth().deployment_cost(res(f"scale-growth-{s}-v1"), 1000, 10)[f]  # noqa: E731
+    out += [
+        Claim("5.cost", "people in the history", "200",
+              lambda: float(json.loads((RUNS / "scale-growth-mem0-v1" / "config.json").read_text())["workload"]["entities"]),
+              0.5, near="turns (", after=A),
+        Claim("5.cost", "probe questions per kind", "40",
+              lambda: float(json.loads((RUNS / "scale-growth-mem0-v1" / "config.json").read_text())["probes_per_kind"]),
+              0.5, near="Probe questions ask", after=A),
+        Claim("5.cost", "Hindsight write cost rise, %", "20",
+              lambda: 100 * (gp("hindsight", 3000) / gp("hindsight", 100) - 1), 1.0,
+              near="Hindsight's rises by", after="Writes cost the same at any size"),
+        Claim("5.cost", "extract-on-write ingest p95, lowest", "7",
+              lambda: min(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
+                          for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
+              near="Ingest p95 stays near", after="Writes cost the same at any size"),
+        Claim("5.cost", "extract-on-write ingest p95, highest", "9",
+              lambda: max(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
+                          for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
+              near="stays near 7--", after="Writes cost the same at any size"),
+        Claim("5.cost", "Hindsight ingest p95", "3",
+              lambda: max(c["ingest_latency"]["p95_s"] for c in res("scale-growth-hindsight-v1")["checkpoints"]),
+              0.5, near="systems and", after="Writes cost the same at any size"),
+        Claim("5.cost", "Mem0/Graphiti retrieval p95 bound", "0.4",
+              lambda: 0.4 if max(c["query_latency"]["retrieval"]["p95_s"] for s in ("mem0", "graphiti")
+                                 for c in res(f"scale-growth-{s}-v1")["checkpoints"]) < 0.4 else -1.0,
+              0.0, near="answer within", after=W),
+        Claim("5.cost", "H14c threshold", "2",
+              lambda: 2.0 if "query p95\n  is under 2 s" in (ROOT / "docs" / "preregistration-h14.md").read_text() else -1.0,
+              0.0, near="above the", after=W),
+        Claim("5.cost", "Hindsight recall p95 at 3000 (text)", "2.3",
+              lambda: q95("hindsight", 3000), 0.05, near="Hindsight's within", after=W),
+        Claim("5.cost", "reader p95 at 100 (text)", "10.8", lambda: q95("hindsight", 100, "reader"), 0.05,
+              near="slows from", after=W),
+        Claim("5.cost", "reader p95 at 3000 (text)", "36.9", lambda: q95("hindsight", 3000, "reader"), 0.05,
+              near="slows from 10.8 to", after=W),
+        Claim("5.cost", "reader $/q at 100", "0.0068", lambda: _growth().per_query(growth_cp("hindsight", 100)),
+              0.00005, near="from \\$", after=W),
+        Claim("5.cost", "reader $/q at 3000", "0.0199", lambda: _growth().per_query(growth_cp("hindsight", 3000)),
+              0.00005, near="0.0068 to \\$", after=W),
+        Claim("5.cost", "throughput, one client", "0.47", lambda: conc("1", "throughput_qps"), 0.005,
+              near="saturates:", after=W),
+        Claim("5.cost", "throughput, sixteen clients", "0.84", lambda: conc("16", "throughput_qps"), 0.005,
+              near="one client,", after=W),
+        Claim("5.cost", "p95 at sixteen clients", "19.9", lambda: conc("16", "latency")["p95_s"], 0.05,
+              near="at a p95 of", after=W),
+        Claim("5.cost", "Mem0 deployment cost", "0.57", lambda: dep("mem0", "total_usd"), 0.005,
+              near="Mem0 costs \\$", after=W),
+        Claim("5.cost", "Graphiti deployment cost", "1.11", lambda: dep("graphiti", "total_usd"), 0.005,
+              near="Graphiti \\$", after=W),
+        Claim("5.cost", "Hindsight deployment cost", "201", lambda: dep("hindsight", "total_usd"), 0.5,
+              near="reader \\$", after=W),
+        Claim("5.cost", "Neo4j resident GB", "2.5",
+              lambda: growth_cp("graphiti", 3000)["server_rss_kb"]["neo4j"] / 1e6, 0.05, near="Neo4j holds about", after=W),
+        Claim("5.cost", "Hindsight daemon GB", "2.8",
+              lambda: growth_cp("hindsight", 3000)["server_rss_kb"]["hindsight_daemon"] / 1e6, 0.05,
+              near="Hindsight's daemon", after=W),
+        Claim("5.cost", "PostgreSQL GB", "1.5",
+              lambda: growth_cp("hindsight", 3000)["server_rss_kb"]["postgres"] / 1e6, 0.05,
+              near="its PostgreSQL", after=W),
+        Claim("5.cost", "Graphiti current exact at 100", "38",
+              lambda: growth_exact("graphiti", "retrieval", 100, "current"), 0.5, near="Hindsight answer", after=S),
+        Claim("5.cost", "Hindsight recall current exact at 100", "39",
+              lambda: growth_exact("hindsight", "retrieval", 100, "current"), 0.5, near="answer 38 and", after=S),
+        Claim("5.cost", "Mem0 current exact at 3000 (text)", "38",
+              lambda: growth_exact("mem0", "retrieval", 3000, "current"), 0.5, near="while Mem0\nkeeps", after=S),
+        Claim("5.cost", "reader judged current at 3000", "38", lambda: growth_judged("reader", 3000, "current"),
+              0.5, near="credits", after=S),
+        Claim("5.cost", "reader judged valid at 3000", "40", lambda: growth_judged("reader", 3000, "valid_time"),
+              0.5, near="current and", after=S),
+    ]
+    return out
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.
 _WORDS = {"Three": 3, "nothing": 0, "Ten": 10, "no": 0, "none": 0, "One": 1, "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
           "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
-          "thirteen": 13, "fourteen": 14, "fifteen": 15}
+          "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16}
 
 
 def _number(printed: str) -> float:
