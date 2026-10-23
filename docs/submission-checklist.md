@@ -116,6 +116,7 @@ South Korea — suanlee@semyung.ac.kr.
       reader on the final store.
 - [x] Contributions reframed as evaluation contract / mechanism evidence /
       operational findings; abstract rewritten with fewer numbers.
-- [ ] Author: approve the new abstract; decide on the title (IDEA_ICDE.md §5.3).
+- [x] Author approved the new abstract and kept the title (2026-10-23).
+- [x] Re-cut the release: tag `icde-eab-v7` supersedes `icde-eab-v6`.
 - [ ] Not done here: independent human judging (E1); systems scale and cost
       (E5); new temporal expressions (E6); a non-OpenAI backbone.
