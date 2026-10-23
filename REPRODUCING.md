@@ -58,7 +58,7 @@ To check the *paper* rather than the tables, run:
 python scripts/verify_paper_claims.py     # --list to see every claim
 ```
 
-This holds 571 claims, each pairing the value as printed in `paper/main.tex` with
+This holds 584 claims, each pairing the value as printed in `paper/main.tex` with
 a function that recomputes it from a sealed run, and fails if either half moves
 --- if the computation stops matching, or if the number stops appearing where
 the paper prints it. Prose claims are anchored to their own sentence, because
@@ -67,6 +67,11 @@ every number still present somewhere, with correct tables and wrong prose beside
 them. Each claim also declares whether it is case-weighted or cell-averaged,
 since the paper uses both and confusing them makes correct numbers look wrong.
 `tests/test_paper_claims.py` runs it, so `pytest` fails on drift.
+
+`python scripts/extract_review_tables.py <dir>` writes, with no model call,
+review tables of the 90 reader answers about what was known before a correction
+and of the 60 LongMemEval valid-time questions (the latter carries benchmark
+text, so it is written outside the repository).
 
 Figures are regenerated from the same sealed runs with
 `python scripts/make_figures.py`, and are byte-reproducible: a regenerated

@@ -145,11 +145,17 @@ def rank1_names_subject(run: str) -> float:
     return 100 * hits / total
 
 
+def lost_history_counts(run: str) -> tuple[int, int]:
+    """(non-exact cases, those whose answer holds a superseded or deleted value
+    with the expected one absent), purge judged under the request's scope."""
+    rows = _purge_scope_module().rows_request_scope(run, cells())
+    wrong = [(r, stale) for r, exact, stale in rows if not exact]
+    return len(wrong), sum(stale and not r["present_expected"] for r, stale in wrong)
+
+
 def lost_history_share(run: str) -> float:
-    """Non-exact cases that returned a stale value with the expected one absent."""
-    wrong = [r for r in tr(run) if not r["exact"]]
-    lost = [r for r in wrong if r["present_stale"] and not r["present_expected"]]
-    return 100 * len(lost) / len(wrong)
+    wrong, lost = lost_history_counts(run)
+    return 100 * lost / wrong
 
 
 _REPLICATES = {
@@ -265,6 +271,23 @@ def overall_rs_count(run: str, cells_=None) -> float:
     return float(_purge_scope_module().overall(run, cells_)["request_scope"])
 
 
+def _fair_cells() -> set:
+    """Cells both Graphiti fairness runs (cosine-only and hybrid) share."""
+    mod = _purge_scope_module()
+    runs = ("external-graphiti-grid-v1", "external-graphiti-hybrid-v1")
+    return set.intersection(*({mod._cell(r) for r in mod._rows(run)} for run in runs))
+
+
+def _fair(run: str) -> dict:
+    return _purge_scope_module().overall(run, _fair_cells())
+
+
+def _fair_vt(run: str) -> tuple[int, int]:
+    rows = [x for x in _purge_scope_module().rows_request_scope(run, _fair_cells())
+            if x[0]["category"] == "valid_time"]
+    return sum(x[1] for x in rows), len(rows)
+
+
 def purge_rs(run: str) -> float:
     o = _purge_scope_module().request_scope(run, cells())
     return o["request_scope"] / o["questions"]
@@ -367,9 +390,40 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "Mem0 valid_time (micro)", "0.364",
           lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
           near="much weaker on historical valid time"),
-    Claim("5.2", "Mem0 lost-history share of non-exact", "88.5",
+    Claim("5.2", "Mem0 lost-history share of non-exact", "87.6",
           lambda: lost_history_share("external-mem0-grid-v2"), 0.06,
           near="Of its non-exact"),
+    Claim("5.2", "Mem0 lost-history cases", "170",
+          lambda: float(lost_history_counts("external-mem0-grid-v2")[1]), 0.5, near="87.6\\% ("),
+    Claim("5.2", "Mem0 non-exact cases (request scope)", "194",
+          lambda: float(lost_history_counts("external-mem0-grid-v2")[0]), 0.5, near="87.6\\% (170/"),
+    Claim("5.2", "LangMem overall (request scope)", "0.583",
+          lambda: overall_rs("external-langmem-v1"), near="every axis --- exact $"),
+    Claim("5.2", "LangMem overall at k=1 (request scope)", "0.601",
+          lambda: overall_rs("external-langmem-v1", k=1), near="budget-stability ($"),
+    Claim("5.2", "LangMem overall at k=5 (request scope)", "0.583",
+          lambda: overall_rs("external-langmem-v1", k=5), near="budget-stability ($0.601 \\to\n"),
+    Claim("5.2", "Graphiti overall exact (request scope)", "0.194",
+          lambda: overall_rs("external-graphiti-hybrid-v1"), near="yet scores $"),
+    Claim("5.2", "fairness: Graphiti hybrid hits on shared cells", "29",
+          lambda: float(_fair("external-graphiti-hybrid-v1")["request_scope"]), 0.5,
+          near="retrieval answers"),
+    Claim("5.2", "fairness: Graphiti cosine hits on shared cells", "28",
+          lambda: float(_fair("external-graphiti-grid-v1")["request_scope"]), 0.5,
+          near="of 154 against"),
+    Claim("5.2", "fairness: questions on shared cells", "154",
+          lambda: float(_fair("external-graphiti-grid-v1")["questions"]), 0.5,
+          near="retrieval answers 29 of"),
+    Claim("5.2", "fairness: valid-time hits, both runs", "0",
+          lambda: float(max(_fair_vt(r)[0] for r in ("external-graphiti-grid-v1",
+                                                     "external-graphiti-hybrid-v1"))), 0.5,
+          near="cosine-only, with"),
+    Claim("5.2", "fairness: valid-time questions on shared cells", "44",
+          lambda: float(_fair_vt("external-graphiti-grid-v1")[1]), 0.5, near="cosine-only, with 0 of"),
+    Claim("5.2", "fairness: Mem0 isolated DB (request scope)", "0.599",
+          lambda: overall_rs("external-mem0-grid-v2"), near="isolated database scores $"),
+    Claim("5.2", "fairness: Mem0 shared DB (request scope)", "0.616",
+          lambda: overall_rs("external-mem0-grid-v1"), near="isolated database scores $0.599$ against\n$"),
     Claim("5.2", "Graphiti evidence recall (macro)", "0.937",
           lambda: macro_metric("external-graphiti-hybrid-v1", "evidence_recall"),
           near="It reaches"),
@@ -379,11 +433,11 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "Mem0 valid_time at k=1 (micro)", "0.379",
           lambda: k_sweep(tr("external-mem0-grid-v2"), budgets=(1,), cells=cells())[1]
           ["by_category"]["valid_time"]["rate"],
-          near="statistically indistinguishable"),
+          near="is close ("),
     Claim("5.2", "Graphiti valid_time at k=1 (micro)", "0.354",
           lambda: k_sweep(tr("external-graphiti-hybrid-v1"), budgets=(1,), cells=cells())[1]
           ["by_category"]["valid_time"]["rate"],
-          near="statistically indistinguishable"),
+          near="($0.379$ against $"),
     Claim("Tab.2", "Mem0 evidence recall (macro)", "0.666",
           lambda: macro_metric("external-mem0-grid-v2", "evidence_recall")),
     Claim("Tab.2", "Mem0 stale-use (macro)", "0.356",
@@ -760,7 +814,7 @@ def _real_claims() -> list:
         Claim("Tab.real", "caption adjudicated pairs", "19", lambda: lme_pairs("adjudicated"),
               near="two extractors agreed,"),
         Claim("Tab.real", "caption valid-time cases", "60",
-              lambda: lme("Mem0", "valid_time", "cases"), near="Exact answers out of 62 ("),
+              lambda: lme("Mem0", "valid_time", "cases"), near="valid time (of"),
         Claim("5.real", "retaining old kept, fewest", "41",
               lambda: min(lme(s, "valid_time", "present_expected") for s in _LME_RETAINING),
               near="return the superseded value in"),
@@ -1365,7 +1419,7 @@ def _stats_claims() -> list:
         Claim("5.stats", "bootstrap draws", "4{,}000",
               lambda: float(stats()["resamples"]), 0.5, near="whole histories ("),
         Claim("5.stats", "equivalence margin that holds", "0.10",
-              lambda: 0.10 if eq("margins")["0.1"] else -1.0, near="holds within"),
+              lambda: 0.10 if eq("margins")["0.1"] else -1.0, near="is equivalent within"),
         Claim("5.stats", "k=1 paired difference", "0.026", lambda: eq("difference"),
               near="(difference $+"),
         Claim("5.stats", "k=1 90% interval low", "0.000", lambda: eq("low90"),
@@ -1796,7 +1850,7 @@ def _deletion_claims() -> list:
                          lambda s=system: offpath(s), 0.5, near=anchor, window=50, after=T))
     S = "We ran all five systems through one deletion protocol"
     P = "Prose is ignored by three systems"
-    H = "With the right handles, every API clears"
+    H = "With the right handles, no API leaves"
     out += [
         Claim("5.3", "seeded histories", "Ten", lambda: float(len(deletion_records("mem0", "prose-1"))), 0.5,
               near="committed before the runs.", after=S),
@@ -1885,7 +1939,7 @@ def _abstract_claims_v2() -> list:
         Claim("abs", "systems ignoring prose", "Three",
               lambda: float(sum(all(deletion(s, c, "leaked") == deletion(s, c, "purged")
                                     for c in ("prose-1", "prose-2", "prose-3")) for s in _DEL_SYSTEMS)),
-              0.5, near="before it.", after=A),
+              0.5, near="common reader does.", after=A),
         Claim("abs", "most never-named people erased", "28",
               lambda: max(deletion(s, "api-caller", "kept_total") - deletion(s, "api-caller", "kept_present")
                           for s in _DEL_SYSTEMS), 0.5, near="erases up to", after=A),
@@ -1914,7 +1968,7 @@ def falsified_predictions() -> float:
 
 
 def _final_store_claims() -> list:
-    A = "Asked of the final store, only the readers know what it knew"
+    A = "Asked of the final store, the readers recover most of what it knew"
     pc = _pre_correction
     return [
         Claim("5.corr", "pre-correction questions", "45", lambda: pc("mem0", "questions"), 0.5,
@@ -2009,7 +2063,7 @@ def _h13_claims() -> list:
     P = "A plain reader does not recover it here"
     D = "Prose is ignored by three systems"
     W = "Without the handles, an unchecked caller"
-    F = "Asked of the final store, only the readers know what it knew"
+    F = "Asked of the final store, the readers recover most of what it knew"
     return [
         Claim("5.4", "judge right on constructed valid-time answers", "279",
               lambda: minimal_pairs("valid_time"), 0.5, near="and is right on", after=J),
@@ -2136,7 +2190,7 @@ def _growth_claims() -> list:
     ]
     A = "One seeded history of 3{,}000 turns"
     W = "Reading is where the designs part"
-    S = "The split sharpens with size"
+    S = "The split widens along this trajectory"
     conc = lambda k, f: res("scale-growth-hindsight-v1")["concurrency"][k][f]  # noqa: E731
     dep = lambda s, f: _growth().deployment_cost(res(f"scale-growth-{s}-v1"), 1000, 10)[f]  # noqa: E731
     out += [
@@ -2148,27 +2202,27 @@ def _growth_claims() -> list:
               0.5, near="Probe questions ask", after=A),
         Claim("5.cost", "Hindsight write cost rise, %", "20",
               lambda: 100 * (gp("hindsight", 3000) / gp("hindsight", 100) - 1), 1.0,
-              near="Hindsight's rises by", after="Writes cost the same at any size"),
+              near="Hindsight's rises by", after="Write cost per turn does not grow"),
         Claim("5.cost", "extract-on-write ingest p95, lowest", "7",
               lambda: min(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
                           for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
-              near="Ingest p95 stays near", after="Writes cost the same at any size"),
+              near="Ingest p95 stays near", after="Write cost per turn does not grow"),
         Claim("5.cost", "extract-on-write ingest p95, highest", "9",
               lambda: max(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
                           for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
-              near="stays near 7--", after="Writes cost the same at any size"),
+              near="stays near 7--", after="Write cost per turn does not grow"),
         Claim("5.cost", "Hindsight ingest p95", "3",
               lambda: max(c["ingest_latency"]["p95_s"] for c in res("scale-growth-hindsight-v1")["checkpoints"]),
-              0.5, near="systems and", after="Writes cost the same at any size"),
+              0.5, near="systems and", after="Write cost per turn does not grow"),
         Claim("5.cost", "Mem0/Graphiti retrieval p95 bound", "0.4",
               lambda: 0.4 if max(c["query_latency"]["retrieval"]["p95_s"] for s in ("mem0", "graphiti")
                                  for c in res(f"scale-growth-{s}-v1")["checkpoints"]) < 0.4 else -1.0,
-              0.0, near="answer within", after=W),
+              0.0, near="p95 of at most", after=W),
         Claim("5.cost", "H14c threshold", "2",
               lambda: 2.0 if "query p95\n  is under 2 s" in (ROOT / "docs" / "preregistration-h14.md").read_text() else -1.0,
               0.0, near="above the", after=W),
         Claim("5.cost", "Hindsight recall p95 at 3000 (text)", "2.3",
-              lambda: q95("hindsight", 3000), 0.05, near="Hindsight's within", after=W),
+              lambda: q95("hindsight", 3000), 0.05, near="at every size, Hindsight's", after=W),
         Claim("5.cost", "reader p95 at 100 (text)", "10.8", lambda: q95("hindsight", 100, "reader"), 0.05,
               near="slows from", after=W),
         Claim("5.cost", "reader p95 at 3000 (text)", "36.9", lambda: q95("hindsight", 3000, "reader"), 0.05,
@@ -2190,7 +2244,7 @@ def _growth_claims() -> list:
         Claim("5.cost", "Hindsight deployment cost", "201", lambda: dep("hindsight", "total_usd"), 0.5,
               near="reader \\$", after=W),
         Claim("5.cost", "Neo4j resident GB", "2.5",
-              lambda: growth_cp("graphiti", 3000)["server_rss_kb"]["neo4j"] / 1e6, 0.05, near="Neo4j holds about", after=W),
+              lambda: growth_cp("graphiti", 3000)["server_rss_kb"]["neo4j"] / 1e6, 0.05, near="Neo4j's processes is about", after=W),
         Claim("5.cost", "Hindsight daemon GB", "2.8",
               lambda: growth_cp("hindsight", 3000)["server_rss_kb"]["hindsight_daemon"] / 1e6, 0.05,
               near="Hindsight's daemon", after=W),

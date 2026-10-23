@@ -72,6 +72,40 @@ def request_scope(run: str, cells: set | None = None, k: int | None = None) -> d
     return out
 
 
+def rows_request_scope(run: str, cells: set | None = None) -> list[tuple[dict, bool, bool]]:
+    """(row, exact, a superseded or deleted value appears) for every question,
+    with purge questions judged under the request's own scope."""
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    rows = [r for r in _rows(run) if cells is None or _cell(r) in cells]
+    out = []
+    for cell in sorted({_cell(r) for r in rows}):
+        profile, entities, revisions, seed = cell
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        key = {e.belief_id: (e.subject, e.attribute) for e in events
+               if e.operation is Operation.INGEST}
+        values: dict[tuple, set[str]] = {}
+        for e in events:
+            if e.operation is Operation.INGEST:
+                values.setdefault(key[e.belief_id], set()).add(e.value)
+        cases = {c.case_id: c for c in build_nl_cases(events)}
+        for r in rows:
+            if _cell(r) != cell:
+                continue
+            answer = r["answer"].casefold()
+            if r["category"] == "purge":
+                case = cases[r["case_id"]]
+                leaked = any(v.casefold() in answer for v in values[(case.subject, case.attribute)])
+                out.append((r, not leaked, leaked))
+            else:
+                out.append((r, bool(r["exact"]), bool(r["present_stale"])))
+    return out
+
+
 def overall(run: str, cells: set | None = None, k: int | None = None) -> dict[str, int]:
     """Overall exact under both readings: every non-purge question as sealed
     (or re-scored at the top ``k``), purge questions as specified or under the

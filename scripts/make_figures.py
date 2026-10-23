@@ -123,7 +123,13 @@ def figure_categories(cells) -> None:
 
 
 def figure_budget(cells) -> None:
-    """Exact accuracy versus retrieval budget k — the confound reviewers found."""
+    """Exact accuracy versus retrieval budget k — the confound reviewers found.
+    Overall scores purge under the request's own scope, as everywhere else."""
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import analyze_purge_scope
+
     budgets = (1, 2, 3, 5)
     mem0 = k_sweep(load_transcript(MEM0), budgets=budgets, cells=cells)
     graphiti = k_sweep(load_transcript(GRAPHITI), budgets=budgets, cells=cells)
@@ -133,19 +139,18 @@ def figure_budget(cells) -> None:
         (axes[0], "overall", "overall exact"),
         (axes[1], "valid_time", "valid-time exact"),
     ):
-        for name, data, colour, marker in (
-            ("Mem0", mem0, "#3b6ea5", "o"),
-            ("LangMem", langmem, "#4f8f5b", "^"),
-            ("Graphiti", graphiti, "#c2703d", "s"),
+        for name, run, data, colour, marker in (
+            ("Mem0", MEM0, mem0, "#3b6ea5", "o"),
+            ("LangMem", LANGMEM, langmem, "#4f8f5b", "^"),
+            ("Graphiti", GRAPHITI, graphiti, "#c2703d", "s"),
         ):
             ys = []
             for k in budgets:
-                entry = data[k]
-                ys.append(
-                    entry["overall"]["rate"]
-                    if metric == "overall"
-                    else entry["by_category"].get(metric, {}).get("rate", float("nan"))
-                )
+                if metric == "overall":
+                    o = analyze_purge_scope.overall(run.name, cells, k)
+                    ys.append(o["request_scope"] / o["questions"])
+                else:
+                    ys.append(data[k]["by_category"].get(metric, {}).get("rate", float("nan")))
             ax.plot(budgets, ys, marker=marker, color=colour, label=name)
         ax.set_xlabel("retrieval budget $k$")
         ax.set_title(title, fontsize=10)

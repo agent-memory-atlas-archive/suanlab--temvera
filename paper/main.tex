@@ -66,10 +66,11 @@ and Mem0 applies a correction about the past to the present. Stores that keep
 the history answer no valid-time question at their retrieval layer, yet one
 common reader answers 0.73 to 0.77 of them from the same text where it carries
 dates, and changing only the retention policy under a fixed retriever and
-reader reproduces the split. Once a correction is stored, only the systems' own
-readers say what was known before it. Three systems ignore prose deletion
-requests; native APIs clear every answer but leave copies in stores no query
-reads, and a caller that deletes what a search returns, unchecked, erases up to
+reader reproduces the split. Once a correction is stored, the systems' own
+readers recover what was known before it far more often, by a strict count,
+than retrieval or a common reader does. Three systems ignore prose deletion requests; native APIs, given the
+right records, leave no purged value in our probes' answers but leave copies in
+stores no query reads; and an unchecked search-and-delete caller erases up to
 28 of 36 people it was never asked about.
 
 We claim no novelty for bitemporal modelling or forgetting evaluation: the
@@ -136,8 +137,9 @@ memories keep 0 and 7 of 75 superseded values (\S\ref{sec:bounds}). Retaining
 stores keep history but their retrieval layers do not filter it: the two that
 return dates answer 0.73 to 1.00 when read, Graphiti's undated facts 0.11, and
 changing only the retention policy under a fixed retriever and reader
-reproduces the split (\S\ref{sec:reader}). Once a correction is stored, only the
-systems' own readers recover what was known before it (\S\ref{sec:corrections}).
+reproduces the split (\S\ref{sec:reader}). Once a correction is stored, the
+systems' own readers recover what was known before it far more often than
+retrieval or a common reader (\S\ref{sec:corrections}).
 Mem0's current release changed design (\S\ref{sec:releases}), so the
 classification belongs to a version's observed behaviour, not to a product. The
 split holds on a second backbone, in replicates, and in direction on 62
@@ -147,9 +149,10 @@ persistence assumption (\S\ref{sec:realdata}).
 store applies a correction about the past to the present
 (\S\ref{sec:corrections}); prose deletion is ignored by three systems, honoured
 by Mem0 for one wording of three, and by LangMem only with deletes enabled, at
-the cost of most unrelated memories; native APIs clear every answer but leave
-copies off the query path in three systems; and a search-driven caller destroys
-unrelated data unless it checks what it deletes (\S\ref{sec:deletion}).
+the cost of most unrelated memories; native APIs leave no purged value in our
+probes' answers but leave copies off the query path in three systems; and an
+unchecked search-and-delete caller destroys unrelated data that a caller
+checking the name keeps (\S\ref{sec:deletion}).
 Every number recomputes offline from sealed per-case transcripts but two
 run-log counts; code, data, sealed runs and scripts are public at
 \url{https://github.com/suanlab/temvera}.
@@ -436,10 +439,10 @@ histories gives $p = 1.9 \times 10^{-6}$, the smallest it can; clustered by seed
 the test cannot go below $0.0625$, which is what it gives. Intervals resample
 whole histories (4{,}000 draws) and collapse to a point where every history
 agrees, which is not certainty about other histories. The raw reader comparison
-in the family is one of answer form (\S\ref{sec:reader}). The one claim of
-\emph{no} difference --- Mem0 against Graphiti at $k{=}1$ --- holds within 0.10
+in the family is one of answer form (\S\ref{sec:reader}). The one pair we call
+close --- Mem0 against Graphiti at $k{=}1$ --- is equivalent within 0.10
 (difference $+0.026$, 90\% cluster interval $[0.000, 0.057]$) but not within
-0.05.
+0.05, so we do not call the two the same.
 
 \paragraph{The oracle defines ground truth.} Expected values come from our
 reference implementation, a typed append-only event log (\texttt{ingest},
@@ -552,30 +555,29 @@ admits accuracies up to $0.19$; we draw no conclusion from that category.}
 
 \textbf{Two systems consolidate; one retains without filtering.} LangMem was
 added precisely because a typology drawn from the same two systems it describes
-is not evidence. It lands in the Mem0 class on every axis --- exact $0.576$,
+is not evidence. It lands in the Mem0 class on every axis --- exact $0.583$,
 recall $0.647$, stale-use $0.343$, high \texttt{transaction\_as\_of} ($0.890$)
-against low \texttt{valid\_time} ($0.323$), and budget-stability ($0.595 \to
-0.576$) --- despite an independent implementation and no database server. It is
+against low \texttt{valid\_time} ($0.323$), and budget-stability ($0.601 \to
+0.583$) --- despite an independent implementation and no database server. It is
 not uniformly weaker: it handles expiry better than either ($0.438$ against
 $0.125$ and $0.000$), so the consolidation signature is specific rather than
 general weakness.
 
 \textbf{Mem0 consolidates.} It is strong on transaction-scoped current queries
 ($0.952$) and much weaker on historical valid time ($0.364$). Of its non-exact
-cases, 88.5\% (170/192) return a stale value with the expected value
+cases, 87.6\% (170/194) return a stale or deleted value with the expected value
 \emph{absent} --- a genuine loss of history rather than a ranking artifact ---
 and this is stable across retrieval budgets (Figure~\ref{fig:budget}).
 
 \textbf{Graphiti retains but does not filter.} It reaches $0.937$ evidence
 recall and returns an item naming the queried subject at rank~1 in 91.3\%
-(442/484) of cases, yet scores $0.196$ exact, because it returns superseded
+(442/484) of cases, yet scores $0.194$ exact, because it returns superseded
 revisions alongside the current one. \textbf{This deficit is budget-dependent,
 and we report it as such}: our scorer requires every expected value and no
 superseded value across the returned set, so a system that returns $k$ facts
 about a one-attribute subject is penalised for its own retained history. At
-$k{=}1$ the two systems' valid-time accuracy is statistically indistinguishable
-($0.379$ against $0.354$; Wilson intervals $[0.314, 0.449]$ and
-$[0.290, 0.423]$); as $k$ grows Graphiti collapses to $0.000$ while Mem0 is
+$k{=}1$ the two systems' valid-time accuracy is close ($0.379$ against $0.354$;
+paired difference within 0.10, not shown within 0.05, \S\ref{sec:setup}); as $k$ grows Graphiti collapses to $0.000$ while Mem0 is
 nearly flat (Figure~\ref{fig:budget}). We therefore do not claim Graphiti cannot represent
 valid time. The defensible claim is narrower and does not depend on $k$: its
 retrieval does not apply the validity metadata it stores, so downstream filtering
@@ -587,7 +589,8 @@ is left to the caller.
 \Description{Line chart of exact accuracy against retrieval budget k from one to five. Mem0 and LangMem are nearly flat across budgets; Graphiti starts close to them at k equals one and falls steeply as k grows, reaching zero on valid time at k equals five.}
 \caption{Exact accuracy versus retrieval budget $k$ on matched cells. The
 all-or-nothing conjunct in our scorer makes Graphiti's measured deficit grow
-with $k$; at $k{=}1$ the two systems are indistinguishable on valid time. Budget
+with $k$; at $k{=}1$ the two systems are close on valid time. Purge and overall
+use the request's own scope. Budget
 must be reported for any metric of this shape.}
 \label{fig:budget}
 \end{figure}
@@ -596,9 +599,10 @@ must be reported for any metric of this shape.}
 channel --- a workaround for a bug in an embedded backend we did not use --- and
 ran Mem0 against a shared history database that its own library corrupts under
 contention. We re-ran both under corrected configurations. Neither changed the
-result: Graphiti under its shipped hybrid retrieval scores $0.196$ against
-$0.194$ cosine-only with valid-time $0.000$ either way, and Mem0 with an
-isolated database scores $0.603$ against $0.612$. These reruns were also our
+result: on the six cells both runs share, Graphiti under its shipped hybrid
+retrieval answers 29 of 154 against 28 cosine-only, with 0 of 44 valid-time
+questions either way, and Mem0 with an isolated database scores $0.599$ against
+$0.616$. These reruns were also our
 first same-protocol replication, and it is instructive: Mem0's expiry accuracy
 moved $0.000 \to 0.125$ (2 of 16 cases) between runs, exactly the instability its
 Wilson interval predicts. We therefore draw no conclusion from either system's
@@ -647,7 +651,7 @@ valid-time is unchanged ($0.111 \to 0.111$) while \texttt{transaction\_as\_of}
 improves ($0.514 \to 0.625$); with two seeds we draw no conclusion about the
 extractor's share from either.
 
-\subsection{Deletion: the API works with the right handles; prose mostly does not}
+\subsection{Deletion: with the right handles the API passes our probes; prose mostly does not}
 \label{sec:deletion}
 
 We ran all five systems through one deletion protocol, with its predictions
@@ -658,9 +662,9 @@ the request, in one of three wordings, none of which restates the value
 $X$'s $A$; I do not want it kept'', ``$X$ has asked for their $A$ to be erased
 from your memory''). Two further conditions add the native API after the first
 wording: an \emph{oracle} caller deletes every unit whose stored text holds a
-value the person ever had, the most any caller could do; a \emph{realistic}
-caller, which does not know the value, asks the store about $X$'s $A$ and deletes
-whatever comes back. We then ask every person's attribute and record a leak if
+value the person ever had, the most any caller could do; an \emph{unchecked}
+search-and-delete caller, which does not know the value, asks the store about
+$X$'s $A$ and deletes whatever comes back. We then ask every person's attribute and record a leak if
 any value it ever had appears in the answer, read every store we inventoried
 through its own library (the inventory is in the artifact), and count the never-purged people whose current value is gone
 (Table~\ref{tab:deletion}).
@@ -669,7 +673,7 @@ through its own library (the inventory is in the artifact), and count the never-
 \centering
 \caption{Deletion in five systems over ten histories: purged people (of 24)
 whose value still appears in the answer, by condition; never-purged people (of
-36) still answered after the realistic and the verified caller's deletions;
+36) still answered after the unchecked and the name-checked caller's deletions;
 histories (of 9 with a purge) in which a store no query reads still holds a
 purged value after the oracle's deletions.}
 \label{tab:deletion}
@@ -678,7 +682,7 @@ purged value after the oracle's deletions.}
 \begin{tabular}{@{}lcccccccc@{}}
 \toprule
  & \multicolumn{3}{c}{prose wording} & \multicolumn{2}{c}{API caller} & \multicolumn{2}{c}{kept} & off-path \\
-System & 1 & 2 & 3 & oracle & realistic & realistic & verified & residue \\
+System & 1 & 2 & 3 & oracle & uncheck. & uncheck. & checked & residue \\
 \midrule
 Mem0      & 24 & 2  & 24 & 0 & 0 & 8  & 36 & 9 \\
 LangMem   & 15 & 3  & 6  & 0 & 0 & 19 & 33 & 0 \\
@@ -702,8 +706,8 @@ people it was never asked about: its manager deletes far more than it is told. W
 predicted that every system would leak at least 80\% under every wording; that
 holds for three systems and fails for Mem0 and LangMem.
 
-\textbf{With the right handles, every API clears our probe's answers, and
-something survives elsewhere.} Under the oracle caller no purged person leaks in
+\textbf{With the right handles, no API leaves a purged value in our probe's
+answers, and something survives elsewhere.} Under the oracle caller no purged person leaks in
 any system. A store no query reads still holds the value in all 9 histories for
 Mem0 (its history table), Cognee (its relational database) and Hindsight (its
 log of LLM requests). Graphiti's entity summaries, which \texttt{remove\_episode}
@@ -713,7 +717,7 @@ in its graph or vector store in up to 3 histories. Only LangMem, whose single
 store is the one it serves from, keeps nothing.
 
 \textbf{Without the handles, an unchecked caller deletes other people's data;
-a checked one does not.} The realistic caller also removes every purged value,
+a checked one does not.} The unchecked caller also removes every purged value,
 but a search for one person returns other people's memories, and it deletes them
 too. Of the 36 never-purged people, Mem0 still answers 8, Graphiti 18, LangMem
 19, Cognee 33 and Hindsight 36. A caller that deletes only the returned units
@@ -879,17 +883,21 @@ answers 0 or 1 of 45 except LangMem (9). As our generator first specified it,
 removing only the latest value, Cognee's reader had scored $0.622$, mostly by
 answering a value it was asked to delete.
 
-\subsection{Cost, latency and size as a store grows}\label{sec:cost}
+\subsection{Cost, latency and size along one growing history}\label{sec:cost}
 
 One seeded history of 3{,}000 turns (200 people, three attributes, three
 revisions each) is ingested in order into one store per system, measured after
 100, 300, 1{,}000 and 3{,}000 turns, against predictions committed before the
 runs (Table~\ref{tab:growth}). Probe questions ask 40 current values and, once
-people have been revised, 40 earlier ones.
+people have been revised, 40 earlier ones. This is one revision workload's
+trajectory: store size and revisions per person grow together. Costs are API
+tokens of the measured path at list prices; a retrieval layer returns memories
+and a reader an answer, which are not the same service.
 
 \begin{table}[t]
 \centering
-\caption{One store growing to 3{,}000 turns, \texttt{gpt-4o-mini}. Dollars per
+\caption{One store growing to 3{,}000 turns (Mem0 0.1.118, Graphiti 0.29.2,
+Hindsight 0.9.1; \texttt{gpt-4o-mini}). API dollars per
 ingested turn and query p95 at 100 $\to$ 3{,}000 turns; exact answers of 40 at
 3{,}000 turns. Hindsight's two read paths share one store and its write cost.}
 \label{tab:growth}
@@ -908,22 +916,23 @@ Hindsight \textsc{reflect} & (shared)           & 10.78 $\to$ 36.91 & 5 & 34 \\
 \end{tabular}
 \end{table}
 
-\textbf{Writes cost the same at any size.} Mem0's cost per ingested turn stays
+\textbf{Write cost per turn does not grow with this store.} Mem0's cost per ingested turn stays
 flat and Graphiti's falls --- we had predicted it would rise --- while
 Hindsight's rises by 20\%. Ingest p95 stays near 7--9\,s for the two
 extract-on-write systems and 3\,s for Hindsight.
 
 \textbf{Reading is where the designs part.} The retrieval layers of Mem0 and
-Graphiti answer within 0.4\,s at every size, Hindsight's within 2.3\,s, above the
+Graphiti have a query p95 of at most 0.4\,s at every size, Hindsight's 2.3\,s, above the
 2\,s we predicted. Hindsight's reader slows from 10.8 to 36.9\,s at p95 and its
-cost per question rises from \$0.0068 to \$0.0199 as the store grows. Under
+cost per question rises from \$0.0068 to \$0.0199 along this trajectory. Under
 concurrent load Hindsight's retrieval saturates: 0.47 questions per second for
 one client, 0.84 for sixteen, at a p95 of 19.9\,s. At 1{,}000 writes and ten
 reads per write, Mem0 costs \$0.57, Graphiti \$1.11 and Hindsight with its
-reader \$201, almost all of it reading. At 3{,}000 turns Neo4j holds about
-2.5\,GB resident, Hindsight's daemon 2.8\,GB and its PostgreSQL 1.5\,GB.
+reader \$201, almost all of it reading. At 3{,}000 turns the summed resident
+memory of Neo4j's processes is about 2.5\,GB, of Hindsight's daemon 2.8\,GB and
+of its PostgreSQL 1.5\,GB; summed RSS counts shared pages more than once.
 
-\textbf{The split sharpens with size.} Once people have revisions, the
+\textbf{The split widens along this trajectory.} Once people have revisions, the
 retaining retrieval layers fail even current questions exactly --- Graphiti and
 Hindsight answer 38 and 39 of 40 at 100 turns and none at 3{,}000 --- while Mem0
 keeps 38 current answers and no earlier ones. Hindsight's reader keeps
@@ -934,7 +943,9 @@ values at 3{,}000 turns.
 These are one history, one backbone, and provider latency that moved between
 runs days apart (Cognee's read path, measured separately, averages 6.91\,s
 against 0.65\,s to stage a turn); throughput was not measured for the
-in-process systems, and 3{,}000 turns is the largest store we ran.
+in-process systems; each p95 comes from one run of 40 questions per checkpoint
+(80 once people are revised), not from repeated runs; and 3{,}000 turns is the
+largest store we ran.
 
 \subsection{Does scale change the picture?}\label{sec:scale}
 
@@ -1037,7 +1048,8 @@ excluding them changes none of the comparisons below.
 \centering
 \caption{Benchmark conversations: 62 LongMemEval knowledge-update supersessions
 (43 on which two extractors agreed, 19 adjudicated), a fresh store for each.
-Exact answers out of 62 (60 for valid time). The control
+Exact answers out of 62; valid time (of 60) is agreement with a gold that
+assumes the earlier value held until the later session. The control
 is asked before the revision exists. ``Old kept'' counts valid-time answers
 that contain the superseded value at all, exact or not.}
 \label{tab:realdata}
@@ -1061,11 +1073,11 @@ Full conversation                   & 46 & 0  & 0  & 60 \\
 \end{tabular}
 \end{table}
 
-\textbf{The grid's two failure modes reappear.} At valid time the retaining
+\textbf{Against the persistence gold, the grid's two patterns reappear.} At valid time the retaining
 stores, read at the retrieval layer, return the superseded value in 41 to 60 of
 60 cases but answer only 0 to 7 exactly: the history is kept and not filtered,
 as on the grid. The consolidating stores answer 3 and 8, and the old value
-appears in fewer than half of their answers (21 and 23): mostly, it is gone. Read by an
+appears in fewer than half of their answers (21 and 23). Read by an
 LLM, Cognee's graph answers 40 of 60 valid-time questions (Wilson 95\%
 [0.54, 0.77]) and Hindsight's answers 17 ([0.19, 0.41]). On the grid the
 corresponding gap, 192 against 67 of 195, was one of answer form
@@ -1163,7 +1175,7 @@ statement per subject, and the newest statement wins whatever time it is about.
 corrected interval 1 time in 78, within the predicted 0.10: it returns the
 replaced value beside the correction.
 
-\textbf{Asked of the final store, only the readers know what it knew.} Forward replay asks each question at its own checkpoint, which every
+\textbf{Asked of the final store, the readers recover most of what it knew.} Forward replay asks each question at its own checkpoint, which every
 store answers by construction. We therefore also ingested each whole correction
 history into a fresh store of every configuration and asked the 45 questions
 about what was known of a corrected interval \emph{before} its correction:
@@ -1171,16 +1183,19 @@ about what was known of a corrected interval \emph{before} its correction:
 whose answer is the original value. Counting an answer correct only if it gives
 that value and not the correction, which was unknown at $T$, Mem0 and LangMem
 answer 0, the retrieval layers of Cognee, Hindsight and Graphiti 0, 4 and 9,
-and the readers of Hindsight and Cognee 25 and 41. The systems' own readers
-answer because the stored text keeps the date each turn was recorded, and they
-reason over it; no system has a transaction-time predicate (Table~\ref{tab:fragment},
+and the readers of Hindsight and Cognee 25 and 41. The stored text keeps the
+date each turn was recorded, which a reader can use; no system has a
+transaction-time predicate (Table~\ref{tab:fragment},
 C2). A plain reader over the top five does not do the same: the common reader of
 \S\ref{sec:reader} gives the original value, not the correction, for 8 of 45 from
 Cognee's chunks and from Hindsight's recall, 2 from Graphiti and none from Mem0
 or LangMem. The asserted-value judge cannot referee these questions: shown
 answers that state what was known then and also the later correction, it
 credits them 3 times in 40, taking the correction as the answer, so the counts
-above use the strict scorer and can only undercount. The grid's scorer, which we had
+above use the strict scorer. It is a token count, not a bound: with original
+value $x$ and correction $y$, ``$x$, not $y$'' fails it though right and
+``not $x$'' passes it though wrong; we have not read the 90 reader answers to
+separate the two. The grid's scorer, which we had
 preregistered, does not count the correction as wrong here, because it was
 unknown at $T$; under it the retrieval layers score 21 to 27 and the readers 34
 and 42, against the 5 and 15 we had predicted as the most any retrieval layer or
@@ -1264,52 +1279,40 @@ so the defect does not bias Mem0's aggregate in one known direction.
 
 \section{Negative Results and Corrections}\label{sec:negative}
 
-Results of the harness that concern only our reference implementation ---
-retrieval-channel ablations, confidence decay, fusion calibration, signed
-provenance --- are preserved with their negative outcomes in the artifact and not
-developed here. Within the thesis, \textbf{sixteen preregistered predictions
-failed}, each reported where it was tested: that Mem0's current release would
-still consolidate (\S\ref{sec:releases}); that LangMem on \texttt{gpt-4o} would
-keep 0.80 of current answers (\S\ref{sec:results}); that a common reader would
-recover 0.80 of valid time from the retaining stores, that LangMem read the same
-way would stay under its ceiling, and that a retaining store under a fixed BM25
-would answer almost none as returned (\S\ref{sec:reader}); that a plain reader,
-a judge, or a reader told the persistence contract would recover more on
-benchmark text (\S\ref{sec:realdata}); that Graphiti would close fewer than half
-of its intervals correctly (\S\ref{sec:fragment}); that every system would
-ignore prose deletion, and that LangMem would keep 34 of 36 under a checked
-caller (\S\ref{sec:deletion}); and that no store could say what it knew before
-a correction, that a plain reader over Cognee's dated chunks could, and that the
-judge could referee such answers (\S\ref{sec:corrections}); and that Graphiti's
-write cost would grow with its store and every retrieval layer stay under 2\,s
-(\S\ref{sec:cost}).
+Negative results about our reference implementation alone stay in the
+artifact. Within the thesis, \textbf{sixteen preregistered predictions
+failed}; each is reported where it was tested and listed with its outcome in the
+artifact's preregistrations. Those that change a reading: a common reader did
+not recover 0.80 of valid time from the retaining stores (\S\ref{sec:reader});
+Mem0's current release no longer consolidates (\S\ref{sec:releases}); two
+systems did not ignore every prose deletion (\S\ref{sec:deletion}); systems'
+own readers could say what was known before a correction, and the judge could
+not referee it (\S\ref{sec:corrections}); and Graphiti's write cost fell as its
+store grew (\S\ref{sec:cost}).
 
-\textbf{Two of our own claims did not survive this revision.} We had reported
+\textbf{Three of our own claims did not survive this revision.} We had reported
 that Hindsight's reader recovers valid time far less often than Cognee's; it
 recovers it equally and states more (\S\ref{sec:reader}). And our purge
 category asked for less than our request did: the generator's typed purge
 removes only the latest value, while the request asks for everything about the
 attribute, so 29 of its 45 questions expected a value the request had asked to
-delete; we now report it under both readings.
+delete; we now report it under both readings, and every overall rate, figure
+and share in the paper under the request's. And we had called the strict count
+of \S\ref{sec:corrections} a lower bound; a constructed negation passes it.
 
-Three measurements were \textbf{retracted rather than quietly fixed}, and a
-fourth claim was narrowed. Graphiti cell group ids repeated across runs while
-the Neo4j reset did not wipe the group, so later runs queried graphs still
-holding earlier episodes (36 per cell where one run produces 12); the affected
-filtered and extractor runs are marked invalid and were re-run under verified
-isolation. A distractor-pressure comparison set three instances against a
-ten-instance mean and reversed under matching, so it was withdrawn rather than
-reported. And a first purge scan reported Mem0 at zero residual because it read
-Graphiti's raw database but only Mem0's
-API-exposed memories; the corrected scan adds Mem0's vector store and history
-database with a per-run database path.
+Three measurements were \textbf{retracted rather than quietly fixed}; the
+artifact documents each. Graphiti runs whose reused group ids left earlier
+episodes in the graph were marked invalid and re-run under verified isolation;
+a distractor-pressure comparison that reversed under matching was withdrawn;
+and a purge scan that read only Mem0's API-exposed memories was replaced by one
+that also reads its vector store and history database.
 
 \textbf{Two harness defects were caught before citation.} A revoked API key
-emptied two Hindsight runs, which the harness scored as abstentions; it now stops
-on authentication errors. A misnamed setting made all Cognee runs share one
-metadata database; a \textsc{chunks} run with 40 unexplained worker errors, once
-reported at 0.207 overall, is replaced by an isolated replication at 0.194 as
-first specified (\S\ref{sec:reader}).
+emptied two Hindsight runs, scored as abstentions (the harness now stops on
+authentication errors), and a misnamed setting made all Cognee runs share one
+metadata database; a \textsc{chunks} run with 40 worker errors, once
+reported at 0.207 overall, is replaced by an isolated replication at 0.194
+(\S\ref{sec:reader}).
 
 \textbf{A first scale sweep was withdrawn.} Its relabelling ran out of natural
 names and silently fell back to synthetic tokens as the store grew --- 19\%, 55\%

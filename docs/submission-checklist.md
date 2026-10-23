@@ -121,10 +121,24 @@ South Korea — suanlee@semyung.ac.kr.
 - [ ] Not done here: independent human judging (E1); systems scale and cost
       (E5); new temporal expressions (E6); a non-OpenAI backbone.
 
-## Added 2026-10-24
+## Added 2026-10-23 (H14; first headed 2026-10-24 in error)
 
 - [x] E5 / H14: one store per system grown to 3,000 turns -- cost, latency,
       size, memory, and load for the HTTP-served system; two predictions
       failed (sixteen in all). Section VI-E rewritten around it.
 - [x] Re-cut the release: tag `icde-eab-v8` supersedes `icde-eab-v7`.
 
+## Added 2026-10-23 (re-review in `MODIFY.md`, Stage A)
+
+- [x] One evaluation contract everywhere: prose, budget figure and verifier use
+      request-scope purge (LangMem 0.583, Mem0 170/194 = 87.6%, Graphiti 0.194,
+      fairness reruns on their six shared cells); ledger E-109.
+- [x] Wording narrowed: native APIs "leave no purged value in our probes'
+      answers"; "unchecked search-and-delete caller"; H14 described as one
+      revision workload with API token cost and summed RSS; real-data valid time
+      is agreement with a persistence-assumed gold; the strict pre-correction
+      count is a token count, not a bound.
+- [x] Duplicate ledger E-102 renumbered (judge row is now E-108); H14 outcome
+      date corrected.
+- [ ] Stage B (structured validation of the 90 reader answers, fixed-probe size
+      experiment, function-aligned cost) not run.

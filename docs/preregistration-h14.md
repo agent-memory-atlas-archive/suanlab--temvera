@@ -51,7 +51,7 @@ Runs are sealed as `scale-growth-<system>-v1`: a first launch under
 earlier Mem0 cost run (E-071); the other two were stopped after a minute,
 before writing anything, and all three restarted under the new name.
 
-## Outcomes (recorded 2026-10-24; `scripts/analyze_scale_cost.py`)
+## Outcomes (recorded 2026-10-23 19:49 KST in commit `eebfd87`; first headed 2026-10-24 in error; `scripts/analyze_scale_cost.py`)
 
 | | Prediction | Observed | Verdict |
 |---|---|---|---|
