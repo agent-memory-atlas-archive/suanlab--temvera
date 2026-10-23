@@ -245,12 +245,18 @@ class Claim:
     near: str | None = None
     window: int = 200
     after: str | None = None
+    metric: str | None = None
     """Distinctive phrase the number must appear within 200 characters of.
 
     Document-wide presence is not enough. The drift this script exists to catch
     left every number still present somewhere -- the tables were right and the
     prose beside them was wrong -- so a prose claim anchors to its own sentence
     and a table claim to its own row label.
+
+    ``metric`` names one quantity under one scoring contract. Every claim that
+    shares it must print the same value: a figure shown in a table, a caption
+    and prose cannot be on two contracts at once (the re-review found exactly
+    that, with request-scope rates in a table and legacy ones beside it).
     """
 
 
@@ -338,7 +344,8 @@ def _grid_claims() -> list[Claim]:
         purge = f"{purge_rs(run):.3f}"
         out += [
             Claim("Tab.2/3", f"{run} overall, request scope", overall,
-                  lambda r=run: overall_rs(r), near=anchor, window=40, after=T),
+                  lambda r=run: overall_rs(r), near=anchor, window=40, after=T,
+                  metric=f"overall_rs|{run}|k=None"),
             Claim("Tab.2/3", f"{run} valid_time (micro)", valid,
                   lambda r=run: micro(r, "valid_time", cells()), near=anchor, window=60, after=T),
             Claim("Tab.2/3", f"{run} purge, request scope", purge,
@@ -351,9 +358,11 @@ def _grid_claims() -> list[Claim]:
             Claim("Tab.2", f"{run} purge row, request scope", f"{purge_rs(run):.3f}",
                   lambda r=run: purge_rs(r), near="\\texttt{purge}               &", window=45, after=E),
             Claim("Tab.2", f"{run} overall row, request scope", f"{overall_rs(run):.3f}",
-                  lambda r=run: overall_rs(r), near="Overall exact                &", window=45, after=E),
+                  lambda r=run: overall_rs(r), near="Overall exact                &", window=45, after=E,
+                  metric=f"overall_rs|{run}|k=None"),
             Claim("Tab.2", f"{run} exact at k=1, request scope", f"{overall_rs(run, k=1):.3f}",
-                  lambda r=run: overall_rs(r, k=1), near="Exact at $k{=}1$             &", window=45, after=E),
+                  lambda r=run: overall_rs(r, k=1), near="Exact at $k{=}1$             &", window=45, after=E,
+                  metric=f"overall_rs|{run}|k=1"),
             Claim("Tab.2", f"{run} purge as first specified", f"{micro(run, 'purge', cells()):.3f}",
                   lambda r=run: micro(r, "purge", cells()), near="purge\nreads", window=40),
             Claim("Tab.2", f"{run} overall as first specified", f"{micro(run, cells=cells()):.3f}",
@@ -398,13 +407,13 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "Mem0 non-exact cases (request scope)", "194",
           lambda: float(lost_history_counts("external-mem0-grid-v2")[0]), 0.5, near="87.6\\% (170/"),
     Claim("5.2", "LangMem overall (request scope)", "0.583",
-          lambda: overall_rs("external-langmem-v1"), near="every axis --- exact $"),
+          lambda: overall_rs("external-langmem-v1"), metric="overall_rs|external-langmem-v1|k=None", near="every axis --- exact $"),
     Claim("5.2", "LangMem overall at k=1 (request scope)", "0.601",
-          lambda: overall_rs("external-langmem-v1", k=1), near="budget-stability ($"),
+          lambda: overall_rs("external-langmem-v1", k=1), metric="overall_rs|external-langmem-v1|k=1", near="budget-stability ($"),
     Claim("5.2", "LangMem overall at k=5 (request scope)", "0.583",
-          lambda: overall_rs("external-langmem-v1", k=5), near="budget-stability ($0.601 \\to\n"),
+          lambda: overall_rs("external-langmem-v1", k=5), metric="overall_rs|external-langmem-v1|k=None", near="budget-stability ($0.601 \\to\n"),
     Claim("5.2", "Graphiti overall exact (request scope)", "0.194",
-          lambda: overall_rs("external-graphiti-hybrid-v1"), near="yet scores $"),
+          lambda: overall_rs("external-graphiti-hybrid-v1"), metric="overall_rs|external-graphiti-hybrid-v1|k=None", near="yet scores $"),
     Claim("5.2", "fairness: Graphiti hybrid hits on shared cells", "29",
           lambda: float(_fair("external-graphiti-hybrid-v1")["request_scope"]), 0.5,
           near="retrieval answers"),
@@ -421,9 +430,9 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "fairness: valid-time questions on shared cells", "44",
           lambda: float(_fair_vt("external-graphiti-grid-v1")[1]), 0.5, near="cosine-only, with 0 of"),
     Claim("5.2", "fairness: Mem0 isolated DB (request scope)", "0.599",
-          lambda: overall_rs("external-mem0-grid-v2"), near="isolated database scores $"),
+          lambda: overall_rs("external-mem0-grid-v2"), metric="overall_rs|external-mem0-grid-v2|k=None", near="isolated database scores $"),
     Claim("5.2", "fairness: Mem0 shared DB (request scope)", "0.616",
-          lambda: overall_rs("external-mem0-grid-v1"), near="isolated database scores $0.599$ against\n$"),
+          lambda: overall_rs("external-mem0-grid-v1"), metric="overall_rs|external-mem0-grid-v1|k=None", near="isolated database scores $0.599$ against\n$"),
     Claim("5.2", "Graphiti evidence recall (macro)", "0.937",
           lambda: macro_metric("external-graphiti-hybrid-v1", "evidence_recall"),
           near="It reaches"),
@@ -499,9 +508,9 @@ CLAIMS: list[Claim] = [
     Claim("5.2", "largest per-category change, gpt-4o vs mini (cases)", "2",
           lambda: _backbone_max_shift(), 0.5, near="otherwise unchanged, moves no category"),
     Claim("5.2", "Mem0 overall, mini (request scope)", "0.599",
-          lambda: overall_rs("external-mem0-grid-v2"), near="Mem0 goes from"),
+          lambda: overall_rs("external-mem0-grid-v2"), metric="overall_rs|external-mem0-grid-v2|k=None", near="Mem0 goes from"),
     Claim("5.2", "Mem0 overall, gpt-4o (request scope)", "0.603",
-          lambda: overall_rs("external-mem0-grid-gpt4o-v1"), near="Mem0 goes from $0.599$ to"),
+          lambda: overall_rs("external-mem0-grid-gpt4o-v1"), metric="overall_rs|external-mem0-grid-gpt4o-v1|k=None", near="Mem0 goes from $0.599$ to"),
     Claim("5.2", "Mem0 valid_time, mini (micro)", "0.364",
           lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
           near="overall and from"),
@@ -509,9 +518,9 @@ CLAIMS: list[Claim] = [
           lambda: micro("external-mem0-grid-gpt4o-v1", "valid_time", cells()),
           near="overall and from"),
     Claim("5.2", "Graphiti overall, mini (request scope)", "0.194",
-          lambda: overall_rs("external-graphiti-hybrid-v1"), near="Graphiti from"),
+          lambda: overall_rs("external-graphiti-hybrid-v1"), metric="overall_rs|external-graphiti-hybrid-v1|k=None", near="Graphiti from"),
     Claim("5.2", "Graphiti overall, gpt-4o (request scope)", "0.192",
-          lambda: overall_rs("external-graphiti-hybrid-gpt4o-v1"), near="Graphiti from $0.194$ to"),
+          lambda: overall_rs("external-graphiti-hybrid-gpt4o-v1"), metric="overall_rs|external-graphiti-hybrid-gpt4o-v1|k=None", near="Graphiti from $0.194$ to"),
     Claim("5.2", "Graphiti valid_time hits, gpt-4o", "0",
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[0],
           0.5, near="on valid time it\nanswers"),
@@ -879,7 +888,7 @@ def _real_claims() -> list:
               lambda: max(lme(s, "current") for s in _LME),
               near="No configuration answers more than"),
         Claim("intro", "real-data supersessions", "62", lambda: lme_pairs("used"),
-              near="in direction on"),
+              near="LongMemEval's"),
         Claim("5.real", "pairs, closing caveat", "62", lambda: lme_pairs("used"),
               near="These are", after="No configuration answers more than"),
         Claim("Lim", "pairs in the real-data check", "62", lambda: lme_pairs("used"),
@@ -1601,11 +1610,11 @@ def _h9_real_claims() -> list:
     A = "A plain reader does not recover it here"
     return [
         Claim("intro", "retaining stores read: lowest", "0.73", lambda: _read_range()[0],
-              0.005, near="return dates answer"),
+              0.005, near="dates answer"),
         Claim("intro", "Graphiti common reader", "0.11", lambda: h9_rate("h9-reader-graphiti-v1"), 0.005,
               near="undated facts"),
         Claim("intro", "retaining stores read: highest", "1.00", lambda: _read_range()[1],
-              0.005, near="return dates answer 0.73 to"),
+              0.005, near="dates answer 0.73 to"),
         Claim("5.real", "judged Cognee reader, LME", "29", lambda: lme_judged("Cognee"), 0.5,
               near="does not close it ("),
         Claim("5.real", "judged Hindsight reader, LME", "15", lambda: lme_judged("Hindsight"), 0.5,
@@ -1905,12 +1914,12 @@ def _deletion_claims() -> list:
 
 
 def _contribution_census_claims() -> list:
-    A = "Evidence for where temporal answers fail"
+    A = "A controlled account of where temporal answers fail"
     return [
         Claim("intro", "served memories keep, Mem0", "0", lambda: census("mem0", "kept"), 0.5,
-              near="memories keep", after=A),
+              near="memories\nkeep", after=A),
         Claim("intro", "served memories keep, LangMem", "7", lambda: census("langmem", "kept"), 0.5,
-              near="memories keep 0 and", after=A),
+              near="memories\nkeep 0 and", after=A),
         Claim("intro", "superseded values", "75", lambda: census("mem0", "superseded"), 0.5,
               near="0 and 7 of", after=A),
     ]
@@ -2149,7 +2158,7 @@ def _h13_claims() -> list:
               lambda: sum(verified(s, "leaked") for s in _DEL_SYSTEMS), 0.5,
               near="removes every purged value as well", after=W),
         Claim("5.3", "LangMem kept under oracle", "30", lambda: deletion("langmem", "api-oracle", "kept_present"),
-              0.5, near="keeps only 30", after=W),
+              0.5, near="33 in LangMem (", after=W),
         Claim("5.corr", "common reader final store, Cognee chunks", "8", lambda: final_store_read("cognee-chunks"),
               0.5, near="the correction, for", after=F),
         Claim("5.corr", "common reader final store, Hindsight recall", "8", lambda: final_store_read("hindsight-recall"),
@@ -2316,6 +2325,15 @@ def _number(printed: str) -> float:
     return float(_WORDS.get(printed, printed.replace("{,}", "")))
 
 
+def inconsistent(claims: list[Claim]) -> list[str]:
+    """Metrics printed as more than one value anywhere in the paper."""
+    by_metric: dict[str, set[float]] = {}
+    for claim in claims:
+        if claim.metric is not None:
+            by_metric.setdefault(claim.metric, set()).add(_number(claim.printed))
+    return [f"  {m}: printed as {sorted(v)}" for m, v in sorted(by_metric.items()) if len(v) > 1]
+
+
 def main() -> int:
     tex = PAPER.read_text(encoding="utf-8")
     if "--list" in sys.argv:
@@ -2341,14 +2359,30 @@ def main() -> int:
             where = "near its anchor" if claim.near else "in main.tex"
             absent.append(f"  {claim.where:<7} {claim.label:<44} {claim.printed} not {where}")
 
+    split = inconsistent(CLAIMS)
+
+    if "--manifest" in sys.argv:
+        out = Path(sys.argv[sys.argv.index("--manifest") + 1])
+        if out.exists():
+            raise SystemExit(f"refusing to overwrite: {out}")
+        out.write_text(json.dumps([{
+            "where": c.where, "label": c.label, "printed": c.printed, "value": c.compute(),
+            "tolerance": c.tol, "metric": c.metric, "anchor": c.near, "after": c.after,
+            "aggregation": ("case-weighted" if "micro" in c.label or "cases" in c.label
+                            else "cell-averaged" if "macro" in c.label else "as labelled"),
+        } for c in CLAIMS], indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
     print(f"checked {len(CLAIMS)} claims against sealed runs")
+    if split:
+        print("\nONE METRIC PRINTED AS DIFFERENT VALUES:")
+        print("\n".join(split))
     if drift:
         print("\nDRIFTED FROM THE RUNS:")
         print("\n".join(drift))
     if absent:
         print("\nNO LONGER PRINTED IN THE PAPER:")
         print("\n".join(absent))
-    if drift or absent:
+    if drift or absent or split:
         return 1
     print("every claim matches its run and still appears in the paper")
     return 0

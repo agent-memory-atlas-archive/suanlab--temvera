@@ -24,3 +24,14 @@ def test_every_paper_claim_matches_its_sealed_run() -> None:
     )
     assert result.returncode == 0, result.stdout + result.stderr
     assert "every claim matches" in result.stdout
+
+
+def test_one_metric_cannot_be_printed_as_two_values() -> None:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import verify_paper_claims as v
+
+    same = [v.Claim("t", "a", "0.583", lambda: 0.583, metric="m"),
+            v.Claim("p", "b", "0.583", lambda: 0.583, metric="m")]
+    split = same[:1] + [v.Claim("p", "b", "0.576", lambda: 0.576, metric="m")]
+    assert v.inconsistent(same) == []
+    assert v.inconsistent(split) and "m" in v.inconsistent(split)[0]

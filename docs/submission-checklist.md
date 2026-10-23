@@ -140,5 +140,16 @@ South Korea — suanlee@semyung.ac.kr.
       count is a token count, not a bound.
 - [x] Duplicate ledger E-102 renumbered (judge row is now E-108); H14 outcome
       date corrected.
-- [ ] Stage B (structured validation of the 90 reader answers, fixed-probe size
-      experiment, function-aligned cost) not run.
+- [x] Stage B, rows 1-2 (H15): the 90 reader answers read by two validated AI
+      annotators (consensus 42 and 29 of 45); the real-data valid-time gold
+      identifiable for none of 60 pairs. In the paper; ledger E-110, E-111.
+- [ ] Stage B, rows 3-4 (H16, fixed-probe size and revision load,
+      function-aligned cost): preregistered and harness built; halted on
+      2026-10-24 by the OpenAI organization spend limit, nothing sealed. Restart
+      from scratch once the limit is raised (about $60).
+- [x] M10: contributions restructured into the contract, the controlled
+      policy account and version-bounded findings; intro list removed.
+- [x] M03: claims that print one quantity share a `metric` id and must print
+      one value; `verify_paper_claims.py --manifest` exports every claim.
+- [ ] Stage C (mixed-unit deletion M07, native-context cross-reader M08): not
+      run; the paper states that units mixing people or attributes are untested.

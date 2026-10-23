@@ -107,37 +107,38 @@ deletion removes can each succeed while another fails. We measure them
 separately.
 
 \paragraph{Contributions.}
-(i) \emph{An evaluation contract} for agent memory (\S\ref{sec:setup}): one seeded
-history replayed into every system and scored against an oracle; questions on
-both time axes, asked at forward-replay checkpoints and of the final store;
-three readings of every answer --- as returned, by one common reader, and by the
-value it asserts, with the judge checked on answers of known verdict; and a
-deletion protocol of prose requests, an oracle, an unchecked and a checked API
-caller, and a store inventory. It reversed three of our own readings: a reader
-gap that was answer wording, a purge category that asked less than its request,
-and ceiling exceptions that were unapplied updates.
-(ii) \emph{Evidence for where temporal answers fail}. Overwriting stores answer
-historical questions only up to a ceiling the history fixes, and their served
-memories keep 0 and 7 of 75 superseded values (\S\ref{sec:bounds}). Retaining
-stores keep history but their retrieval layers do not filter it: the two that
-return dates answer 0.73 to 1.00 when read, Graphiti's undated facts 0.11, and
-changing only the retention policy under a fixed retriever and reader
-reproduces the split (\S\ref{sec:reader}). Once a correction is stored, the
-systems' own readers recover what was known before it far more often than
-retrieval or a common reader (\S\ref{sec:corrections}).
-Mem0's current release changed design (\S\ref{sec:releases}), so the
-classification belongs to a version's observed behaviour, not to a product. The
-split holds on a second backbone, in replicates, and in direction on 62
-supersessions from LongMemEval, whose valid-time gold we show rests on a
-persistence assumption (\S\ref{sec:realdata}).
-(iii) \emph{Operational findings on corrections and deletion}: a consolidating
-store applies a correction about the past to the present
-(\S\ref{sec:corrections}); prose deletion is ignored by three systems, honoured
-by Mem0 for one wording of three, and by LangMem only with deletes enabled, at
-the cost of most unrelated memories; native APIs leave no purged value in our
-probes' answers but leave copies off the query path in three systems; and an
-unchecked search-and-delete caller destroys unrelated data that a caller
-checking the name keeps (\S\ref{sec:deletion}).
+(i) \emph{An evaluation contract} for agent memory (\S\ref{sec:setup}) that
+separates what a store retains, what its retrieval selects for the asked time,
+what an answer asserts and what a deletion leaves: one seeded history replayed
+into every system and scored against an oracle; questions on both time axes,
+asked at forward-replay checkpoints and of the final store; three readings of
+every answer --- as returned, by one common reader, and by the value it
+asserts, with the judge and annotators checked on answers of known verdict; and a deletion
+protocol of prose requests, an oracle, an unchecked and a checked API caller,
+and a store inventory. It reversed three of our own readings: a reader gap that
+was answer wording, a purge category that asked less than its request, and
+ceiling exceptions that were unapplied updates.
+(ii) \emph{A controlled account of where temporal answers fail}. Changing only
+the retention policy under a fixed retriever and reader reproduces the split we
+see in the products (\S\ref{sec:reader}): overwriting stores answer historical
+questions only up to a ceiling the history fixes, and their served memories
+keep 0 and 7 of 75 superseded values (\S\ref{sec:bounds}); retaining stores
+keep history but their retrieval layers do not filter it: the two that return
+dates answer 0.73 to 1.00 when read, Graphiti's undated facts 0.11. The split
+holds on a second backbone and in replicates; Mem0's current release changed
+design (\S\ref{sec:releases}), so a classification belongs to a version's
+observed behaviour, not to a product.
+(iii) \emph{Version-bounded findings} on the measured releases: a consolidating
+store applies a correction about the past to the present, and the systems' own
+readers recover what was known before it far more often than retrieval or a
+common reader (\S\ref{sec:corrections}); prose deletion is ignored by three
+systems, native APIs leave no purged value in our probes' answers but leave
+copies off the query path in three, and an unchecked search-and-delete caller
+destroys unrelated data that a caller checking the name keeps
+(\S\ref{sec:deletion}); LongMemEval's 62 supersessions show the same direction,
+but their valid-time gold is identifiable from the conversations for no pair
+(\S\ref{sec:realdata}); and reading, not writing, dominates the cost of the
+one store with its own reader (\S\ref{sec:cost}).
 Every number recomputes offline from sealed per-case transcripts but two
 run-log counts; code, data, sealed runs and scripts are public at
 \url{https://github.com/suanlab/temvera}.
@@ -207,7 +208,8 @@ ForgetEval in failure categories.
 \caption{What closely related studies evaluate, read from each work's full text
 and, where released, its code (October 2026). \checkmark: evaluated; ---: not.
 ``Knew then'' asks what the system had recorded by an earlier time
-(transaction time) as distinct from valid time.}
+(transaction time) as distinct from valid time; ``deletion residue'' reads a
+deployed system's stores after a deletion, beyond what its answers expose.}
 \label{tab:related}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -508,8 +510,10 @@ evidence for itself. Rates are case-weighted; Wilson 95\% intervals are shown wh
 the denominator is small. \texttt{purge} and the overall rates use the
 request's own scope, under which nothing of the purged attribute may be
 answered (\S\ref{sec:deletion}); as our generator first specified it, purge
-reads 0.044, 0.133, 0.022 and overall 0.603, 0.576, 0.196. The oracle defines
-ground truth and is $1.0$ by construction (\S\ref{sec:setup}).}
+reads 0.044, 0.133, 0.022 and overall 0.603, 0.576, 0.196. Evidence recall (expected
+values an answer contains; for a question expecting none, naming no superseded
+value) and stale-use (named values that are superseded) are cell-averaged as
+sealed, purge as first specified. The oracle is $1.0$ by construction.}
 \label{tab:external}
 \begin{tabular}{lccc}
 \toprule
@@ -707,9 +711,10 @@ but a search for one person returns other people's memories, and it deletes them
 too. Of the 36 never-purged people, Mem0 still answers 8, Graphiti 18, LangMem
 19, Cognee 33 and Hindsight 36. A caller that deletes only the returned units
 naming the person removes every purged value as well and keeps all 36 in Mem0,
-Graphiti, Cognee and Hindsight, and 33 in LangMem, which keeps only 30 even
-under the oracle caller that deletes nothing unrelated. The over-deletion is the caller's, not the API's granularity: in
-these histories one unit holds one person's statement.
+Graphiti, Cognee and Hindsight, and 33 in LangMem (30 under the oracle caller;
+these are separately ingested stores, so the gap is not the caller's). The over-deletion is the caller's, not the API's granularity, but only
+because in these histories one unit holds one person's statement; units that
+mix people or attributes are untested.
 
 \textbf{Deletion and past-time questions need one semantics.} After a purge,
 what should ``What was $X$'s home city in January?'' return? Erasure can be a

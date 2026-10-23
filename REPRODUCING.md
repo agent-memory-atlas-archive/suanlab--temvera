@@ -67,6 +67,11 @@ every number still present somewhere, with correct tables and wrong prose beside
 them. Each claim also declares whether it is case-weighted or cell-averaged,
 since the paper uses both and confusing them makes correct numbers look wrong.
 `tests/test_paper_claims.py` runs it, so `pytest` fails on drift.
+Claims that print one quantity under one scoring contract share a `metric`
+id, and the verifier fails if such a metric is printed as two different values
+anywhere in the paper. `python scripts/verify_paper_claims.py --manifest
+<file>` writes every claim -- where it is printed, its printed and recomputed
+value, its metric id, anchor and aggregation -- as JSON.
 
 `python scripts/extract_review_tables.py <dir>` writes, with no model call,
 review tables of the 90 reader answers about what was known before a correction
