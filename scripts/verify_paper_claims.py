@@ -2024,6 +2024,46 @@ def minimal_pairs(kind: str | None = None, template: str | None = None, key: str
                      and (template is None or k.endswith(":" + template))))
 
 
+def _h15():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_h15
+
+    return analyze_h15
+
+
+def _h15_right(run: str) -> float:
+    return float(sum(r for r, _ in _h15().template_accuracy(run).values()))
+
+
+def _h15_consensus(source: str) -> float:
+    return float(_h15().consensus(source)["both"])
+
+
+def _h15_claims() -> list:
+    C = "Asked of the final store, the readers recover most of what it knew"
+    native = ("final-store-corrections-cognee-graph-v1", "final-store-corrections-hindsight-reflect-v1")
+    return [
+        Claim("5.corr", "gpt-4o right on constructed answers", "450",
+              lambda: _h15_right("h15-annotate-gpt4o-v1"), 0.5, near="They are right on", after=C),
+        Claim("5.corr", "gpt-5.4 right on constructed answers", "448",
+              lambda: _h15_right("h15-annotate-gpt54-v1"), 0.5, near="right on 450 and", after=C),
+        Claim("5.corr", "constructed answers", "450",
+              lambda: float(sum(n for _, n in _h15().template_accuracy("h15-annotate-gpt4o-v1").values())),
+              0.5, near="448\nof", after=C),
+        Claim("5.corr", "annotator agreement on reader answers", "89",
+              lambda: float(_h15().agreement("native")[0]), 0.5, near="agree on", after=C),
+        Claim("5.corr", "reader answers annotated", "90",
+              lambda: float(_h15().agreement("native")[1]), 0.5, near="agree on 89 of the", after=C),
+        Claim("5.corr", "consensus credits Cognee reader", "42",
+              lambda: _h15_consensus(native[0]), 0.5, near="Cognee's reader", after=C),
+        Claim("5.corr", "consensus credits Hindsight reader", "29",
+              lambda: _h15_consensus(native[1]), 0.5, near="times and Hindsight's", after=C),
+        Claim("5.corr", "strict passes rejected by an annotator (none)", "no",
+              lambda: float(sum(_h15().consensus(s)["strict_not_credited_by_either"] for s in native)),
+              0.5, near="they reject", after=C),
+    ]
+
+
 def timing(model: str, answer: str) -> float:
     return float(res("lme-timing-labels-v1")["summary"]["by_model"][model][answer])
 
@@ -2074,17 +2114,15 @@ def _h13_claims() -> list:
               0.5, near="construction (", after=J),
         Claim("5.4", "questions per template", "40",
               lambda: minimal_pairs("valid_time", "value_only", "n"), 0.5, near="templates over", after=J),
-        Claim("5.real", "pairs with timing stated (gpt-4o)", "12",
-              lambda: timing("gpt-4o", "HELD") + timing("gpt-4o", "CHANGED"), 0.5, near="say so for only", after=G),
-        Claim("5.real", "valid-time pairs classified", "60",
-              lambda: float(res("lme-timing-labels-v1")["summary"]["pairs"]), 0.5, near="only 12 of the", after=G),
-        Claim("5.real", "timing consistent with gold", "5", lambda: timing("gpt-4o", "HELD"), 0.5,
-              near="the 60 (", after=G),
-        Claim("5.real", "timing inconsistent with gold", "7", lambda: timing("gpt-4o", "CHANGED"), 0.5,
-              near="consistent with the gold,", after=G),
-        Claim("5.real", "classifier agreement", "7",
-              lambda: float(res("lme-timing-labels-v1")["summary"]["agree"]), 0.5,
-              near="agrees with it on", after=G),
+        Claim("5.real", "timing pairs identified by both quote-checked labellers", "none",
+              lambda: float(res("h15-lme-timing-quotes-v1")["summary"]["identified"]), 0.5,
+              near="agree on a date for", after=G),
+        Claim("5.real", "timing pairs relabelled", "60",
+              lambda: float(res("h15-lme-timing-quotes-v1")["summary"]["pairs"]), 0.5,
+              near="none of the", after=G),
+        Claim("5.real", "gpt-5.4 UNKNOWN labels", "60",
+              lambda: float(res("h15-lme-timing-quotes-v1")["summary"]["by_model"]["gpt-5.4-2026-03-05"]["UNKNOWN"]),
+              0.5, near="for all", after=G),
         Claim("5.real", "persistence contract, Cognee chunks LME", "7", lambda: persist_lme("Cognee chunks"), 0.5,
               near="changes little ---", after=P),
         Claim("5.real", "persistence contract, still unknown", "31", persist_unknown_agreement, 0.5,
@@ -2265,7 +2303,7 @@ def _growth_claims() -> list:
     return out
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + _h15_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.

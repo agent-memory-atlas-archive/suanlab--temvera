@@ -28,9 +28,9 @@ git clone https://github.com/suanlab/temvera && cd temvera
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -e '.[dev]'
 
-temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 174 sealed runs
+temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 177 sealed runs
 python scripts/recompute_paper_numbers.py --check    # rebuild every table
-python scripts/verify_paper_claims.py                # 584 printed figures vs. their runs
+python scripts/verify_paper_claims.py                # 590 printed figures vs. their runs
 pytest && ruff check .
 ```
 

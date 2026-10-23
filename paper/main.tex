@@ -104,22 +104,7 @@ Given that, the open question is not \emph{whether to model time} but
 agents actually perform}, and at which layer: what a store retains, what its
 retrieval selects for the asked time, what an answer asserts and what a
 deletion removes can each succeed while another fails. We measure them
-separately:
-
-\begin{enumerate}
-  \item a deterministic lifecycle generator whose ground truth is computed by an
-        oracle and checked by a second implementation of it;
-  \item a natural-language rendering of those histories so opaque systems can be
-        scored against the same truth;
-  \item forward-checkpoint transaction-time replay, so an \texttt{as-of} query is
-        answered from a store that has seen only what was known by then;
-  \item three readings of every answer --- as returned, by one common reader,
-        and by the value it asserts --- so that what a store holds is separated
-        from how its answers are worded;
-  \item a deletion protocol that compares prose requests with each system's
-        deletion API, called both with the right handles and as a caller
-        without them would, and scans every store for what survives.
-\end{enumerate}
+separately.
 
 \paragraph{Contributions.}
 (i) \emph{An evaluation contract} for agent memory (\S\ref{sec:setup}): one seeded
@@ -1032,11 +1017,12 @@ later one, ``\ldots now?'' and, for a calendar day between the two sessions,
 whose sessions share a day. Its gold answer is the earlier value, which assumes
 that value held until the later session; LongMemEval does not say when a change
 took effect, so a revision made before it was mentioned would make that gold
-wrong. A model asked to read each pair for when the change took effect
-(\texttt{gpt-4o}) finds that the conversations say so for only 12 of the 60 (5
-consistent with the gold, 7 not), and a second model agrees with it on 7 of 60,
-so the real-data valid-time results rest on the persistence assumption the gold
-makes and we read them as such. Scoring is the grid's: an answer is exact if it
+wrong. Two models of different generations, asked when each change took
+effect and made to quote the sentences they rely on, which we check against the
+sessions, agree on a date for none of the 60 pairs (one answers
+\textsc{unknown} for all 60), so the gold is not identifiable from the
+conversations and the real-data valid-time results measure agreement with the
+persistence assumption, nothing more. Scoring is the grid's: an answer is exact if it
 states the expected value on token boundaries and does not state the
 superseded one. The first question is asked before the revision exists, so it
 has nothing to filter and serves as a control; the full conversation itself
@@ -1194,8 +1180,14 @@ answers that state what was known then and also the later correction, it
 credits them 3 times in 40, taking the correction as the answer, so the counts
 above use the strict scorer. It is a token count, not a bound: with original
 value $x$ and correction $y$, ``$x$, not $y$'' fails it though right and
-``not $x$'' passes it though wrong; we have not read the 90 reader answers to
-separate the two. The grid's scorer, which we had
+``not $x$'' passes it though wrong. Two annotators of different model
+generations (\texttt{gpt-4o}, \texttt{gpt-5.4}), blind to system and score,
+therefore reported the value each answer asserts. They are right on 450 and 448
+of 450 answers whose verdict we fixed by construction, both negations included,
+agree on 89 of the 90 reader answers, and by consensus credit Cognee's reader 42
+times and Hindsight's 29; they reject no answer the strict count credits and
+leave the common reader's counts unchanged. They are models checked on
+constructed answers, not people. The grid's scorer, which we had
 preregistered, does not count the correction as wrong here, because it was
 unknown at $T$; under it the retrieval layers score 21 to 27 and the readers 34
 and 42, against the 5 and 15 we had predicted as the most any retrieval layer or
@@ -1332,10 +1324,11 @@ with canonical config, environment, source-tree hash and per-file checksums, and
 verified by an aggregate checker. The frozen synthetic
 fixture is byte-reproducible and split-disjoint. Tests and lint pass on CPython
 3.11. The LongMemEval corpus itself is downloaded rather than redistributed.
-Two kinds of sealed output do carry its text, which the MIT licence permits and
+Three kinds of sealed output do carry its text, which the MIT licence permits and
 which cannot be removed without breaking the runs' checksums: the
-\runeseven{} run's history database of extracted memories, and the benchmark
-runs' transcripts, which record retrieved passages verbatim. The labels we
+\runeseven{} run's history database of extracted memories, the benchmark
+runs' transcripts, which record retrieved passages verbatim, and the timing
+labels' quoted sentences. The labels we
 derived are released; the 7 excluded pairs are listed by question ID, with
 their reasons.
 
@@ -1354,11 +1347,11 @@ small histories, one backbone and our own readings of each store; it bounds
 what survives in what we read, not everywhere. Cost, latency, size and memory were measured
 for three systems on one history up to 3{,}000 turns, and load only for the one
 served over HTTP. No person
-judged the answers; the asserted-value judge is checked against the exact
+judged the answers; the annotators of \S\ref{sec:corrections} are models, and the asserted-value judge is checked against the exact
 scorer, a second judge and answers built to a known verdict, and it is not valid
 for answers about what was known before a correction. The real-data valid-time
-gold assumes values persist between sessions, which the conversations rarely
-state. The literature review is single-reviewer. Purge claims cover declared
+gold assumes values persist between sessions, which the conversations confirm
+for no pair. The literature review is single-reviewer. Purge claims cover declared
 stores and tested failure points, not backups, OS caches or provider-side
 copies.
 
