@@ -103,3 +103,13 @@ Seeds 2 and 3 had passed construction and continue unchanged: the store is
 touched only there, and their questions had not yet been asked. The harness now
 gives each Mem0 process its own `MEM0_DIR`, and seed 1 of Mem0 is re-run from
 scratch with it. No output of the failed seed-1 attempt existed or was kept.
+
+## Addendum (2026-10-24 02:52 KST, before any result was read)
+
+About an hour into the runs the OpenAI organization reached its configured
+spend limit (`organization_spend_limit_exceeded`). The harness stopped all three
+Hindsight runs on the error, as designed, and the Mem0 processes, which were
+also receiving it, were stopped by hand. Nothing was sealed and no output of
+this attempt will be used, including stores that had finished before the
+error: once the limit is raised, all six runs restart from scratch, unchanged,
+on freshly created Hindsight daemons and databases.
