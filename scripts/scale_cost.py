@@ -50,6 +50,10 @@ WORKLOAD = {"seed": 7, "entities": 200, "attributes": 3, "revisions": 3,
 CHECKPOINTS = (100, 300, 1000, 3000)
 PROBES = 40  # per kind and checkpoint
 CONCURRENCY = (1, 4, 16)
+if os.environ.get("TEMVERA_SCALE_SMOKE"):
+    # Plumbing check on a history the study does not use; never sealed into experiments/.
+    WORKLOAD = {**WORKLOAD, "seed": 99, "entities": 8}
+    CHECKPOINTS, PROBES, CONCURRENCY = (20, 40), 3, (1, 2)
 
 
 def _percentiles(values: list[float]) -> dict:
@@ -290,7 +294,7 @@ def main(system_name: str, output: str) -> int:
     import tempfile
 
     events, turns = history()
-    assert len(turns) == CHECKPOINTS[-1], len(turns)
+    assert len(turns) >= CHECKPOINTS[-1], len(turns)
     rng = random.Random(29)
     checkpoints, transcript = [], []
     meter = Meter()
