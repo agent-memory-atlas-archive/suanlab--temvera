@@ -1,0 +1,38 @@
+# Preregistration: what a store costs and how it answers as it grows (H14)
+
+Committed and pushed before `scripts/scale_cost.py` has ingested anything.
+Results are reported whatever they are. Responds to E5 of `IDEA_ICDE.md`: the
+paper's scale sweep measured accuracy only, and cost only for Mem0.
+
+## Design
+
+One seeded history (200 people x 3 attributes x 3 revisions = 3,000 turns,
+natural names and distinct values, no synthetic fallbacks) is ingested, in
+order, into one store per system, with measurements after 100, 300, 1,000 and
+3,000 turns: ingest latency (p50/p95/p99) and throughput per segment; tokens and
+dollars per segment (Mem0 and Graphiti by metering the OpenAI client in-process,
+Hindsight from its per-bank LLM-request log); store size read through the store;
+resident memory of the database or daemon processes; and query latency and
+exact accuracy on 40 current-value and, where people have been revised, 40
+earlier-valid-time probe questions built from the oracle over the ingested
+prefix. The first 600 turns are everyone's initial values, so valid-time probes
+exist only at 1,000 and 3,000 turns. Systems: Mem0 0.1.118, Graphiti 0.29.2
+(Neo4j), Hindsight 0.9.1 read two ways on one store (recall and its reflect
+reader); all on `gpt-4o-mini`. At 3,000 turns Hindsight, which is served over
+HTTP, is also queried by 1, 4 and 16 concurrent clients. Mem0 and Graphiti run
+in-process and are not load-tested.
+
+## Predictions
+
+- **H14a -- Mem0's write cost does not grow with the store:** its ingest dollars
+  per turn in the 1,000-3,000 segment are within 1.5x of the 100-turn segment.
+- **H14b -- Graphiti's does:** its ingest tokens per turn in the 1,000-3,000
+  segment are at least 1.3x those of the first 100 turns.
+- **H14c -- retrieval stays fast:** at 3,000 turns the retrieval-layer query p95
+  is under 2 s for all three systems, and Hindsight's reader p95 is at least 5 s.
+- **H14d -- the design split holds at size:** at 1,000 and 3,000 turns, Mem0's
+  valid-time exact rate on the probes is at most 0.40, Graphiti's and Hindsight
+  recall's at most 0.10, and Hindsight's reader is above its recall.
+- **H14e -- where cost sits:** at 3,000 turns, ingest dollars per turn exceed
+  query dollars per question by at least 10x for Mem0 and Graphiti, and
+  Hindsight's reader costs more per question than Hindsight's retain per turn.
