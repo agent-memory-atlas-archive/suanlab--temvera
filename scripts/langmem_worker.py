@@ -26,10 +26,13 @@ import sys
 
 
 class _Worker:
-    def __init__(self, model: str, embed_model: str, limit: int) -> None:
+    def __init__(self, model: str, embed_model: str, limit: int,
+                 enable_deletes: bool = False) -> None:
         self._model = model
         self._embed_model = embed_model
         self._limit = limit
+        # LangMem's default is False; the deletion study also runs it True.
+        self._enable_deletes = enable_deletes
         self._namespace = ("memories", "agent")
         self._store = None
         self._manager = None
@@ -43,7 +46,8 @@ class _Worker:
             index={"dims": 1536, "embed": f"openai:{self._embed_model}"}
         )
         self._manager = create_memory_store_manager(
-            f"openai:{self._model}", namespace=self._namespace, store=self._store
+            f"openai:{self._model}", namespace=self._namespace, store=self._store,
+            enable_deletes=self._enable_deletes,
         )
 
     def ingest(self, text: str) -> None:
@@ -74,12 +78,14 @@ class _Worker:
             self._store.delete(self._namespace, key)
         return len(doomed)
 
-    def delete_for_query(self, query: str) -> int:
-        """Delete what a query returns: all a caller without the value can do."""
+    def delete_for_query(self, query: str, must_mention: str | None = None) -> int:
+        """Delete what a query returns (only what names ``must_mention``, if given)."""
         hits = self._store.search(self._namespace, query=query, limit=self._limit)
-        for hit in hits:
-            self._store.delete(self._namespace, hit.key)
-        return len(hits)
+        doomed = [h.key for h in hits if must_mention is None
+                  or must_mention.casefold() in self._flatten(h.value).casefold()]
+        for key in doomed:
+            self._store.delete(self._namespace, key)
+        return len(doomed)
 
     def scan(self, needles: list[str]) -> dict[str, int]:
         # The in-memory store is LangMem's only store, and the one it serves from.
@@ -93,6 +99,7 @@ def main() -> int:
         config.get("model", "gpt-4o-mini"),
         config.get("embed_model", "text-embedding-3-small"),
         int(config.get("search_limit", 5)),
+        bool(config.get("enable_deletes", False)),
     )
     print(json.dumps({"ok": True, "ready": True}), flush=True)
     for line in sys.stdin:
@@ -117,7 +124,8 @@ def main() -> int:
                             "deleted": worker.delete_matching(request["needles"])}
             elif op == "delete_for_query":
                 response = {"ok": True,
-                            "deleted": worker.delete_for_query(request["query"])}
+                            "deleted": worker.delete_for_query(
+                                request["query"], request.get("must_mention"))}
             elif op == "scan":
                 response = {"ok": True, "stores": worker.scan(request["needles"])}
             elif op == "stop":

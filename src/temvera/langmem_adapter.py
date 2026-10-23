@@ -37,6 +37,7 @@ class LangMemSystem:
         search_limit: int = 5,
         python: str | None = None,
         worker: str | None = None,
+        enable_deletes: bool = False,
     ) -> None:
         interpreter = python or os.environ.get("LANGMEM_PYTHON")
         if not interpreter or not Path(interpreter).exists():
@@ -51,6 +52,7 @@ class LangMemSystem:
             "model": model,
             "embed_model": embed_model,
             "search_limit": search_limit,
+            "enable_deletes": enable_deletes,
         }
         self._process: subprocess.Popen | None = None
         self._errors: list[str] = []

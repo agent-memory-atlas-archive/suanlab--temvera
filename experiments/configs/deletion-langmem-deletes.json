@@ -1,0 +1,36 @@
+{
+  "benchmark": "temvera-deletion-langmem-deletes-v1",
+  "conditions": [
+    "prose-1",
+    "prose-2",
+    "prose-3"
+  ],
+  "distinct_values": true,
+  "embed_model": "text-embedding-3-small",
+  "entities": 6,
+  "label_suffix": "-del",
+  "langmem_enable_deletes": true,
+  "model": "gpt-4o-mini",
+  "profile": {
+    "expire_probability": 0.0,
+    "name": "purge_half",
+    "purge_probability": 0.5,
+    "reconfirm_probability": 0.0
+  },
+  "revisions": 2,
+  "seeds": [
+    7,
+    13,
+    17,
+    23,
+    42,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "systems": [
+    "langmem"
+  ]
+}

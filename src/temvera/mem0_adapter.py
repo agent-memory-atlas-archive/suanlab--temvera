@@ -186,14 +186,17 @@ class Mem0System:
         # nothing scored reads it.
         self.last_added.append(result if isinstance(result, dict) else {"results": result})
 
-    def search_ids(self, query: str) -> list[str]:
-        """Ids of the memories a query returns, in rank order."""
+    def search_ids(self, query: str, must_mention: str | None = None) -> list[str]:
+        """Ids of the memories a query returns, in rank order; with
+        ``must_mention``, only those whose text names it."""
         result = (self._memory.search(query, filters={"user_id": self._user_id},
                                       top_k=self._search_limit)
                   if self._v2 else
                   self._memory.search(query, user_id=self._user_id, limit=self._search_limit))
         rows = result.get("results", result) if isinstance(result, dict) else result
-        return [str(row["id"]) for row in rows if isinstance(row, dict) and "id" in row]
+        return [str(row["id"]) for row in rows if isinstance(row, dict) and "id" in row
+                and (must_mention is None
+                     or must_mention.casefold() in str(row.get("memory", "")).casefold())]
 
     def delete_ids(self, ids: list[str]) -> int:
         removed = 0

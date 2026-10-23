@@ -150,14 +150,16 @@ class HindsightSystem:
             self._delete(f"/documents/{document_id}")
         return len(doomed)
 
-    def delete_documents_for_query(self, query: str) -> int:
+    def delete_documents_for_query(self, query: str, must_mention: str | None = None) -> int:
         """Delete the documents behind the memories a recall returns."""
         response = self._post(
             "/memories/recall", {"query": query, "budget": self._budget}
         )
         items = response.get("results") or response.get("memories") or []
         doomed = sorted({str(item["document_id"]) for item in items[: self._limit]
-                         if isinstance(item, dict) and item.get("document_id")})
+                         if isinstance(item, dict) and item.get("document_id")
+                         and (must_mention is None
+                              or must_mention.casefold() in str(item.get("text", "")).casefold())})
         for document_id in doomed:
             self._delete(f"/documents/{document_id}")
         return len(doomed)

@@ -245,7 +245,7 @@ class GraphitiSystem:
             self._run(self._graphiti.remove_episode(uuid))
         return len(uuids)
 
-    def delete_episodes_for_query(self, query: str) -> int:
+    def delete_episodes_for_query(self, query: str, must_mention: str | None = None) -> int:
         """Remove the episodes behind the facts a query returns.
 
         This is what a caller that does not know the stored value can do: ask
@@ -257,6 +257,8 @@ class GraphitiSystem:
             )
         )
         uuids = sorted({uuid for edge in results.edges
+                        if must_mention is None
+                        or must_mention.casefold() in str(getattr(edge, "fact", "")).casefold()
                         for uuid in (getattr(edge, "episodes", None) or [])})
         for uuid in uuids:
             try:

@@ -140,7 +140,7 @@ class _Worker:
             self._run(cognee.forget(data_id=data_id, dataset_id=dataset_id))
         return len(doomed)
 
-    def delete_for_query(self, query: str) -> int:
+    def delete_for_query(self, query: str, must_mention: str | None = None) -> int:
         """`forget` the items behind the chunks a query returns."""
         import uuid
 
@@ -155,7 +155,9 @@ class _Worker:
         for envelope in results:
             hits = envelope.get("search_result", []) if isinstance(envelope, dict) else []
             for hit in hits[: self._limit]:
-                if isinstance(hit, dict) and hit.get("document_id"):
+                if isinstance(hit, dict) and hit.get("document_id") and (
+                        must_mention is None
+                        or must_mention.casefold() in str(hit.get("text", "")).casefold()):
                     doomed.add((envelope.get("dataset_id"), hit["document_id"]))
         for dataset_id, document_id in sorted(doomed):
             self._run(cognee.forget(data_id=uuid.UUID(str(document_id)),
@@ -260,7 +262,8 @@ def main() -> int:
                             "deleted": worker.delete_matching(request["needles"])}
             elif op == "delete_for_query":
                 response = {"ok": True,
-                            "deleted": worker.delete_for_query(request["query"])}
+                            "deleted": worker.delete_for_query(
+                                request["query"], request.get("must_mention"))}
             elif op == "scan":
                 response = {"ok": True, "stores": worker.scan(
                     request["needles"], str(config.get("system_root", "")),

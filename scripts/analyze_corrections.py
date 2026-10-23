@@ -79,6 +79,32 @@ def classify(run: str) -> dict[str, list[bool]]:
     return out
 
 
+def pre_correction_rows(run: str) -> list[tuple[dict, str]]:
+    """(sealed row, the later correction's value) for every H11a question."""
+    config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
+    profiles = {p["name"]: p for p in config["profiles"]}
+    lines = (RUNS / run / "transcript.jsonl").read_text(encoding="utf-8").splitlines()
+    by_cell: dict[tuple, dict] = defaultdict(dict)
+    for r in map(json.loads, lines):
+        if r.get("system") != "oracle":
+            by_cell[(r["profile"], r["entities"], r["revisions"], r["seed"])][r["case_id"]] = r
+    out = []
+    for (profile, entities, revisions, seed), sealed in sorted(by_cell.items()):
+        events = _events_for(seed, entities, revisions, profiles[profile],
+                             bool(config.get("naturalize", True)),
+                             int(config.get("attributes", 1)),
+                             bool(config.get("distinct_values", False)),
+                             config.get("natural_pools", "standard"))
+        fixes = {(e.subject, e.attribute): e for e in events
+                 if e.operation is Operation.INGEST and e.valid_to is not None}
+        for case in build_nl_cases(events):
+            fix = fixes.get((case.subject, case.attribute))
+            if fix is not None and case.transaction_at < fix.recorded_at \
+                    and fix.valid_from <= case.valid_at < fix.valid_to:
+                out.append((sealed[case.case_id], fix.value))
+    return out
+
+
 def pre_correction(run: str, judge: str | None = None) -> dict[str, int]:
     """H11a: what was believed about a corrected interval before the correction.
 

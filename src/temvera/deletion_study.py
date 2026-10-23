@@ -37,6 +37,8 @@ from .nl_workload import PURGE_WORDINGS, render_turns
 from .purge_residual import scan_graphiti, scan_mem0, scan_temvera
 
 CONDITIONS = ("prose-1", "prose-2", "prose-3", "api-oracle", "api-caller")
+# H13 adds a caller that deletes only returned units naming the person.
+ALL_CONDITIONS = CONDITIONS + ("api-verified",)
 
 # Whether a query path reads the store. Audit logs, histories, raw input copies
 # and request traces are kept by the system but never consulted to answer.
@@ -128,6 +130,7 @@ class _Driver:
     def answer(self, query: str) -> str: ...
     def delete_oracle(self, needles: tuple[str, ...]) -> int: ...
     def delete_caller(self, query: str) -> int: ...
+    def delete_verified(self, query: str, subject: str) -> int: ...
     def scan(self, needles: tuple[str, ...]) -> dict[str, int]: ...
     def extra(self) -> dict[str, Any]:
         return {}
@@ -166,6 +169,9 @@ class _Mem0(_Driver):
 
     def delete_caller(self, query):
         return self.system.delete_ids(self.system.search_ids(query))
+
+    def delete_verified(self, query, subject):
+        return self.system.delete_ids(self.system.search_ids(query, must_mention=subject))
 
     def scan(self, needles):
         report = scan_mem0(self.system, self._events, needles)
@@ -212,6 +218,9 @@ class _Graphiti(_Driver):
     def delete_caller(self, query):
         return self.system.delete_episodes_for_query(query)
 
+    def delete_verified(self, query, subject):
+        return self.system.delete_episodes_for_query(query, must_mention=subject)
+
     def scan(self, needles):
         report = scan_graphiti(self._group, (), uri=self._uri, user=self._user,
                                password=self._password, needles=needles)
@@ -236,6 +245,10 @@ class _Stdio(_Driver):
     def delete_caller(self, query):
         return int(self.system._call({"op": "delete_for_query",
                                       "query": query}).get("deleted", 0))
+
+    def delete_verified(self, query, subject):
+        return int(self.system._call({"op": "delete_for_query", "query": query,
+                                      "must_mention": subject}).get("deleted", 0))
 
     def scan(self, needles):
         response = self.system._call({"op": "scan", "needles": list(needles)})
@@ -284,6 +297,7 @@ class _LangMem(_Stdio):
         self.system = LangMemSystem(
             model=config.get("model", "gpt-4o-mini"),
             embed_model=config.get("embed_model", "text-embedding-3-small"),
+            enable_deletes=bool(config.get("langmem_enable_deletes", False)),
         )
         self.system.reset()
 
@@ -319,6 +333,9 @@ class _Hindsight(_Driver):
 
     def delete_caller(self, query):
         return self.system.delete_documents_for_query(query)
+
+    def delete_verified(self, query, subject):
+        return self.system.delete_documents_for_query(query, must_mention=subject)
 
     def scan(self, needles):
         instance = json.loads(Path(self._pg["instance"]).read_text(encoding="utf-8"))
@@ -367,7 +384,7 @@ def run_one(system: str, config: dict, seed: int, condition: str,
     people = subjects(events)
     purged = [p for p in people if p.purged]
     needles = tuple(v for p in purged for v in p.values)
-    label = f"{system}-{seed}-{condition}"
+    label = f"{system}-{seed}-{condition}{config.get('label_suffix', '')}"
     driver = DRIVERS[system](config, label, workdir)
     try:
         for turn in turns:
@@ -377,6 +394,8 @@ def run_one(system: str, config: dict, seed: int, condition: str,
             deleted = driver.delete_oracle(needles)
         elif condition == "api-caller":
             deleted = sum(driver.delete_caller(p.query) for p in purged)
+        elif condition == "api-verified":
+            deleted = sum(driver.delete_verified(p.query, p.subject) for p in purged)
         answers = {p.query: driver.answer(p.query) for p in people}
         stores = driver.scan(needles) if needles else {}
         record = {

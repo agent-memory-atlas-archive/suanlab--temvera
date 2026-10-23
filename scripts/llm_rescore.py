@@ -45,6 +45,13 @@ READER_SYSTEM = (
     "determine it."
 )
 READER_USER = "Memory records:\n{records}\n\nQuestion: {query}\nValue:"
+# H13: the same reader told the persistence contract the benchmark's gold
+# assumes -- a value holds from when it was stated until a later record
+# changes it. Everything else is unchanged.
+PERSIST_SYSTEM = READER_SYSTEM + (
+    " A value stated in a record holds from that record's date until a later "
+    "record changes it."
+)
 
 JUDGE_SYSTEM = (
     "You grade an answer to a question that asks for the value of a fact at a "
@@ -59,6 +66,7 @@ JUDGE_USER = (
 
 PROMPTS = {
     "reader": {"system": READER_SYSTEM, "user": READER_USER},
+    "reader_persist": {"system": PERSIST_SYSTEM, "user": READER_USER},
     "judge": {"system": JUDGE_SYSTEM, "user": JUDGE_USER},
 }
 SPECIAL = {"NONE", "AMBIGUOUS", "UNKNOWN", ""}
@@ -102,7 +110,7 @@ def _client(provider: str):
 
 
 def _complete(client, model: str, mode: str, row: dict) -> str:
-    if mode == "reader":
+    if mode in ("reader", "reader_persist"):
         user = READER_USER.format(records=row["answer"] or "(no records)", query=row["query"])
     else:
         user = JUDGE_USER.format(query=row["query"], answer=row["answer"] or "(empty)")
@@ -124,7 +132,7 @@ def _complete(client, model: str, mode: str, row: dict) -> str:
 
 
 def _value(mode: str, text: str) -> str:
-    if mode == "reader":
+    if mode in ("reader", "reader_persist"):
         return text.strip()
     try:
         return str(json.loads(text).get("value", "")).strip()
@@ -135,7 +143,7 @@ def _value(mode: str, text: str) -> str:
 
 def main(mode: str, backbone: str, source: str, output: str) -> int:
     if mode not in PROMPTS:
-        raise SystemExit("mode must be reader or judge")
+        raise SystemExit("mode must be reader, reader_persist or judge")
     out = RUNS / output
     if out.exists():
         raise SystemExit(f"refusing to overwrite: {out}")
@@ -152,7 +160,7 @@ def main(mode: str, backbone: str, source: str, output: str) -> int:
             text = ""
         value = _value(mode, text)
         expected, stale = row["expected_values"], row["stale_values"]
-        score = exact(value, expected, stale) if mode == "reader" else judged(
+        score = exact(value, expected, stale) if mode != "judge" else judged(
             value, expected, stale)
         keep = {k: row[k] for k in ("case_id", "category", "query", "expected_values",
                                     "stale_values", "profile", "entities", "revisions",
