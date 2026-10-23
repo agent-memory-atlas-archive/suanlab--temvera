@@ -1,0 +1,26 @@
+{
+  "identified": {},
+  "summary": {
+    "agree": 47,
+    "by_model": {
+      "gpt-4o-2024-08-06": {
+        "CHANGED": 10,
+        "HELD": 3,
+        "UNKNOWN": 47
+      },
+      "gpt-5.4-2026-03-05": {
+        "CHANGED": 0,
+        "HELD": 0,
+        "UNKNOWN": 60
+      }
+    },
+    "identified": 0,
+    "identified_changed": 0,
+    "identified_held": 0,
+    "pairs": 60,
+    "verified_quotes": {
+      "gpt-4o-2024-08-06": 59,
+      "gpt-5.4-2026-03-05": 60
+    }
+  }
+}

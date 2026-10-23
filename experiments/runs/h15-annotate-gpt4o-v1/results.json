@@ -1,0 +1,107 @@
+{
+  "rows": 765,
+  "summary": {
+    "common:h13-reader-final-store-cognee-chunks": {
+      "credited": 8,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "common:h13-reader-final-store-graphiti": {
+      "credited": 2,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "common:h13-reader-final-store-hindsight-recall": {
+      "credited": 8,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "common:h13-reader-final-store-langmem": {
+      "credited": 0,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "common:h13-reader-final-store-mem0": {
+      "credited": 0,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "constructed:abstain": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:corrected_dated": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:corrected_value": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:history_stated": {
+      "credited": 45,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:later_note": {
+      "credited": 45,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:negation_only": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:negation_right": {
+      "credited": 45,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:negation_wrong": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:unresolved": {
+      "credited": 0,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "constructed:value_only": {
+      "credited": 45,
+      "n": 45,
+      "right": 45,
+      "span_verbatim": 45
+    },
+    "native:final-store-corrections-cognee-graph-v1": {
+      "credited": 42,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    },
+    "native:final-store-corrections-hindsight-reflect-v1": {
+      "credited": 29,
+      "n": 45,
+      "right": 0,
+      "span_verbatim": 45
+    }
+  }
+}

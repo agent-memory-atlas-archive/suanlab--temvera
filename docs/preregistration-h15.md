@@ -85,3 +85,26 @@ reported with both the consensus and the either-annotator reading. If H15f
 holds, the real-data valid-time column stays an agreement with an assumed gold,
 and scores on the identified pairs are reported as a diagnostic, not as
 accuracy.
+
+## Outcomes (recorded 2026-10-24 KST; `scripts/analyze_h15.py`)
+
+The analysis script's pairing key first used `(set, source, template,
+case_id)`; case ids repeat across history cells, so it now also keys on the
+question text. Nothing else in the script changed, and no run was repeated.
+
+| Prediction | Outcome |
+|---|---|
+| H15a: each annotator right on >= 95% of constructed answers, >= 90% per template | **holds** -- `gpt-4o` 450/450; `gpt-5.4` 448/450 (it reported no value for 2 of 45 `x, not y`); every other template 45/45 for both, including `It was not x.` |
+| H15b: agreement >= 90% on native and common-reader answers | **holds** -- 89/90 native, 225/225 common |
+| H15c: consensus credits Cognee's reader >= 35/45, Hindsight's >= 20/45 | **holds** -- 42 and 29 (strict count 41 and 25; either annotator 42 and 30) |
+| H15d: every common-reader store <= 12/45, both native readers above the highest | **holds** -- 8 (Cognee chunks), 8 (Hindsight recall), 2 (Graphiti), 0 (Mem0), 0 (LangMem), identical to the strict count |
+| H15e: <= 3 strict passes credited by neither; <= 12 strict failures credited by both | **holds** -- 0 and 5 (1 Cognee, 4 Hindsight: right answers that also state the correction or an earlier value) |
+| H15f: fewer than 15 of 60 pairs identified, fewer than 10 as HELD | **holds** -- 0 identified. `gpt-5.4` labels all 60 UNKNOWN; `gpt-4o` labels 3 HELD and 10 CHANGED, with verified quotes for 59 of 60 labels, but no pair has two matching labels |
+
+Reading: the strict count was not misleading on these answers -- no answer it
+credits is rejected by either annotator, and the annotators credit 5 right
+answers it failed. The comparison the paper draws (own readers far above any
+retrieval layer or the common reader) holds under a validated reading. The
+annotators are models checked on constructed answers, not people. The
+real-data valid-time gold is identified for none of the 60 pairs, so that
+column measures agreement with an assumed gold and nothing more.

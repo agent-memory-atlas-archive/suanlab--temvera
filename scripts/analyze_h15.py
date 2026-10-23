@@ -27,7 +27,7 @@ def rows(run: str) -> list[dict]:
 
 
 def _key(row: dict) -> tuple:
-    return (row["set"], row["source"], row.get("template", ""), row["case_id"])
+    return (row["set"], row["source"], row.get("template", ""), row["case_id"], row["query"])
 
 
 def paired() -> list[tuple[dict, dict]]:
