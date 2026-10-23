@@ -20,7 +20,7 @@ RATIOS = (1, 10, 100)  # queries per write
 
 
 def load(system: str, root: Path = RUNS) -> dict:
-    path = root / f"scale-cost-{system}-v1" / "results.json"
+    path = root / f"scale-growth-{system}-v1" / "results.json"
     return json.loads(path.read_text(encoding="utf-8"))
 
 

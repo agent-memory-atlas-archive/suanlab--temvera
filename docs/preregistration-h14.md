@@ -45,3 +45,8 @@ is therefore split by the operation its log records -- `reflect` is reading,
 everything else (retain, consolidation, deduplication) writing -- rather than
 by when the call happened (`scripts/analyze_scale_cost.py`). Mem0 and Graphiti
 are split by time, as preregistered. No prediction changes.
+
+Runs are sealed as `scale-growth-<system>-v1`: a first launch under
+`scale-cost-*` was refused because `scale-cost-mem0-v1` already names the
+earlier Mem0 cost run (E-071); the other two were stopped after a minute,
+before writing anything, and all three restarted under the new name.

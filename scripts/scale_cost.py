@@ -20,7 +20,7 @@ Hindsight is read two ways on the same store: its retrieval layer (recall) and
 its own reader (reflect). Mem0 and Graphiti run in this process; concurrency is
 measured only where the system is a server.
 
-    python scripts/scale_cost.py {mem0,graphiti,hindsight} experiments/runs/scale-cost-<system>-v1
+    python scripts/scale_cost.py {mem0,graphiti,hindsight} experiments/runs/scale-growth-<system>-v1
 """
 
 from __future__ import annotations
@@ -371,7 +371,7 @@ def main(system_name: str, output: str) -> int:
         "system": system_name, "checkpoints": checkpoints, "concurrency": concurrency,
         "prices_usd_per_million": PRICES, "worker_errors": errors}, indent=2, sort_keys=True) + "\n",
         encoding="utf-8")
-    seal_run(out, config={"benchmark": f"temvera-scale-cost-{system_name}-v1", "system": system_name,
+    seal_run(out, config={"benchmark": f"temvera-scale-growth-{system_name}-v1", "system": system_name,
                           "workload": WORKLOAD, "profile": PROFILE, "checkpoints": list(CHECKPOINTS),
                           "probes_per_kind": PROBES, "concurrency": list(CONCURRENCY),
                           "model": "gpt-4o-mini", "embed_model": "text-embedding-3-small",
