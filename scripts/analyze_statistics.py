@@ -111,6 +111,32 @@ def cluster_interval(values: dict[tuple, float], level: float = 0.95) -> tuple[f
     return means[int(tail * RESAMPLES)], means[int((1 - tail) * RESAMPLES) - 1]
 
 
+def cluster_effects(a: dict[tuple, bool], b: dict[tuple, bool], by: str = "cell") -> list[tuple[int, int]]:
+    """Per cluster: (sum of paired differences, pairs). ``by`` is ``cell`` (the
+    20 histories) or ``seed`` (the 5 seeds the histories were generated from)."""
+    grouped: dict[tuple, list[int]] = defaultdict(lambda: [0, 0])
+    for key in sorted(set(a) & set(b)):
+        cell = key[0]
+        cluster = cell if by == "cell" else (cell[3],)
+        grouped[cluster][0] += int(a[key]) - int(b[key])
+        grouped[cluster][1] += 1
+    return [tuple(v) for _, v in sorted(grouped.items())]
+
+
+def sign_flip_p(effects: list[tuple[int, int]]) -> float:
+    """Exact two-sided sign-flip permutation p of the case-weighted mean paired
+    difference, flipping whole clusters."""
+    sums = [d for d, _ in effects]
+    total = sum(n for _, n in effects)
+    observed = abs(sum(sums)) / total
+    extreme = 0
+    count = 1 << len(sums)
+    for mask in range(count):
+        stat = sum(-d if mask >> i & 1 else d for i, d in enumerate(sums))
+        extreme += abs(stat) / total >= observed - 1e-12
+    return extreme / count
+
+
 def mcnemar_exact(a: dict[tuple, bool], b: dict[tuple, bool]) -> tuple[int, int, float]:
     """Discordant counts (a only, b only) and the two-sided exact p-value."""
     shared = sorted(set(a) & set(b))
@@ -166,7 +192,15 @@ def analyse() -> dict:
         diff = {key: float(a[key]) - float(b[key]) for key in shared}
         low, high = cluster_interval(diff)
         raw.append(p)
+        cells_effect = cluster_effects(a, b, "cell")
+        seeds_effect = cluster_effects(a, b, "seed")
+        sign = 1 if sum(d for d, _ in cells_effect) > 0 else -1
         report["family"].append({
+            "histories": len(cells_effect), "seeds": len(seeds_effect),
+            "histories_same_sign": sum(d * sign > 0 for d, _ in cells_effect),
+            "seeds_same_sign": sum(d * sign > 0 for d, _ in seeds_effect),
+            "p_permutation_histories": sign_flip_p(cells_effect),
+            "p_permutation_seeds": sign_flip_p(seeds_effect),
             "comparison": label, "left": left, "right": right, "category": category,
             "pairs": len(shared), "left_only": only_a, "right_only": only_b,
             "difference": sum(diff.values()) / len(diff), "cluster_low": low,
@@ -183,6 +217,7 @@ def analyse() -> dict:
         "comparison": "Mem0 vs Graphiti, valid time, k=1", "margin": MARGIN,
         "difference": sum(diff.values()) / len(diff), "low90": low, "high90": high,
         "equivalent": -MARGIN < low and high < MARGIN,
+        "margins": {str(m): (-m < low and high < m) for m in (0.025, 0.05, 0.10)},
     }
     hits = classify("external-corrections-mem0-v1")
     corrected, uncorrected = hits["present_corrected"], hits["present_uncorrected"]
@@ -206,11 +241,15 @@ def main() -> int:
               f"{NAMES.get(entry['right'], entry['right'])}: diff {entry['difference']:+.3f} "
               f"[{entry['cluster_low']:+.3f}, {entry['cluster_high']:+.3f}] "
               f"discordant {entry['left_only']}/{entry['right_only']} "
-              f"p {entry['p_mcnemar']:.2g} holm {entry['p_holm']:.2g}")
+              f"p {entry['p_mcnemar']:.2g} holm {entry['p_holm']:.2g} | same sign in "
+              f"{entry['histories_same_sign']}/{entry['histories']} histories, "
+              f"{entry['seeds_same_sign']}/{entry['seeds']} seeds; permutation p "
+              f"{entry['p_permutation_histories']:.2g} (histories), "
+              f"{entry['p_permutation_seeds']:.3g} (seeds)")
     eq = report["equivalence"]
     print(f"{eq['comparison']}: diff {eq['difference']:+.3f} 90% "
           f"[{eq['low90']:+.3f}, {eq['high90']:+.3f}] margin {eq['margin']} "
-          f"equivalent={eq['equivalent']}")
+          f"equivalent={eq['equivalent']} by margin {eq['margins']}")
     print(f"{report['corrections']['comparison']}: Fisher p "
           f"{report['corrections']['p_fisher']:.2g}")
     return 0

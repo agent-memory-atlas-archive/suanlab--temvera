@@ -248,23 +248,94 @@ class Claim:
     """
 
 
+def _purge_scope_module():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import analyze_purge_scope
+
+    return analyze_purge_scope
+
+
+def overall_rs(run: str, cells_=None, k: int | None = None) -> float:
+    """Overall exact with purge under the request's own scope (E-096)."""
+    o = _purge_scope_module().overall(run, cells() if cells_ is None else cells_, k)
+    return o["request_scope"] / o["questions"]
+
+
+def overall_rs_count(run: str, cells_=None) -> float:
+    return float(_purge_scope_module().overall(run, cells_)["request_scope"])
+
+
+def purge_rs(run: str) -> float:
+    o = _purge_scope_module().request_scope(run, cells())
+    return o["request_scope"] / o["questions"]
+
+
+def _seed7_cells(run: str) -> set:
+    return {cell_key(r) for r in tr(run) if r.get("system") != "oracle" and r["seed"] == 7}
+
+
+_VARIANCE_CITED = {"mem0": "external-mem0-grid-v2", "graphiti": "external-graphiti-hybrid-v1",
+                   "langmem": "external-langmem-v1", "cognee-chunks": "external-cognee-chunks-grid-v3",
+                   "cognee-graph": "external-cognee-grid-v1",
+                   "hindsight-recall": "external-hindsight-recall-v1",
+                   "hindsight-reflect": "external-hindsight-reflect-v1"}
+
+
+def _replicate_counts(name: str) -> list[float]:
+    cited = _VARIANCE_CITED[name]
+    runs = [f"variance-{name}-r{r}-v1" for r in (1, 2, 3)]
+    return [overall_rs_count(cited, _seed7_cells(cited))] + [overall_rs_count(r, None) for r in runs]
+
+
+def replicate_rs(name: str) -> float:
+    counts = _replicate_counts(name)
+    return counts[0] if len(set(counts)) == 1 else -1.0
+
+
+def replicate_rs_move(name: str) -> float:
+    counts = _replicate_counts(name)
+    return max(abs(c - counts[0]) for c in counts[1:])
+
+
 def _grid_claims() -> list[Claim]:
-    spec = {
-        "Mem0": ("external-mem0-grid-v2", "0.603", "0.364", "0.044"),
-        "LangMem": ("external-langmem-v1", "0.576", "0.323", "0.133"),
-        "Graphiti": ("external-graphiti-hybrid-v1", "0.196", "0.000", "0.022"),
-        "Cognee chunks": ("external-cognee-chunks-grid-v3", "0.194", "0.000", "0.022"),
-        "Hindsight recall": ("external-hindsight-recall-v1", "0.194", "0.000", "0.022"),
-        "Cognee graph-compl.": ("external-cognee-grid-v1", "0.930", "0.985", "0.622"),
-        "Hindsight reflect": ("external-hindsight-reflect-v1", "0.407", "0.344", "0.311"),
+    rows = {
+        "external-mem0-grid-v2": "Mem0 (consolidates)",
+        "external-langmem-v1": "LangMem (consolidates)",
+        "external-graphiti-hybrid-v1": "Graphiti (retains)",
+        "external-cognee-chunks-grid-v3": "Cognee \\textsc{chunks} (retains)",
+        "external-hindsight-recall-v1": "Hindsight \\textsc{recall} (retains)",
+        "external-cognee-grid-v1": "Cognee \\textsc{graph-completion}",
+        "external-hindsight-reflect-v1": "Hindsight \\textsc{reflect}       &",
     }
+    T = "\\label{tab:reader}"
     out = []
-    for name, (run, overall, valid, purge) in spec.items():
+    for run, anchor in rows.items():
+        overall = f"{overall_rs(run):.3f}"
+        valid = f"{micro(run, 'valid_time', cells()):.3f}"
+        purge = f"{purge_rs(run):.3f}"
         out += [
-            Claim("Tab.2/3", f"{name} overall (micro)", overall, lambda r=run: micro(r, cells=cells())),
-            Claim("Tab.2/3", f"{name} valid_time (micro)", valid,
-                  lambda r=run: micro(r, "valid_time", cells())),
-            Claim("Tab.2/3", f"{name} purge (micro)", purge, lambda r=run: micro(r, "purge", cells())),
+            Claim("Tab.2/3", f"{run} overall, request scope", overall,
+                  lambda r=run: overall_rs(r), near=anchor, window=40, after=T),
+            Claim("Tab.2/3", f"{run} valid_time (micro)", valid,
+                  lambda r=run: micro(r, "valid_time", cells()), near=anchor, window=60, after=T),
+            Claim("Tab.2/3", f"{run} purge, request scope", purge,
+                  lambda r=run: purge_rs(r), near=anchor, window=90, after=T),
+        ]
+    E = "\\label{tab:external}"
+    trio = ("external-mem0-grid-v2", "external-langmem-v1", "external-graphiti-hybrid-v1")
+    for run in trio:
+        out += [
+            Claim("Tab.2", f"{run} purge row, request scope", f"{purge_rs(run):.3f}",
+                  lambda r=run: purge_rs(r), near="\\texttt{purge}               &", window=45, after=E),
+            Claim("Tab.2", f"{run} overall row, request scope", f"{overall_rs(run):.3f}",
+                  lambda r=run: overall_rs(r), near="Overall exact                &", window=45, after=E),
+            Claim("Tab.2", f"{run} exact at k=1, request scope", f"{overall_rs(run, k=1):.3f}",
+                  lambda r=run: overall_rs(r, k=1), near="Exact at $k{=}1$             &", window=45, after=E),
+            Claim("Tab.2", f"{run} purge as first specified", f"{micro(run, 'purge', cells()):.3f}",
+                  lambda r=run: micro(r, "purge", cells()), near="purge\nreads", window=40),
+            Claim("Tab.2", f"{run} overall as first specified", f"{micro(run, cells=cells()):.3f}",
+                  lambda r=run: micro(r, cells=cells()), near="and overall", window=40,
+                  after="as our generator first specified it, purge"),
         ]
     return out
 
@@ -310,8 +381,6 @@ CLAIMS: list[Claim] = [
           lambda: k_sweep(tr("external-graphiti-hybrid-v1"), budgets=(1,), cells=cells())[1]
           ["by_category"]["valid_time"]["rate"],
           near="statistically indistinguishable"),
-    Claim("Tab.2", "Mem0 exact at k=1 (micro)", "0.630",
-          lambda: k_sweep(tr("external-mem0-grid-v2"), budgets=(1,), cells=cells())[1]["overall"]["rate"]),
     Claim("Tab.2", "Mem0 evidence recall (macro)", "0.666",
           lambda: macro_metric("external-mem0-grid-v2", "evidence_recall")),
     Claim("Tab.2", "Mem0 stale-use (macro)", "0.356",
@@ -351,12 +420,6 @@ CLAIMS: list[Claim] = [
     Claim("5.2x", "gpt-4o transaction_as_of (macro)", "0.625",
           lambda: macro_cat("external-graphiti-filtered-gpt4o-v2", "transaction_as_of", _x_cells()),
           near="improves ("),
-    Claim("5.2x", "gpt-4o-mini purge (macro)", "0.296",
-          lambda: macro_cat("external-graphiti-filtered-v2", "purge", _x_cells()),
-          near="purge degrades"),
-    Claim("5.2x", "gpt-4o purge (macro)", "0.176",
-          lambda: macro_cat("external-graphiti-filtered-gpt4o-v2", "purge", _x_cells()),
-          near="purge degrades"),
     # -- 5.3 deletion ----------------------------------------------------------
     # -- 5.5 cost and latency --------------------------------------------------
     Claim("Tab.4", "Mem0 ingest samples", "1035", lambda: telemetry("scale-cost-mem0-v1", "ingest_latency", "n"), 0.5),
@@ -402,20 +465,20 @@ CLAIMS: list[Claim] = [
     # -- second backbone: Mem0 and Graphiti grid on gpt-4o (case-weighted) -----
     Claim("5.2", "largest per-category change, gpt-4o vs mini (cases)", "2",
           lambda: _backbone_max_shift(), 0.5, near="otherwise unchanged, moves no category"),
-    Claim("5.2", "Mem0 overall, mini (micro)", "0.603",
-          lambda: micro("external-mem0-grid-v2", cells=cells()), near="Mem0 goes from"),
-    Claim("5.2", "Mem0 overall, gpt-4o (micro)", "0.607",
-          lambda: micro("external-mem0-grid-gpt4o-v1", cells=cells()), near="Mem0 goes from"),
+    Claim("5.2", "Mem0 overall, mini (request scope)", "0.599",
+          lambda: overall_rs("external-mem0-grid-v2"), near="Mem0 goes from"),
+    Claim("5.2", "Mem0 overall, gpt-4o (request scope)", "0.603",
+          lambda: overall_rs("external-mem0-grid-gpt4o-v1"), near="Mem0 goes from $0.599$ to"),
     Claim("5.2", "Mem0 valid_time, mini (micro)", "0.364",
           lambda: micro("external-mem0-grid-v2", "valid_time", cells()),
           near="overall and from"),
     Claim("5.2", "Mem0 valid_time, gpt-4o (micro)", "0.374",
           lambda: micro("external-mem0-grid-gpt4o-v1", "valid_time", cells()),
           near="overall and from"),
-    Claim("5.2", "Graphiti overall, mini (micro)", "0.196",
-          lambda: micro("external-graphiti-hybrid-v1", cells=cells()), near="Graphiti from"),
-    Claim("5.2", "Graphiti overall, gpt-4o (micro)", "0.194",
-          lambda: micro("external-graphiti-hybrid-gpt4o-v1", cells=cells()), near="Graphiti from"),
+    Claim("5.2", "Graphiti overall, mini (request scope)", "0.194",
+          lambda: overall_rs("external-graphiti-hybrid-v1"), near="Graphiti from"),
+    Claim("5.2", "Graphiti overall, gpt-4o (request scope)", "0.192",
+          lambda: overall_rs("external-graphiti-hybrid-gpt4o-v1"), near="Graphiti from $0.194$ to"),
     Claim("5.2", "Graphiti valid_time hits, gpt-4o", "0",
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[0],
           0.5, near="on valid time it\nanswers"),
@@ -426,10 +489,17 @@ CLAIMS: list[Claim] = [
           lambda: micro_counts("external-graphiti-hybrid-gpt4o-v1", "valid_time", cells())[1],
           0.5, near="on valid time it\nanswers"),
     # -- replicates: four cells, cited run + three repeats (case counts) -------
-    Claim("5.2", "Mem0 overall hits, identical in all four runs", "60",
-          lambda: replicate("mem0", "hits"), 0.5, near="exactly for Mem0 and Graphiti ("),
-    Claim("5.2", "Graphiti overall hits, identical in all four runs", "20",
-          lambda: replicate("graphiti", "hits"), 0.5, near="exactly for Mem0 and Graphiti (60 and"),
+    Claim("5.2", "Mem0 overall hits, identical in all four runs (request scope)", "58",
+          lambda: replicate_rs("mem0"), 0.5, near="exactly for Mem0 and Graphiti ("),
+    Claim("5.2", "Graphiti overall hits, identical in all four runs (request scope)", "19",
+          lambda: replicate_rs("graphiti"), 0.5, near="exactly for Mem0 and Graphiti (58 and"),
+    Claim("5.2", "Cognee reader overall hits, identical in all four runs (request scope)", "84",
+          lambda: replicate_rs("cognee-graph"), 0.5, near="for Cognee's reader ("),
+    Claim("5.2", "retrieval layers of Cognee and Hindsight, all four runs (request scope)", "19",
+          lambda: replicate_rs("cognee-chunks") if replicate_rs("cognee-chunks") == replicate_rs("hindsight-recall") else -1.0,
+          0.5, near="retrieval layers of Cognee and Hindsight\n("),
+    Claim("5.2", "LangMem largest replicate move (request scope)", "1",
+          lambda: replicate_rs_move("langmem"), 0.5, near="move LangMem by at most"),
     Claim("5.2", "cases in the four replicate cells", "97",
           lambda: replicate("mem0", "cases") if replicate("mem0", "cases")
           == replicate("graphiti", "cases") else -1.0, 0.5,
@@ -1113,13 +1183,13 @@ def _audit_claims() -> list:
               near="an ingested turn costs about"),
         Claim("7", "Cognee chunks v1 worker errors", "40",
               lambda: float(res("external-cognee-chunks-grid-v1")["backbone"]["worker_errors"]), 0.5,
-              near="paper reported a"),
+              near="run with"),
         Claim("7", "Cognee chunks v1 overall (micro)", "0.207",
               lambda: micro("external-cognee-chunks-grid-v1", cells=cells()),
-              near="unexplained worker errors at"),
+              near="once\nreported at"),
         Claim("7", "Cognee chunks replication overall (micro)", "0.194",
               lambda: micro("external-cognee-chunks-grid-v3", cells=cells()),
-              near="isolated stores that we now cite scores"),
+              near="isolated replication at"),
     ]
 
 
@@ -1343,21 +1413,39 @@ def stats() -> dict:
 
 def _stats_claims() -> list:
     eq = lambda key: stats()["equivalence"][key]  # noqa: E731
+    fam = lambda: stats()["family"]  # noqa: E731
+    A = "inference is made over"
     return [
+        Claim("5.stats", "histories in the grid", "20",
+              lambda: float(stats()["cells"]), 0.5, near="questions come from", after=A),
+        Claim("5.stats", "seeds behind the histories", "5",
+              lambda: float(max(e["seeds"] for e in fam())), 0.5, near="histories generated from", after=A),
         Claim("5.stats", "comparisons in the declared family", "six",
-              lambda: float(len(stats()["family"])), 0.5, near="a family of"),
-        Claim("5.stats", "every Holm p below 1e-18", "18",
-              lambda: 18.0 if max(e["p_holm"] for e in stats()["family"]) < 1e-18 else -1.0,
-              near="adjusted $p$ is below\n$10^{-"),
-        Claim("5.stats", "equivalence margin", "0.10",
-              lambda: eq("margin") if eq("equivalent") else -1.0,
-              near="equivalence test with margin"),
+              lambda: float(len(fam())), 0.5, near="a family of"),
+        Claim("5.stats", "same sign in every history", "20",
+              lambda: float(min(e["histories_same_sign"] for e in fam())), 0.5,
+              near="same sign\nin all", after=A),
+        Claim("5.stats", "same sign in every seed", "5",
+              lambda: float(min(e["seeds_same_sign"] for e in fam())), 0.5,
+              near="histories and all", after=A),
+        Claim("5.stats", "history permutation p (mantissa)", "1.9",
+              lambda: round(max(e["p_permutation_histories"] for e in fam()) * 1e6, 1), 0.05,
+              near="histories gives $p =", after=A),
+        Claim("5.stats", "seed permutation floor", "0.0625",
+              lambda: max(e["p_permutation_seeds"] for e in fam()), 0.00005,
+              near="cannot go below $", after=A),
+        Claim("5.stats", "bootstrap draws", "4{,}000",
+              lambda: float(stats()["resamples"]), 0.5, near="whole histories ("),
+        Claim("5.stats", "equivalence margin that holds", "0.10",
+              lambda: 0.10 if eq("margins")["0.1"] else -1.0, near="holds within"),
         Claim("5.stats", "k=1 paired difference", "0.026", lambda: eq("difference"),
               near="(difference $+"),
         Claim("5.stats", "k=1 90% interval low", "0.000", lambda: eq("low90"),
               near="90\\% cluster interval $["),
         Claim("5.stats", "k=1 90% interval high", "0.057", lambda: eq("high90"),
               near="90\\% cluster interval $[0.000, "),
+        Claim("5.stats", "equivalence margin that fails", "0.05",
+              lambda: 0.05 if not eq("margins")["0.05"] else -1.0, near="but not within"),
     ]
 
 
@@ -1469,13 +1557,13 @@ def _h9_claims() -> list:
               near="One and", after=C),
         Claim("5.4", "purge questions", "45",
               lambda: _purge_scope("external-mem0-grid-v2", "questions"), 0.5,
-              near="every configuration answers 0 or 1 of"),
+              near="answers 0 or 1 of"),
         Claim("5.4", "purge, request scope: best of the rest", "1",
               lambda: max(_purge_scope(r, "request_scope") for r in (
                   "external-mem0-grid-v2", "external-graphiti-hybrid-v1",
                   "external-cognee-chunks-grid-v3", "external-hindsight-recall-v1",
                   "external-cognee-grid-v1", "external-hindsight-reflect-v1")), 0.5,
-              near="every configuration answers 0 or"),
+              near="answers 0 or"),
         Claim("5.4", "purge, request scope: LangMem", "9",
               lambda: _purge_scope("external-langmem-v1", "request_scope"), 0.5,
               near="except LangMem ("),
@@ -1531,9 +1619,11 @@ def _h9_real_claims() -> list:
     A = "A plain reader does not recover it here"
     return [
         Claim("intro", "retaining stores read: lowest", "0.73", lambda: _read_range()[0],
-              0.005, near="assert, they answer"),
+              0.005, near="that return dates answer"),
+        Claim("intro", "Graphiti common reader", "0.11", lambda: h9_rate("h9-reader-graphiti-v1"), 0.005,
+              near="undated facts yield"),
         Claim("intro", "retaining stores read: highest", "1.00", lambda: _read_range()[1],
-              0.005, near="they answer 0.73 to"),
+              0.005, near="return dates answer 0.73 to"),
         Claim("5.real", "judged Cognee reader, LME", "29", lambda: lme_judged("Cognee"), 0.5,
               near="does not close it ("),
         Claim("5.real", "judged Hindsight reader, LME", "15", lambda: lme_judged("Hindsight"), 0.5,
@@ -1703,19 +1793,12 @@ def _h8_claims() -> list:
               lambda: h8_count("hindsight-reflect", "gpt-4o", "valid_time"), 0.5, near="Hindsight's", after="reader answers 194"),
         Claim("5.2", "Hindsight reader mini valid time", "67",
               lambda: h8_count("hindsight-reflect", "gpt-4o-mini", "valid_time"), 0.5, near="exactly where it answered", after=A),
-        Claim("5.2", "retrieval layers of Cognee and Hindsight, replicate overall", "20",
-              lambda: float(max(r["exact"] for n in ("cognee-chunks", "hindsight-recall") for r in h8_rep(n)))
-              if len({r["exact"] for n in ("cognee-chunks", "hindsight-recall") for r in h8_rep(n)}) == 1 else -1.0,
-              0.5, near="retrieval layers of Cognee and Hindsight (", after=R),
-        Claim("5.2", "LangMem and Cognee reader, largest move", "2",
-              lambda: float(max(h8()["replicates"][n]["max_overall_move"] for n in ("langmem", "cognee-graph"))),
-              0.5, near="by at most", after=R),
         Claim("5.2", "retrieval layers valid time in replicates", "0",
               lambda: float(max(max(rv(n)) for n in ("cognee-chunks", "hindsight-recall"))), 0.5,
-              near="every retrieval layer at", after=R),
+              near="every retaining retrieval layer\nat", after=R),
         Claim("5.2", "valid-time questions in replicate cells", "38",
               lambda: float(h8()["replicates"]["langmem"]["cited"]["valid_time_n"]), 0.5,
-              near="layer at 0 of", after=R),
+              near="layer\nat 0 of", after=R),
         Claim("5.2", "Hindsight reader largest move", "10",
               lambda: float(h8()["replicates"]["hindsight-reflect"]["max_overall_move"]), 0.5,
               near="moves\nby up to", after=R),
@@ -1747,21 +1830,24 @@ def _census_claims() -> list:
               lambda: float(len({(r["entities"], r["seed"]) for r in res("store-census-v1")["rows"]
                                  if r["system"] == "mem0"})), 0.5, near="after ingesting each of the", after=A),
         Claim("4", "Mem0 superseded kept", "none",
-              lambda: census("mem0", "kept"), 0.5, near="Mem0's store holds", after=A),
+              lambda: census("mem0", "kept"), 0.5, near="is not counted) hold", after=A),
         Claim("4", "superseded values", "75", lambda: census("mem0", "superseded"), 0.5,
-              near="holds none of", after=A),
+              near="hold none of", after=A),
         Claim("4", "LangMem superseded kept", "7", lambda: census("langmem", "kept"), 0.5,
-              near="LangMem's\nholds", after=A),
+              near="LangMem's store holds", after=A),
         Claim("4", "Graphiti superseded kept", "75", lambda: census("graphiti", "kept"), 0.5,
               near="Graphiti's holds all", after=A),
         Claim("4", "Graphiti invalid_at set", "61", lambda: census("graphiti", "invalid_at_set"), 0.5,
               near="for", after="but not reliably:"),
         Claim("4", "Graphiti invalid_at correct day", "43",
               lambda: census("graphiti", "invalid_at_correct"), 0.5, near="and for", after="has the field set,"),
+        Claim("5.2f", "census: superseded values with no invalidated edge", "14",
+              lambda: census("graphiti", "superseded") - census("graphiti", "invalid_at_set"), 0.5,
+              near="census of", after="Two structural limits cap it."),
         Claim("5.bounds", "census: Mem0 keeps", "none", lambda: census("mem0", "kept"), 0.5,
-              near="Mem0 keeps", after=B),
+              near="served memories keep", after=B),
         Claim("5.bounds", "census: LangMem keeps", "7", lambda: census("langmem", "kept"), 0.5,
-              near="superseded values, LangMem", after=B),
+              near="superseded\nvalues, LangMem", after=B),
     ]
 
 
@@ -1872,9 +1958,9 @@ def _abstract_claims() -> list:
     A = "\\begin{abstract}"
     return [
         Claim("abs", "superseded values kept, Mem0", "0", lambda: census("mem0", "kept"), 0.5,
-              near="read in full, they keep", after=A),
+              near="their served memories keep", after=A),
         Claim("abs", "superseded values kept, LangMem", "7", lambda: census("langmem", "kept"), 0.5,
-              near="they keep 0 and", after=A),
+              near="memories keep 0 and", after=A),
         Claim("abs", "superseded values in the census", "75", lambda: census("mem0", "superseded"), 0.5,
               near="0 and 7 of", after=A),
         Claim("abs", "common reader, lowest retaining", "0.73",
@@ -1965,7 +2051,20 @@ def _final_store_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims() + _final_store_claims() + [Claim("7", "falsified preregistered predictions", "ten", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+def _claims_table_claims() -> list:
+    T = "\\label{tab:claims}"
+    rows = (("Graphiti  &", "h9-reader-graphiti-v1"), ("Hindsight$^\\dagger$", "h9-reader-hindsight-recall-v1"),
+            ("Cognee    &", "h9-reader-cognee-chunks-v1"), ("Mem0      &", "h9-reader-mem0-v1"),
+            ("LangMem   &", "h9-reader-langmem-v1"))
+    out = [Claim("Tab.claims", f"read valid_time {run}", f"{h9_rate(run):.3f}",
+                 lambda r=run: h9_rate(r), near=anchor, window=110, after=T) for anchor, run in rows]
+    out.append(Claim("Tab.rel", "readers judged valid time, both releases", "195",
+                     lambda: min(h9(f"h9-judge-gpt4o-{r}") for r in _GRID_JUDGED), 0.5,
+                     near="answers all", after="\\caption{The main grid on the measured"))
+    return out
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _scale_latency_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims() + _final_store_claims() + _claims_table_claims() + [Claim("7", "falsified preregistered predictions", "ten", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.

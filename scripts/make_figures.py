@@ -42,7 +42,7 @@ MEM0 = RUNS / "external-mem0-grid-v2"
 GRAPHITI = RUNS / "external-graphiti-hybrid-v1"
 LANGMEM = RUNS / "external-langmem-v1"
 COGNEE = RUNS / "external-cognee-chunks-grid-v3"  # retrieval layer, comparable
-COGNEE_READER = RUNS / "external-cognee-grid-v1"  # LLM reader, upper bound
+COGNEE_READER = RUNS / "external-cognee-grid-v1"  # LLM reader
 HINDSIGHT = RUNS / "external-hindsight-recall-v1"  # retrieval layer
 HINDSIGHT_READER = RUNS / "external-hindsight-reflect-v1"  # LLM reader
 CATEGORIES = ("transaction_as_of", "valid_time", "expiry_boundary", "purge")
@@ -62,16 +62,32 @@ def _cells():
     )
 
 
+def _request_scope(run: str, counts: dict, cells) -> dict:
+    """Purge scored under the request's own scope (evidence ledger E-096)."""
+    import sys
+
+    from temvera.reanalysis import Proportion
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import analyze_purge_scope
+
+    scope = analyze_purge_scope.request_scope(run.name, cells)
+    return {**counts, "purge": Proportion(scope["request_scope"], scope["questions"])}
+
+
 def figure_categories(cells) -> None:
-    """Per-category exact accuracy with Wilson intervals, matched cells."""
+    """Per-category exact accuracy with Wilson intervals, matched cells; purge
+    under the request's own scope."""
+    rs = lambda run: _request_scope(  # noqa: E731
+        run, category_counts(load_transcript(run), cells=cells), cells)
     series = (
-        ("Mem0", category_counts(load_transcript(MEM0), cells=cells), "#3b6ea5"),
-        ("LangMem", category_counts(load_transcript(LANGMEM), cells=cells), "#4f8f5b"),
-        ("Graphiti", category_counts(load_transcript(GRAPHITI), cells=cells), "#c2703d"),
-        ("Cognee (chunks)", category_counts(load_transcript(COGNEE), cells=cells), "#8a6bbf"),
-        ("Hindsight (recall)", category_counts(load_transcript(HINDSIGHT), cells=cells), "#b08a3e"),
-        ("Cognee (reader)", category_counts(load_transcript(COGNEE_READER), cells=cells), "#3f7f7f"),
-        ("Hindsight (reader)", category_counts(load_transcript(HINDSIGHT_READER), cells=cells), "#7f5f9f"),
+        ("Mem0", rs(MEM0), "#3b6ea5"),
+        ("LangMem", rs(LANGMEM), "#4f8f5b"),
+        ("Graphiti", rs(GRAPHITI), "#c2703d"),
+        ("Cognee (chunks)", rs(COGNEE), "#8a6bbf"),
+        ("Hindsight (recall)", rs(HINDSIGHT), "#b08a3e"),
+        ("Cognee (reader)", rs(COGNEE_READER), "#3f7f7f"),
+        ("Hindsight (reader)", rs(HINDSIGHT_READER), "#7f5f9f"),
     )
     fig, ax = plt.subplots(figsize=(7.2, 3.4))
     width = 0.12

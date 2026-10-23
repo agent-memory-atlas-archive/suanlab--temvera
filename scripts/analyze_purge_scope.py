@@ -29,12 +29,21 @@ def _rows(run: str) -> list[dict]:
     return [r for r in map(json.loads, lines) if r.get("system") != "oracle"]
 
 
-def request_scope(run: str) -> dict[str, int]:
+def _cell(row: dict) -> tuple:
+    return (row["profile"], row["entities"], row["revisions"], row["seed"])
+
+
+def _answer(row: dict, k: int | None) -> str:
+    return row["answer"] if k is None else " | ".join(row["answer"].split(" | ")[:k])
+
+
+def request_scope(run: str, cells: set | None = None, k: int | None = None) -> dict[str, int]:
     """Purge questions: as specified, under the request's scope, and how many
     of them expect a value the request asked to delete."""
     config = json.loads((RUNS / run / "config.json").read_text(encoding="utf-8"))
     profiles = {p["name"]: p for p in config["profiles"]}
-    rows = [r for r in _rows(run) if r["category"] == "purge"]
+    rows = [r for r in _rows(run) if r["category"] == "purge"
+            and (cells is None or _cell(r) in cells)]
     out = {"questions": 0, "as_specified": 0, "request_scope": 0, "expect_deleted": 0}
     for cell in sorted({(r["profile"], r["entities"], r["revisions"], r["seed"]) for r in rows}):
         profile, entities, revisions, seed = cell
@@ -54,13 +63,27 @@ def request_scope(run: str) -> dict[str, int]:
             if (r["profile"], r["entities"], r["revisions"], r["seed"]) != cell:
                 continue
             case = cases[r["case_id"]]
-            answer = r["answer"].casefold()
+            answer = _answer(r, k).casefold()
             out["questions"] += 1
             out["as_specified"] += bool(r["exact"])
             out["expect_deleted"] += bool(r["expected_values"])
             out["request_scope"] += not any(
                 v.casefold() in answer for v in values[(case.subject, case.attribute)])
     return out
+
+
+def overall(run: str, cells: set | None = None, k: int | None = None) -> dict[str, int]:
+    """Overall exact under both readings: every non-purge question as sealed
+    (or re-scored at the top ``k``), purge questions as specified or under the
+    request's own scope."""
+    from temvera.reanalysis import _score_truncated
+
+    rows = [r for r in _rows(run) if cells is None or _cell(r) in cells]
+    purge = request_scope(run, cells, k)
+    other = sum(bool(r["exact"]) if k is None else _score_truncated(r, k)
+                for r in rows if r["category"] != "purge")
+    return {"questions": len(rows), "as_specified": other + purge["as_specified"],
+            "request_scope": other + purge["request_scope"]}
 
 
 def main() -> int:
