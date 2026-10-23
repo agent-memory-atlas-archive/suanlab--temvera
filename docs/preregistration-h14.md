@@ -36,3 +36,12 @@ in-process and are not load-tested.
 - **H14e -- where cost sits:** at 3,000 turns, ingest dollars per turn exceed
   query dollars per question by at least 10x for Mem0 and Graphiti, and
   Hindsight's reader costs more per question than Hindsight's retain per turn.
+
+## Addendum (2026-10-23, after a smoke run on a history the study does not use, before any study result)
+
+The smoke run showed Hindsight's background consolidation, triggered by
+retains, landing in the window in which questions were asked. Hindsight's cost
+is therefore split by the operation its log records -- `reflect` is reading,
+everything else (retain, consolidation, deduplication) writing -- rather than
+by when the call happened (`scripts/analyze_scale_cost.py`). Mem0 and Graphiti
+are split by time, as preregistered. No prediction changes.
