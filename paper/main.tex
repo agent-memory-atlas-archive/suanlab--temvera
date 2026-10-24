@@ -345,9 +345,7 @@ quoting the distribution's \texttt{METADATA}.
 \centering
 \caption{Documented temporal claim against measured \texttt{valid\_time}: exact at
 the retrieval layer, and read by the common reader of \S\ref{sec:reader}. Quotes are verbatim from the distribution's own
-\texttt{METADATA} at the version measured. $\dagger$: the Hindsight run did not
-record its version, so that quote is from the current release rather than
-provably the build we measured.
+\texttt{METADATA} at the version measured.
 Claim text and checksums are archived with the artifact.}
 \label{tab:claims}
 \small
@@ -356,7 +354,7 @@ Claim text and checksums are archived with the artifact.}
 System & Documented temporal claim & exact & read \\
 \midrule
 Graphiti  & ``Query what's true now, or what was true at any point in time'' & 0.000 & 0.113 \\
-Hindsight$^\dagger$ & ``Temporal + Semantic + Entity Memory Architecture'' & 0.000 & 0.769 \\
+Hindsight & ``Temporal + Semantic + Entity Memory Architecture'' & 0.000 & 0.769 \\
 Cognee    & none; documents a \texttt{forget} operation & 0.000 & 0.728 \\
 Mem0      & none; ``long-term memory'' & 0.364 & 0.374 \\
 LangMem   & none; ``extracts, consolidates'' & 0.323 & 0.364 \\
@@ -445,8 +443,9 @@ deletion scan, and its other machinery plays no part in the measurements.
 last-write-wins) and the oracle, and five external systems run at their
 libraries' defaults, as a user would deploy them (Table~\ref{tab:settings}).
 All use \texttt{gpt-4o-mini} (\texttt{gpt-4o} only where \S\ref{sec:results}
-says so). The Hindsight runs did not record their version; the interpreter that
-served them had \texttt{hindsight-api 0.9.1} installed throughout. LangMem and
+says so). The Hindsight runs did not record their version, but the daemon that
+served them, started once before them, applied the 96 schema migrations of
+\texttt{hindsight-api 0.9.1} and of no other release, so they ran 0.9.1. LangMem and
 Cognee require \texttt{openai} major versions incompatible with the pinned Mem0
 and Graphiti, so they run in isolated interpreters behind a stdio protocol. Runs
 are sealed with canonical config, environment, source hash and per-file

@@ -79,6 +79,13 @@ review tables of the 90 reader answers about what was known before a correction
 and of the 60 LongMemEval valid-time questions (the latter carries benchmark
 text, so it is written outside the repository).
 
+`python scripts/make_annotation_kit.py <dir>` writes a blinded kit for
+independent human labels -- the 90 reader answers mixed with 20 constructed
+controls, and the 60 timing pairs, under opaque ids, with instructions and a
+separate key -- and `python scripts/score_annotation_kit.py <dir> [<dir2>]`
+scores the filled sheets against the controls, the strict count and the H15
+model consensus.
+
 Figures are regenerated from the same sealed runs with
 `python scripts/make_figures.py`, and are byte-reproducible: a regenerated
 figure should be identical to the shipped one.

@@ -1,0 +1,1 @@
+{"banks":{"external-hindsight-recall-v1":"hsrecall","external-hindsight-reflect-v1":"hsreflect"},"benchmark":"temvera-hindsight-build-evidence-v1","log":"daemon.log.2","note":"daemon log timestamps are local time (KST, UTC+9)","package":"hindsight-api-slim","versions":["0.8.6","0.9.0","0.9.1","0.9.2"]}

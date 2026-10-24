@@ -2014,7 +2014,7 @@ def _final_store_claims() -> list:
 
 def _claims_table_claims() -> list:
     T = "\\label{tab:claims}"
-    rows = (("Graphiti  &", "h9-reader-graphiti-v1"), ("Hindsight$^\\dagger$", "h9-reader-hindsight-recall-v1"),
+    rows = (("Graphiti  &", "h9-reader-graphiti-v1"), ("Hindsight & ``Temporal", "h9-reader-hindsight-recall-v1"),
             ("Cognee    &", "h9-reader-cognee-chunks-v1"), ("Mem0      &", "h9-reader-mem0-v1"),
             ("LangMem   &", "h9-reader-langmem-v1"))
     out = [Claim("Tab.claims", f"read valid_time {run}", f"{h9_rate(run):.3f}",
@@ -2312,6 +2312,14 @@ def _growth_claims() -> list:
     return out
 
 
+def _hindsight_build_claims() -> list:
+    def migrations() -> float:
+        r = res("hindsight-build-evidence-v1")
+        return float(r["migrations_applied"]) if r["matching_releases"] == ["0.9.1"] else -1.0
+    return [Claim("4", "Hindsight schema migrations of 0.9.1, applied by the daemon", "96", migrations, 0.5,
+                  near="applied the", after="The Hindsight runs did not record their version")]
+
+
 def _dropped(run: str, field: str = "dropped") -> float:
     return float(res("mem0-dropped-actions-logs-v1")[run][field])
 
@@ -2330,7 +2338,7 @@ def _dropped_claims() -> list:
     ]
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + _h15_claims() + _dropped_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + _h15_claims() + _dropped_claims() + _hindsight_build_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.

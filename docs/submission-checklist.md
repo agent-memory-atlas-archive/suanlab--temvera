@@ -169,5 +169,14 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Author approved the abstract sentence on preregistration and the
       acknowledgment's Codex disclosure (2026-10-24).
 - [x] Re-cut the release: tag `icde-eab-v9` supersedes `icde-eab-v8`.
-- [ ] Open from the audit: independent timing and answer labels; the build of
-      the earliest Hindsight daemon; five-seed precision; H16 (spend limit).
+- [x] Earliest Hindsight build identified as 0.9.1 from the daemon's schema
+      migrations (`hindsight-build-evidence-v1`; ledger E-114); the paper's
+      version caveat and the claims-table dagger removed.
+- [x] Blinded human-label kit and scorer (`make_annotation_kit.py`,
+      `score_annotation_kit.py`); a kit is in `private/annotation-kit-v1`.
+      Labels themselves need a person.
+- [x] H17 (mixed-unit deletion, M07) and H18 (Hindsight reader vs context,
+      M08) preregistered with offline-tested harnesses.
+- [ ] Blocked by the OpenAI spend limit: H16, H17, H18 and the H16 judge.
+      `private/run-pending.sh` runs them all in order once it is lifted.
+- [ ] Open: independent human labels; five-seed precision.
