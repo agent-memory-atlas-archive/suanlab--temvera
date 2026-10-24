@@ -58,11 +58,11 @@ We replay deterministic lifecycle histories, scored by an oracle that a second
 implementation checks, into five open-source systems---Mem0, LangMem, Graphiti,
 Cognee and Hindsight---and measure separately what a store retains, what its
 retrieval selects for the asked time, what an answer asserts, and what deletion
-removes. The predictions of every follow-up experiment were committed before it
+removes. The later follow-up studies committed their predictions before they
 ran; sixteen failed, and we report them. The layers disagree. Stores that
 overwrite superseded values keep almost none of them and answer historical
 questions only up to a ceiling the history fixes (Mem0: 0.364 against 0.385),
-and Mem0 applies a correction about the past to the present. Stores that keep
+and Mem0 applies a correction about the past to the present. On the main grid, stores that keep
 the history answer no valid-time question at their retrieval layer, yet one
 common reader answers 0.73 to 0.77 of them from the same text where it carries
 dates, and changing only the retention policy under a fixed retriever and
@@ -86,11 +86,9 @@ experimental analysis, benchmarking, reproducibility
 
 \section{Introduction}
 
-An agent that remembers must also revise, expire, and forget. Two questions
-recur: \emph{what was true at time $t$} (valid time) and \emph{what did the
-system know at time $t$} (transaction time). Current-state stores conflate them,
-and deletion is harder still---a value removed from a serving index may survive
-in a history table, a vector store, or a raw episode log, ready to resurface.
+Agent memory must distinguish \emph{what was true at time $t$} (valid time)
+from \emph{what the system knew then} (transaction time). Deletion must also
+reach copies in history tables, vector stores and raw episode logs.
 
 These needs are recognised. Graphiti attaches creation, validity, invalidity and
 expiry timestamps to graph edges; Mem0 records add/update/delete history beside
@@ -99,20 +97,17 @@ audit logs and derived-record cleanup; and recent work makes the temporal model
 explicit, from a graph-native bitemporal store to a bitemporal operator algebra
 and a bi-temporal ledger with deterministic supersession.
 
-Given that, the open question is not \emph{whether to model time} but
-\textbf{whether the modelling produces correct answers under the operations
-agents actually perform}, and at which layer: what a store retains, what its
-retrieval selects for the asked time, what an answer asserts and what a
-deletion removes can each succeed while another fails. We measure them
-separately.
+We ask whether these representations produce correct temporal answers and
+deletions. Retention, retrieval, answer synthesis and deletion can each succeed
+while another fails; we measure them separately.
 
 \paragraph{Contributions.}
 (i) \emph{An evaluation contract} for agent memory (\S\ref{sec:setup}) that
 separates what a store retains, what its retrieval selects for the asked time,
 what an answer asserts and what a deletion leaves: one seeded history replayed
 into every system and scored against an oracle; questions on both time axes,
-asked at forward-replay checkpoints and of the final store; three readings of
-every answer --- as returned, by one common reader, and by the value it
+asked at forward-replay checkpoints and of the final store; complementary
+readings --- as returned, by one common reader, and by the value an answer
 asserts, with the judge and annotators checked on answers of known verdict; and a deletion
 protocol of prose requests, an oracle, an unchecked and a checked API caller,
 and a store inventory. It reversed three of our own readings: a reader gap that
@@ -136,28 +131,28 @@ systems, native APIs leave no purged value in our probes' answers but leave
 copies off the query path in three, and an unchecked search-and-delete caller
 destroys unrelated data that a caller checking the name keeps
 (\S\ref{sec:deletion}); LongMemEval's 62 supersessions show the same direction,
-but their valid-time gold is identifiable from the conversations for no pair
+but no valid-time gold meets our two-model agreement criterion
 (\S\ref{sec:realdata}); and reading, not writing, dominates the cost of the
 one store with its own reader (\S\ref{sec:cost}).
-Every number recomputes offline from sealed per-case transcripts but two
-run-log counts; code, data, sealed runs and scripts are public at
+Every number recomputes offline from sealed runs; code, data, sealed runs and
+scripts are public at
 \url{https://github.com/suanlab/temvera}.
 
 \section{Related Work}
 
 \paragraph{Both questions are database questions first.}
 Valid time and transaction time are the two axes of temporal databases
-\citep{snodgrass1985,jensen1999temporal}; TSQL2 \citep{snodgrass1995tsql2} and
-then SQL:2011's application-time and system-versioned tables
-\citep{kulkarni2012sql2011} standardised them, and TPC-BiH
+\citep{snodgrass1985,jensen1999temporal}; TSQL2 \citep{snodgrass1995tsql2} formalised them in a query language,
+and SQL:2011 standardised application-time and system-versioned tables
+\citep{kulkarni2012sql2011}. TPC-BiH
 \citep{kaufmann2013tpcbih} benchmarks time-travel queries on both axes over
 relational engines. We take the semantics and the benchmarking stance from this
 work: our oracle implements the same two axes, and our questions are the
 agent-memory analogue of time-travel queries. Deletion has a database history
 too. GDPR's right to erasure has been turned into database requirements and
 benchmarked \citep{shastri2020gdpr}, argued for as a property to build in rather
-than retrofit \citep{schwarzkopf2019gdpr}, and traced down to storage, where a
-delete is a tombstone with no bound on when the data is gone
+than retrofit \citep{schwarzkopf2019gdpr}, and traced to conventional LSM storage, where
+tombstones need not bound physical deletion latency
 \citep{sarkar2020lethe}. Agent memory adds copies no database delete path knows
 about --- extracted facts, LLM-written summaries, request logs --- and our
 residue scan asks the same question of them.
@@ -182,9 +177,10 @@ combines append-only memory, auditability and git-backed recovery. Bemula
 over-deletion from answers, and finds that none passes more than 1.5\% end to
 end; MemCut \citep{memcut} recovers deleted secrets from objects that survive
 its own deletion harness, and MemLeak \citep{memleak} from retained images and
-correlated text. Read in full, none of them compares a prose request with the
-same systems' delete calls, and none reads the systems' stores: ForgetEval and
-Bemula judge deletion from what retrieval or an answer reveals.
+correlated text. ForgetEval and Bemula judge deletion from retrieval or
+answers. MemCut also snapshots surviving objects under its turn-anchored
+deletion harness; our store inventory instead follows each measured library's
+native deletion paths.
 
 \paragraph{Measuring deployed memory.}
 Zhou et al.\ \citep{agentnative} evaluate twelve memory systems on eleven
@@ -196,9 +192,9 @@ memory systems often answer with a superseded state, Supersede \citep{supersede}
 isolates that gap on LongMemEval's knowledge-update questions, and Ground Truth
 First \citep{groundtruthfirst} asks as-of-date questions over facts with
 validity intervals on its own backends, at replay checkpoints where valid and
-transaction time coincide. These score the current state or valid time; none we
-found asks what a deployed system \emph{knew} at an earlier time, or replays one
-seeded history into every system so that a difference is the system's
+transaction time coincide. These score the current state or valid time. Our comparison additionally
+asks a fully ingested store what it \emph{knew} before a retroactive correction
+and links this to deletion residue under the same lifecycle specification
 (Table~\ref{tab:related}). They go further than we do elsewhere: Zhou et al.\ in
 systems, data and cost, Bemula in forms of forgetting, attacks and backbones,
 ForgetEval in failure categories.
@@ -250,8 +246,8 @@ closest works were re-read in full, with their released code, on 23 October.
 
 The query we need is standard \citep{snodgrass1985}: for subject $s$ and
 attribute $a$, return the value valid at event time $V$ according to what the
-store had recorded by transaction time $T$. Answering it requires six
-capabilities, and the systems differ less in whether they \emph{have} temporal
+store had recorded by transaction time $T$. Our query and deletion contract
+examines six capabilities, and the systems differ less in whether they \emph{have} temporal
 metadata than in what can be \emph{predicated} on it. We therefore classify
 support into five levels, which account for what we measure in
 \S\ref{sec:results}:
@@ -269,7 +265,7 @@ support into five levels, which account for what we measure in
 
 \begin{table}[t]
 \centering
-\caption{Support for the six capabilities a bitemporal point query requires.
+\caption{Support for six capabilities of the query and deletion contract.
 Levels are defined above. Entries are what we observed in the shipped versions,
 not what documentation claims.}
 \label{tab:fragment}
@@ -284,12 +280,15 @@ C2 transaction time       & \textsc{yes} & \textsc{absent} & \textsc{absent} & \
 C3 supersession closes    & \textsc{yes} & overwrite & overwrite & partial \\
 C4 valid-time predicate   & \textsc{yes} & --- & --- & \textsc{off} \\
 C5 as-of predicate        & \textsc{yes} & --- & --- & \textsc{absent} \\
-C6 deletion clears serving& \textsc{yes} & \textsc{yes} & n/m & \textsc{yes} \\
+C6 clears serving stores & partial & \textsc{yes} & \textsc{yes} & partial \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Three entries in Table~\ref{tab:fragment} carry most of the explanatory weight.
+C6 concerns the inspected serving stores, not backups: the reference purge
+leaves earlier values under the request's scope, and Graphiti retains queryable
+node summaries (\S\ref{sec:deletion}). Three entries carry most of the
+explanatory weight.
 
 \textbf{C2 \textsc{mismatch} is a second timeline, not a bug.} Two recording
 times must be told apart. The \emph{physical} one is when the store wrote a
@@ -302,7 +301,7 @@ transaction time: in our runs they carry 2026 timestamps for turns dated 2025.
 Graphiti has no field for the logical time, so no predicate over its store can
 express ``as of what was known on 2025-02-18'' for any history not ingested
 live. This is why we ask transaction-time questions in two ways: at each
-checkpoint of a forward replay, which every store can answer by construction,
+checkpoint of a forward replay, which restricts every store to earlier inputs,
 and of the final store after the whole history (\S\ref{sec:corrections}), which
 needs either a transaction-time predicate, which none of them has, or a reader
 over source text that carries its recording dates --- and why C5 is \textsc{absent} rather
@@ -339,10 +338,8 @@ inspected; Cognee and Hindsight are characterised by measured behaviour
 \subsection{What the systems say they do}
 \label{sec:claims}
 
-A capability audit asks what a store can represent. A prospective user asks
-something cheaper: what does the project say it does? Table~\ref{tab:claims}
-puts each system's own packaged documentation beside the measurement, quoting
-the \texttt{METADATA} shipped with the version we ran.
+Table~\ref{tab:claims} compares packaged documentation with measurements,
+quoting the distribution's \texttt{METADATA}.
 
 \begin{table}[t]
 \centering
@@ -383,9 +380,10 @@ probabilities. Query truth is computed by the oracle independently of retrieval.
 
 \paragraph{Why synthetic histories first.} Exact answers on both time axes need
 a history in which every valid interval and every recording time is known, and
-whose mix of revision, expiry and purge can be varied; no public conversational
-benchmark labels more than the current value. Synthetic histories give that
-control, and a public benchmark's conversations check it (\S\ref{sec:realdata}).
+whose mix of revision, expiry and purge can be varied. The knowledge-update
+slice of LongMemEval supplies current-value gold, not both time axes. Synthetic
+histories give that control; benchmark conversations test transfer under an
+explicit persistence assumption (\S\ref{sec:realdata}).
 The price is realism, which is why that check is read as direction, not as
 rates.
 
@@ -398,8 +396,8 @@ accuracy, isolating tokenisation from temporal semantics.
 
 \paragraph{Replay.} Transaction time is monotonic, so turns are ingested in
 recorded order and every query is answered at the checkpoint matching its
-transaction time. This asks each question of the store as it stood then, which
-every system can answer without a transaction-time predicate; whether a store
+transaction time. This supplies the store's earlier input state without a
+transaction-time predicate; it does not guarantee a correct answer. Whether a store
 that has seen everything can still say what it knew earlier is a different
 question, which \S\ref{sec:corrections} asks of the final store.
 
@@ -407,8 +405,10 @@ question, which \S\ref{sec:corrections} asks of the final store.
 $(\text{valid time}, \text{transaction time})$ and $S$ the superseded values for
 the same subject/attribute. A response is \emph{exact} iff every $e \in E$ occurs
 in the returned text and no $s \in S$ does; when $E = \emptyset$ (the fact was
-purged or expired) exactness requires that no $s \in S$ occurs, i.e. correct
-abstention. Evidence recall is $|E \cap \text{returned}| / |E|$, and stale-use is
+purged or expired) exactness requires that no $s \in S$ occurs. This tests
+known-value absence, not semantic abstention: an unrelated answer can pass.
+The scorer does not interpret negation. Evidence recall is $|E \cap \text{returned}| / |E|$ for nonempty $E$
+(and the absence indicator otherwise), and stale-use is
 the fraction of returned values drawn from $S$. \textbf{Because exactness
 quantifies over the whole returned set, it is a function of the retrieval budget
 $k$}; we set $k{=}5$ throughout and report a sweep over $k$ in
@@ -555,7 +555,8 @@ general weakness.
 \textbf{Mem0 consolidates.} It is strong on transaction-scoped current queries
 ($0.952$) and much weaker on historical valid time ($0.364$). Of its non-exact
 cases, 87.6\% (170/194) return a stale or deleted value with the expected value
-\emph{absent} --- a genuine loss of history rather than a ranking artifact ---
+\emph{absent} --- absence from these answers; the separate census supports loss from the
+served store ---
 and this is stable across retrieval budgets (Figure~\ref{fig:budget}).
 
 \textbf{Graphiti retains but does not filter.} It reaches $0.937$ evidence
@@ -728,15 +729,16 @@ purge questions expected a value the request had asked to delete
 (\S\ref{sec:reader}). We report both readings and use the request's own scope
 here.
 
-\textbf{Why the instruction has nothing to bind to.} The measurement above says
-prose deletion mostly fails; reading the deletion surface of each library says why.
+\textbf{The API requires caller-side selection.} The API surface locates the
+record-selection responsibility; it does not by itself explain whether an
+extractor acts on a prose request.
 We inspected the installed distributions rather than their documentation:
 
 \begin{table}[t]
 \centering
 \caption{Finest unit each deletion API can name, read from the distribution.
-None accepts a condition over content, so ``forget what you know about this
-subject's home city'' is not an expressible request in any of them.}
+None of these low-level calls accepts a subject--attribute content predicate;
+a caller must resolve the request to record handles.}
 \label{tab:deletion-api}
 \small
 \begin{tabular}{@{}l>{\raggedright\arraybackslash}p{4.6cm}@{}}
@@ -752,23 +754,17 @@ Hindsight & one document (one retained input), or the whole bank \\
 \end{tabular}
 \end{table}
 
-Every operation is identified by an opaque handle or by a scope that wipes far
-more than was asked. The request an assistant actually receives falls between
-them, and satisfying it requires the caller to enumerate the handles first ---
-that is, to hold the subject-to-record index the memory system exists to
-provide. This is the deletion analogue of the retrieval finding: the store keeps
-what is needed and leaves the predicate to the caller. It also settles the case
-\S\ref{sec:claims} left open. Cognee documents \texttt{forget} as one of four
-core operations, and \texttt{forget} is real --- but it takes a
-\texttt{data\_id}, a dataset, or \texttt{everything}, never a condition, so the
-documented operation does not answer the documented use without a caller that
-already knows which items hold the fact.
+These APIs require the caller to map a subject and attribute to record
+handles. Cognee's documented \texttt{forget}, for example, takes a
+\texttt{data\_id}, a dataset or \texttt{everything}; the caller must first
+identify the items holding the fact. Selection and deletion are distinct
+responsibilities, just as retention and filtering are.
 
 \subsection{Is the information lost, or merely unfiltered?}
 \label{sec:reader}
 
-A fourth system separates the two explanations, because the same store can be
-read two ways. Cognee stages text and builds a graph, then answers either by
+Cognee isolates reading from retention: it stages text, builds a graph, and
+answers either by
 returning retrieved passages (\textsc{chunks}) or by having an LLM answer over
 the graph (\textsc{graph-completion}, its default). Both configurations run the
 same 20-cell grid as the other systems (484 cases each):
@@ -823,9 +819,8 @@ accepts, and with a second judge on 99.6\% of all of them, and is right on 279
 of 280 answers whose verdict we fixed by construction (seven templates over 40
 questions, including every answer that states the history, which the exact
 scorer fails) --- credits both readers with 195 of 195. The gap between the two readers was one of answer form,
-not of recovery. Transaction-scoped questions, by contrast, every reader answers
-by construction, because forward-checkpoint replay leaves only what was known in
-the store.
+not of recovery. Forward-checkpoint replay prevents exposure to later inputs on
+transaction-scoped questions; retrieval and answer errors remain possible.
 
 \textbf{Read, the consolidating stores do not.} The same common reader answers
 73 and 71 of 195 from Mem0's and LangMem's top five, under the 0.385 ceiling of
@@ -906,7 +901,7 @@ Hindsight \textsc{reflect} & (shared)           & 10.78 $\to$ 36.91 & 5 & 34 \\
 \end{tabular}
 \end{table}
 
-\textbf{Write cost per turn does not grow with this store.} Mem0's cost per ingested turn stays
+\textbf{Write cost per turn varies by system.} Mem0's cost per ingested turn stays
 flat and Graphiti's falls --- we had predicted it would rise --- while
 Hindsight's rises by 20\%. Ingest p95 stays near 7--9\,s for the two
 extract-on-write systems and 3\,s for Hindsight.
@@ -998,8 +993,7 @@ measures cost, latency and size as one store grows.
 
 \subsection{Does it hold beyond our generator?}\label{sec:realdata}
 
-The grid controls the history; it cannot show that the failure modes survive
-text we did not generate. LongMemEval's knowledge-update questions
+LongMemEval's knowledge-update questions
 \citep{longmemeval} supply that case, in sessions an LLM simulated by self-chat
 and annotators then edited: a user states a fact in one session and
 revises it in a later one, each session timestamped. The benchmark ships the
@@ -1024,10 +1018,10 @@ that value held until the later session; LongMemEval does not say when a change
 took effect, so a revision made before it was mentioned would make that gold
 wrong. Two models of different generations, asked when each change took
 effect and made to quote the sentences they rely on, which we check against the
-sessions, agree on a date for none of the 60 pairs (one answers
-\textsc{unknown} for all 60), so the gold is not identifiable from the
-conversations and the real-data valid-time results measure agreement with the
-persistence assumption, nothing more. Scoring is the grid's: an answer is exact if it
+sessions, agree on a non-\textsc{unknown} timing label for none of the 60
+pairs (one answers \textsc{unknown} for all 60). Thus no pair meets this
+model-agreement criterion; this does not prove that the text is uninformative.
+The valid-time results measure agreement with the persistence assumption. Scoring is the grid's: an answer is exact if it
 states the expected value on token boundaries and does not state the
 superseded one. The first question is asked before the revision exists, so it
 has nothing to filter and serves as a control; the full conversation itself
@@ -1096,16 +1090,16 @@ though not traced to, the dropped \texttt{UPDATE} actions reported in
 These are 62 cases on one backbone, so we read them as a check of direction
 rather than as rates; every answer is in the released transcripts.
 
-\subsection{Two bounds the measurements obey}\label{sec:bounds}
+\subsection{A conditional ceiling and an empirical filtering pattern}\label{sec:bounds}
 
-The two failure modes are not only observed; each follows from what its design
-keeps, and the history alone fixes how far it can go.
+A latest-value-only policy limits extractive historical answers. Retaining
+stores show a separate filtering pattern that depends on the workload.
 
 \textbf{Consolidation has a ceiling.} A consolidating store replaces a value
 when a newer one supersedes it, keeps it when it merely expires, and drops it
-when it is purged. A store that does this for every revision holds at most the
-latest value per subject that was neither superseded nor purged, so it cannot
-answer a valid-time question whose answer is any other value, and the share it
+when it is purged. For answers restricted to values in the served store, a policy that does
+this for every revision cannot answer a valid-time question requiring an
+older value, and the share it
 could answer is computable from the history before the system runs. On the main
 grid that ceiling is 0.385 (75 of 195). It is a statement about stores that
 meet its condition, and the full-store census of \S\ref{sec:fragment} shows how
@@ -1117,9 +1111,9 @@ answers a single question above it. In the scale sweep the ceiling is 0.250 at
 8, 32 and 128 entities alike, and Mem0's 0.206, 0.211 and 0.195 sit under it,
 with 13 of its 915 correct answers above it. Each of the 13 states a superseded
 value Mem0 still held when asked --- an update it did not apply --- so they mark
-where Mem0 failed to consolidate, not answers the bound forbids. Mem0's flat valid-time accuracy
-across scale (\S\ref{sec:scale}) is this ceiling, which the four-revision
-workload fixes. We did not get the bound right first: counting only values still
+where Mem0 failed to consolidate, not answers the bound forbids. Mem0's valid-time accuracy
+across scale (\S\ref{sec:scale}) remains below the ceiling fixed by the
+four-revision workload. We did not get the bound right first: counting only values still
 valid at query time, it was exceeded by 9 Mem0 and 7 LangMem answers, every one
 about an expired value, which is how we learned that expiry does not overwrite.
 Because the corrected form was fixed after seeing those exceptions, its fit on
@@ -1130,7 +1124,7 @@ held-out test.
 whether a superseded value is known when it is asked. Read at the retrieval
 layer, the three retaining stores answer 0.972 to 1.000 of the questions with
 nothing to filter and at most 0.009 of the rest --- Graphiti on both backbones
-and at every scale, Cognee and Hindsight on the main grid. Their accuracy is therefore the share of questions with nothing to
+and at every scale, Cognee and Hindsight on the main grid. Their accuracy is close to the share of questions with nothing to
 filter: 0.250 for Graphiti at every scale, and 0.408 on the main grid's
 transaction-scoped questions, which Cognee and Hindsight score exactly and
 Graphiti with one answer more (0.412). We noticed this from the scale result,
@@ -1157,7 +1151,7 @@ present.} Asked for the current value once the correction is recorded, Mem0
 answers 35 of 35 subjects without a correction and 1 of 45 with one; we
 predicted a drop of at least 0.10 and measured 0.978. Reading the answers
 afterwards, for 41 of the 45 the current value appears in no answer about that
-subject at all: the store has replaced it with the corrected past value. The
+subject at all, consistent with replacement by the corrected past value. The
 corrected interval itself Mem0 answers 69 times in 78, against 0 of 70 for
 ordinary superseded intervals, also as predicted. Consolidation keeps one
 statement per subject, and the newest statement wins whatever time it is about.
@@ -1166,8 +1160,8 @@ statement per subject, and the newest statement wins whatever time it is about.
 corrected interval 1 time in 78, within the predicted 0.10: it returns the
 replaced value beside the correction.
 
-\textbf{Asked of the final store, the readers recover most of what it knew.} Forward replay asks each question at its own checkpoint, which every
-store answers by construction. We therefore also ingested each whole correction
+\textbf{Asked of the final store, the readers recover most of what it knew.} Forward replay supplies the input prefix at each question's checkpoint;
+it does not test retrospective access from the final store. We therefore also ingested each whole correction
 history into a fresh store of every configuration and asked the 45 questions
 about what was known of a corrected interval \emph{before} its correction:
 ``What was $X$'s home city as of $V$, based only on what was known by $T$?'',
@@ -1265,9 +1259,9 @@ Cognee 1.6.5, Hindsight 1.1.0 and Mem0 2.2.1 --- whose answers carry a date in
 \subsection{A defect that moves Mem0's scores}\label{sec:external}
 
 Mem0 silently dropped memory \texttt{UPDATE}/\texttt{DELETE} actions
-during ingestion in a LongMemEval pilot --- 15 across 60 conversations, and 23
-across 6 conversations of the longer split, counted from the library's error log
-during those runs, which the sealed artifacts do not keep --- which we traced to an unvalidated
+during ingestion in a LongMemEval pilot --- 18 across 60 conversations (we first
+reported 15) and 23 across 6 conversations of the longer split, counted from
+those runs' console logs, now sealed --- which we traced to an unvalidated
 positional-id lookup swallowed by a broad exception handler while
 \texttt{add()} reports success. Dropped updates leave superseded values in
 place, which lowers Mem0's current-state scores and can raise its valid-time
@@ -1293,8 +1287,8 @@ recovers it equally and states more (\S\ref{sec:reader}). And our purge
 category asked for less than our request did: the generator's typed purge
 removes only the latest value, while the request asks for everything about the
 attribute, so 29 of its 45 questions expected a value the request had asked to
-delete; we now report it under both readings, and every overall rate, figure
-and share in the paper under the request's. And we had called the strict count
+delete; the main-grid overall rates and budget plot now use the request's
+scope; explicitly labelled historical analyses retain the original scope. And we had called the strict count
 of \S\ref{sec:corrections} a lower bound; a constructed negation passes it.
 
 Three measurements were \textbf{retracted rather than quietly fixed}; the
@@ -1308,7 +1302,8 @@ that also reads its vector store and history database.
 emptied two Hindsight runs, scored as abstentions (the harness now stops on
 authentication errors), and a misnamed setting made all Cognee runs share one
 metadata database; a \textsc{chunks} run with 40 worker errors, once
-reported at 0.207 overall, is replaced by an isolated replication at 0.194
+reported at 0.207 overall under the original purge scope, is replaced by an
+isolated replication at 0.192 under the request's scope
 (\S\ref{sec:reader}).
 
 \textbf{A first scale sweep was withdrawn.} Its relabelling ran out of natural
@@ -1320,20 +1315,19 @@ histories with only value identity changed.
 \section{Reproducibility}
 
 All artifacts are at \url{https://github.com/suanlab/temvera}, with a frozen
-snapshot attached to its submission release. Every figure this paper prints is
-paired with a recomputation from a sealed run, and one command checks them all
-offline, with no API key, database server or dataset download --- except the
-two dropped-update counts of \S\ref{sec:external}, which come from run logs.
+snapshot of this revision attached to its submission release. Every figure this
+paper prints is paired with a recomputation from a sealed run, and one command
+checks them all offline, with no API key, database server or dataset download.
 Runs are sealed
 with canonical config, environment, source-tree hash and per-file checksums, and
 verified by an aggregate checker. The frozen synthetic
 fixture is byte-reproducible and split-disjoint. Tests and lint pass on CPython
 3.11. The LongMemEval corpus itself is downloaded rather than redistributed.
-Three kinds of sealed output do carry its text, which the MIT licence permits and
+Four kinds of sealed output do carry its text, which the MIT licence permits and
 which cannot be removed without breaking the runs' checksums: the
 \runeseven{} run's history database of extracted memories, the benchmark
-runs' transcripts, which record retrieved passages verbatim, and the timing
-labels' quoted sentences. The labels we
+runs' transcripts, which record retrieved passages verbatim, the timing
+labels' quoted sentences, and three Mem0 runs' console logs. The labels we
 derived are released; the 7 excluded pairs are listed by question ID, with
 their reasons.
 
@@ -1355,16 +1349,16 @@ served over HTTP. No person
 judged the answers; the annotators of \S\ref{sec:corrections} are models, and the asserted-value judge is checked against the exact
 scorer, a second judge and answers built to a known verdict, and it is not valid
 for answers about what was known before a correction. The real-data valid-time
-gold assumes values persist between sessions, which the conversations confirm
-for no pair. The literature review is single-reviewer. Purge claims cover declared
+gold assumes values persist between sessions; our two-model protocol
+confirms no pair, and independent timing adjudication remains absent. The literature review is single-reviewer. Purge claims cover declared
 stores and tested failure points, not backups, OS caches or provider-side
 copies.
 
 \section*{Ethics Statement}
 
-This work evaluates open-source systems on synthetic histories and an
-MIT-licensed public benchmark, used locally; no user data was collected and no
-human subjects participated. It reports defects in the systems measured, and one
+This work uses synthetic histories and an MIT-licensed public benchmark.
+Stores ran locally; external model APIs processed benchmark and synthetic
+text. No new user data was collected and no human subjects were recruited. It reports defects in the systems measured, and one
 consequence we state plainly: an assistant asked in conversation to forget
 something may not do so, and one that deletes what a search returns may erase
 other people's data --- a privacy risk for deployments that treat conversational
@@ -1386,8 +1380,12 @@ analyses and experiments together, and the AI system ran them; it also
 proposed, with quoted evidence, the labels for the 26 disputed LongMemEval
 pairs, each of which the author decided. The author directed the research, approved its
 design, made the venue decisions, and takes full responsibility for the content.
-Every reported figure but two run-log counts is recomputed from sealed runs by
-scripts released with the artifact.
+Every reported figure is recomputed from sealed runs by scripts released with
+the artifact. OpenAI's Codex assisted a later audit of the full manuscript,
+public sources and local calculations, and revised the corresponding prose,
+bibliography and offline analysis code; Claude reviewed those revisions before
+they were integrated. Neither ran new model experiments for the audit or
+provided independent human validation.
 
 \bibliographystyle{IEEEtranN}
 \bibliography{refs}

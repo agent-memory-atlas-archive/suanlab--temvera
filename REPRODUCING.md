@@ -38,17 +38,18 @@ and platform.
 
 ## Verifying the paper's numbers without credentials
 
-Every figure the paper reports is an aggregation over sealed per-case
-transcripts, so the arithmetic can be checked with no API key, no Neo4j, and no
-dataset download:
+The main-grid table and retrieval-budget sweep can be reaggregated from sealed
+per-case transcripts with no API key, Neo4j server or dataset download:
 
 ```bash
 python scripts/recompute_paper_numbers.py --check
 ```
 
-This verifies each cited run's seal, then recomputes the per-category table with
-denominators and Wilson intervals, the retrieval-budget sweep, and the deletion
-residual for both conditions. Regenerating the runs is a separate, credentialed
+This verifies the nine runs used by this command, then prints the request-scope
+per-category table with denominators, the list-retrieval budget sweep, and the
+explicitly historical single-history deletion inventory. Wilson intervals are
+computed by the paper's claim checker and figure script, and
+`scripts/verify_paper_claims.py` checks every number the paper prints. Regenerating the runs is a separate, credentialed
 step described below; the two are deliberately decoupled so a reviewer can
 confirm what we computed before deciding whether to re-run generation.
 
@@ -188,5 +189,6 @@ LongMemEval content above is the one exception.
 
 Repository-authored material and the fully synthetic fixture are distributable
 under Apache-2.0. Frozen, byte-reproducible snapshots are attached to the
-GitHub releases (`icde-eab-v8` for the ICDE submission); no DOI archive has
-been made (D-009).
+GitHub releases; the ICDE submission's is the latest `icde-eab-v*` tag, and an
+earlier tag verifies only the runs it contains (`icde-eab-v8` predates the H15
+and dropped-action-log runs). No DOI archive has been made (D-009).

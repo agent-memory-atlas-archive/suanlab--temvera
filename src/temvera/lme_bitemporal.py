@@ -4,15 +4,16 @@ The synthetic grid gives control; it does not give realism, which is the first
 thing an experiments-track reviewer will press on. LongMemEval's
 ``knowledge-update`` instances are the missing half: conversations we did not
 generate (an LLM simulated them in self-chat and annotators edited them) in which a fact is stated, then superseded, each session carrying a real
-timestamp. That is a supersession with a real valid time and a real transaction
-time, and the benchmark already ships the *current* value as gold.
+session timestamp. A session timestamp supplies recording order, not
+necessarily the time a change took effect. The benchmark ships the *current*
+value as gold; intermediate valid-time gold here assumes persistence.
 
 What it does not ship is the *superseded* value, because it never asks for one.
 Recovering that is what makes an as-of query possible, and it is the one step
 that cannot be done reliably by rule: the gold answer is often a paraphrase
 ("25 minutes and 50 seconds (or 25:50)") of what the conversation said. So this
-module proposes candidates and hands them to a human, rather than guessing.
-Labels are only used once confirmed.
+module proposes candidates; the released labels combine extractor agreement
+with author-adjudicated disagreements, as reported in the manuscript.
 """
 
 from __future__ import annotations

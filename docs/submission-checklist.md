@@ -153,3 +153,20 @@ South Korea — suanlee@semyung.ac.kr.
       one value; `verify_paper_claims.py --manifest` exports every claim.
 - [ ] Stage C (mixed-unit deletion M07, native-context cross-reader M08): not
       run; the paper states that units mixing people or attributes are untested.
+
+## Added 2026-10-24 (paper audit in `PAPER_AUDIT.md`)
+
+- [x] Audit revisions reviewed and integrated: request-scope recompute command
+      with a fixed-count test; forward replay described as an input cutoff, not
+      a guarantee; exact-on-empty as known-value absence, not abstention;
+      MemCut's surviving-object snapshots acknowledged; C6 row corrected; Cognee
+      replication 0.192 under the request scope; H15's 0/60 stated as a failed
+      agreement criterion; SQL:2011, Wolff (COMPSAC DOI) and MINJA entries fixed.
+      Ledger E-112.
+- [x] Mem0 dropped-action console logs sealed (`mem0-dropped-actions-logs-v1`):
+      7/12, 18/60 (the paper had 15) and 23/6; every printed number now
+      recomputes from a sealed run. Ledger E-113.
+- [ ] Author approval of the abstract sentence on preregistration and of the
+      acknowledgment's Codex disclosure, then a v9 release carrying this revision.
+- [ ] Open from the audit: independent timing and answer labels; the build of
+      the earliest Hindsight daemon; five-seed precision; H16 (spend limit).

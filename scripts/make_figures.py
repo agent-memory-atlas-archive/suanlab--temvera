@@ -159,7 +159,7 @@ def figure_budget(cells) -> None:
     axes[0].set_ylabel("exact accuracy")
     axes[0].legend(frameon=False)
     fig.suptitle(
-        "Consolidating stores are budget-stable; Graphiti's deficit appears only as $k$ grows",
+        "Exact accuracy depends on retrieval budget",
         fontsize=10,
     )
     fig.tight_layout()
@@ -205,7 +205,7 @@ def figure_residual() -> None:
     axes[0].set_ylabel("residual occurrences")
     axes[0].legend(frameon=False, fontsize=8)
     fig.suptitle(
-        "Deletion works through the API; prose deletion intent does not survive extraction",
+        "Historical single-history inventory: residual copies after deletion",
         fontsize=10,
     )
     fig.tight_layout()

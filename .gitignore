@@ -111,6 +111,7 @@ experiments/runs/*
 !experiments/runs/external-hindsight-recall-latest-v1/
 !experiments/runs/external-hindsight-reflect-latest-v1/
 !experiments/runs/controlled-policy-v1/
+!experiments/runs/mem0-dropped-actions-logs-v1/
 !experiments/runs/h15-annotate-gpt4o-v1/
 !experiments/runs/h15-annotate-gpt54-v1/
 !experiments/runs/h15-lme-timing-quotes-v1/

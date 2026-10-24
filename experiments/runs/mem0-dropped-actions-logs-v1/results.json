@@ -1,0 +1,23 @@
+{
+  "longmemeval-e7-v1": {
+    "conversations": 12,
+    "dropped": 7,
+    "dropped_delete": 0,
+    "dropped_update": 7,
+    "log": "longmemeval-e7-v1.console.log"
+  },
+  "longmemeval-e7-v2": {
+    "conversations": 60,
+    "dropped": 18,
+    "dropped_delete": 0,
+    "dropped_update": 18,
+    "log": "longmemeval-e7-v2.console.log"
+  },
+  "longmemeval-s-v1": {
+    "conversations": 6,
+    "dropped": 23,
+    "dropped_delete": 1,
+    "dropped_update": 22,
+    "log": "longmemeval-s-v1.console.log"
+  }
+}

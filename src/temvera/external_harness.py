@@ -9,8 +9,8 @@ An external system only ingests and answers text, so the harness:
 
 1. renders the typed history to natural-language turns (:mod:`temvera.nl_workload`);
 2. replays, for each query's transaction time, only the turns known by then
-   (``per_query_replay=True``) so transaction-time ``as-of`` capability is
-   actually exercised rather than assumed;
+   (``per_query_replay=True``) so the input cutoff is enforced; this does not test retrospective
+   transaction-time access from a fully ingested store;
 3. scores free-text answers by deterministic value-substring match, mirroring
    ForgetEval (E-013).
 
@@ -93,9 +93,9 @@ def evaluate_external(
     """Feed rendered turns to ``system`` and score its answers against truth.
 
     With ``per_query_replay`` the store is reset and re-fed only the turns
-    recorded on or before each query's transaction time, so a system that
-    cannot answer historical ``as-of`` queries is measured failing rather than
-    silently reading later state.
+    recorded on or before each query's transaction time. This prevents exposure
+    to later inputs but does not guarantee correct retrieval or answers, nor
+    test a native retrospective ``as-of`` predicate.
     """
     cases = build_nl_cases(events)
     if not cases:

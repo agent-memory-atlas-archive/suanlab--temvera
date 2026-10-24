@@ -1,0 +1,1 @@
+{"benchmark":"temvera-mem0-dropped-actions-logs-v1","check":"trailing result JSON equals the run's sealed results.json without per_instance; store resets equal its instance count","pattern":"^Error processing memory action: \\{.*'event': '(UPDATE|DELETE)'.*\\}, Error: '\\d+'$","runs":["longmemeval-e7-v1","longmemeval-e7-v2","longmemeval-s-v1"]}

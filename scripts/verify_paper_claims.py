@@ -1181,9 +1181,9 @@ def _audit_claims() -> list:
         Claim("7", "Cognee chunks v1 overall (micro)", "0.207",
               lambda: micro("external-cognee-chunks-grid-v1", cells=cells()),
               near="once\nreported at"),
-        Claim("7", "Cognee chunks replication overall (micro)", "0.194",
-              lambda: micro("external-cognee-chunks-grid-v3", cells=cells()),
-              near="isolated replication at"),
+        Claim("7", "Cognee chunks replication overall (request scope)", "0.192",
+              lambda: overall_rs("external-cognee-chunks-grid-v3"),
+              near="isolated replication at", metric="overall_rs|external-cognee-chunks-grid-v3|k=None"),
     ]
 
 
@@ -2125,7 +2125,7 @@ def _h13_claims() -> list:
               lambda: minimal_pairs("valid_time", "value_only", "n"), 0.5, near="templates over", after=J),
         Claim("5.real", "timing pairs identified by both quote-checked labellers", "none",
               lambda: float(res("h15-lme-timing-quotes-v1")["summary"]["identified"]), 0.5,
-              near="agree on a date for", after=G),
+              near="timing label for", after=G),
         Claim("5.real", "timing pairs relabelled", "60",
               lambda: float(res("h15-lme-timing-quotes-v1")["summary"]["pairs"]), 0.5,
               near="none of the", after=G),
@@ -2249,18 +2249,18 @@ def _growth_claims() -> list:
               0.5, near="Probe questions ask", after=A),
         Claim("5.cost", "Hindsight write cost rise, %", "20",
               lambda: 100 * (gp("hindsight", 3000) / gp("hindsight", 100) - 1), 1.0,
-              near="Hindsight's rises by", after="Write cost per turn does not grow"),
+              near="Hindsight's rises by", after="Write cost per turn varies by system"),
         Claim("5.cost", "extract-on-write ingest p95, lowest", "7",
               lambda: min(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
                           for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
-              near="Ingest p95 stays near", after="Write cost per turn does not grow"),
+              near="Ingest p95 stays near", after="Write cost per turn varies by system"),
         Claim("5.cost", "extract-on-write ingest p95, highest", "9",
               lambda: max(c["ingest_latency"]["p95_s"] for s in ("mem0", "graphiti")
                           for c in res(f"scale-growth-{s}-v1")["checkpoints"]), 0.5,
-              near="stays near 7--", after="Write cost per turn does not grow"),
+              near="stays near 7--", after="Write cost per turn varies by system"),
         Claim("5.cost", "Hindsight ingest p95", "3",
               lambda: max(c["ingest_latency"]["p95_s"] for c in res("scale-growth-hindsight-v1")["checkpoints"]),
-              0.5, near="systems and", after="Write cost per turn does not grow"),
+              0.5, near="systems and", after="Write cost per turn varies by system"),
         Claim("5.cost", "Mem0/Graphiti retrieval p95 bound", "0.4",
               lambda: 0.4 if max(c["query_latency"]["retrieval"]["p95_s"] for s in ("mem0", "graphiti")
                                  for c in res(f"scale-growth-{s}-v1")["checkpoints"]) < 0.4 else -1.0,
@@ -2312,7 +2312,25 @@ def _growth_claims() -> list:
     return out
 
 
-CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + _h15_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
+def _dropped(run: str, field: str = "dropped") -> float:
+    return float(res("mem0-dropped-actions-logs-v1")[run][field])
+
+
+def _dropped_claims() -> list:
+    D = "Mem0 silently dropped memory"
+    return [
+        Claim("5.ext", "dropped actions, 60-conversation pilot", "18",
+              lambda: _dropped("longmemeval-e7-v2"), 0.5, near="LongMemEval pilot ---", after=D),
+        Claim("5.ext", "pilot conversations", "60",
+              lambda: _dropped("longmemeval-e7-v2", "conversations"), 0.5, near="18 across", after=D),
+        Claim("5.ext", "dropped actions, longer split", "23",
+              lambda: _dropped("longmemeval-s-v1"), 0.5, near="reported 15) and", after=D),
+        Claim("5.ext", "longer-split conversations", "6",
+              lambda: _dropped("longmemeval-s-v1", "conversations"), 0.5, near="23 across", after=D),
+    ]
+
+
+CLAIMS = CLAIMS + _grid_claims() + _scale_claims() + _real_claims() + _bounds_claims() + _corrections_claims() + _audit_claims() + _read_path_claims() + _releases_claims() + _coverage_claims() + _stats_claims() + _h9_claims() + _h9_real_claims() + _h12_claims() + _h8_claims() + _census_claims() + _deletion_claims() + _abstract_claims_v2() + _growth_claims() + [Claim("Lim", "largest store run, turns", "3{,}000", lambda: float(max(c['turns'] for c in res('scale-growth-mem0-v1')['checkpoints'])), 0.5, near="one history up to")] + _final_store_claims() + _claims_table_claims() + _h13_claims() + _contribution_census_claims() + _h15_claims() + _dropped_claims() + [Claim("7", "falsified preregistered predictions", "sixteen", falsified_predictions, 0.5, near="Within the thesis, \\textbf{")]
 
 
 # Small counts the prose spells out; the printed word is still what is searched.

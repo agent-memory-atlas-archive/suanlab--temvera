@@ -38,6 +38,8 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+# Paper-audit working copies hold their own tooling and a full copy of the tree.
+extend-exclude = ["paper_audit"]
 
 [tool.ruff.lint]
 # Declared rather than inherited, so `ruff check .` gives the same answer on any

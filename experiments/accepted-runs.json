@@ -134,6 +134,7 @@
     "longmemeval-e7-v1",
     "longmemeval-e7-v2",
     "longmemeval-s-v1",
+    "mem0-dropped-actions-logs-v1",
     "purge-residual-v3-api",
     "purge-residual-v3-nl",
     "scale-cost-mem0-v1",
