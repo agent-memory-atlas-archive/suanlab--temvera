@@ -169,6 +169,7 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Author approved the abstract sentence on preregistration and the
       acknowledgment's Codex disclosure (2026-10-24).
 - [x] Re-cut the release: tag `icde-eab-v9` supersedes `icde-eab-v8`.
+- [x] Re-cut the release: tag `icde-eab-v10` supersedes `icde-eab-v9` (Hindsight build identified).
 - [x] Earliest Hindsight build identified as 0.9.1 from the daemon's schema
       migrations (`hindsight-build-evidence-v1`; ledger E-114); the paper's
       version caveat and the claims-table dagger removed.

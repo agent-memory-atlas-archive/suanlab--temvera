@@ -28,9 +28,9 @@ git clone https://github.com/suanlab/temvera && cd temvera
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -e '.[dev]'
 
-temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 178 sealed runs
+temvera verify-artifacts experiments/accepted-runs.json experiments/runs  # 179 sealed runs
 python scripts/recompute_paper_numbers.py --check    # rebuild every table
-python scripts/verify_paper_claims.py                # 594 printed figures vs. their runs
+python scripts/verify_paper_claims.py                # 595 printed figures vs. their runs
 pytest && ruff check .
 ```
 
@@ -45,7 +45,7 @@ daemon. The two paths are deliberately
 decoupled: you can confirm what we computed before deciding whether to re-run
 generation. [REPRODUCING.md](REPRODUCING.md) has the full protocol, and a frozen
 snapshot with checksums is attached to the
-[`icde-eab-v9` release](https://github.com/suanlab/temvera/releases/tag/icde-eab-v9).
+[`icde-eab-v10` release](https://github.com/suanlab/temvera/releases/tag/icde-eab-v10).
 
 ## Research thesis
 
