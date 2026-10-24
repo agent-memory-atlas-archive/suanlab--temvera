@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import analyze_h15  # noqa: E402
+import pytest  # noqa: E402
 import make_annotation_kit  # noqa: E402
 import score_annotation_kit  # noqa: E402
 
@@ -27,6 +28,8 @@ def _fill(path: Path, values: dict[str, dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
+@pytest.mark.skipif(not make_annotation_kit.timing.SOURCE.exists(),
+                    reason="the LongMemEval corpus is downloaded, not shipped")
 def test_kit_is_blind_and_scores_a_known_annotator(tmp_path: Path) -> None:
     kit = tmp_path / "kit"
     assert make_annotation_kit.main(str(kit)) == 0
