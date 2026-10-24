@@ -166,7 +166,8 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Mem0 dropped-action console logs sealed (`mem0-dropped-actions-logs-v1`):
       7/12, 18/60 (the paper had 15) and 23/6; every printed number now
       recomputes from a sealed run. Ledger E-113.
-- [ ] Author approval of the abstract sentence on preregistration and of the
-      acknowledgment's Codex disclosure, then a v9 release carrying this revision.
+- [x] Author approved the abstract sentence on preregistration and the
+      acknowledgment's Codex disclosure (2026-10-24).
+- [x] Re-cut the release: tag `icde-eab-v9` supersedes `icde-eab-v8`.
 - [ ] Open from the audit: independent timing and answer labels; the build of
       the earliest Hindsight daemon; five-seed precision; H16 (spend limit).
