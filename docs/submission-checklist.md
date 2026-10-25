@@ -170,6 +170,7 @@ South Korea — suanlee@semyung.ac.kr.
       acknowledgment's Codex disclosure (2026-10-24).
 - [x] Re-cut the release: tag `icde-eab-v9` supersedes `icde-eab-v8`.
 - [x] Re-cut the release: tag `icde-eab-v10` supersedes `icde-eab-v9` (Hindsight build identified).
+- [x] Re-cut the release: tag `icde-eab-v11` supersedes `icde-eab-v10` (H16-H18 closed as not run).
 - [x] Earliest Hindsight build identified as 0.9.1 from the daemon's schema
       migrations (`hindsight-build-evidence-v1`; ledger E-114); the paper's
       version caveat and the claims-table dagger removed.
@@ -178,6 +179,7 @@ South Korea — suanlee@semyung.ac.kr.
       Labels themselves need a person.
 - [x] H17 (mixed-unit deletion, M07) and H18 (Hindsight reader vs context,
       M08) preregistered with offline-tested harnesses.
-- [ ] Blocked by the OpenAI spend limit: H16, H17, H18 and the H16 judge.
-      `private/run-pending.sh` runs them all in order once it is lifted.
+- [x] H16, H17, H18 closed as preregistered but not run (no API budget,
+      2026-10-25); stated in the paper's Limitations, the preregistrations and
+      ledger E-115. `private/run-pending.sh` would run them unchanged.
 - [ ] Open: independent human labels; five-seed precision.

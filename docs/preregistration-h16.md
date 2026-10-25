@@ -113,3 +113,11 @@ also receiving it, were stopped by hand. Nothing was sealed and no output of
 this attempt will be used, including stores that had finished before the
 error: once the limit is raised, all six runs restart from scratch, unchanged,
 on freshly created Hindsight daemons and databases.
+
+## Status (2026-10-25): not run
+
+The project has no API budget left for this study, and no local model can stand
+in for `gpt-4o-mini` without changing what is measured. It was not run, and no
+output of it exists or will be reported from a partial run. The preregistration
+and its harness stay in the artifact so the study can be run exactly as written;
+if it is, these predictions apply unchanged.

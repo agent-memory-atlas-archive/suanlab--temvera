@@ -48,3 +48,11 @@ Hindsight's reflect assembles, not to its reader. If H18b fails while H18d
 holds, both contribute. If H18d fails, the context explains nothing and the
 reader does. Cognee's reader exposes no comparable context and stays a pipeline
 comparison.
+
+## Status (2026-10-25): not run
+
+The project has no API budget left for this study, and no local model can stand
+in for `gpt-4o-mini` without changing what is measured. It was not run, and no
+output of it exists or will be reported from a partial run. The preregistration
+and its harness stay in the artifact so the study can be run exactly as written;
+if it is, these predictions apply unchanged.
