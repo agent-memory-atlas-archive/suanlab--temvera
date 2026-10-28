@@ -1521,7 +1521,7 @@ def _h9_claims() -> list:
               near="Cognee's answers", after=S),
         Claim("5.4", "Hindsight reader exact", "67",
               lambda: micro_counts("external-hindsight-reflect-v1", "valid_time", cells())[0], 0.5,
-              near="recovering only", after=S),
+              near="Hindsight's answers only", after=S),
         Claim("5.4", "Hindsight reader names right value", "195",
               lambda: reader_split("hindsight reflect", 0, "expected"), 0.5,
               near="names the right value in all", after=S),

@@ -800,8 +800,8 @@ Hindsight \textsc{reflect}       & 0.380 & 0.344 & --- & 1.000 & 0.022 \\
 \textbf{The retrieval layer fails uniformly.} Three independently built
 retaining systems land within noise of each other --- Graphiti $0.194$, Cognee
 $0.192$, Hindsight $0.192$ overall, and all three score $0.000$ on valid time
-over 195 cases each. Retaining history but not filtering it is therefore a
-property of the design class, not of one implementation.
+over 195 cases each. Retaining history without filtering it is shared by all
+three retaining systems we measured, not a quirk of one implementation.
 
 \textbf{Read, the retaining stores recover most of it.} Two readings, each
 fixed and preregistered before it was run, separate what a store holds from how
@@ -810,9 +810,9 @@ each store's top five --- answers 142 and 150 of 195 valid-time questions from
 Cognee's chunks and Hindsight's recall, which the same text unread answers 0 of;
 we had predicted at least 0.80, and both fall short. From Graphiti's facts, which
 mostly carry no dates, it answers 22. The systems' own readers do better.
-Cognee's answers 192 exactly. Hindsight's, which we earlier reported as
-recovering only 67, names the right value in all 195 and then the later one,
-which the exact scorer counts as wrong. An asserted-value judge
+Cognee's answers 192 exactly. Hindsight's answers only 67 exactly, but names
+the right value in all 195 and then the later one, which the exact scorer
+counts as wrong. An asserted-value judge
 --- which agrees with the exact scorer on 1{,}202 of the 1{,}203 answers that scorer
 accepts, and with a second judge on 99.6\% of all of them, and is right on 279
 of 280 answers whose verdict we fixed by construction (seven templates over 40
@@ -984,8 +984,8 @@ Mem0 does degrade at the largest scale, but only mildly and not on the
 temporal axis: transaction-scoped accuracy falls from 0.956 [0.942, 0.966] at
 32 entities to 0.903 [0.894, 0.911] at 128, and the share of answers carrying a
 superseded value rises from 0.463 to 0.498, while recall holds near 0.6. Its
-historical deficit is a property of consolidation, as the main grid showed, and
-does not wait for scale to appear.
+historical deficit is already present at the smallest scale, as consolidation
+predicts (\S\ref{sec:bounds}).
 
 \textbf{This sweep measures accuracy, not systems scale;} \S\ref{sec:cost}
 measures cost, latency and size as one store grows.
