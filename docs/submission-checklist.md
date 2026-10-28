@@ -171,6 +171,7 @@ South Korea — suanlee@semyung.ac.kr.
 - [x] Re-cut the release: tag `icde-eab-v9` supersedes `icde-eab-v8`.
 - [x] Re-cut the release: tag `icde-eab-v10` supersedes `icde-eab-v9` (Hindsight build identified).
 - [x] Re-cut the release: tag `icde-eab-v11` supersedes `icde-eab-v10` (H16-H18 closed as not run).
+- [x] Re-cut the release: tag `icde-eab-v12` supersedes `icde-eab-v11` (wording narrowed).
 - [x] Earliest Hindsight build identified as 0.9.1 from the daemon's schema
       migrations (`hindsight-build-evidence-v1`; ledger E-114); the paper's
       version caveat and the claims-table dagger removed.
