@@ -28,7 +28,8 @@ RUNS = ROOT / "experiments" / "runs"
 
 
 def _rows(path: Path) -> dict[str, dict]:
-    with path.open(encoding="utf-8", newline="") as handle:
+    # utf-8-sig: sheets saved from Excel start with a byte-order mark.
+    with path.open(encoding="utf-8-sig", newline="") as handle:
         return {r["item_id"]: r for r in csv.DictReader(handle)}
 
 
